@@ -9,3 +9,8 @@ int hello(void)
 {
 	return printf("Hello, ");
 }
+
+int World()
+{
+	return 1;
+}
