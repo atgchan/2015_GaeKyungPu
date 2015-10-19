@@ -1,0 +1,3 @@
+[submodule "Cocos_practice/cocos2d"]
+	path = Cocos_practice/cocos2d
+	url = https://github.com/seokmin/cocos2d
