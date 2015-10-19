@@ -9,5 +9,7 @@ master 브랜치는 Hello world 프로젝트로 초기화되어있습니다.
 
 빈 프로젝트 상태에서 연습을 하고자 한다면 master브랜치에서 practice_~ 브랜치를 따서 사용하면 됩니다.
 
-예) main_addui_inventory
-    practice_animationtest
+예)
+main_addui_inventory
+main_charactor_warrior_debug
+practice_animationtest
