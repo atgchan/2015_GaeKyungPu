@@ -1,12 +1,13 @@
+#include "pch.h"
 #include "AppDelegate.h"
 #include "HelloWorldScene.h"
 
 USING_NS_CC;
 
-static cocos2d::Size designResolutionSize = cocos2d::Size(480, 320);
-static cocos2d::Size smallResolutionSize = cocos2d::Size(480, 320);
-static cocos2d::Size mediumResolutionSize = cocos2d::Size(1024, 768);
-static cocos2d::Size largeResolutionSize = cocos2d::Size(2048, 1536);
+static cocos2d::Size designResolutionSize = cocos2d::Size(1440,900);
+static cocos2d::Size smallResolutionSize = cocos2d::Size(1024, 640);
+static cocos2d::Size mediumResolutionSize = cocos2d::Size(1440, 900);
+static cocos2d::Size largeResolutionSize = cocos2d::Size(1920, 1200);
 
 AppDelegate::AppDelegate() {
 
@@ -40,9 +41,10 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto glview = director->getOpenGLView();
     if(!glview) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
-        glview = GLViewImpl::createWithRect("Cocos_practice", Rect(0, 0, designResolutionSize.width, designResolutionSize.height));
+        //glview = GLViewImpl::createWithRect("project_Testudo", Rect(0, 0, designResolutionSize.width, designResolutionSize.height));
+		glview = GLViewImpl::createWithFullScreen("project_Testudo");
 #else
-        glview = GLViewImpl::create("Cocos_practice");
+        glview = GLViewImpl::create("project_Testudo");
 #endif
         director->setOpenGLView(glview);
     }
@@ -52,7 +54,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0 / 60);
-
+	/*
     // Set the design resolution
     glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::NO_BORDER);
     Size frameSize = glview->getFrameSize();
@@ -71,6 +73,11 @@ bool AppDelegate::applicationDidFinishLaunching() {
     {        
         director->setContentScaleFactor(MIN(smallResolutionSize.height/designResolutionSize.height, smallResolutionSize.width/designResolutionSize.width));
     }
+	*/
+	glview->setDesignResolutionSize(1440,900,ResolutionPolicy::NO_BORDER);
+	Size frameSize = glview->getFrameSize();
+
+	
 
     register_all_packages();
 
@@ -83,16 +90,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     return true;
 }
 
-// This function will be called when the app is inactive. When comes a phone call,it's be invoked too
-void AppDelegate::applicationDidEnterBackground() {
-    Director::getInstance()->stopAnimation();
-
-    // if you use SimpleAudioEngine, it must be pause
-    // SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
-}
-
-// this function will be called when the app is active again
-void AppDelegate::applicationWillEnterForeground() {
+void AppDelegate::applicationDidEnterBackground() {    Director::getInstance()->stopAnimation();}void AppDelegate::applicationWillEnterForeground() {
     Director::getInstance()->startAnimation();
 
     // if you use SimpleAudioEngine, it must resume here
