@@ -13,6 +13,9 @@
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
+Debug.win32/
+ipch/
+Release.win32/
 [Rr]elease/
 [Rr]eleases/
 x64/
