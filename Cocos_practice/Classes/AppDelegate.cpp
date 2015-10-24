@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "AppDelegate.h"
+#include "MainScene.h"
 #include "HelloWorldScene.h"
 
 USING_NS_CC;
@@ -29,7 +30,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
     if(!glview) {
-        glview = GLViewImpl::createWithRect("practice", Rect(0, 0, 1440, 900));
+		glview = GLViewImpl::createWithRect("practice", Rect(0, 0, 1440, 900));
+		//glview = GLViewImpl::createWithRect("practice", Rect(0, 0, 960, 600));
         director->setOpenGLView(glview);
     }
 
@@ -41,15 +43,17 @@ bool AppDelegate::applicationDidFinishLaunching() {
     //register_all_packages();
 
     // create a scene. it's an autorelease object
-    auto scene = HelloWorld::createScene();
+    auto mainScene = MainScene::createScene();
 
     // run
-    director->runWithScene(scene);
+	director->runWithScene(mainScene);
 	
     return true;
 }
 
-void AppDelegate::applicationDidEnterBackground() {    Director::getInstance()->stopAnimation();
+void AppDelegate::applicationDidEnterBackground()
+{
+	Director::getInstance()->stopAnimation();
 
     // if you use SimpleAudioEngine, it must be pause
     // SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
