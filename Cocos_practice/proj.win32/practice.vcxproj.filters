@@ -11,6 +11,12 @@
     <ClCompile Include="..\Classes\TileMap.cpp">
       <Filter>Map</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\GameScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MainScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
@@ -23,6 +29,12 @@
     <ClInclude Include="..\Classes\TileMap.h">
       <Filter>Map</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\GameScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MainScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc" />
@@ -30,6 +42,9 @@
   <ItemGroup>
     <Filter Include="Map">
       <UniqueIdentifier>{6f5f64b4-8379-4726-b026-add212be820c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{d8be399a-9402-4a39-baf3-f31193311e22}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

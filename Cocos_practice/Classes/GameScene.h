@@ -17,6 +17,9 @@ public:
 	void menuClickCallback(Ref* pSender);
 	void menuCloseCallback(Ref* pSender);
 
+	void setUnitByClick(Event* event);
+	void rotateUnitByClick(Ref* pSender);
+
 	void onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event);
 	void onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event);
 };
