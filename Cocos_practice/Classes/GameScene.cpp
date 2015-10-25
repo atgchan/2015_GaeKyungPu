@@ -3,6 +3,8 @@
 #include "TileMap.h"
 #include <iostream>
 
+int GameScene::turn = 0;
+
 Scene* GameScene::createScene()
 {
 	auto scene = Scene::create();
@@ -53,25 +55,63 @@ void GameScene::setUnitByClick(Event* event)
 	EventMouse* mouseEvent = nullptr;
 	mouseEvent = dynamic_cast<EventMouse*>(event);
 	
-	if (mouseEvent)
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+	Vec2 origin = Director::getInstance()->getVisibleOrigin();
+
+	if ( mouseEvent->getMouseButton() == 0 )
 	{
 		float xPos = mouseEvent->getCursorX();
 		float yPos = mouseEvent->getCursorY();
 
-		Size visibleSize = Director::getInstance()->getVisibleSize();
-		Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
+		auto button = mouseEvent->getMouseButton();
 		auto unit_spear = Sprite::create("spear_red_01.png");
+		unit_spear->setName("unit");
+
+		if (turn == 1)
+		{
+			unit_spear = Sprite::create("spear_blue_01.png");
+		}
+
 		unit_spear->setPosition(Vec2(origin.x + xPos, visibleSize.height + yPos));
 
-		//auto unit_layer = event->getCurrentTarget()->getChildByName("unitLayer");
 		auto unit_layer = event->getCurrentTarget();
 		unit_layer->addChild(unit_spear);
 	}
+
+	if ( mouseEvent->getMouseButton() == 1 )
+	{
+		auto point = mouseEvent->getLocationInView();
+		Sprite* target = dynamic_cast<Sprite*>(event->getCurrentTarget()->getChildByName("unit"));
+
+		if (target->boundingBox().containsPoint(Vec2(point.x, visibleSize.height + point.y)))
+		{
+			auto unit_layer = event->getCurrentTarget();
+			unit_layer->removeChild(target);
+		}
+	}
 }
 
+void GameScene::delUnitByClick(Event* event)
+{
+	EventMouse* mouseEvent = nullptr;
+	mouseEvent = dynamic_cast<EventMouse*>(event);
+	auto point = mouseEvent->getLocationInView();
 
-void GameScene::rotateUnitByClick(Ref* pSender)
+	if (!mouseEvent)
+	{
+		return;
+	}
+
+	Sprite* target = dynamic_cast<Sprite*>(event->getCurrentTarget()->getChildByName("unit"));
+	
+	if (target->boundingBox().containsPoint(point))
+	{
+		auto unit_layer = event->getCurrentTarget();
+		unit_layer->removeChild(target);
+	}
+}
+
+void GameScene::rotateUnitByClick(Event* event)
 {
 
 }
