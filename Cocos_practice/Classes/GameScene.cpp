@@ -81,34 +81,34 @@ void GameScene::setUnitByClick(Event* event)
 	if ( mouseEvent->getMouseButton() == 1 )
 	{
 		auto point = mouseEvent->getLocationInView();
-		Sprite* target = dynamic_cast<Sprite*>(event->getCurrentTarget()->getChildByName("unit"));
+		auto children = event->getCurrentTarget()->getChildren();
 
+		Sprite* target = dynamic_cast<Sprite*>(event->getCurrentTarget()->getChildByName("unit"));
+		for (auto iter = children.begin(); iter != children.end(); ++iter)
+		{
+			if ((*iter)->getName() != "unit")
+			{
+				continue;
+			}
+			auto sprite = dynamic_cast<Sprite*>(*iter);
+			if (sprite->boundingBox().containsPoint(Vec2(point.x, visibleSize.height + point.y)))
+			{
+				auto unit_layer = event->getCurrentTarget();
+				unit_layer->removeChild(sprite);
+			}
+		}
+/*
 		if (target->boundingBox().containsPoint(Vec2(point.x, visibleSize.height + point.y)))
 		{
 			auto unit_layer = event->getCurrentTarget();
 			unit_layer->removeChild(target);
-		}
+		}*/
 	}
 }
 
 void GameScene::delUnitByClick(Event* event)
 {
-	EventMouse* mouseEvent = nullptr;
-	mouseEvent = dynamic_cast<EventMouse*>(event);
-	auto point = mouseEvent->getLocationInView();
 
-	if (!mouseEvent)
-	{
-		return;
-	}
-
-	Sprite* target = dynamic_cast<Sprite*>(event->getCurrentTarget()->getChildByName("unit"));
-	
-	if (target->boundingBox().containsPoint(point))
-	{
-		auto unit_layer = event->getCurrentTarget();
-		unit_layer->removeChild(target);
-	}
 }
 
 void GameScene::rotateUnitByClick(Event* event)
