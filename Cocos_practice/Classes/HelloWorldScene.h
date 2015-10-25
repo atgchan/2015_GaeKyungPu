@@ -1,6 +1,7 @@
 #ifndef __HELLOWORLD_SCENE_H__
 #define __HELLOWORLD_SCENE_H__
 
+
 USING_NS_CC;//using namespace cocos2d
 
 class HelloWorld : public LayerColor

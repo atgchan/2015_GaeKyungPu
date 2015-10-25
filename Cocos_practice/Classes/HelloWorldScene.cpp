@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "HelloWorldScene.h"
+#include "Self_Tile.h"
+#include "TileMap.h"
 
 Scene* HelloWorld::createScene()
 {
@@ -25,7 +27,18 @@ bool HelloWorld::init()
 	{
 		return false;
 	}
+	/*auto tile = Self_Tile::create(TILE_PLAIN, "Map/tile_plain.png");
+	tile->setPosition(Point(400, 400));
+	tile->setTypeOfTile(TILE_PLAIN);
+	CCLOG("%d", tile->getTypeOfTile());
 
+	this->addChild(tile);*/
+
+	TileMap::getInstance()->createMap();
+	//TileMap::getInstance()->setAnchorPoint(Point(0.5f, 0.5f));
+	//TileMap::getInstance()->setPosition(Point((Director::getInstance()->getWinSize().width) / 2, (Director::getInstance()->getWinSize().height) / 2));
+
+	this->addChild(TileMap::getInstance());
 	
     return true;
 }
