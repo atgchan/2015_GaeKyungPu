@@ -1,4 +1,7 @@
-#include <map>
+#ifndef Self_Tile_h__
+#define Self_Tile_h__
+
+
 
 enum TileKind {
 	TILE_NULL,
@@ -26,3 +29,4 @@ public:
 	~Self_Tile();
 
 };
+#endif // Self_Tile_h__

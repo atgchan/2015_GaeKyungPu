@@ -1,3 +1,6 @@
+#ifndef __TILE_MAP_H_
+#define __TILE_MAP_H_
+#include "Self_Tile.h"
 USING_NS_CC;
 
 class TileMap : public Layer
@@ -14,3 +17,5 @@ public:
 	static TileMap* getInstance(){ return &inst; }
 	bool createMap();
 };
+
+#endif

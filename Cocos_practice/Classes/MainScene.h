@@ -1,8 +1,6 @@
 #ifndef __MAIN_SCENE_H__
 #define __MAIN_SCENE_H__
 
-#include "cocos2d.h"
-#include "GameScene.h"
 
 USING_NS_CC;
 //using namespace cocos2d

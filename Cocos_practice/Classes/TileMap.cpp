@@ -1,5 +1,4 @@
 #include "pch.h"
-#include "Self_Tile.h"
 #include "TileMap.h"
 
 TileMap TileMap::inst;

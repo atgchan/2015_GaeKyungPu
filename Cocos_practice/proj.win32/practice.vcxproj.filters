@@ -5,9 +5,6 @@
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
     <ClCompile Include="..\Classes\pch.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="..\Classes\Tile.cpp">
-      <Filter>Map</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\TileMap.cpp">
       <Filter>Map</Filter>
     </ClCompile>
@@ -17,15 +14,15 @@
     <ClCompile Include="..\Classes\MainScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Self_Tile.cpp">
+      <Filter>Map</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
     <ClInclude Include="..\Classes\pch.h" />
     <ClInclude Include="main.h" />
-    <ClInclude Include="..\Classes\Tile.h">
-      <Filter>Map</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\TileMap.h">
       <Filter>Map</Filter>
     </ClInclude>
@@ -34,6 +31,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\MainScene.h">
       <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Self_Tile.h">
+      <Filter>Map</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

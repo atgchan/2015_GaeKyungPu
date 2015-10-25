@@ -20,8 +20,9 @@ bool GameScene::init()
 		return false;
 	}
 
-	auto map = TileMap::create();
-	this->addChild(map);
+	auto tilemap = TileMap::getInstance();
+	tilemap->createMap();
+	this->addChild(tilemap);
 
 	auto unitLayer = Layer::create();
 	unitLayer->setName("unitLayer");
@@ -64,13 +65,14 @@ void GameScene::setUnitByClick(Event* event)
 		float yPos = mouseEvent->getCursorY();
 
 		auto button = mouseEvent->getMouseButton();
-		auto unit_spear = Sprite::create("spear_red_01.png");
+		auto unit_spear = Sprite::create("Character/spear_red_01.png");
 		unit_spear->setName("unit");
+		unit_spear->setAnchorPoint(Point());
 
 //	일단 turn 표시를 정수로... 0인 경우 red, 1인 경우 blue
 		if (turn == 1)
 		{
-			unit_spear = Sprite::create("spear_blue_01.png");
+			unit_spear = Sprite::create("Character/spear_blue_01.png");
 		}
 
 		unit_spear->setPosition(Vec2(origin.x + xPos, visibleSize.height + yPos));
