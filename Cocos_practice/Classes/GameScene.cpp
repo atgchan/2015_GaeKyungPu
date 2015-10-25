@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "GameScene.h"
 #include "TileMap.h"
-#include <iostream>
 
 int GameScene::turn = 0;
 
@@ -9,11 +8,7 @@ Scene* GameScene::createScene()
 {
 	auto scene = Scene::create();
 	auto layer = GameScene::create();
-	auto unitLayer = Layer::create();
-	unitLayer->setName("unitLayer");
-
 	scene->addChild(layer);
-	scene->addChild(unitLayer);
 
 	return scene;
 }
@@ -27,6 +22,10 @@ bool GameScene::init()
 
 	auto map = TileMap::create();
 	this->addChild(map);
+
+	auto unitLayer = Layer::create();
+	unitLayer->setName("unitLayer");
+	this->addChild(unitLayer);
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
@@ -57,6 +56,7 @@ void GameScene::setUnitByClick(Event* event)
 	
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
+	auto unit_layer = event->getCurrentTarget()->getChildByName("unitLayer");
 
 	if ( mouseEvent->getMouseButton() == 0 )
 	{
@@ -67,42 +67,34 @@ void GameScene::setUnitByClick(Event* event)
 		auto unit_spear = Sprite::create("spear_red_01.png");
 		unit_spear->setName("unit");
 
+//	일단 turn 표시를 정수로... 0인 경우 red, 1인 경우 blue
 		if (turn == 1)
 		{
 			unit_spear = Sprite::create("spear_blue_01.png");
 		}
 
 		unit_spear->setPosition(Vec2(origin.x + xPos, visibleSize.height + yPos));
-
-		auto unit_layer = event->getCurrentTarget();
 		unit_layer->addChild(unit_spear);
 	}
 
 	if ( mouseEvent->getMouseButton() == 1 )
 	{
 		auto point = mouseEvent->getLocationInView();
-		auto children = event->getCurrentTarget()->getChildren();
+		auto children = unit_layer->getChildren();
 
-		Sprite* target = dynamic_cast<Sprite*>(event->getCurrentTarget()->getChildByName("unit"));
 		for (auto iter = children.begin(); iter != children.end(); ++iter)
 		{
 			if ((*iter)->getName() != "unit")
 			{
 				continue;
 			}
+
 			auto sprite = dynamic_cast<Sprite*>(*iter);
 			if (sprite->boundingBox().containsPoint(Vec2(point.x, visibleSize.height + point.y)))
 			{
-				auto unit_layer = event->getCurrentTarget();
 				unit_layer->removeChild(sprite);
 			}
 		}
-/*
-		if (target->boundingBox().containsPoint(Vec2(point.x, visibleSize.height + point.y)))
-		{
-			auto unit_layer = event->getCurrentTarget();
-			unit_layer->removeChild(target);
-		}*/
 	}
 }
 
