@@ -78,13 +78,8 @@ void GameScene::setUnitByClick(Event* event)
 	float xPos = mouseEvent->getCursorX();
 	float yPos = mouseEvent->getCursorY();
 
-	auto pinfo = AutoPolygon::generatePolygon("Character/spear_red_01.png");
-
-//	일단 turn 표시를 정수로... 0인 경우 red, 1인 경우 blue
-	if (turn == 1)
-	{
-		pinfo = AutoPolygon::generatePolygon("Character/spear_blue_01.png");
-	}
+	//	일단 turn 표시를 정수로... 0인 경우 red, 1인 경우 blue
+	auto pinfo = AutoPolygon::generatePolygon(turn == 0 ? "Character/spear_red_01.png" : "Character/spear_blue_01.png");
 
 	auto unit_spear = Sprite::create(pinfo);
 	unit_spear->setName("unit");
