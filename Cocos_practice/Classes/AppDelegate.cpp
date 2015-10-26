@@ -30,8 +30,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
     if(!glview) {
-		glview = GLViewImpl::createWithFullScreen("practice");
-		//glview = GLViewImpl::createWithRect("practice", Rect(0, 0, 960, 600));
+		//glview = GLViewImpl::createWithFullScreen("practice");
+		glview = GLViewImpl::createWithRect("practice", Rect(0, 0, 1280, 800));
         director->setOpenGLView(glview);
     }
 

@@ -22,6 +22,7 @@ bool GameScene::init()
 
 	auto tilemap = TileMap::getInstance();
 	tilemap->createMap();
+	tilemap->setName("tilemap");
 	this->addChild(tilemap);
 	auto unitLayer = Layer::create();
 	unitLayer->setName("unitLayer");
@@ -64,10 +65,12 @@ void GameScene::eventByClick(Event* event)
 		break;
 
 	case MOUSE_BUTTON_MIDDLE:
-		delUnitByClick(event);
+		SpawnBarrack(event);
 		break;
 
 	case MOUSE_BUTTON_RIGHT:
+
+		delUnitByClick(event);
 		break;
 	}
 }
@@ -169,8 +172,30 @@ void GameScene::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 	case EventKeyboard::KeyCode::KEY_ENTER:
 		toggleTurn();
 		break;
+	case EventKeyboard::KeyCode::KEY_B:
+		SpawnBarrack(event);
+		break;
 	}
 }
+void GameScene::SpawnBarrack(Event* event)
+{
+	auto mouseEvent = dynamic_cast<EventMouse*>(event);
+
+	auto point = mouseEvent->getLocationInView();
+	auto tilelist = TileMap::getInstance()->getChildren();
+	auto visibleSize = Director::getInstance()->getVisibleSize();
+
+	for (auto iter = tilelist.begin(); iter != tilelist.end(); ++iter)
+	{
+		auto sprite = dynamic_cast<Sprite*>(*iter);
+		if (sprite->boundingBox().containsPoint(Vec2(point.x + 20, visibleSize.height + point.y + 20)) && sprite->boundingBox().containsPoint(Vec2(point.x - 20, visibleSize.height + point.y - 20) ))
+		{
+			sprite->initWithFile("Map/tile_barrack.png");
+			sprite->setAnchorPoint(Point(0, 0));
+		}
+	}
+}
+
 
 void GameScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 {

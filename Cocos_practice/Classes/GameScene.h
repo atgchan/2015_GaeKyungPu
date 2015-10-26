@@ -19,6 +19,7 @@ private:
 
 	void	toggleTurn();
 	void	onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event);
+	void	SpawnBarrack(Event* event);
 	void	onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event);
 
 public:
