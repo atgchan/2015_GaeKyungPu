@@ -19,11 +19,10 @@ bool GameScene::init()
 	{
 		return false;
 	}
-	this->setPosition(Point(-60, -150));
+
 	auto tilemap = TileMap::getInstance();
 	tilemap->createMap();
 	this->addChild(tilemap);
-
 	auto unitLayer = Layer::create();
 	unitLayer->setName("unitLayer");
 	this->addChild(unitLayer);
@@ -55,14 +54,20 @@ void GameScene::eventByClick(Event* event)
 	EventMouse* mouseEvent = nullptr;
 	mouseEvent = dynamic_cast<EventMouse*>(event);
 
+
+
 	switch (mouseEvent->getMouseButton())
 	{
 	case MOUSE_BUTTON_LEFT:
+
 		setUnitByClick(event);
 		break;
 
-	case MOUSE_BUTTON_RIGHT:
+	case MOUSE_BUTTON_MIDDLE:
 		delUnitByClick(event);
+		break;
+
+	case MOUSE_BUTTON_RIGHT:
 		break;
 	}
 }
@@ -86,6 +91,7 @@ void GameScene::setUnitByClick(Event* event)
 	unit_spear->setAnchorPoint(Point(0.5, 0.13));
 
 	unit_spear->setPosition(Vec2(origin.x + xPos, visibleSize.height + yPos));
+	unit_spear->setZOrder(-1 * unit_spear->getPositionY());
 	unit_layer->addChild(unit_spear);
 }
 

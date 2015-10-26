@@ -28,7 +28,7 @@ bool TileMap::createMap()
 					_TileSet[i][j]->setPositionX((i-1) * 51);
 
 				if (i == 0)
-					_TileSet[i][j]->setPositionY(700);
+					_TileSet[i][j]->setPositionY(500);
 				else
 				{
 					float addnum = 0;
@@ -49,6 +49,7 @@ bool TileMap::createMap()
 			_TileSet[i][j]->setAnchorPoint(Point(0, 0));
 
 			inst->addChild(_TileSet[i][j]);
+			//this->setAnchorPoint(Point(0.5, 0.0));
 		}
 	}
 
