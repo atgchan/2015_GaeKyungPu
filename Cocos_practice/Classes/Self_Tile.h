@@ -2,7 +2,7 @@
 #define Self_Tile_h__
 
 
-
+//타일의 종류를 담아두는 set
 enum TileKind {
 	TILE_NULL,
 	TILE_PLAIN,
@@ -19,9 +19,10 @@ enum TileKind {
 class Self_Tile : public cocos2d::Sprite
 {
 private:
+	//타일 종류에 따른 스프라이트 파일명을 저장해둘 배열
 	static std::string DictionaryForFilenames[10];
 public:
-
+	
 	static Self_Tile* create(TileKind type);
 
 	CC_SYNTHESIZE(TileKind, _typeOfTile, TypeOfTile);
