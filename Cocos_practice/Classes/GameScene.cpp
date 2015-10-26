@@ -117,7 +117,7 @@ void GameScene::delUnitByClick(Event* event)
 		}
 
 		auto sprite = dynamic_cast<Sprite*>(*iter);
-		if (sprite->boundingBox().containsPoint(Vec2(point.x, visibleSize.height + point.y)))
+		if (sprite->boundingBox().containsPoint(Vec2(point.x -20 , visibleSize.height + point.y- 20)) && sprite->boundingBox().containsPoint(Vec2(point.x + 20 , visibleSize.height + point.y + 20)))
 		{
 			unit_layer->removeChild(sprite);
 		}
