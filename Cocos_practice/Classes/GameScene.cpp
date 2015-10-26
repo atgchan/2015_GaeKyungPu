@@ -19,7 +19,7 @@ bool GameScene::init()
 	{
 		return false;
 	}
-
+	this->setPosition(Point(-60, -150));
 	auto tilemap = TileMap::getInstance();
 	tilemap->createMap();
 	this->addChild(tilemap);
