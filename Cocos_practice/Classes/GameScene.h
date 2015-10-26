@@ -14,14 +14,16 @@ private:
 
 	void	eventByClick(Event* event);
 	void	setUnitByClick(Event* event);
-	void	delUnitByClick(Event* event);
+	void	delUnitByClick(Event* event, cocos2d::Sprite* sprite);
 	void	rotateUnitByClick(Event* event);
 
 	void	toggleTurn();
 	void	onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event);
 	void	SpawnBarrack(Event* event);
 	void	onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event);
-
+	
+	cocos2d::Sprite* getClickedUnit(Event* event);
+	void rotateUnitToLeft(cocos2d::Sprite* sprite);
 public:
 	//다른 화면에서 해당 화면으로 전환할 때 등에 사용되는 전역 메소드
     static Scene* createScene();

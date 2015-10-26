@@ -55,23 +55,33 @@ void GameScene::eventByClick(Event* event)
 	EventMouse* mouseEvent = nullptr;
 	mouseEvent = dynamic_cast<EventMouse*>(event);
 
+	//유닛을 클릭했다면 클릭한 유닛을 저장할 포인터
+	auto sprite = getClickedUnit(event);
 
-
-	switch (mouseEvent->getMouseButton())
+	if (nullptr != sprite)
 	{
-	case MOUSE_BUTTON_LEFT:
+		switch (mouseEvent->getMouseButton())
+		{
+		case MOUSE_BUTTON_LEFT:
+			rotateUnitToLeft(sprite);
+			break;
+		case MOUSE_BUTTON_RIGHT:
+			delUnitByClick(event, sprite);
+			break;
+		}
+	}
+	else
+	{
+		switch (mouseEvent->getMouseButton())
+		{
+		case MOUSE_BUTTON_LEFT:
+			setUnitByClick(event);
+			break;
+		case MOUSE_BUTTON_MIDDLE:
+			SpawnBarrack(event);
+			break;
+		}
 
-		setUnitByClick(event);
-		break;
-
-	case MOUSE_BUTTON_MIDDLE:
-		SpawnBarrack(event);
-		break;
-
-	case MOUSE_BUTTON_RIGHT:
-
-		delUnitByClick(event);
-		break;
 	}
 }
 
@@ -92,36 +102,20 @@ void GameScene::setUnitByClick(Event* event)
 	auto unit_spear = Sprite::create(pinfo);
 	unit_spear->setName("unit");
 	unit_spear->setAnchorPoint(Point(0.5, 0.13));
+	unit_spear->setTag(1);
 
 	unit_spear->setPosition(Vec2(origin.x + xPos, visibleSize.height + yPos));
 	unit_spear->setZOrder(-1 * unit_spear->getPositionY());
 	unit_layer->addChild(unit_spear);
 }
 
-void GameScene::delUnitByClick(Event* event)
+void GameScene::delUnitByClick(Event* event, cocos2d::Sprite* sprite)
 {
+
 	EventMouse* mouseEvent = dynamic_cast<EventMouse*>(event);
 
-	Size visibleSize = Director::getInstance()->getVisibleSize();
-	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 	auto unit_layer = event->getCurrentTarget()->getChildByName("unitLayer");
-
-	auto point = mouseEvent->getLocationInView();
-	auto children = unit_layer->getChildren();
-
-	for (auto iter = children.begin(); iter != children.end(); ++iter)
-	{
-		if ((*iter)->getName() != "unit")
-		{
-			continue;
-		}
-
-		auto sprite = dynamic_cast<Sprite*>(*iter);
-		if (sprite->boundingBox().containsPoint(Vec2(point.x -20 , visibleSize.height + point.y- 20)) && sprite->boundingBox().containsPoint(Vec2(point.x + 20 , visibleSize.height + point.y + 20)))
-		{
-			unit_layer->removeChild(sprite);
-		}
-	}
+	unit_layer->removeChild(sprite);
 }
 
 void GameScene::rotateUnitByClick(Event* event)
@@ -212,4 +206,65 @@ void GameScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 	case EventKeyboard::KeyCode::KEY_S:
 		break;
 	}
+}
+
+cocos2d::Sprite* GameScene::getClickedUnit(Event* event)
+{
+
+	EventMouse* mouseEvent = dynamic_cast<EventMouse*>(event);
+
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+	Vec2 origin = Director::getInstance()->getVisibleOrigin();
+	auto unit_layer = event->getCurrentTarget()->getChildByName("unitLayer");
+
+	auto point = mouseEvent->getLocationInView();
+	auto children = unit_layer->getChildren();
+
+	for (auto iter = children.begin(); iter != children.end(); ++iter)
+	{
+		if ((*iter)->getName() != "unit")
+		{
+			continue;
+		}
+
+		auto sprite = dynamic_cast<Sprite*>(*iter);
+		if (sprite->boundingBox().containsPoint(Vec2(point.x - 20, visibleSize.height + point.y - 20)) && sprite->boundingBox().containsPoint(Vec2(point.x + 20, visibleSize.height + point.y + 20)))
+		{
+			return sprite;
+		}
+	}
+	return nullptr;
+}
+
+void GameScene::rotateUnitToLeft(cocos2d::Sprite* sprite)
+{
+	auto tagggg = sprite->getTag();
+	switch (sprite->getTag())
+	{
+	case 0:
+		sprite->initWithFile(GameScene::turn == 0 ? "Character/spear_red_01.png" : "Character/spear_blue_01.png");
+		sprite->setTag(1);
+		break;
+	case 1:
+		sprite->setTag(2);
+		sprite->initWithFile(GameScene::turn == 0 ? "Character/spear_red_02.png" : "Character/spear_blue_02.png");
+		break;
+	case 2:
+		sprite->setTag(3);
+		sprite->initWithFile(GameScene::turn == 0 ? "Character/spear_red_03.png" : "Character/spear_blue_03.png");
+		break;
+	case 3:
+		sprite->setTag(4);
+		sprite->initWithFile(GameScene::turn == 0 ? "Character/spear_red_04.png" : "Character/spear_blue_04.png");
+		break;
+	case 4:
+		sprite->setTag(5);
+		sprite->initWithFile(GameScene::turn == 0 ? "Character/spear_red_05.png" : "Character/spear_blue_05.png");
+		break;
+	case 5:
+		sprite->setTag(0);
+		sprite->initWithFile(GameScene::turn == 0 ? "Character/spear_red_00.png" : "Character/spear_blue_00.png");
+		break;
+	}
+	sprite->setAnchorPoint(Point(0.5, 0.13));
 }
