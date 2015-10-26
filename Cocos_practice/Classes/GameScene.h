@@ -7,15 +7,17 @@ USING_NS_CC;
 class GameScene : public Layer
 {
 private:
-	static	int turn;
+	static int turn;
 
 	void	menuClickCallback(Ref* pSender);
 	void	menuCloseCallback(Ref* pSender);
 
+	void	eventByClick(Event* event);
 	void	setUnitByClick(Event* event);
 	void	delUnitByClick(Event* event);
 	void	rotateUnitByClick(Event* event);
 
+	void	toggleTurn();
 	void	onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event);
 	void	onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event);
 

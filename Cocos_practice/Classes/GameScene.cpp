@@ -31,10 +31,10 @@ bool GameScene::init()
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	auto label_title = Label::createWithTTF("In Game Scene!!!", "fonts/Marker Felt.ttf", 40);
-	label_title->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 100));
-
-	this->addChild(label_title);
+	auto turn_ui = Label::createWithTTF("Turn Red", "fonts/Marker Felt.ttf", 40);
+	turn_ui->setPosition(Vec2(visibleSize.width * 3 / 4, visibleSize.height * 1 / 4));
+	turn_ui->setName("turn_ui");
+	this->addChild(turn_ui);
 
 //	Keyboard Event
 	auto keyListener = EventListenerKeyboard::create();
@@ -44,65 +44,80 @@ bool GameScene::init()
 
 //	Mouse Event
 	auto clickListener = EventListenerMouse::create();
-	clickListener->onMouseDown = CC_CALLBACK_1(GameScene::setUnitByClick, this);
+	clickListener->onMouseDown = CC_CALLBACK_1(GameScene::eventByClick, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(clickListener, this);
 
 	return true;
 }
 
-void GameScene::setUnitByClick(Event* event)
+void GameScene::eventByClick(Event* event)
 {
 	EventMouse* mouseEvent = nullptr;
 	mouseEvent = dynamic_cast<EventMouse*>(event);
+
+	switch (mouseEvent->getMouseButton())
+	{
+	case MOUSE_BUTTON_LEFT:
+		setUnitByClick(event);
+		break;
+
+	case MOUSE_BUTTON_RIGHT:
+		delUnitByClick(event);
+		break;
+	}
+}
+
+void GameScene::setUnitByClick(Event* event)
+{
+	EventMouse* mouseEvent = dynamic_cast<EventMouse*>(event);
 	
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 	auto unit_layer = event->getCurrentTarget()->getChildByName("unitLayer");
 
-	if ( mouseEvent->getMouseButton() == 0 )
-	{
-		float xPos = mouseEvent->getCursorX();
-		float yPos = mouseEvent->getCursorY();
+	float xPos = mouseEvent->getCursorX();
+	float yPos = mouseEvent->getCursorY();
 
-		auto button = mouseEvent->getMouseButton();
-		auto unit_spear = Sprite::create("Character/spear_red_01.png");
-		unit_spear->setName("unit");
-		//unit_spear->setAnchorPoint(Point());
+	auto pinfo = AutoPolygon::generatePolygon("Character/spear_red_01.png");
 
 //	일단 turn 표시를 정수로... 0인 경우 red, 1인 경우 blue
-		if (turn == 1)
-		{
-			unit_spear = Sprite::create("Character/spear_blue_01.png");
-		}
-
-		unit_spear->setPosition(Vec2(origin.x + xPos, visibleSize.height + yPos));
-		unit_layer->addChild(unit_spear);
-	}
-
-	if ( mouseEvent->getMouseButton() == 1 )
+	if (turn == 1)
 	{
-		auto point = mouseEvent->getLocationInView();
-		auto children = unit_layer->getChildren();
-
-		for (auto iter = children.begin(); iter != children.end(); ++iter)
-		{
-			if ((*iter)->getName() != "unit")
-			{
-				continue;
-			}
-
-			auto sprite = dynamic_cast<Sprite*>(*iter);
-			if (sprite->boundingBox().containsPoint(Vec2(point.x, visibleSize.height + point.y)))
-			{
-				unit_layer->removeChild(sprite);
-			}
-		}
+		pinfo = AutoPolygon::generatePolygon("Character/spear_blue_01.png");
 	}
+
+	auto unit_spear = Sprite::create(pinfo);
+	unit_spear->setName("unit");
+	unit_spear->setAnchorPoint(Point(0.5, 0.13));
+
+	unit_spear->setPosition(Vec2(origin.x + xPos, visibleSize.height + yPos));
+	unit_layer->addChild(unit_spear);
 }
 
 void GameScene::delUnitByClick(Event* event)
 {
+	EventMouse* mouseEvent = dynamic_cast<EventMouse*>(event);
 
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+	Vec2 origin = Director::getInstance()->getVisibleOrigin();
+	auto unit_layer = event->getCurrentTarget()->getChildByName("unitLayer");
+
+	auto point = mouseEvent->getLocationInView();
+	auto children = unit_layer->getChildren();
+
+	for (auto iter = children.begin(); iter != children.end(); ++iter)
+	{
+		if ((*iter)->getName() != "unit")
+		{
+			continue;
+		}
+
+		auto sprite = dynamic_cast<Sprite*>(*iter);
+		if (sprite->boundingBox().containsPoint(Vec2(point.x, visibleSize.height + point.y)))
+		{
+			unit_layer->removeChild(sprite);
+		}
+	}
 }
 
 void GameScene::rotateUnitByClick(Event* event)
@@ -124,6 +139,24 @@ void GameScene::menuCloseCallback(cocos2d::Ref* pSender)
 #endif
 }
 
+void GameScene::toggleTurn()
+{
+
+	turn = (turn + 1)%2;
+	this->removeChild(this->getChildByName("turn_ui"));
+	auto turn_ui = Label::createWithTTF("Turn Red", "fonts/Marker Felt.ttf", 40);
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+
+	if (turn == 1)
+	{
+		turn_ui = Label::createWithTTF("Turn Blue", "fonts/Marker Felt.ttf", 40);
+	}
+
+	turn_ui->setPosition(Vec2(visibleSize.width * 3 / 4, visibleSize.height * 1 / 4));
+	turn_ui->setName("turn_ui");
+	this->addChild(turn_ui);
+}
+
 void GameScene::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 {
 	switch (keyCode){
@@ -133,7 +166,7 @@ void GameScene::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 		break;
 
 	case EventKeyboard::KeyCode::KEY_ENTER:
-
+		toggleTurn();
 		break;
 	}
 }

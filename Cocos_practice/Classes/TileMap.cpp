@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "TileMap.h"
 
-TileMap TileMap::inst;
+TileMap* TileMap::inst = nullptr;
 TileKind TileMap::_MapData[9][8] = {
 	{ TILE_NULL, TILE_PLAIN, TILE_PLAIN, TILE_PLAIN, TILE_NULL, TILE_NULL, TILE_NULL, TILE_NULL },
 	{ TILE_NULL, TILE_RICH, TILE_LAKE, TILE_VILLAGE, TILE_PLAIN, TILE_PLAIN, TILE_PLAIN, TILE_NULL },
@@ -48,7 +48,7 @@ bool TileMap::createMap()
 			_TileSet[i][j]->setZOrder(-1 * _TileSet[i][j]->getPositionY());
 			_TileSet[i][j]->setAnchorPoint(Point(0, 0));
 
-			inst.addChild(_TileSet[i][j]);
+			inst->addChild(_TileSet[i][j]);
 		}
 	}
 
