@@ -118,15 +118,6 @@ void GameScene::delUnitByClick(Event* event, cocos2d::Sprite* sprite)
 	unit_layer->removeChild(sprite);
 }
 
-void GameScene::rotateUnitByClick(Event* event)
-{
-
-}
-
-void GameScene::menuClickCallback(cocos2d::Ref* pSender)
-{
-	
-}
 
 void GameScene::menuCloseCallback(cocos2d::Ref* pSender)
 {
@@ -228,7 +219,7 @@ cocos2d::Sprite* GameScene::getClickedUnit(Event* event)
 		}
 
 		auto sprite = dynamic_cast<Sprite*>(*iter);
-		if (sprite->boundingBox().containsPoint(Vec2(point.x - 20, visibleSize.height + point.y - 20)) && sprite->boundingBox().containsPoint(Vec2(point.x + 20, visibleSize.height + point.y + 20)))
+		if (sprite->boundingBox().containsPoint(Vec2(point.x - 20, visibleSize.height + point.y - 5)) && sprite->boundingBox().containsPoint(Vec2(point.x + 20, visibleSize.height + point.y + 40)))
 		{
 			return sprite;
 		}
