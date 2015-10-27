@@ -14,6 +14,7 @@ private:
 	TileMap(const TileMap& other);
 	static TileMap* inst;
 
+
 public:
 	static TileMap* getInstance()
 	{
@@ -21,7 +22,7 @@ public:
 		{
 			inst = new TileMap();
 		}
-		return inst; 
+		return inst;
 	}
 	bool createMap();
 };
