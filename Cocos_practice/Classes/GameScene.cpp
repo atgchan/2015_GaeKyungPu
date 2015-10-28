@@ -13,15 +13,16 @@ Scene* GameScene::createScene()
 
 bool GameScene::init()
 {
-	if (!Layer::init())
-	{
-		return false;
-	}
-	GameMaster* gmInstance = GameMaster::getInstance();
+	if (!Layer::init()) return false;
 
+//이하 초기화 block은 상용구처럼 쓰이는 것이므로 바뀔 여지 x
+	//GameMaster의 인스턴스 저장. GameScene 안에서 계속 쓰인다.
+	GameMaster* gmInstance = GameMaster::getInstance();
+	//맵을 그리는 등의 게임 초기 셋팅을 한다.
 	gmInstance->InitializeGame();
+	//게임 내 모든 node들을 추가.아래와 같이 호출하면 된다.
 	this->addChild(gmInstance->getNodes());
-	
+//초기화 block 끝
 
 
 //	Mouse Event

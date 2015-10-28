@@ -3,6 +3,9 @@
 
 GameMaster* GameMaster::inst = NULL;
 
+
+
+
 void GameMaster::InitializeGame()
 {
 	this->nodes->setName("MasterNode");
