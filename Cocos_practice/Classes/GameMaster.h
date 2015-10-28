@@ -19,6 +19,7 @@ public:
 
 	void clickEventDispatcher(cocos2d::EventMouse event);
 	PlayerData* getCurrentPlayer();
+	
 	static GameMaster* getInstance()
 	{
 		if (inst == nullptr)
@@ -27,9 +28,9 @@ public:
 		}
 		return inst;
 	}
+	static void InitializeGame();
 
-
-	static bool initialized;
+	static bool isGameInitialized;
 
 private:
 	PlayerData playerData[2];

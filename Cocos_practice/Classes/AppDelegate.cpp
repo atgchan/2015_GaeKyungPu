@@ -23,27 +23,24 @@ static int register_all_packages()
     return 0; //flag for packages manager
 }
 
+//이게 본문이다!
 bool AppDelegate::applicationDidFinishLaunching() {
     // initialize director
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
     if(!glview) {
 		//glview = GLViewImpl::createWithFullScreen("practice");
-		glview = GLViewImpl::createWithRect("practice", Rect(0, 0, 1280, 800));
+		glview = GLViewImpl::createWithRect("TESTuDO", Rect(0, 0, 1280, 800));//창모드
         director->setOpenGLView(glview);
     }
 
-    // turn on display FPS
+    // FPS on/off
     director->setDisplayStats(false);
-	
-    // set FPS. the default value is 1.0/60 if you don't call this
+    // FPS 셋팅
     director->setAnimationInterval(1.0 / 60);
-    //register_all_packages();
 
-    // create a scene. it's an autorelease object
-	auto mainScene = MainScene::createScene();//MainScene::createScene();
-
-    // run
+    // 첫 scene 실행
+	auto mainScene = MainScene::createScene();
 	director->runWithScene(mainScene);
 	
     return true;

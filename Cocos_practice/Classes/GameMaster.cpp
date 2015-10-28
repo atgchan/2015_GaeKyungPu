@@ -2,4 +2,10 @@
 #include "GameMaster.h"
 
 GameMaster* GameMaster::inst = NULL;
-bool GameMaster::initialized = false;
+
+void GameMaster::InitializeGame()
+{
+
+}
+
+bool GameMaster::isGameInitialized = false;
