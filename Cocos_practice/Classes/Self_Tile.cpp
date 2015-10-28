@@ -36,4 +36,5 @@ Self_Tile* Self_Tile::create(TileKind type)
 	}
 	CC_SAFE_DELETE(sprite);
 	return nullptr;
+
 }
