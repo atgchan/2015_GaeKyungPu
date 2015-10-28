@@ -2,6 +2,8 @@
 #define Game_h__
 
 #include "PlayerData.h"
+#include "TileMap.h"
+
 
 enum PlayerInfo{
 	PLAYER_RED,
@@ -16,10 +18,14 @@ public:
 	GameMaster();
 	~GameMaster();
 
+	void InitializeGame();
 
-	void clickEventDispatcher(cocos2d::EventMouse event);
-	PlayerData* getCurrentPlayer();
-	
+	void mouseDownDispatcher(EventMouse *event);
+
+	void addChild(Node* targetNode)
+	{
+		nodes->addChild(targetNode);
+	}
 	static GameMaster* getInstance()
 	{
 		if (inst == nullptr)
@@ -28,14 +34,18 @@ public:
 		}
 		return inst;
 	}
-	static void InitializeGame();
 
-	static bool isGameInitialized;
+	Node* getNodes(){ return nodes; }
+	PlayerData* getCurrentPlayer();
 
 private:
-	PlayerData playerData[2];
-	PlayerInfo currentPlayer;
+	TileMap* tileMap;
+	static const int numOfPlayer = 2;
+	PlayerData playerData[numOfPlayer];
+	PlayerInfo currentPlayer = PLAYER_RED;
 	static GameMaster *inst;
+	bool isGameInitialized = false;
+	Node* const nodes = Node::create();
 };
 
 #endif // Game_h__

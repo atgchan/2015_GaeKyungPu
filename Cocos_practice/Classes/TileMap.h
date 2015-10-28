@@ -21,10 +21,11 @@ public:
 		if (inst == nullptr)
 		{
 			inst = new TileMap();
+			inst->setName("TileMap");
 		}
 		return inst;
 	}
-	bool createMap();
+	bool create();
 };
 
 #endif

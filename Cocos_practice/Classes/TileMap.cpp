@@ -13,7 +13,7 @@ TileKind TileMap::_MapData[9][8] = {
 	{ TILE_NULL, TILE_PLAIN, TILE_PLAIN, TILE_PLAIN, TILE_VILLAGE, TILE_LAKE, TILE_RICH, TILE_NULL },
 	{ TILE_NULL, TILE_NULL, TILE_NULL, TILE_PLAIN, TILE_PLAIN, TILE_PLAIN, TILE_NULL, TILE_NULL },
 };
-bool TileMap::createMap()
+bool TileMap::create()
 {
 	for (int i = 0; i < 9; ++i)
 	{

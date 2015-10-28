@@ -1,8 +1,6 @@
 #include "pch.h"
 #include "GameScene.h"
-#include "TileMap.h"
-
-int GameScene::turn = 0;
+#include "GameMaster.h"
 
 Scene* GameScene::createScene()
 {
@@ -19,27 +17,19 @@ bool GameScene::init()
 	{
 		return false;
 	}
-	/*
-	auto tilemap = TileMap::getInstance();
-	tilemap->createMap();
-	tilemap->setName("tilemap");
-	this->addChild(tilemap);
-	auto unitLayer = Layer::create();
-	unitLayer->setName("unitLayer");
-	this->addChild(unitLayer);
-	*/
+	GameMaster* gmInstance = GameMaster::getInstance();
+
+	gmInstance->InitializeGame();
+	this->addChild(gmInstance->getNodes());
+	
+
+
 //	Mouse Event
 	auto clickListener = EventListenerMouse::create();
-	clickListener->onMouseDown = CC_CALLBACK_1(GameScene::eventByClick, this);
+	
+	//마우스 이벤트를 GameMaster로 바로 넘기기 위한 테스트 코드. 제대로 넘어갔다면 클릭시 Beep 음이 들린다.
+	clickListener->onMouseDown = CC_CALLBACK_1(GameMaster::mouseDownDispatcher, gmInstance);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(clickListener, this);
 
 	return true;
-}
-
-void GameScene::eventByClick(Event* event)
-{
-	EventMouse* mouseEvent = nullptr;
-	mouseEvent = dynamic_cast<EventMouse*>(event);
-	Beep(1000, 100);
-
 }
