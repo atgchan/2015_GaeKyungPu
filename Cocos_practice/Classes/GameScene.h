@@ -13,14 +13,6 @@ private:
 	void	menuCloseCallback(Ref* pSender);
 
 	void	eventByClick(Event* event);
-	void	setUnitByClick(Event* event);
-	void	delUnitByClick(Event* event, cocos2d::Sprite* sprite);
-	void	rotateUnitByClick(Event* event);
-
-	void	toggleTurn();
-	void	onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event);
-	void	SpawnBarrack(Event* event);
-	void	onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event);
 	
 	cocos2d::Sprite* getClickedUnit(Event* event);
 	void rotateUnitToLeft(cocos2d::Sprite* sprite);

@@ -13,11 +13,28 @@ enum PlayerInfo{
 class GameMaster
 {
 public:
+	GameMaster();
+	~GameMaster();
+
+
 	void clickEventDispatcher(cocos2d::EventMouse event);
 	PlayerData* getCurrentPlayer();
+	static GameMaster* getInstance()
+	{
+		if (inst == nullptr)
+		{
+			inst = new GameMaster();
+		}
+		return inst;
+	}
+
+
+	static bool initialized;
 
 private:
 	PlayerData playerData[2];
 	PlayerInfo currentPlayer;
+	static GameMaster *inst;
 };
+
 #endif // Game_h__

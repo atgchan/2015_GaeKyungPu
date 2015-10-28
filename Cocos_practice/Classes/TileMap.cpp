@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "TileMap.h"
 
-TileMap* TileMap::inst = nullptr;
+TileMap* TileMap::inst = NULL;
 TileKind TileMap::_MapData[9][8] = {
 	{ TILE_NULL, TILE_PLAIN, TILE_PLAIN, TILE_PLAIN, TILE_NULL, TILE_NULL, TILE_NULL, TILE_NULL },
 	{ TILE_NULL, TILE_RICH, TILE_LAKE, TILE_VILLAGE, TILE_PLAIN, TILE_PLAIN, TILE_PLAIN, TILE_NULL },
