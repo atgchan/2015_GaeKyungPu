@@ -6,8 +6,13 @@
 // Windows Header Files:
 #include <windows.h>
 #include <tchar.h>
-
+#include <crtdbg.h>
 // C RunTime Header Files
 #include "CCStdC.h"
+
+#ifdef _DEBUG
+#define new new(_CLIENT_BLOCK,__FILE__, __LINE__)
+#endif
+
 
 #endif    // __MAIN_H__

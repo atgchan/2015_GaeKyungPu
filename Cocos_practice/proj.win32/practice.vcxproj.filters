@@ -23,6 +23,9 @@
       <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\pch.cpp" />
+    <ClCompile Include="..\Classes\PlayerData.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
@@ -47,6 +50,9 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\pch.h" />
+    <ClInclude Include="..\Classes\PlayerData.h">
+      <Filter>Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc" />
@@ -60,9 +66,6 @@
     </Filter>
     <Filter Include="Game">
       <UniqueIdentifier>{957161f6-eacf-44ce-a380-5962757f1b7f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Phase">
-      <UniqueIdentifier>{367c7250-acaa-4a22-a2cd-71463e1162df}</UniqueIdentifier>
     </Filter>
     <Filter Include="Character">
       <UniqueIdentifier>{e60db5f5-8049-4f19-8aae-51df390f791c}</UniqueIdentifier>

@@ -156,6 +156,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="..\Classes\PlayerData.cpp" />
     <ClCompile Include="..\Classes\Self_Tile.cpp" />
     <ClCompile Include="..\Classes\TileMap.cpp" />
     <ClCompile Include="main.cpp" />
@@ -168,6 +169,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
     <ClInclude Include="..\Classes\MainScene.h" />
     <ClInclude Include="..\Classes\pch.h" />
+    <ClInclude Include="..\Classes\PlayerData.h" />
     <ClInclude Include="..\Classes\Self_Tile.h" />
     <ClInclude Include="..\Classes\TileMap.h" />
     <ClInclude Include="main.h" />
