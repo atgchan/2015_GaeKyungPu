@@ -52,6 +52,7 @@ void Character::rotateToDirection(RotateDirection rotateDirection, Character* ch
 	}
 
 	int cAngle = character->getCurrentAngle();
+
 	if (rotateDirection == ROTATE_LEFT)
 	{
 		if (cAngle == 5) cAngle = 0;

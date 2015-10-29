@@ -131,7 +131,7 @@ void GameMaster::killCharacter(Character* target)
 			CharacterList->erase(iter);
 		}
 	}
-	target->killCharacter();
+	TileMap::getInstance()->killCharacter(target);
 	
 	
 }
