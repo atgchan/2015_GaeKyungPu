@@ -23,15 +23,16 @@ private:
 	static std::string DictionaryForFilenames[10];
 
 	//타일의 소유주
-	int ownerPlayer;
+	PlayerInfo ownerPlayer;
 	Character* characterOnThisTile;
 public:
 	
 	static Self_Tile* create(TileKind type);
 	void setOwnerPlayer(PlayerInfo pInfo);
+	PlayerInfo getOwnerPlayer(){ return ownerPlayer; }
 	void changeTile(TileKind type);
-	Character* getCharacterOnThisTile(Self_Tile* tile);
-	Character* setCharacterOnThisTile(Self_Tile* tile, Character* character);
+	Character* getCharacterOnThisTile();
+	Character* setCharacterOnThisTile(Character* character);
 
 	CC_SYNTHESIZE(TileKind, _typeOfTile, TypeOfTile);
 	

@@ -11,7 +11,6 @@ PlayerData* PlayerData::create()
 
 PlayerData::PlayerData()
 {
-	characterList = new std::list<Character*>;
 }
 
 PlayerData::~PlayerData()

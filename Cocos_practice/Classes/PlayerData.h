@@ -22,6 +22,6 @@ public:
 	static PlayerData* create();
 private:
 	int		food;
-	std::list<Character*>* characterList;
+	std::list<Character*> *characterList = new std::list<Character*>;
 };
 #endif // PlayerData_h__

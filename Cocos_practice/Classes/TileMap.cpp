@@ -61,8 +61,9 @@ void TileMap::setCharacterOnTile(Character* character, Self_Tile* tile)
 {
 	float xPos = tile->getPositionX();
 	float yPos = tile->getPositionY();
+	//수정소요 ㅇㅇ
 	character->setPosition(xPos, yPos);
-	inst->addChild(character);
+	this->addChild(character);
 }
 
 void TileMap::MoveCharacterTo(Character* character, Self_Tile* tile)
@@ -70,6 +71,11 @@ void TileMap::MoveCharacterTo(Character* character, Self_Tile* tile)
 	float xPos = tile->getPositionX();
 	float yPos = tile->getPositionY();
 	character->setPosition(xPos, yPos);
+}
+
+void TileMap::killCharacter(Character* target)
+{
+	this->removeChild(target);
 }
 
 TileMap::TileMap()
