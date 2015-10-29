@@ -61,9 +61,14 @@ public:
 	}
 
 	void ChangePlayer();
+	bool getIsVolcanoActivated(){	return _isVolcanoActivated;	}
+	char getProgressVolcano(){ return _progressVolcano; }
+	bool getIsMouseLocked(){ return _isMouseLocked; }
 
 private:
+	char _progressVolcano = 0;
 	static GameMaster *inst;
+	bool _isMouseLocked = true;
 
 	TileMap* tileMap;
 	static const int numOfPlayer = 2;
@@ -76,6 +81,9 @@ private:
 	{
 		nodes->addChild(targetNode);
 	}
+	bool _isVolcanoActivated = false;
+
+	void ChangeRichToLava(Self_Tile* target);
 
 	void Run();
 

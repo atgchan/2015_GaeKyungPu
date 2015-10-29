@@ -7,6 +7,11 @@ GameMaster* GameMaster::inst = NULL;
 
 
 
+void GameMaster::ChangeRichToLava(Self_Tile* target)
+{
+
+}
+
 void GameMaster::Run()
 {
 	this->Phase_Harvest();
@@ -44,11 +49,31 @@ void GameMaster::Phase_Occupy()
 }
 
 
-void GameMaster::giveTileToPlayer(Self_Tile* targetTile, PlayerInfo pInfo)
+void GameMaster::Phase_Volcano()
 {
-	
-	targetTile->setOwnerPlayer(pInfo);
+	switch (_progressVolcano)
+	{
+	case 0:
+		if (random(1, 5) == 1)//5분의 1 확률로 이벤트 발생
+		{
+			_isVolcanoActivated = true;
+			_progressVolcano = 1;
+		}
+		break;
+	case 1:
+		
+		break;
+	case 2:
+		break;
+	case 3:
+		break;
+	case 4:
+		break;
+	case 5:
+		break;
+	}
 }
+
 
 void GameMaster::InitializeGame()
 {
@@ -92,6 +117,11 @@ void GameMaster::ChangePlayer()
 		Beep(1000, 1000);
 		Director::getInstance()->end();
 	}
+}
+
+void GameMaster::giveTileToPlayer(Self_Tile* targetTile, PlayerInfo pInfo)
+{
+	targetTile->setOwnerPlayer(pInfo);
 }
 
 GameMaster::GameMaster()
