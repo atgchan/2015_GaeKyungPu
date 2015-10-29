@@ -24,10 +24,14 @@ private:
 
 	//타일의 소유주
 	int ownerPlayer;
+	Character* characterOnThisTile;
 public:
 	
 	static Self_Tile* create(TileKind type);
 	void setOwnerPlayer(PlayerInfo pInfo);
+	void changeTile(TileKind type);
+	Character* getCharacterOnThisTile(Self_Tile* tile);
+	Character* setCharacterOnThisTile(Self_Tile* tile, Character* character);
 
 	CC_SYNTHESIZE(TileKind, _typeOfTile, TypeOfTile);
 	

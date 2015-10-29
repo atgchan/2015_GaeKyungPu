@@ -5,8 +5,6 @@ GameMaster* GameMaster::inst = NULL;
 
 
 
-
-
 void GameMaster::Run()
 {
 	this->Phase_Harvest();
