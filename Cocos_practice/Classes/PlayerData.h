@@ -19,6 +19,7 @@ public:
 	
 	PlayerData* opponentPlayer;
 
+	static PlayerData* create();
 private:
 	int		food;
 	std::list<Character*>* characterList;

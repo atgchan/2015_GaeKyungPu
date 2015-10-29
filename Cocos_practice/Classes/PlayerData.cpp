@@ -3,6 +3,12 @@
 #include "Character.h"
 #include <list>
 
+PlayerData* PlayerData::create()
+{
+	PlayerData* pData = new PlayerData();
+	return pData;
+}
+
 PlayerData::PlayerData()
 {
 	characterList = new std::list<Character*>;
