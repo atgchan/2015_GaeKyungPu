@@ -9,7 +9,7 @@ GameMaster* GameMaster::inst = NULL;
 
 void GameMaster::ChangeRichToLava(Self_Tile* target)
 {
-
+	target->changeTile(TILE_LAVA);
 }
 
 void GameMaster::Run()
