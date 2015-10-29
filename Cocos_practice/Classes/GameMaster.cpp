@@ -1,9 +1,7 @@
 #include "pch.h"
 #include "GameMaster.h"
-#include "PlayerData.h"
 
 GameMaster* GameMaster::inst = NULL;
-
 
 
 
@@ -26,7 +24,7 @@ void GameMaster::Phase_Harvest()
 	auto CharacterList = getCurrentPlayerData()->getCharacterList();
 	for (auto iter = CharacterList->begin(); iter != CharacterList->end(); ++iter)
 	{
-		if (iter->getCurrentTile()->getTypeOfTile() == TILE_RICH)
+		if ((*iter)->getCurrentTile()->getTypeOfTile() == TILE_RICH)
 			getCurrentPlayerData()->addFood(1);
 	}
 }
@@ -36,18 +34,42 @@ void GameMaster::Phase_Occupy()
 	auto CharacterList = getCurrentPlayerData()->getCharacterList();
 	for (auto iter = CharacterList->begin(); iter != CharacterList->end(); ++iter)
 	{
-		if (iter->getCurrentTile()->getOwnerPlayer() == getCurrentPlayer())
+		if ((*iter)->getCurrentTile()->getOwnerPlayer() == getCurrentPlayer())
 		{
-			giveTileToPlayer(iter->getCurrentTile(), getCurrentPlayer());
+			giveTileToPlayer((*iter)->getCurrentTile(), getCurrentPlayer());
 		}
 	}
 }
 
 
-void GameMaster::giveTileToPlayer(Self_Tile* targetTile, PlayerInfo pInfo)
+void GameMaster::Phase_Volcano()
 {
-	
-	targetTile->setOwnerPlayer(pInfo);
+	switch (_progressVolcano)
+	{
+	case 0:
+		if (random(1, 5) == 1)//5분의 1 확률로 이벤트 발생
+		{
+			_isVolcanoActivated = true;
+			_progressVolcano = 1;
+		}
+		break;
+	case 1:
+		
+		break;
+	case 2:
+		break;
+	case 3:
+		break;
+	case 4:
+		break;
+	case 5:
+		break;
+	}
+}
+void GameMaster::ChangeRichToLava(Self_Tile* target)
+{
+	target->changeTile(TILE_LAVA);
+	killCharacter(target->getCharacterOnThisTile());
 }
 
 void GameMaster::InitializeGame()
@@ -92,6 +114,26 @@ void GameMaster::ChangePlayer()
 		Beep(1000, 1000);
 		Director::getInstance()->end();
 	}
+}
+
+void GameMaster::giveTileToPlayer(Self_Tile* targetTile, PlayerInfo pInfo)
+{
+	targetTile->setOwnerPlayer(pInfo);
+}
+
+void GameMaster::killCharacter(Character* target)
+{
+	auto CharacterList = getCurrentPlayerData()->getCharacterList();
+	for (auto iter = CharacterList->begin(); iter != CharacterList->end(); ++iter)
+	{
+		if (*iter == target)
+		{
+			CharacterList->erase(iter);
+		}
+	}
+	target->killCharacter();
+	
+	
 }
 
 GameMaster::GameMaster()

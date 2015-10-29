@@ -1,8 +1,9 @@
 #ifndef Game_h__
 #define Game_h__
 
-#include "PlayerData.h"
 #include "TileMap.h"
+#include "PlayerData.h"
+#include "Character.h"
 
 
 enum PlayerInfo{
@@ -61,9 +62,14 @@ public:
 	}
 
 	void ChangePlayer();
+	bool getIsVolcanoActivated(){	return _isVolcanoActivated;	}
+	char getProgressVolcano(){ return _progressVolcano; }
+	bool getIsMouseLocked(){ return _isMouseLocked; }
 
 private:
+	char _progressVolcano = 0;
 	static GameMaster *inst;
+	bool _isMouseLocked = true;
 
 	TileMap* tileMap;
 	static const int numOfPlayer = 2;
@@ -76,6 +82,9 @@ private:
 	{
 		nodes->addChild(targetNode);
 	}
+	bool _isVolcanoActivated = false;
+
+	void ChangeRichToLava(Self_Tile* target);
 
 	void Run();
 
@@ -85,6 +94,8 @@ private:
 	void Phase_Action();
 	void Phase_Pasteur();
 	void giveTileToPlayer(Self_Tile* targetTile, PlayerInfo pInfo);
+
+	void killCharacter(Character* target);
 
 };
 

@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "TileMap.h"
+#include "Character.h"
 
 TileMap* TileMap::inst = NULL;
 TileKind TileMap::_MapData[9][8] = {
@@ -46,7 +47,7 @@ bool TileMap::create()
 			}
 			
 			_TileSet[i][j]->setZOrder(-1 * _TileSet[i][j]->getPositionY());
-			_TileSet[i][j]->setAnchorPoint(Point(0, 0));
+			
 
 			inst->addChild(_TileSet[i][j]);
 			//this->setAnchorPoint(Point(0.5, 0.0));
@@ -54,6 +55,21 @@ bool TileMap::create()
 	}
 
 	return true;
+}
+
+void TileMap::setCharacterOnTile(Character* character, Self_Tile* tile)
+{
+	float xPos = tile->getPositionX();
+	float yPos = tile->getPositionY();
+	character->setPosition(xPos, yPos);
+	inst->addChild(character);
+}
+
+void TileMap::MoveCharacterTo(Character* character, Self_Tile* tile)
+{
+	float xPos = tile->getPositionX();
+	float yPos = tile->getPositionY();
+	character->setPosition(xPos, yPos);
 }
 
 TileMap::TileMap()
