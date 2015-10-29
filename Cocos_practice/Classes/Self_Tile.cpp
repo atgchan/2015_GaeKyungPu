@@ -57,12 +57,12 @@ void Self_Tile::changeTile(TileKind type)
 	this->setAnchorPoint(Vec2(0, 0));
 }
 
-Character* Self_Tile::getCharacterOnThisTile(Self_Tile* tile)
+Character* Self_Tile::getCharacterOnThisTile()
 {
-	return tile->characterOnThisTile;
+	return characterOnThisTile;
 }
 
-Character* Self_Tile::setCharacterOnThisTile(Self_Tile* tile, Character* character)
+Character* Self_Tile::setCharacterOnThisTile(Character* character)
 {
-	tile->characterOnThisTile = character;
+	this->characterOnThisTile = character;
 }

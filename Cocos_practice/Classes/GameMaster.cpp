@@ -84,6 +84,10 @@ void GameMaster::InitializeGame()
 	tileMap = TileMap::getInstance();
 	tileMap->create();
 	this->addChild(tileMap);
+	for (int i = 0; i < numOfPlayer; ++i)
+	{
+		playerData[numOfPlayer] = PlayerData::create();
+	}
 }
 
 void GameMaster::mouseDownDispatcher(EventMouse *event)
@@ -137,7 +141,7 @@ void GameMaster::killCharacter(Character* target)
 	auto CharacterList = getCurrentPlayerData()->getCharacterList();
 	for (auto iter = CharacterList->begin(); iter != CharacterList->end(); ++iter)
 	{
-		if (*iter == target)
+		if ( (*iter) == target )
 		{
 			CharacterList->erase(iter);
 		}

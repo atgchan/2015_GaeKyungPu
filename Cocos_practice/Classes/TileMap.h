@@ -29,7 +29,7 @@ public:
 
 	void setCharacterOnTile(Character* character, Self_Tile* tile);
 	void MoveCharacterTo(Character* character, Self_Tile* tile);
-
+	void killCharacter(Character* target);
 };
 
 #endif
