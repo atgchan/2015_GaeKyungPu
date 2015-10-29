@@ -14,6 +14,7 @@ class Character : public cocos2d::Sprite
 public:
 	static Character* create(PlayerInfo currentPlayerInfo);
 	void setRotate();
+	bool isOnTile(TileKind);
 private:
 	//getter, setter neeeeeeed
 	CharacterAngle currentAngle;
