@@ -13,7 +13,7 @@ public:
 	void	setFood(int _food);
 	void	addFood(int num);
 
-	std::list<Character*> getCharacterList();
+	std::list<Character*>* getCharacterList();
 	void	addCharacter(Character* character);
 	void	removeCharacter(Character* character);
 	
@@ -21,6 +21,6 @@ public:
 
 private:
 	int		food;
-	std::list<Character*> characterList;
+	std::list<Character*>* characterList;
 };
 #endif // PlayerData_h__
