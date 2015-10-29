@@ -30,6 +30,7 @@ public:
 	void setOwnerPlayer(PlayerInfo pInfo);
 
 	CC_SYNTHESIZE(TileKind, _typeOfTile, TypeOfTile);
+	
 	Self_Tile();
 	~Self_Tile();
 

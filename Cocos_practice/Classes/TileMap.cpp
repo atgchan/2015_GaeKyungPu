@@ -47,7 +47,7 @@ bool TileMap::create()
 			}
 			
 			_TileSet[i][j]->setZOrder(-1 * _TileSet[i][j]->getPositionY());
-			_TileSet[i][j]->setAnchorPoint(Point(0, 0));
+			
 
 			inst->addChild(_TileSet[i][j]);
 			//this->setAnchorPoint(Point(0.5, 0.0));
