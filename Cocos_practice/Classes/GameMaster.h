@@ -84,7 +84,7 @@ private:
 	void Phase_Volcano();
 	void Phase_Action();
 	void Phase_Pasteur();
-
+	void giveTileToPlayer(Self_Tile* targetTile, PlayerInfo pInfo);
 
 };
 
