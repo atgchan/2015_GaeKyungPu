@@ -1,4 +1,7 @@
-#ifndef 
+#ifndef Character_h__
+#define Character_h__
+
+
 enum CharacterAngle{
 	ANGLE_DOWN_LEFT,
 	ANGLE_DOWN,
@@ -21,4 +24,4 @@ private:
 	CharacterAngle currentAngle;
 
 };
-#endif
+#endif // Character_h__
