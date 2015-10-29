@@ -26,7 +26,7 @@ void GameMaster::Phase_Harvest()
 	auto CharacterList = getCurrentPlayerData()->getCharacterList();
 	for (auto iter = CharacterList->begin(); iter != CharacterList->end(); ++iter)
 	{
-		if (iter->getCurrentTile()->getTypeOfTile() == TILE_RICH)
+		if ((*iter)->getCurrentTile()->getTypeOfTile() == TILE_RICH)
 			getCurrentPlayerData()->addFood(1);
 	}
 }
@@ -36,9 +36,9 @@ void GameMaster::Phase_Occupy()
 	auto CharacterList = getCurrentPlayerData()->getCharacterList();
 	for (auto iter = CharacterList->begin(); iter != CharacterList->end(); ++iter)
 	{
-		if (iter->getCurrentTile()->getOwnerPlayer() == getCurrentPlayer())
+		if ((*iter)->getCurrentTile()->getOwnerPlayer() == getCurrentPlayer())
 		{
-			giveTileToPlayer(iter->getCurrentTile(), getCurrentPlayer());
+			giveTileToPlayer((*iter)->getCurrentTile(), getCurrentPlayer());
 		}
 	}
 }

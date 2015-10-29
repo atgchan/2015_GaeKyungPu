@@ -26,6 +26,10 @@ public:
 		return inst;
 	}
 	bool create();
+
+	void setCharacterOnTile(Character* character, Self_Tile* tile);
+	void MoveCharacterTo(Character* character, Self_Tile* tile);
+
 };
 
 #endif
