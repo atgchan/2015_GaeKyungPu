@@ -44,9 +44,9 @@ public:
 	bool isOnTile(TileKind tileTypeToCheck);
 
 private:
-	CC_SYNTHESIZE(CharacterAngle, currentAngle, currentAngle);
-	CC_SYNTHESIZE(Self_Tile*, currentTile, currentTile);
-	CC_SYNTHESIZE(PlayerInfo, currentPlayerInfo, currentPlayerInfo);
+	CC_SYNTHESIZE(CharacterAngle, CurrentAngle, CurrentAngle);
+	CC_SYNTHESIZE(Self_Tile*, CurrentTile, CurrentTile);
+	CC_SYNTHESIZE(PlayerInfo, CurrentPlayerInfo, CurrentPlayerInfo);
 
 };
 #endif // Character_h__

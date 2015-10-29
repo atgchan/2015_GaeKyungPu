@@ -21,8 +21,8 @@ Character* Character::create(PlayerInfo cPInfo)
 	if (sprite && (sprite->initWithFile(fileName)))
 	{
 		sprite->autorelease();
-		sprite->setcurrentPlayerInfo(cPInfo);
-		sprite->setcurrentAngle(ANGLE_DOWN_LEFT);
+		sprite->setCurrentPlayerInfo(cPInfo);
+		sprite->setCurrentAngle(ANGLE_DOWN_LEFT);
 		//기타 필요한거
 		return sprite;
 	}
@@ -32,7 +32,7 @@ Character* Character::create(PlayerInfo cPInfo)
 
 bool Character::isOnTile(TileKind tileTypeToCheck)
 {
-	if (currentTile->getTypeOfTile() == tileTypeToCheck)
+	if (this->getCurrentTile()->getTypeOfTile() == tileTypeToCheck)
 	{
 		return true;
 	}
@@ -42,16 +42,16 @@ bool Character::isOnTile(TileKind tileTypeToCheck)
 void Character::rotateToDirection(RotateDirection rotateDirection, Character* character)
 {
 	std::string fileName = std::string("Character/spear_");
-	if (character->getcurrentPlayerInfo() == PLAYER_RED)
+	if (character->getCurrentPlayerInfo() == PLAYER_RED)
 	{
 		fileName += std::string("red");
 	}
-	else if (character->getcurrentPlayerInfo() == PLAYER_BLUE)
+	else if (character->getCurrentPlayerInfo() == PLAYER_BLUE)
 	{
 		fileName += std::string("blue");
 	}
 
-	int cAngle = character->getcurrentAngle();
+	int cAngle = character->getCurrentAngle();
 	if (rotateDirection == ROTATE_LEFT)
 	{
 		if (cAngle == 5) cAngle = 0;
@@ -74,7 +74,7 @@ void Character::rotateToDirection(RotateDirection rotateDirection, Character* ch
 		fileName += std::string(ostr.str());
 		fileName += std::string(".png");
 	}
-	character->setcurrentAngle(CharacterAngle(cAngle));
+	character->setCurrentAngle(CharacterAngle(cAngle));
 
 	character->initWithFile(fileName);
 	character->setAnchorPoint(Point(0.5, 0.13));
