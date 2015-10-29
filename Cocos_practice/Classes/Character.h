@@ -12,7 +12,7 @@ enum CharacterAngle{
 class Character : public cocos2d::Sprite
 {
 public:
-	static Character* create(const std::string colorInfo);
+	static Character* create(PlayerInfo currentPlayerInfo);
 	void setRotate();
 private:
 	//getter, setter neeeeeeed
