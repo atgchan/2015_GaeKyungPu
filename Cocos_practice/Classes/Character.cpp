@@ -7,7 +7,7 @@ Character* Character::create(PlayerInfo currentPlayerInfo)
 {
 	Character* sprite = new Character();
 
-	if (sprite && (sprite->initWithFile(파일이름))
+	if (sprite && (sprite->initWithFile(파일이름)))
 	{
 		sprite->autorelease();
 		sprite->setOwnerCharacter(currentPlayerInfo);
