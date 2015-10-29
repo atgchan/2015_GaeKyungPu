@@ -26,18 +26,27 @@ void GameMaster::Phase_Harvest()
 	auto CharacterList = getCurrentPlayerData()->getCharacterList();
 	for (auto iter = CharacterList.begin(); iter != CharacterList.end(); ++iter)
 	{
-		if (iter->isOnTile(TILE_RICH))
+		if (iter->getCurrentTile()->getTypeOfTile() == TILE_RICH)
 			getCurrentPlayerData()->addFood(1);
 	}
 }
 
 void GameMaster::Phase_Occupy()
 {
-	auto allTile = TileMap::getInstance()->getChildren();
-	for (auto iter = allTile.begin(); iter != allTile.end(); ++iter)
+	auto CharacterList = getCurrentPlayerData()->getCharacterList();
+	for (auto iter = CharacterList.begin(); iter != CharacterList.end(); ++iter)
 	{
-
+		if (iter->getCurrentTile()->getOwnerPlayer == getCurrentPlayer())
+		{
+			giveTileToPlayer(iter->getCurrentTile(), getCurrentPlayer());
+		}
 	}
+}
+
+
+void GameMaster::giveTileToPlayer(Self_Tile, PlayerInfo)
+{
+
 }
 
 void GameMaster::InitializeGame()
