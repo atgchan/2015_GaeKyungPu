@@ -1,16 +1,11 @@
 #include "pch.h"
 #include "GameMaster.h"
-#include "PlayerData.h"
 
 GameMaster* GameMaster::inst = NULL;
 
 
 
 
-void GameMaster::ChangeRichToLava(Self_Tile* target)
-{
-
-}
 
 void GameMaster::Run()
 {
@@ -73,7 +68,11 @@ void GameMaster::Phase_Volcano()
 		break;
 	}
 }
-
+void GameMaster::ChangeRichToLava(Self_Tile* target)
+{
+	target->changeTile(TILE_LAVA);
+	killCharacter(target->getCharacterOnThisTile());
+}
 
 void GameMaster::InitializeGame()
 {
@@ -122,6 +121,21 @@ void GameMaster::ChangePlayer()
 void GameMaster::giveTileToPlayer(Self_Tile* targetTile, PlayerInfo pInfo)
 {
 	targetTile->setOwnerPlayer(pInfo);
+}
+
+void GameMaster::killCharacter(Character* target)
+{
+	auto CharacterList = getCurrentPlayerData()->getCharacterList();
+	for (auto iter = CharacterList->begin(); iter != CharacterList->end(); ++iter)
+	{
+		if (*iter == target)
+		{
+			CharacterList->erase(iter);
+		}
+	}
+	target->killCharacter();
+	
+	
 }
 
 GameMaster::GameMaster()

@@ -1,8 +1,9 @@
 #ifndef Game_h__
 #define Game_h__
 
-#include "PlayerData.h"
 #include "TileMap.h"
+#include "PlayerData.h"
+#include "Character.h"
 
 
 enum PlayerInfo{
@@ -93,6 +94,8 @@ private:
 	void Phase_Action();
 	void Phase_Pasteur();
 	void giveTileToPlayer(Self_Tile* targetTile, PlayerInfo pInfo);
+
+	void killCharacter(Character* target);
 
 };
 
