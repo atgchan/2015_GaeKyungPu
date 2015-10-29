@@ -66,6 +66,9 @@ public:
 	char getProgressVolcano(){ return _progressVolcano; }
 	bool getIsMouseLocked(){ return _isMouseLocked; }
 
+	void scheduleCallback(float delta);
+
+
 private:
 	char _progressVolcano = 0;
 	static GameMaster *inst;

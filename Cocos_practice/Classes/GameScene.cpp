@@ -32,5 +32,7 @@ bool GameScene::init()
 	clickListener->onMouseDown = CC_CALLBACK_1(GameMaster::mouseDownDispatcher, gmInstance);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(clickListener, this);
 
+	//tick을 넘겨본다.
+	this->schedule(schedule_selector(gmInstance->scheduleCallback),1.0,CC_REPEAT_FOREVER,3);
 	return true;
 }

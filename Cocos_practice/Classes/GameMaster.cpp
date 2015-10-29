@@ -66,6 +66,12 @@ void GameMaster::Phase_Volcano()
 		break;
 	}
 }
+
+void GameMaster::Phase_Action()
+{
+
+}
+
 void GameMaster::ChangeRichToLava(Self_Tile* target)
 {
 	target->changeTile(TILE_LAVA);
@@ -114,6 +120,11 @@ void GameMaster::ChangePlayer()
 		Beep(1000, 1000);
 		Director::getInstance()->end();
 	}
+}
+
+void GameMaster::scheduleCallback(float delta)
+{
+
 }
 
 void GameMaster::giveTileToPlayer(Self_Tile* targetTile, PlayerInfo pInfo)
