@@ -1,3 +1,4 @@
+#ifndef 
 enum CharacterAngle{
 	ANGLE_DOWN_LEFT,
 	ANGLE_DOWN,
@@ -20,3 +21,4 @@ private:
 	CharacterAngle currentAngle;
 
 };
+#endif
