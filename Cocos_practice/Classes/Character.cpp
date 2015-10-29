@@ -50,7 +50,7 @@ void Character::rotateToDirection(RotateDirection rotateDirection, Character* ch
 	{
 		fileName += std::string("blue");
 	}
-
+	
 	int cAngle = character->getcurrentAngle();
 	if (rotateDirection == ROTATE_LEFT)
 	{
