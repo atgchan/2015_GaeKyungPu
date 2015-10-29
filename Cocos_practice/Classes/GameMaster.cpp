@@ -24,7 +24,7 @@ void GameMaster::Phase_Harvest()
 
 	//만약 옥토 타일 위에 턴주의 병사가 있다면 해당 병사 한명당 식량 1 ++해야함.
 	auto CharacterList = getCurrentPlayerData()->getCharacterList();
-	for (auto iter = CharacterList.begin(); iter != CharacterList.end(); ++iter)
+	for (auto iter = CharacterList->begin(); iter != CharacterList->end(); ++iter)
 	{
 		if (iter->getCurrentTile()->getTypeOfTile() == TILE_RICH)
 			getCurrentPlayerData()->addFood(1);
@@ -34,9 +34,9 @@ void GameMaster::Phase_Harvest()
 void GameMaster::Phase_Occupy()
 {
 	auto CharacterList = getCurrentPlayerData()->getCharacterList();
-	for (auto iter = CharacterList.begin(); iter != CharacterList.end(); ++iter)
+	for (auto iter = CharacterList->begin(); iter != CharacterList->end(); ++iter)
 	{
-		if (iter->getCurrentTile()->getOwnerPlayer == getCurrentPlayer())
+		if (iter->getCurrentTile()->getOwnerPlayer() == getCurrentPlayer())
 		{
 			giveTileToPlayer(iter->getCurrentTile(), getCurrentPlayer());
 		}
@@ -44,9 +44,10 @@ void GameMaster::Phase_Occupy()
 }
 
 
-void GameMaster::giveTileToPlayer(Self_Tile, PlayerInfo)
+void GameMaster::giveTileToPlayer(Self_Tile* targetTile, PlayerInfo pInfo)
 {
-
+	
+	targetTile->setOwnerPlayer(pInfo);
 }
 
 void GameMaster::InitializeGame()
