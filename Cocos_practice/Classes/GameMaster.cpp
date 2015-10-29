@@ -23,7 +23,7 @@ void GameMaster::Phase_Harvest()
 	getCurrentPlayerData()->setFood(1);
 
 	//만약 옥토 타일 위에 턴주의 병사가 있다면 해당 병사 한명당 식량 1 ++해야함.
-	auto CharacterList = getCurrentPlayerData->getCharacterList();
+	auto CharacterList = getCurrentPlayerData()->getCharacterList();
 	for (auto iter = CharacterList.begin(); iter != CharacterList.end(); ++iter)
 	{
 		if (iter->isOnTile(TILE_RICH))
