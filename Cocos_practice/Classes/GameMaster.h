@@ -53,18 +53,33 @@ public:
 
 	PlayerData* getCurrentPlayer();
 
+	void ChangePlayer();
+
 private:
+	static GameMaster *inst;
+
 	TileMap* tileMap;
 	static const int numOfPlayer = 2;
-	PlayerData playerData[numOfPlayer];
+	PlayerData *playerData[numOfPlayer];
 	PlayerInfo currentPlayer = PLAYER_RED;
-	static GameMaster *inst;
+	PlayerData* getCurrentPlayerData = NULL;
+
 	bool isGameInitialized = false;
 	Node* const nodes = Node::create();
 	void addChild(Node* targetNode)
 	{
 		nodes->addChild(targetNode);
 	}
+
+	void Run();
+
+	void Phase_Harvest();
+	void Phase_Occupy();
+	void Phase_Volcano();
+	void Phase_Action();
+	void Phase_Pasteur();
+
+
 };
 
 #endif // Game_h__
