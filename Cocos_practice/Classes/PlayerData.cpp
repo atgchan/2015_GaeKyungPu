@@ -1,7 +1,6 @@
 #include "pch.h"
-#include "PlayerData.h"
-#include "Character.h"
 #include <list>
+#include "PlayerData.h"
 
 PlayerData* PlayerData::create()
 {

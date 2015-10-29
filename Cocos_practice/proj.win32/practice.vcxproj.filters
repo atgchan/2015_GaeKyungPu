@@ -51,6 +51,7 @@
     <ClInclude Include="..\Classes\GameMaster.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\definition.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc" />

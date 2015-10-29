@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "GameMaster.h"
+#include "definition.h"
 #include "Character.h"
 
 

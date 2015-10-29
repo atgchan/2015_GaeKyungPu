@@ -1,4 +1,8 @@
 #include "pch.h"
+#include "definition.h"
+#include "PlayerData.h"
+#include "Character.h"
+#include "TileMap.h"
 #include "GameMaster.h"
 
 GameMaster* GameMaster::inst = NULL;
@@ -111,6 +115,11 @@ void GameMaster::mouseDownDispatcher(EventMouse *event)
 	}
 	Beep(frequency, 200);
 //테스트코드 끝
+}
+
+PlayerData* GameMaster::getCurrentPlayerData()
+{
+	return playerData[currentPlayer];
 }
 
 void GameMaster::ChangePlayer()

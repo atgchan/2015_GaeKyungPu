@@ -1,6 +1,6 @@
 #include "pch.h"
-#include "AppDelegate.h"
 #include "MainScene.h"
+#include "AppDelegate.h"
 USING_NS_CC;
 
 AppDelegate::AppDelegate() {

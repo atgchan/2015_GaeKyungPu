@@ -1,6 +1,6 @@
 #include "pch.h"
-#include "MainScene.h"
 #include "GameScene.h"
+#include "MainScene.h"
 
 Scene* MainScene::createScene()
 {

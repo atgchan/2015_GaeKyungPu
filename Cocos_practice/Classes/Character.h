@@ -1,3 +1,4 @@
+#pragma once
 #ifndef Character_h__
 #define Character_h__
 

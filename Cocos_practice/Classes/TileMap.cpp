@@ -1,6 +1,8 @@
 #include "pch.h"
-#include "TileMap.h"
+#include "definition.h"
+#include "Self_Tile.h"
 #include "Character.h"
+#include "TileMap.h"
 
 TileMap* TileMap::inst = NULL;
 TileKind TileMap::_MapData[9][8] = {

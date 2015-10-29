@@ -1,16 +1,10 @@
+#pragma once
 #ifndef Game_h__
 #define Game_h__
 
-#include "TileMap.h"
-#include "PlayerData.h"
-#include "Character.h"
 
 
-enum PlayerInfo{
-	PLAYER_RED,
-	PLAYER_BLUE,
-	PLAYER_ERR = -1
-};
+
 
 //½Ì±ÛÅæÀ¸·Î ±¸Çö
 class GameMaster
@@ -52,10 +46,8 @@ public:
 	*/
 	Node* getNodes(){ return nodes; }
 
-	PlayerData* getCurrentPlayerData()
-	{
-		return playerData[currentPlayer];
-	}
+	PlayerData* getCurrentPlayerData();
+	
 	PlayerInfo getCurrentPlayer()
 	{
 		return currentPlayer;
