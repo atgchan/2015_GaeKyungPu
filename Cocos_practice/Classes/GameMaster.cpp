@@ -27,7 +27,7 @@ void GameMaster::Phase_Harvest()
 	for (auto iter = VecCharacter.begin(); iter != VecCharacter.end(); ++iter)
 	{
 		if (iter->isOnTile(TILE_RICH))
-			getCurrentPlayerData->addFood(1);
+			getCurrentPlayerData()->addFood(1);
 	}
 }
 

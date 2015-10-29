@@ -51,7 +51,14 @@ public:
 	*/
 	Node* getNodes(){ return nodes; }
 
-	PlayerData* getCurrentPlayer();
+	PlayerData* getCurrentPlayerData()
+	{
+		return playerData[currentPlayer];
+	}
+	PlayerInfo getCurrentPlayer()
+	{
+		return currentPlayer;
+	}
 
 	void ChangePlayer();
 
@@ -62,7 +69,6 @@ private:
 	static const int numOfPlayer = 2;
 	PlayerData *playerData[numOfPlayer];
 	PlayerInfo currentPlayer = PLAYER_RED;
-	PlayerData* getCurrentPlayerData = NULL;
 
 	bool isGameInitialized = false;
 	Node* const nodes = Node::create();
