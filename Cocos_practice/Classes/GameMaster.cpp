@@ -95,6 +95,9 @@ void GameMaster::mouseDownDispatcher(cocos2d::EventMouse *event)
 {
 //이하 입력이 제대로 들어오는지 확인하기 위한 테스트코드.
 	//입력이 제대로 들어왔다면 마우스 버튼따라서 도레미가 나온다.
+	if (currentPhase != PHASE_ACTION)
+		return;
+
 	int frequency = 0;
 	switch (event->getMouseButton())
 	{
@@ -146,6 +149,7 @@ void GameMaster::scheduleCallback(float delta)
 		Phase_Volcano();
 		break;
 	case PHASE_ACTION:
+		Beep(currentPlayer*1000, 30);
 		break;
 	case PHASE_PASTEUR:
 		Phase_Pasteur();
