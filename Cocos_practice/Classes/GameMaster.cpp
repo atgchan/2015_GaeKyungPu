@@ -149,7 +149,7 @@ void GameMaster::scheduleCallback(float delta)
 		Phase_Volcano();
 		break;
 	case PHASE_ACTION:
-		Beep(currentPlayer*1000, 30);
+		Beep((currentPlayer+1)*1000, 30);
 		break;
 	case PHASE_PASTEUR:
 		Phase_Pasteur();
