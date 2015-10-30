@@ -1,5 +1,15 @@
 #pragma once
 USING_NS_CC;
+
+enum PhaseInfo{
+	PHASE_HARVEST,
+	PHASE_OCCUPY,
+	PHASE_VOLCANO,
+	PHASE_ACTION,
+	PHASE_PASTEUR,
+	PHASE_ERR
+};
+
 enum PlayerInfo{
 	PLAYER_RED,
 	PLAYER_BLUE,

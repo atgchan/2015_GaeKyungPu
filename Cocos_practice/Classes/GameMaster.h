@@ -63,13 +63,14 @@ public:
 
 
 private:
+	enum {NUM_OF_PLAYER = 2};
 	char _progressVolcano = 0;
 	static GameMaster *inst;
 	bool _isMouseLocked = true;
 
 	TileMap* tileMap;
-	static const int numOfPlayer = 2;
-	PlayerData *playerData[numOfPlayer];
+	//static const int numOfPlayer=2;
+	PlayerData *playerData[NUM_OF_PLAYER];
 	PlayerInfo currentPlayer = PLAYER_RED;
 
 	bool isGameInitialized = false;
@@ -82,7 +83,6 @@ private:
 
 	void ChangeRichToLava(Self_Tile* target);
 
-	void Run();
 
 	void Phase_Harvest();
 	void Phase_Occupy();
@@ -92,7 +92,7 @@ private:
 	void giveTileToPlayer(Self_Tile* targetTile, PlayerInfo pInfo);
 
 	void killCharacter(Character* target);
-
+	PhaseInfo currentPhase = PHASE_HARVEST;
 };
 
 #endif // Game_h__

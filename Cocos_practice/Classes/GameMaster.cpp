@@ -7,16 +7,6 @@ GameMaster* GameMaster::inst = NULL;
 
 
 
-void GameMaster::Run()
-{
-	this->Phase_Harvest();
-	this->Phase_Occupy();
-	this->Phase_Volcano();
-	this->Phase_Action();
-	this->Phase_Pasteur();
-
-	this->ChangePlayer();
-}
 
 void GameMaster::Phase_Harvest()
 {
@@ -29,6 +19,7 @@ void GameMaster::Phase_Harvest()
 		if ((*iter)->getCurrentTile()->getTypeOfTile() == TILE_RICH)
 			getCurrentPlayerData()->addFood(1);
 	}
+	currentPhase = PHASE_OCCUPY;
 }
 
 void GameMaster::Phase_Occupy()
@@ -41,6 +32,7 @@ void GameMaster::Phase_Occupy()
 			giveTileToPlayer((*iter)->getCurrentTile(), getCurrentPlayer());
 		}
 	}
+	currentPhase = PHASE_VOLCANO;
 }
 
 
@@ -67,6 +59,7 @@ void GameMaster::Phase_Volcano()
 	case 5:
 		break;
 	}
+	currentPhase = PHASE_ACTION;
 }
 
 void GameMaster::Phase_Action()
@@ -76,7 +69,8 @@ void GameMaster::Phase_Action()
 
 void GameMaster::Phase_Pasteur()
 {
-
+	currentPhase = PHASE_HARVEST;
+	ChangePlayer();
 }
 
 void GameMaster::ChangeRichToLava(Self_Tile* target)
@@ -91,9 +85,9 @@ void GameMaster::InitializeGame()
 	tileMap = TileMap::getInstance();
 	tileMap->create();
 	this->addChild(tileMap);
-	for (int i = 0; i < numOfPlayer; ++i)
+	for (int i = 0; i < NUM_OF_PLAYER; ++i)
 	{
-		playerData[numOfPlayer] = PlayerData::create();
+		playerData[i] = PlayerData::create();
 	}
 }
 
@@ -140,7 +134,29 @@ void GameMaster::ChangePlayer()
 
 void GameMaster::scheduleCallback(float delta)
 {
-
+	switch (currentPhase)
+	{
+	case PHASE_HARVEST:
+		Phase_Harvest();
+		break;
+	case PHASE_OCCUPY:
+		Phase_Occupy();
+		break;
+	case PHASE_VOLCANO:
+		Phase_Volcano();
+		break;
+	case PHASE_ACTION:
+		break;
+	case PHASE_PASTEUR:
+		Phase_Pasteur();
+		break;
+	case PHASE_ERR:
+		Beep(1000, 300);
+		Director::getInstance()->end();
+		break;
+	default:
+		break;
+	}
 }
 
 void GameMaster::giveTileToPlayer(Self_Tile* targetTile, PlayerInfo pInfo)
