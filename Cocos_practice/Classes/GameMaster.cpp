@@ -1,9 +1,7 @@
 #include "pch.h"
-#include "definition.h"
-#include "PlayerData.h"
-#include "Character.h"
-#include "TileMap.h"
 #include "GameMaster.h"
+
+USING_NS_CC;
 
 GameMaster* GameMaster::inst = NULL;
 
@@ -51,7 +49,7 @@ void GameMaster::Phase_Volcano()
 	switch (_progressVolcano)
 	{
 	case 0:
-		if (random(1, 5) == 1)//5분의 1 확률로 이벤트 발생
+		if (cocos2d::random(1, 5) == 1)//5분의 1 확률로 이벤트 발생
 		{
 			_isVolcanoActivated = true;
 			_progressVolcano = 1;
@@ -76,6 +74,11 @@ void GameMaster::Phase_Action()
 
 }
 
+void GameMaster::Phase_Pasteur()
+{
+
+}
+
 void GameMaster::ChangeRichToLava(Self_Tile* target)
 {
 	target->changeTile(TILE_LAVA);
@@ -94,7 +97,7 @@ void GameMaster::InitializeGame()
 	}
 }
 
-void GameMaster::mouseDownDispatcher(EventMouse *event)
+void GameMaster::mouseDownDispatcher(cocos2d::EventMouse *event)
 {
 //이하 입력이 제대로 들어오는지 확인하기 위한 테스트코드.
 	//입력이 제대로 들어왔다면 마우스 버튼따라서 도레미가 나온다.

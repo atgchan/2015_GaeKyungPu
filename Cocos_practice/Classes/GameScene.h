@@ -15,6 +15,7 @@ public:
 	//Layer를 상속받은 클래스가 생성될 때 생성자 메소드 다음으로 가장 먼저 호출되는 메소드
     virtual bool init();
 
+	void scheduleCallback(float delta);
 	//해당 클래스를 생성할 때 new 명령어가 아닌 코코스2d-x에서 제공하는 create()메소드를 사용할 수 있게 해주는 전역 메소드(매크로?)
 	CREATE_FUNC(GameScene);
 };

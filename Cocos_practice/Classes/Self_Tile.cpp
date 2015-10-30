@@ -61,7 +61,7 @@ Character* Self_Tile::getCharacterOnThisTile()
 	return characterOnThisTile;
 }
 
-Character* Self_Tile::setCharacterOnThisTile(Character* character)
+void Self_Tile::setCharacterOnThisTile(Character* character)
 {
 	this->characterOnThisTile = character;
 }

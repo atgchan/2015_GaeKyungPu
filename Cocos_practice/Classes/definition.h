@@ -1,9 +1,11 @@
 #pragma once
+USING_NS_CC;
 enum PlayerInfo{
 	PLAYER_RED,
 	PLAYER_BLUE,
 	PLAYER_ERR = -1
 };
+
 enum TileKind {
 	TILE_NULL,
 	TILE_PLAIN,

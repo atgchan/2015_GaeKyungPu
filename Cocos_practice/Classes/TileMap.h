@@ -2,6 +2,10 @@
 #define __TILE_MAP_H_
 USING_NS_CC;
 
+#include "definition.h"
+#include "Self_Tile.h"
+#include "Character.h"
+
 class TileMap : public Layer
 {
 private:

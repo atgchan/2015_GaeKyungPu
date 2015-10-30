@@ -20,7 +20,7 @@ public:
 	PlayerInfo getOwnerPlayer(){ return ownerPlayer; }
 	void changeTile(TileKind type);
 	Character* getCharacterOnThisTile();
-	Character* setCharacterOnThisTile(Character* character);
+	void setCharacterOnThisTile(Character* character);
 
 	CC_SYNTHESIZE(TileKind, _typeOfTile, TypeOfTile);
 	

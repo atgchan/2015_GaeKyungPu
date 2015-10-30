@@ -2,9 +2,10 @@
 #ifndef Game_h__
 #define Game_h__
 
+#include "definition.h"
+#include "PlayerData.h"
 
-
-
+#include "TileMap.h"
 
 //싱글톤으로 구현
 class GameMaster
@@ -25,7 +26,7 @@ public:
 	@author		노석민
 	@brief		mouse버튼 이벤트 리스너에 걸어둘 수 있는 2차 디스패쳐입니다.
 	*/
-	void mouseDownDispatcher(EventMouse *event);
+	void mouseDownDispatcher(cocos2d::EventMouse *event);
 	/**
 	@date		2015/10/29
 	@author		노석민
