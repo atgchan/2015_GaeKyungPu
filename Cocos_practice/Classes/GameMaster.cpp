@@ -122,14 +122,16 @@ void GameMaster::mouseDownDispatcher(cocos2d::EventMouse *event)
 
 				if (tile->getCharacterOnThisTile() != nullptr)
 				{
-					frequency = 1000;
 					Character* target = tile->getCharacterOnThisTile();
 					target->rotateToDirection(ROTATE_LEFT, target);
+					frequency = 1000;
 				}
 				if (tile->getCharacterOnThisTile() == nullptr)
 				{
 					tile->setCharacterOnThisTile(sprite);
 					TileMap::getInstance()->setCharacterOnTile(sprite, tile);
+					playerData[getCurrentPlayer()]->addCharacter(sprite);
+					sprite->setCurrentTile(tile);
 					frequency = 262;
 				}
 			}
@@ -157,6 +159,24 @@ void GameMaster::mouseDownDispatcher(cocos2d::EventMouse *event)
 		break;
 
 	case MOUSE_BUTTON_MIDDLE:
+		for (auto iter = children.begin(); iter != children.end(); ++iter)
+		{
+			if ((*iter)->getBoundingBox().containsPoint(Vec2(xPos, yPos)))
+			{
+				Self_Tile* tile = dynamic_cast<Self_Tile*> (*iter);
+				if (!tile)
+					break;
+
+				if (tile->getCharacterOnThisTile() != nullptr)
+				{
+					Character* target = tile->getCharacterOnThisTile();
+					TileMap::getInstance()->removeChild(target);
+					tile->setCharacterOnThisTile(nullptr);
+					children.erase(iter);
+					return;
+				}
+			}
+		}
 		frequency = 294;
 		break;
 
@@ -238,8 +258,6 @@ void GameMaster::killCharacter(Character* target)
 		}
 	}
 	TileMap::getInstance()->killCharacter(target);
-	
-	
 }
 
 PlayerInfo GameMaster::getCurrentPlayer()
@@ -250,6 +268,18 @@ PlayerInfo GameMaster::getCurrentPlayer()
 void GameMaster::addChild(Node* targetNode)
 {
 	nodes->addChild(targetNode);
+}
+
+void GameMaster::toggleTurn(Object* pSender)
+{
+	if (currentPhase != PHASE_ACTION)
+		return;
+
+	ChangePlayer();
+	Beep(262, 300);
+	Beep(294, 300);
+	Beep(330, 300);
+	currentPhase = PHASE_PASTEUR;
 }
 
 GameMaster::GameMaster()

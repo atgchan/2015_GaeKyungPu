@@ -56,6 +56,7 @@ public:
 	bool getIsMouseLocked(){ return _isMouseLocked; }
 
 	void scheduleCallback(float delta);
+	void toggleTurn(Object* pSender);
 
 private:
 	enum { NUM_OF_PLAYER = 2 };

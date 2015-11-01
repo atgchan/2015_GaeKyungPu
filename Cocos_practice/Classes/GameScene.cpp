@@ -24,16 +24,16 @@ bool GameScene::init()
 	this->addChild(gmInstance->getNodes());
 //초기화 block 끝
 
-	//Size visibleSize = Director::getInstance()->getVisibleSize();
-	//Vec2 origin = Director::getInstance()->getVisibleOrigin();
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	//auto toggleButton = Label::createWithTTF("toggleTurn", "fonts/Marker Felt.ttf", 24);
-	//auto menu_toggle = MenuItemLabel::create(toggleButton, CC_CALLBACK_1(GameMaster::ChangePlayer, gmInstance));
-	//menu_toggle->setPosition(Vec2(visibleSize.width*4/5, visibleSize.height*1/5));
-	//
-	//auto mainMenu = Menu::create(menu_toggle);
-	//mainMenu->setPosition(Vec2::ZERO);
-	//this->addChild(menu_toggle);
+	auto toggleButton = Label::createWithTTF("toggleTurn", "fonts/Marker Felt.ttf", 24);
+	auto menu_toggle = MenuItemLabel::create(toggleButton, CC_CALLBACK_1(GameMaster::toggleTurn, gmInstance));
+	menu_toggle->setPosition(Vec2(visibleSize.width * 4 / 5, visibleSize.height * 1 / 5));
+
+	auto mainMenu = Menu::create(menu_toggle, NULL);
+	mainMenu->setPosition(Vec2::ZERO);
+	this->addChild(mainMenu);
 
 //	Mouse Event
 	auto clickListener = EventListenerMouse::create();
