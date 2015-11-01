@@ -15,7 +15,7 @@ std::string Self_Tile::DictionaryForFilenames[10] = {
 	"Map/tile_volcano.png"
 };
 
-Self_Tile::Self_Tile()
+Self_Tile::Self_Tile() 
 {
 
 }
@@ -33,6 +33,7 @@ Self_Tile* Self_Tile::create(TileKind type)
 	{
 		sprite->autorelease();
 		sprite->setTypeOfTile(type);
+		sprite->setCharacterOnThisTile(nullptr);
 		sprite->setAnchorPoint(cocos2d::Vec2(0, 0));
 		return sprite;
 	}

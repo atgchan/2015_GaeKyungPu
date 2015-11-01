@@ -61,7 +61,7 @@ void TileMap::setCharacterOnTile(Character* character, Self_Tile* tile)
 	float xPos = tile->getPositionX();
 	float yPos = tile->getPositionY();
 	//수정소요 ㅇㅇ
-	character->setPosition(xPos, yPos);
+	character->setPosition(xPos +80, yPos +60);
 	this->addChild(character);
 }
 

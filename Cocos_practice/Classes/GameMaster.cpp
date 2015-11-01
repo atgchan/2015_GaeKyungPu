@@ -1,4 +1,5 @@
 #include "pch.h"
+#include <iostream>
 #include "GameMaster.h"
 
 USING_NS_CC;
@@ -99,17 +100,66 @@ void GameMaster::mouseDownDispatcher(cocos2d::EventMouse *event)
 		return;
 
 	int frequency = 0;
+
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+	float xPos = event->getCursorX();
+	float yPos = event->getCursorY() + visibleSize.height;
+	auto children = TileMap::getInstance()->getChildren();
+
+	auto sprite = Character::create(getCurrentPlayer());
+	sprite->setAnchorPoint(Vec2(0.5, 0.13));
+
 	switch (event->getMouseButton())
 	{
-	case 0:
-		frequency = 262;
+	case MOUSE_BUTTON_LEFT:
+		for (auto iter = children.begin(); iter != children.end(); ++iter)
+		{
+			if ((*iter)->getBoundingBox().containsPoint(Vec2(xPos, yPos)))
+			{
+				Self_Tile* tile = dynamic_cast<Self_Tile*> (*iter);
+				if (!tile)
+					break;
+
+				if (tile->getCharacterOnThisTile() != nullptr)
+				{
+					frequency = 1000;
+					Character* target = tile->getCharacterOnThisTile();
+					target->rotateToDirection(ROTATE_LEFT, target);
+				}
+				if (tile->getCharacterOnThisTile() == nullptr)
+				{
+					tile->setCharacterOnThisTile(sprite);
+					TileMap::getInstance()->setCharacterOnTile(sprite, tile);
+					frequency = 262;
+				}
+			}
+		}
 		break;
-	case 2:
-		frequency = 294;
-		break;
-	case 1:
+
+	case MOUSE_BUTTON_RIGHT:
+		for (auto iter = children.begin(); iter != children.end(); ++iter)
+		{
+			if ((*iter)->getBoundingBox().containsPoint(Vec2(xPos, yPos)))
+			{
+				Self_Tile* tile = dynamic_cast<Self_Tile*> (*iter);
+				if (!tile)
+					break;
+
+				if (tile->getCharacterOnThisTile() != nullptr)
+				{
+					frequency = 1000;
+					Character* target = tile->getCharacterOnThisTile();
+					target->rotateToDirection(ROTATE_RIGHT, target);
+				}
+			}
+		}
 		frequency = 330;
 		break;
+
+	case MOUSE_BUTTON_MIDDLE:
+		frequency = 294;
+		break;
+
 	default:
 		break;
 	}
@@ -124,10 +174,19 @@ PlayerData* GameMaster::getCurrentPlayerData()
 
 void GameMaster::ChangePlayer()
 {
+	if (currentPhase != PHASE_ACTION)
+		return;
+
 	if (currentPlayer == PLAYER_RED)
+	{
 		currentPlayer = PLAYER_BLUE;
-	else if (currentPlayer == PLAYER_BLUE)
+		return;
+	}
+	if (currentPlayer == PLAYER_BLUE)
+	{
 		currentPlayer = PLAYER_RED;
+		return;
+	}
 	else
 	{
 		Beep(1000, 1000);
@@ -149,9 +208,7 @@ void GameMaster::scheduleCallback(float delta)
 		Phase_Volcano();
 		break;
 	case PHASE_ACTION:
-		Beep((currentPlayer+1)*1000, 30);
-
-
+		Phase_Action();
 		break;
 	case PHASE_PASTEUR:
 		Phase_Pasteur();
@@ -183,6 +240,16 @@ void GameMaster::killCharacter(Character* target)
 	TileMap::getInstance()->killCharacter(target);
 	
 	
+}
+
+PlayerInfo GameMaster::getCurrentPlayer()
+{
+	return currentPlayer;
+}
+
+void GameMaster::addChild(Node* targetNode)
+{
+	nodes->addChild(targetNode);
 }
 
 GameMaster::GameMaster()

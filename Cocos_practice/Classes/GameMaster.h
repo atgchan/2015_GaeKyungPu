@@ -48,11 +48,7 @@ public:
 	Node* getNodes(){ return nodes; }
 
 	PlayerData* getCurrentPlayerData();
-	
-	PlayerInfo getCurrentPlayer()
-	{
-		return currentPlayer;
-	}
+	PlayerInfo getCurrentPlayer();
 
 	void ChangePlayer();
 	bool getIsVolcanoActivated(){	return _isVolcanoActivated;	}
@@ -61,38 +57,32 @@ public:
 
 	void scheduleCallback(float delta);
 
-
 private:
-	enum {NUM_OF_PLAYER = 2};
-	char _progressVolcano = 0;
+	enum { NUM_OF_PLAYER = 2 };
 	static GameMaster *inst;
-	bool _isMouseLocked = true;
-
 	TileMap* tileMap;
-	//static const int numOfPlayer=2;
-	PlayerData *playerData[NUM_OF_PLAYER];
-	PlayerInfo currentPlayer = PLAYER_RED;
-
-	bool isGameInitialized = false;
+	PlayerData* playerData[NUM_OF_PLAYER];
 	Node* const nodes = Node::create();
-	void addChild(Node* targetNode)
-	{
-		nodes->addChild(targetNode);
-	}
+
+	PhaseInfo currentPhase = PHASE_HARVEST;
+	PlayerInfo currentPlayer = PLAYER_RED;
+	char _progressVolcano = 0;
+
+	bool _isMouseLocked = true;
+	bool isGameInitialized = false;
 	bool _isVolcanoActivated = false;
+	bool isTurnRunning = true;
 
+	void addChild(Node* targetNode);
 	void ChangeRichToLava(Self_Tile* target);
-
+	void giveTileToPlayer(Self_Tile* targetTile, PlayerInfo pInfo);
+	void killCharacter(Character* target);
 
 	void Phase_Harvest();
 	void Phase_Occupy();
 	void Phase_Volcano();
 	void Phase_Action();
 	void Phase_Pasteur();
-	void giveTileToPlayer(Self_Tile* targetTile, PlayerInfo pInfo);
-
-	void killCharacter(Character* target);
-	PhaseInfo currentPhase = PHASE_HARVEST;
 };
 
 #endif // Game_h__
