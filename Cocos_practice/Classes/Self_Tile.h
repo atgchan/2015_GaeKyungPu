@@ -13,6 +13,7 @@ private:
 	//타일의 소유주
 	PlayerInfo ownerPlayer;
 	Character* characterOnThisTile;
+
 public:
 	
 	static Self_Tile* create(TileKind type);
@@ -24,6 +25,8 @@ public:
 
 	CC_SYNTHESIZE(TileKind, _typeOfTile, TypeOfTile);
 	
+	bool isTile(){ return true; }
+
 	Self_Tile();
 	~Self_Tile();
 

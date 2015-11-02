@@ -43,6 +43,8 @@ public:
 	Description: 타일 카인드를 하나 받아와서 현재 캐릭터가 올라와있는 타일과 동일한 종류인지 검사하고 bool을 리턴한다.
 	*/
 	bool isOnTile(TileKind tileTypeToCheck);
+	
+	bool isTile(){ return false; }
 
 private:
 	CC_SYNTHESIZE(CharacterAngle, CurrentAngle, CurrentAngle);
