@@ -104,11 +104,9 @@ void GameMaster::mouseDownDispatcher(cocos2d::EventMouse *event)
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	float xPos = event->getCursorX();
 	float yPos = event->getCursorY() + visibleSize.height;
+
 	auto children = TileMap::getInstance()->getChildren();
-
-	auto sprite = Character::create(getCurrentPlayer());
-	sprite->setAnchorPoint(Vec2(0.5, 0.13));
-
+	
 	switch (event->getMouseButton())
 	{
 	case MOUSE_BUTTON_LEFT:
@@ -126,8 +124,12 @@ void GameMaster::mouseDownDispatcher(cocos2d::EventMouse *event)
 					target->rotateToDirection(ROTATE_LEFT, target);
 					frequency = 1000;
 				}
+
 				if (tile->getCharacterOnThisTile() == nullptr)
 				{
+					Character* sprite = Character::create(getCurrentPlayer());
+					sprite->setAnchorPoint(Vec2(0.5, 0.13));
+
 					tile->setCharacterOnThisTile(sprite);
 					TileMap::getInstance()->setCharacterOnTile(sprite, tile);
 					playerData[getCurrentPlayer()]->addCharacter(sprite);
