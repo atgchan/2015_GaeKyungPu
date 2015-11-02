@@ -2,7 +2,8 @@
 #include <iostream>
 #include "GameMaster.h"
 
-USING_NS_CC;
+//USING_NS_CC;
+#define COCOS2D_DEBUG 1
 
 GameMaster* GameMaster::inst = NULL;
 
@@ -105,53 +106,50 @@ void GameMaster::mouseDownDispatcher(cocos2d::EventMouse *event)
 	float xPos = event->getCursorX();
 	float yPos = event->getCursorY() + visibleSize.height;
 	auto children = TileMap::getInstance()->getChildren();
-
-	auto sprite = Character::create(getCurrentPlayer());
-	sprite->setAnchorPoint(Vec2(0.5, 0.13));
-
+	
 	switch (event->getMouseButton())
 	{
 	case MOUSE_BUTTON_LEFT:
-		for (auto iter = children.begin(); iter != children.end(); ++iter)
+		for (auto iter : TileList)
 		{
-			if ((*iter)->getBoundingBox().containsPoint(Vec2(xPos, yPos)))
+			auto tile = getExistingTileWithMousePoint(Vec2(xPos, yPos));
+			if (tile != nullptr)
 			{
-				Self_Tile* tile = dynamic_cast<Self_Tile*> (*iter);
-				if (!tile)
-					break;
-
 				if (tile->getCharacterOnThisTile() != nullptr)
 				{
 					Character* target = tile->getCharacterOnThisTile();
 					target->rotateToDirection(ROTATE_LEFT, target);
 					frequency = 1000;
+					break;
 				}
-				if (tile->getCharacterOnThisTile() == nullptr)
+				else if (tile->getCharacterOnThisTile() == nullptr)
 				{
+					Character* sprite = Character::create(getCurrentPlayer());
+					sprite->setAnchorPoint(Vec2(0.5, 0.13));
+
 					tile->setCharacterOnThisTile(sprite);
 					TileMap::getInstance()->setCharacterOnTile(sprite, tile);
 					playerData[getCurrentPlayer()]->addCharacter(sprite);
 					sprite->setCurrentTile(tile);
 					frequency = 262;
+					break;
 				}
 			}
 		}
-		break;
+ 		break;
 
 	case MOUSE_BUTTON_RIGHT:
-		for (auto iter = children.begin(); iter != children.end(); ++iter)
+		for (auto iter : TileList)
 		{
-			if ((*iter)->getBoundingBox().containsPoint(Vec2(xPos, yPos)))
+			auto tile = getExistingTileWithMousePoint(Vec2(xPos, yPos));
+			if (tile != nullptr)
 			{
-				Self_Tile* tile = dynamic_cast<Self_Tile*> (*iter);
-				if (!tile)
-					break;
-
 				if (tile->getCharacterOnThisTile() != nullptr)
 				{
 					frequency = 1000;
 					Character* target = tile->getCharacterOnThisTile();
 					target->rotateToDirection(ROTATE_RIGHT, target);
+					break;
 				}
 			}
 		}
@@ -159,20 +157,16 @@ void GameMaster::mouseDownDispatcher(cocos2d::EventMouse *event)
 		break;
 
 	case MOUSE_BUTTON_MIDDLE:
-		for (auto iter = children.begin(); iter != children.end(); ++iter)
+		for (auto iter : TileList)
 		{
-			if ((*iter)->getBoundingBox().containsPoint(Vec2(xPos, yPos)))
+			auto tile = getExistingTileWithMousePoint(Vec2(xPos, yPos));
+			if (tile != nullptr)
 			{
-				Self_Tile* tile = dynamic_cast<Self_Tile*> (*iter);
-				if (!tile)
-					break;
-
 				if (tile->getCharacterOnThisTile() != nullptr)
 				{
 					Character* target = tile->getCharacterOnThisTile();
 					TileMap::getInstance()->removeChild(target);
 					tile->setCharacterOnThisTile(nullptr);
-					children.erase(iter);
 					return;
 				}
 			}
@@ -183,7 +177,7 @@ void GameMaster::mouseDownDispatcher(cocos2d::EventMouse *event)
 	default:
 		break;
 	}
-	Beep(frequency, 200);
+	//Beep(frequency, 200);
 //테스트코드 끝
 }
 
@@ -290,4 +284,25 @@ GameMaster::GameMaster()
 GameMaster::~GameMaster()
 {
 
+}
+
+void GameMaster::pushTileToList(Rect rect, Self_Tile* tile)
+{
+	TILEARRAYSET tileSet;
+	tileSet.tile = tile;
+	tileSet.rect = rect;
+
+	TileList.push_back(tileSet);
+}
+
+Self_Tile* GameMaster::getExistingTileWithMousePoint(Vec2 vec)
+{
+	for (auto iter : TileList)
+	{
+		if (iter.rect.containsPoint(vec))
+		{
+			return iter.tile;
+		}
+	}
+	return nullptr;
 }

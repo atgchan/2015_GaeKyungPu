@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "TileMap.h"
+#include "GameMaster.h"
 
 TileMap* TileMap::inst = NULL;
 TileKind TileMap::_MapData[9][8] = {
@@ -19,16 +20,24 @@ bool TileMap::create()
 	{
 		for (int j = 0; j < 8; ++j)
 		{
+			float positionX;
+			float positionY;
 			_TileSet[i][j] = Self_Tile::create(_MapData[i][j]);
 			if (j == 0)
 			{
-				if ((i%2) == 0)
-					_TileSet[i][j]->setPositionX(i * 51 + 12);
+				if ((i % 2) == 0)
+				{
+					positionX = i * 51 + 12;
+				}
 				else
-					_TileSet[i][j]->setPositionX((i-1) * 51);
+				{
+					positionX = (i - 1) * 51;
+				}
 
 				if (i == 0)
-					_TileSet[i][j]->setPositionY(500);
+				{ 
+					positionY = 500;
+				}
 				else
 				{
 					float addnum = 0;
@@ -36,19 +45,25 @@ bool TileMap::create()
 						addnum = 39;
 					else
 						addnum = 66;
-					_TileSet[i][j]->setPositionY(_TileSet[i - 1][j]->getPositionY() - addnum);
+					positionY = _TileSet[i - 1][j]->getPositionY() - addnum;
 				}
 
 			}
 			else
 			{
-				_TileSet[i][j]->setPosition(_TileSet[i][j - 1]->getPositionX() + 126, _TileSet[i][j - 1]->getPositionY() + 27);
+				positionX = _TileSet[i][j - 1]->getPositionX() + 126;
+				positionY = _TileSet[i][j - 1]->getPositionY() + 27;
 			}
-			
-			_TileSet[i][j]->setZOrder(-1 * _TileSet[i][j]->getPositionY());
-			
+			_TileSet[i][j]->setZOrder(-1 * positionY);
+
+			//클릭이 유효한 범위를 나타내는 네모 박스를 만들어서 같이 전달한다.(클릭 체크용)
+			Rect rect = CCRectMake(positionX+45, positionY+30, _TileSet[i][j]->getContentSize().width-70, _TileSet[i][j]->getContentSize().height-30);
+
+			_TileSet[i][j]->setPosition(positionX, positionY);
+
 
 			inst->addChild(_TileSet[i][j]);
+			GameMaster::getInstance()->pushTileToList(rect, _TileSet[i][j]);
 			//this->setAnchorPoint(Point(0.5, 0.0));
 		}
 	}
@@ -62,6 +77,7 @@ void TileMap::setCharacterOnTile(Character* character, Self_Tile* tile)
 	float yPos = tile->getPositionY();
 	//수정소요 ㅇㅇ
 	character->setPosition(xPos +80, yPos +60);
+	character->setZOrder(tile->getZOrder()+100);
 	this->addChild(character);
 }
 

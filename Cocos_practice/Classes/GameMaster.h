@@ -7,6 +7,12 @@
 
 #include "TileMap.h"
 
+struct TILEARRAYSET
+{
+	Self_Tile* tile;
+	Rect rect;
+};
+
 //싱글톤으로 구현
 class GameMaster
 {
@@ -58,6 +64,18 @@ public:
 	void scheduleCallback(float delta);
 	void toggleTurn(Object* pSender);
 
+	/**
+		Author: Wonseok
+		Description: 타일의 포인터와 타일의 클릭 가능한 위치를 나타내는 사각형을 받아서 배열로 저장한다.
+	*/
+	void pushTileToList(Rect rect, Self_Tile* tile);
+
+	/**
+		Autor: Wonseok
+		Description: 타일 리스트에서 해당 좌표값의 위치에 포함되는 타일이 있는지 검사해서 있으면 타일 포인터를 반환한다.
+	*/
+	Self_Tile* getExistingTileWithMousePoint(Vec2 vec);
+
 private:
 	enum { NUM_OF_PLAYER = 2 };
 	static GameMaster *inst;
@@ -68,6 +86,9 @@ private:
 	PhaseInfo currentPhase = PHASE_HARVEST;
 	PlayerInfo currentPlayer = PLAYER_RED;
 	char _progressVolcano = 0;
+
+	/*타일만 별도로 저장할 배열을 만든다..*/
+	std::vector<TILEARRAYSET> TileList;
 
 	bool _isMouseLocked = true;
 	bool isGameInitialized = false;
