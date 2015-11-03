@@ -4,7 +4,7 @@
 
 PlayerData* PlayerData::create()
 {
-	PlayerData* pData = new PlayerData();
+	PlayerData* pData = new PlayerData(); 
 	return pData;
 }
 

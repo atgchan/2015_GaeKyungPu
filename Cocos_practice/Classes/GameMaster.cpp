@@ -15,7 +15,7 @@ void GameMaster::Phase_Harvest()
 	getCurrentPlayerData()->setFood(1);
 
 	//만약 옥토 타일 위에 턴주의 병사가 있다면 해당 병사 한명당 식량 1 ++해야함.
-	auto CharacterList = getCurrentPlayerData()->getCharacterList();
+	auto CharacterList = getCurrentPlayerData()->getCharacterList(); ///# 코딩 컨벤션: 지역변수는 소문자로 시작하도록 추천.
 
 	for (auto iter : *CharacterList)
 	{
@@ -50,16 +50,8 @@ void GameMaster::Phase_Volcano()
 			_progressVolcano = 1;
 		}
 		break;
-	case 1:
 
-		break;
-	case 2:
-		break;
-	case 3:
-		break;
-	case 4:
-		break;
-	case 5:
+	default:
 		break;
 	}
 	currentPhase = PHASE_ACTION;
@@ -90,7 +82,7 @@ void GameMaster::InitializeGame()
 	this->addChild(tileMap);
 	for (int i = 0; i < NUM_OF_PLAYER; ++i)
 	{
-		playerData[i] = PlayerData::create();
+		playerData[i] = new PlayerData();  //PlayerData::create();
 	}
 }
 
@@ -111,7 +103,7 @@ void GameMaster::mouseDownDispatcher(cocos2d::EventMouse *event)
 	switch (event->getMouseButton())
 	{
 	case MOUSE_BUTTON_LEFT:
-		for (auto iter : TileList)
+		for (auto iter : TileList) ///# 버튼 누를때마다 모든 타일을 순회하는것이 좋을까? 더 좋은 방법은 없는가?
 		{
 			auto tile = getExistingTileWithMousePoint(Vec2(xPos, yPos));
 			if (tile != nullptr)
@@ -123,7 +115,7 @@ void GameMaster::mouseDownDispatcher(cocos2d::EventMouse *event)
 					frequency = 1000;
 					break;
 				}
-				else if (tile->getCharacterOnThisTile() == nullptr)
+				else if (tile->getCharacterOnThisTile() == nullptr) ///# 그냥 else하면 되는거 아닌가?
 				{
 					Character* sprite = Character::create(getCurrentPlayer());
 					sprite->setAnchorPoint(Vec2(0.5, 0.13));

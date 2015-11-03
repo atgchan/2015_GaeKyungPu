@@ -7,9 +7,9 @@
 
 #include "TileMap.h"
 
-struct TILEARRAYSET
+struct TILEARRAYSET ///# 구조체나 클래스의 멤버변수는 반드시 기본값으로 초기화.
 {
-	Self_Tile* tile;
+	Self_Tile* tile = nullptr;
 	Rect rect;
 };
 
@@ -22,7 +22,7 @@ public:
 
 	/**
 	@date		2015/10/29
-	@author		노석민
+	@author		노석민 ///# 코드 부분마다 저작자 이름 뺄 것.. 이것은 공통 프로젝트여서 어느 코드가 누가 작성했는지는 의미 없음. 코드 부분에 대항 오너십을 가져서도 안됨.
 	@brief		게임의 초기 셋팅을 진행합니다. 현재 기능 : 초기 맵 그리기
 	@warning	이 함수를 통해 셋팅하지 않은 GameMaster는 사용할 수 없습니다.
 	*/
@@ -77,11 +77,11 @@ public:
 	Self_Tile* getExistingTileWithMousePoint(Vec2 vec);
 
 private:
-	enum { NUM_OF_PLAYER = 2 };
-	static GameMaster *inst;
+	enum { NUM_OF_PLAYER = 2 }; ///# 코딩 컨벤션, 그리고 이런 전역 설정에 관계된거는 config.h같은거 만들어서 빼놔도 좋다.
+	static GameMaster *inst; ///# 멤버 변수 코딩 컨벤션
 	TileMap* tileMap;
 	PlayerData* playerData[NUM_OF_PLAYER];
-	Node* const nodes = Node::create();
+	Node* const nodes = Node::create(); ///# 함수 호출해서 초기화하는 종류는 생성자 또는 init에서 직접
 
 	PhaseInfo currentPhase = PHASE_HARVEST;
 	PlayerInfo currentPlayer = PLAYER_RED;
@@ -90,17 +90,18 @@ private:
 	/*타일만 별도로 저장할 배열을 만든다..*/
 	std::vector<TILEARRAYSET> TileList;
 
-	bool _isMouseLocked = true;
+	bool _isMouseLocked = true; ///# 코딩 컨벤션. _의 의미는..
 	bool isGameInitialized = false;
 	bool _isVolcanoActivated = false;
 	bool isTurnRunning = true;
 
+private:
 	void addChild(Node* targetNode);
 	void ChangeRichToLava(Self_Tile* target);
 	void giveTileToPlayer(Self_Tile* targetTile, PlayerInfo pInfo);
 	void killCharacter(Character* target);
 
-	void Phase_Harvest();
+	void Phase_Harvest(); ///# 멤버 함수들 코딩 컨벤션 (대문자 시작? 소문자 시작?)
 	void Phase_Occupy();
 	void Phase_Volcano();
 	void Phase_Action();
