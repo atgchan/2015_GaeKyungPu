@@ -14,7 +14,6 @@ PlayerData::PlayerData()
 
 PlayerData::~PlayerData()
 {
-	delete characterList;
 }
 
 int	 PlayerData::getFood()
@@ -34,15 +33,15 @@ void PlayerData::addFood(int num)
 
 void PlayerData::addCharacter(Character* character)
 {
-	characterList->push_back(character);
+	characterList.push_back(character);
 }
 
 void PlayerData::removeCharacter(Character* character)
 {
-	characterList->remove(character);
+	characterList.remove(character);
 }
 
 std::list<Character*>* PlayerData::getCharacterList()
 {
-	return characterList;
+	return &characterList;
 }
