@@ -16,9 +16,10 @@ void GameMaster::Phase_Harvest()
 
 	//만약 옥토 타일 위에 턴주의 병사가 있다면 해당 병사 한명당 식량 1 ++해야함.
 	auto CharacterList = getCurrentPlayerData()->getCharacterList();
-	for (auto iter = CharacterList->begin(); iter != CharacterList->end(); ++iter)
+
+	for (auto iter : *CharacterList)
 	{
-		if ((*iter)->getCurrentTile()->getTypeOfTile() == TILE_RICH)
+		if (iter->getCurrentTile()->getTypeOfTile() == TILE_RICH)
 			getCurrentPlayerData()->addFood(1);
 	}
 	currentPhase = PHASE_OCCUPY;
@@ -27,11 +28,11 @@ void GameMaster::Phase_Harvest()
 void GameMaster::Phase_Occupy()
 {
 	auto CharacterList = getCurrentPlayerData()->getCharacterList();
-	for (auto iter = CharacterList->begin(); iter != CharacterList->end(); ++iter)
+	for (auto iter : *CharacterList)
 	{
-		if ((*iter)->getCurrentTile()->getOwnerPlayer() == getCurrentPlayer())
+		if (iter->getCurrentTile()->getOwnerPlayer() == getCurrentPlayer())
 		{
-			giveTileToPlayer((*iter)->getCurrentTile(), getCurrentPlayer());
+			giveTileToPlayer(iter->getCurrentTile(), getCurrentPlayer());
 		}
 	}
 	currentPhase = PHASE_VOLCANO;
@@ -50,7 +51,7 @@ void GameMaster::Phase_Volcano()
 		}
 		break;
 	case 1:
-		
+
 		break;
 	case 2:
 		break;
@@ -95,7 +96,7 @@ void GameMaster::InitializeGame()
 
 void GameMaster::mouseDownDispatcher(cocos2d::EventMouse *event)
 {
-//이하 입력이 제대로 들어오는지 확인하기 위한 테스트코드.
+	//이하 입력이 제대로 들어오는지 확인하기 위한 테스트코드.
 	//입력이 제대로 들어왔다면 마우스 버튼따라서 도레미가 나온다.
 	if (currentPhase != PHASE_ACTION)
 		return;
@@ -106,7 +107,7 @@ void GameMaster::mouseDownDispatcher(cocos2d::EventMouse *event)
 	float xPos = event->getCursorX();
 	float yPos = event->getCursorY() + visibleSize.height;
 	auto children = TileMap::getInstance()->getChildren();
-	
+
 	switch (event->getMouseButton())
 	{
 	case MOUSE_BUTTON_LEFT:
@@ -136,7 +137,7 @@ void GameMaster::mouseDownDispatcher(cocos2d::EventMouse *event)
 				}
 			}
 		}
- 		break;
+		break;
 
 	case MOUSE_BUTTON_RIGHT:
 		for (auto iter : TileList)
@@ -157,28 +158,29 @@ void GameMaster::mouseDownDispatcher(cocos2d::EventMouse *event)
 		break;
 
 	case MOUSE_BUTTON_MIDDLE:
-		for (auto iter : TileList)
+	{
+		auto tile = getExistingTileWithMousePoint(Vec2(xPos, yPos));
+		if (tile != nullptr)
 		{
-			auto tile = getExistingTileWithMousePoint(Vec2(xPos, yPos));
-			if (tile != nullptr)
+			if (tile->getCharacterOnThisTile() != nullptr)
 			{
-				if (tile->getCharacterOnThisTile() != nullptr)
-				{
-					Character* target = tile->getCharacterOnThisTile();
-					TileMap::getInstance()->removeChild(target);
-					tile->setCharacterOnThisTile(nullptr);
-					return;
-				}
+				Character* target = tile->getCharacterOnThisTile();
+				killCharacter(target);
+				//TileMap::getInstance()->removeChild(target);
+				//tile->setCharacterOnThisTile(nullptr);
+				return;
 			}
 		}
-		frequency = 294;
-		break;
 
+		frequency = 294;
+
+		break;
+	}
 	default:
 		break;
 	}
 	//Beep(frequency, 200);
-//테스트코드 끝
+	//테스트코드 끝
 }
 
 PlayerData* GameMaster::getCurrentPlayerData()
@@ -222,7 +224,7 @@ void GameMaster::scheduleCallback(float delta)
 		Phase_Volcano();
 		break;
 	case PHASE_ACTION:
-		Phase_Action();
+		Beep(1000, 100);
 		break;
 	case PHASE_PASTEUR:
 		Phase_Pasteur();
@@ -244,14 +246,9 @@ void GameMaster::giveTileToPlayer(Self_Tile* targetTile, PlayerInfo pInfo)
 void GameMaster::killCharacter(Character* target)
 {
 	auto CharacterList = getCurrentPlayerData()->getCharacterList();
-	for (auto iter = CharacterList->begin(); iter != CharacterList->end(); ++iter)
-	{
-		if ( (*iter) == target )
-		{
-			CharacterList->erase(iter);
-		}
-	}
+	target->getCurrentTile()->setCharacterOnThisTile(nullptr);
 	TileMap::getInstance()->killCharacter(target);
+	CharacterList->remove(target);
 }
 
 PlayerInfo GameMaster::getCurrentPlayer()
