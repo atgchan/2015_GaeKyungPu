@@ -2,7 +2,8 @@
 #include "definition.h"
 #include "Self_Tile.h";
 
-std::string Self_Tile::DictionaryForFilenames[10] = {
+std::string Self_Tile::DictionaryForFilenames[10] = 
+{
 	"Map/tile_null.png",
 	"Map/tile_plain.png",
 	"Map/tile_forest.png",

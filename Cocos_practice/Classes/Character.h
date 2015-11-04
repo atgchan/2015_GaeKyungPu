@@ -5,14 +5,15 @@
 #include "Self_Tile.h"
 
 
-enum CharacterAngle{
+enum CharacterAngle  ///# 코딩 컨벤션 맞출것 
+{
 	ANGLE_DOWN_LEFT,
 	ANGLE_DOWN,
 	ANGLE_DOWN_RIGHT,
 	ANGLE_UP_RIGHT,
 	ANGLE_UP,
 	ANGLE_UP_LEFT,
-	ANGLE_ERR = -1
+	ANGLE_ERR = -1 ///# 보통 기본값 또는 에러에 해당하는 놈들은 맨 위로
 };
 
 enum RotateDirection
@@ -36,7 +37,7 @@ public:
 	Author: Wonseok
 	Description: 방향을 받아서 해당 방향으로 스프라이트 이미지를 회전한다.
 	*/
-	void rotateToDirection(RotateDirection, Character* character);
+	void rotateToDirection(RotateDirection, Character* character); ///# 아규먼트도 넣어라
 
 	/**
 	Autor: Wonseok

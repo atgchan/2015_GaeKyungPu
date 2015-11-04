@@ -6,7 +6,8 @@
 Character* Character::create(PlayerInfo cPInfo)
 {
 	Character* sprite = new Character();
-	std::string fileName = std::string("Character/spear_");
+	//std::string fileName = std::string("Character/spear_"); 
+	std::string fileName("Character/spear_"); ///# 이렇게 바로 생성해도 될텐데?
 
 	if (cPInfo == PLAYER_RED)
 	{
@@ -24,6 +25,8 @@ Character* Character::create(PlayerInfo cPInfo)
 		sprite->setCurrentPlayerInfo(cPInfo);
 		sprite->setCurrentAngle(ANGLE_DOWN_LEFT);
 		//기타 필요한거
+
+		///# 여기서 리턴하면 new한거는 어찌되노?
 		return sprite;
 	}
 	CC_SAFE_DELETE(sprite);
@@ -36,12 +39,15 @@ bool Character::isOnTile(TileKind tileTypeToCheck)
 	{
 		return true;
 	}
-	else return false;
+	else return false; ///# 코딩 컨벤션 맞출것
 }
 
 void Character::rotateToDirection(RotateDirection rotateDirection, Character* character)
 {
-	std::string fileName = std::string("Character/spear_");
+	///# 이 함수가 불릴때마다 아래처럼 리소스이름을 그때그때 스트링으로 생성(1)해서 스프라이트 로딩(2)하는 것은 엄청 비효율적.. 
+	// 웬만하면 프로그램 시작시 또는 씬의 시작시에 리소스 로딩할 때 모두 로딩해놓고 사용하도록!!
+
+	std::string fileName = std::string("Character/spear_"); ///# 바로 생성 가능하면 꼭 복사생성 하지 않도록..
 	if (character->getCurrentPlayerInfo() == PLAYER_RED)
 	{
 		fileName += std::string("red");
@@ -55,7 +61,7 @@ void Character::rotateToDirection(RotateDirection rotateDirection, Character* ch
 
 	if (rotateDirection == ROTATE_LEFT)
 	{
-		if (cAngle == 5) cAngle = 0;
+		if (cAngle == 5) cAngle = 0; ///# 코딩 컨벤션
 		else cAngle++;
 
 		std::ostringstream ostr;
