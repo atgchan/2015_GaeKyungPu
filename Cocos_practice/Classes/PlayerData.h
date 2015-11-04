@@ -1,6 +1,4 @@
-#ifndef PlayerData_h__
-#define PlayerData_h__
-
+#pragma once
 
 class Character;
 
@@ -26,4 +24,3 @@ private:
 	int		food;
 	std::list<Character*> characterList;
 };
-#endif // PlayerData_h__

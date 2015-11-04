@@ -206,20 +206,8 @@ void GameMaster::scheduleCallback(float delta)
 {
 	switch (currentPhase)
 	{
-	case PHASE_HARVEST:
-		Phase_Harvest();
-		break;
-	case PHASE_OCCUPY:
-		Phase_Occupy();
-		break;
-	case PHASE_VOLCANO:
-		Phase_Volcano();
-		break;
+		
 	case PHASE_ACTION:
-		Beep(1000, 100);
-		break;
-	case PHASE_PASTEUR:
-		Phase_Pasteur();
 		break;
 	case PHASE_ERR:
 		Beep(1000, 300);

@@ -1,6 +1,4 @@
 #pragma once
-#ifndef Game_h__
-#define Game_h__
 
 #include "definition.h"
 #include "PlayerData.h"
@@ -21,21 +19,15 @@ public:
 	~GameMaster();
 
 	/**
-	@date		2015/10/29
-	@author		노석민 ///# 코드 부분마다 저작자 이름 뺄 것.. 이것은 공통 프로젝트여서 어느 코드가 누가 작성했는지는 의미 없음. 코드 부분에 대항 오너십을 가져서도 안됨.
 	@brief		게임의 초기 셋팅을 진행합니다. 현재 기능 : 초기 맵 그리기
 	@warning	이 함수를 통해 셋팅하지 않은 GameMaster는 사용할 수 없습니다.
 	*/
 	void InitializeGame();
 	/**
-	@date		2015/10/29
-	@author		노석민
 	@brief		mouse버튼 이벤트 리스너에 걸어둘 수 있는 2차 디스패쳐입니다.
 	*/
 	void mouseDownDispatcher(cocos2d::EventMouse *event);
 	/**
-	@date		2015/10/29
-	@author		노석민
 	@brief		GameMaster에게서 요청할 어떠한 기능이라도 getInstance()를 통해 pointer를 얻어 요청합니다.
 	*/
 	static GameMaster* getInstance()
@@ -47,8 +39,6 @@ public:
 		return inst;
 	}
 	/**
-	@date		2015/10/29
-	@author		노석민
 	@brief		GameMaster가 포함하고 있는 모든 node를 하나의 트리로 묶어 포인터로 반환합니다.
 	*/
 	Node* getNodes(){ return nodes; }
@@ -65,14 +55,12 @@ public:
 	void toggleTurn(Object* pSender);
 
 	/**
-		Author: Wonseok
-		Description: 타일의 포인터와 타일의 클릭 가능한 위치를 나타내는 사각형을 받아서 배열로 저장한다.
+		@brief	타일의 포인터와 타일의 클릭 가능한 위치를 나타내는 사각형을 받아서 배열로 저장한다.
 	*/
 	void pushTileToList(Rect rect, Self_Tile* tile);
 
 	/**
-		Autor: Wonseok
-		Description: 타일 리스트에서 해당 좌표값의 위치에 포함되는 타일이 있는지 검사해서 있으면 타일 포인터를 반환한다.
+		@brief	타일 리스트에서 해당 좌표값의 위치에 포함되는 타일이 있는지 검사해서 있으면 타일 포인터를 반환한다.
 	*/
 	Self_Tile* getExistingTileWithMousePoint(Vec2 vec);
 
@@ -107,5 +95,3 @@ private:
 	void Phase_Action();
 	void Phase_Pasteur();
 };
-
-#endif // Game_h__
