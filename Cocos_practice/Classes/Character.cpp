@@ -24,7 +24,7 @@ Character* Character::create(PlayerInfo cPInfo, int spriteNum)
 	{
 		sprite->autorelease();
 		sprite->setCurrentPlayerInfo(cPInfo);
-		sprite->setCurrentAngle(ANGLE_DOWN_LEFT);
+		sprite->setCurrentDirection((DirectionKind)spriteNum);
 		//기타 필요한거
 
 		///# 여기서 리턴하면 new한거는 어찌되노?
@@ -48,42 +48,26 @@ void Character::rotateToDirection(RotateDirection rotateDirection, Character* ch
 	// 웬만하면 프로그램 시작시 또는 씬의 시작시에 리소스 로딩할 때 모두 로딩해놓고 사용하도록!!
 
 	std::string fileName = std::string("Character/spear_"); ///# 바로 생성 가능하면 꼭 복사생성 하지 않도록..
-	if (character->getCurrentPlayerInfo() == PLAYER_RED)
-	{
-		fileName += std::string("red");
-	}
-	else if (character->getCurrentPlayerInfo() == PLAYER_BLUE)
-	{
-		fileName += std::string("blue");
-	}
 
-	int cAngle = character->getCurrentAngle();
+	if (character->getCurrentPlayerInfo() == PLAYER_RED)
+		fileName += std::string("red");
+	
+	if (character->getCurrentPlayerInfo() == PLAYER_BLUE)
+		fileName += std::string("blue");
+
+	int chracterDirection = character->getCurrentDirection();
 
 	if (rotateDirection == ROTATE_LEFT)
-	{
-		if (cAngle == 5)
-			cAngle = 0;
-		else cAngle++;
+		chracterDirection = (chracterDirection + 1)%6;
+	
+	if (rotateDirection == ROTATE_RIGHT)
+		chracterDirection = (chracterDirection + 5) % 6;
+	
+	fileName += std::string("_0");
+	fileName += std::to_string(chracterDirection);
+	fileName += std::string(".png");
 
-		std::ostringstream ostr;
-		ostr << cAngle;
-		fileName += std::string("_0");
-		fileName += std::string(ostr.str());
-		fileName += std::string(".png");
-	}
-	else if (rotateDirection == ROTATE_RIGHT)
-	{
-		if (cAngle == 0) cAngle = 5;
-		else cAngle--;
-
-		std::ostringstream ostr;
-		ostr << cAngle;
-		fileName += std::string("_0");
-		fileName += std::string(ostr.str());
-		fileName += std::string(".png");
-	}
-	character->setCurrentAngle(DirectionKind(cAngle));
-
+	character->setCurrentDirection(DirectionKind(chracterDirection));
 	character->initWithFile(fileName);
 	character->setAnchorPoint(Point(0.5, 0.13));
 }

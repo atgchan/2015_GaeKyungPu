@@ -30,7 +30,7 @@ void GameSceneManager::InitializeGame()
 	for (int i = 0; i < NUM_OF_PLAYER; ++i)
 	{
 		playerData[i] = new PlayerData();
-		playerData[i]->setFood(1);
+		playerData[i]->setFood(0);
 	}
 	
 	phases[PHASE_READY] = nullptr;
@@ -57,9 +57,15 @@ Self_Tile* GameSceneManager::getTileFromMouseEvent(const cocos2d::EventMouse *ev
 	return tile;
 }
 
+PlayerData* GameSceneManager::getPlayerDataByPlayerInfo(PlayerInfo player)
+{
+	return playerData[player];
+}
+
 void GameSceneManager::SpawnCharacterOnTile(Self_Tile* tile, int spriteNum, bool spendFood/*=true*/)
 {
 	Character* unit = Character::create(getCurrentPlayer(), spriteNum);
+	unit->ownerPlayer = currentPlayer;
 	unit->setAnchorPoint(Vec2(0.5, 0.13));
 
 	tile->setCharacterOnThisTile(unit);
@@ -186,7 +192,7 @@ void GameSceneManager::GiveTileToPlayer(Self_Tile* targetTile, PlayerInfo pInfo)
 
 void GameSceneManager::killCharacter(Character* target)
 {
-	auto CharacterList = getCurrentPlayerData()->getCharacterList();
+	auto CharacterList = getPlayerDataByPlayerInfo(target->ownerPlayer)->getCharacterList();
 	target->getCurrentTile()->setCharacterOnThisTile(nullptr);
 	TileMap::getInstance()->killCharacter(target);
 	CharacterList->remove(target);

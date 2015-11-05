@@ -45,9 +45,9 @@ enum DirectionKind
 	ANGLE_ERR = -1
 };
 
-	enum RotateDirection
-	{
-		ROTATE_LEFT,
-		ROTATE_RIGHT,
-		ROTATE_ERR = -1
-	};
+enum RotateDirection
+{
+	ROTATE_LEFT,
+	ROTATE_RIGHT,
+	ROTATE_ERR = -1
+};

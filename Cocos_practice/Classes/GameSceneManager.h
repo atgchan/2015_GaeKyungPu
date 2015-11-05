@@ -78,6 +78,8 @@ public:
 
 	Self_Tile* getTileFromMouseEvent(const cocos2d::EventMouse *event);
 
+	PlayerData*	getPlayerDataByPlayerInfo(PlayerInfo player);
+
 private:
 	static GameSceneManager *inst;
 	TileMap* tileMap;

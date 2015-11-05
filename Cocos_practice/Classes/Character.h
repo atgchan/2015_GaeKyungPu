@@ -22,10 +22,10 @@ public:
 	bool isOnTile(TileKind tileTypeToCheck);
 	
 	bool isTile(){ return false; }
+	PlayerInfo	ownerPlayer = PLAYER_ERR;
 
 private:
-	CC_SYNTHESIZE(DirectionKind, CurrentAngle, CurrentAngle);
+	CC_SYNTHESIZE(DirectionKind, CurrentDirection, CurrentDirection);
 	CC_SYNTHESIZE(Self_Tile*, CurrentTile, CurrentTile);
 	CC_SYNTHESIZE(PlayerInfo, CurrentPlayerInfo, CurrentPlayerInfo);
-
 };
