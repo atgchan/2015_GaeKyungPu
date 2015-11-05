@@ -76,10 +76,15 @@ public:
 	void killCharacter(Character* target);
 	void setVolcanoActivated(bool activated){ isVolcanoActivated = activated; };
 
-	Self_Tile* getTileFromMouseEvent(const cocos2d::EventMouse *event);
+	Self_Tile*	getTileFromMouseEvent(const cocos2d::EventMouse *event);
 
 	PlayerData*	getPlayerDataByPlayerInfo(PlayerInfo player);
-	void DraftNewCharacterByClick(Self_Tile* clickedTile);
+	void		DraftNewCharacterByClick(Self_Tile* clickedTile);
+	void		MoveCharacterByClick(Self_Tile* clickedTile);
+	void		MoveCharacter(Character* target, Self_Tile* dest);
+
+	bool		readyToMove = false;
+	Character*		characterToMove = nullptr;
 private:
 	static GameSceneManager *inst;
 	TileMap* tileMap;

@@ -44,7 +44,7 @@ private:
 
 	//타일의 소유주
 	PlayerInfo ownerPlayer;
-	Character* characterOnThisTile;
+	Character* characterOnThisTile = nullptr;
 	Self_Tile* nearTile[6];
 	
 	//int xPos, yPos;

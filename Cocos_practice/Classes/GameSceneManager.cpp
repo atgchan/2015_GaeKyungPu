@@ -99,13 +99,60 @@ void GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
 	}
 }
 
+void GameSceneManager::MoveCharacterByClick(Self_Tile* clickedTile)
+{
+	if (clickedTile == nullptr)
+		return;
+
+	if (readyToMove == true)
+	{
+		//클릭한 타일이 옮길 유닛 주변이고 위에 아무 유닛도 없으면
+		if ((characterToMove->getCurrentTile()->CheckTileAndReturnItsType(clickedTile) == characterToMove->getCurrentDirection()) && (clickedTile->getCharacterOnThisTile() == nullptr))
+		{
+			MoveCharacter(characterToMove, clickedTile);
+			getCurrentPlayerData()->AddFood(-1);
+			characterToMove = nullptr;
+			readyToMove = false;
+			return;
+		}
+		else
+		{
+			characterToMove = nullptr;
+			readyToMove = false;
+			return;
+		}
+	}
+	else
+	{
+		if (clickedTile->getCharacterOnThisTile() != nullptr)
+		{
+			if (clickedTile->getCharacterOnThisTile()->ownerPlayer != currentPlayer)
+				return;
+			if (getCurrentPlayerData()->getFood() >= 1)
+			{
+				characterToMove = clickedTile->getCharacterOnThisTile();
+				readyToMove = true;
+				return;
+			}
+		}
+	}
+}
+
+void GameSceneManager::MoveCharacter(Character* target, Self_Tile* dest)
+{
+	target->getCurrentTile()->setCharacterOnThisTile(nullptr);
+	TileMap::getInstance()->setCharacterOnTile(target, dest,true);
+	target->setCurrentTile(dest);
+
+}
+
 void GameSceneManager::SpawnCharacterOnTile(Self_Tile* tile, int spriteNum, bool spendFood/*=true*/)
 {
 	Character* unit = Character::create(getCurrentPlayer(), spriteNum);
 	unit->ownerPlayer = currentPlayer;
 	unit->setAnchorPoint(Vec2(0.5, 0.13));
 
-	tile->setCharacterOnThisTile(unit);
+	
 	TileMap::getInstance()->setCharacterOnTile(unit, tile);
 	playerData[getCurrentPlayer()]->AddCharacter(unit);
 	unit->setCurrentTile(tile);
@@ -132,15 +179,9 @@ void GameSceneManager::mouseDownDispatcher(cocos2d::EventMouse *event)
 	case MOUSE_BUTTON_LEFT:
 		if (clickedTile == nullptr) { break; }
 		DraftNewCharacterByClick(clickedTile);
-
-
-		//돌리는 부분. 추후 함수화
-		if (clickedTile->getCharacterOnThisTile() != nullptr)
-		{
-			Character* target = clickedTile->getCharacterOnThisTile();
-			target->rotateToDirection(ROTATE_LEFT, target);
-			return;
-		}
+		MoveCharacterByClick(clickedTile);
+		//이동 부분
+		
 
 		break;
 

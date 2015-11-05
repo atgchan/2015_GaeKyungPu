@@ -99,14 +99,16 @@ bool TileMap::create()
 	return true;
 }
 
-void TileMap::setCharacterOnTile(Character* character, Self_Tile* tile)
+void TileMap::setCharacterOnTile(Character* character, Self_Tile* tile, bool moveMode /*= false*/)
 {
+	tile->setCharacterOnThisTile(character);
 	float xPos = tile->getPositionX();
 	float yPos = tile->getPositionY();
 	//수정소요 ㅇㅇ
 	character->setPosition(xPos +80, yPos +60);
 	character->setZOrder(tile->getZOrder()+100);
-	this->addChild(character);
+	if(!moveMode)
+		addChild(character);
 }
 
 void TileMap::MoveCharacterTo(Character* character, Self_Tile* tile)
