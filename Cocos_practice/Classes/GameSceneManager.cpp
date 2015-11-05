@@ -87,12 +87,6 @@ void GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
 	}
 	else//if (draftMode == false)
 	{
-		if (clickedTile->getCharacterOnThisTile() != nullptr)
-		{
-			Character* target = clickedTile->getCharacterOnThisTile();
-			target->rotateToDirection(ROTATE_LEFT, target);
-			return;
-		}
 		if (clickedTile->getTypeOfTile() == TILE_BARRACK || clickedTile->getTypeOfTile() == TILE_HEADQUARTER)
 		{
 			if (getCurrentPlayerData()->getFood() >= 1)
@@ -138,6 +132,15 @@ void GameSceneManager::mouseDownDispatcher(cocos2d::EventMouse *event)
 	case MOUSE_BUTTON_LEFT:
 		if (clickedTile == nullptr) { break; }
 		DraftNewCharacterByClick(clickedTile);
+
+
+		//돌리는 부분. 추후 함수화
+		if (clickedTile->getCharacterOnThisTile() != nullptr)
+		{
+			Character* target = clickedTile->getCharacterOnThisTile();
+			target->rotateToDirection(ROTATE_LEFT, target);
+			return;
+		}
 
 		break;
 
