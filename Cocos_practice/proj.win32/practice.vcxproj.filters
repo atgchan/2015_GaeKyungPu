@@ -22,7 +22,25 @@
     <ClCompile Include="..\Classes\PlayerData.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\GameMaster.cpp">
+    <ClCompile Include="..\Classes\Phase.cpp">
+      <Filter>Game\Phase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Phase_Harvest.cpp">
+      <Filter>Game\Phase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Phase_Action.cpp">
+      <Filter>Game\Phase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Phase_Occupy.cpp">
+      <Filter>Game\Phase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Phase_Pasteur.cpp">
+      <Filter>Game\Phase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Phase_Volcano.cpp">
+      <Filter>Game\Phase</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameSceneManager.cpp">
       <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>
@@ -48,10 +66,28 @@
     <ClInclude Include="..\Classes\PlayerData.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\GameMaster.h">
+    <ClInclude Include="..\Classes\definition.h" />
+    <ClInclude Include="..\Classes\Phase.h">
+      <Filter>Game\Phase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Phase_Harvest.h">
+      <Filter>Game\Phase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Phase_Action.h">
+      <Filter>Game\Phase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Phase_Pasteur.h">
+      <Filter>Game\Phase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Phase_Volcano.h">
+      <Filter>Game\Phase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Phase_Occupy.h">
+      <Filter>Game\Phase</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameSceneManager.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\definition.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc" />
@@ -68,6 +104,9 @@
     </Filter>
     <Filter Include="Character">
       <UniqueIdentifier>{e60db5f5-8049-4f19-8aae-51df390f791c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Phase">
+      <UniqueIdentifier>{563d1ab2-4001-4396-b8d4-fada9168d91a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

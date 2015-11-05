@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "TileMap.h"
-#include "GameMaster.h"
+#include "GameSceneManager.h"
 
 TileMap* TileMap::inst = NULL;
 TileKind TileMap::_MapData[9][8] = { ///# 원래 이런거는 나중에 파일로 빼서, 컴파일 하지 않고서도 배치 가능하게 하는게 정석이다. 참고~
@@ -63,7 +63,7 @@ bool TileMap::create()
 
 
 			inst->addChild(_TileSet[i][j]);
-			GameMaster::getInstance()->pushTileToList(rect, _TileSet[i][j]);
+			GameSceneManager::getInstance()->pushTileToList(rect, _TileSet[i][j]);
 			//this->setAnchorPoint(Point(0.5, 0.0));
 		}
 	}

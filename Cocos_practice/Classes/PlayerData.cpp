@@ -26,17 +26,17 @@ void PlayerData::setFood(int _food)
 	food = _food;
 }
 
-void PlayerData::addFood(int num)
+void PlayerData::AddFood(int num)
 {
 	food += num;
 }
 
-void PlayerData::addCharacter(Character* character)
+void PlayerData::AddCharacter(Character* character)
 {
 	characterList.push_back(character);
 }
 
-void PlayerData::removeCharacter(Character* character)
+void PlayerData::RemoveCharacter(Character* character)
 {
 	characterList.remove(character);
 }

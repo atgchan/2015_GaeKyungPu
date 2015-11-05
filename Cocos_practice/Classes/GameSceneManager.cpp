@@ -1,80 +1,35 @@
 #include "pch.h"
 #include <iostream>
-#include "GameMaster.h"
+#include "GameSceneManager.h"
+#include "Phase.h"
+#include "Phase_Harvest.h"
+#include "Phase_Occupy.h"
+#include "Phase_Volcano.h"
+#include "Phase_Action.h"
+#include "Phase_Pasteur.h"
+
 
 //USING_NS_CC;
 #define COCOS2D_DEBUG 1
 
-GameMaster* GameMaster::inst = NULL;
+GameSceneManager* GameSceneManager::inst = NULL;
 
 
+/*
 
-
-void GameMaster::Phase_Harvest()
+void GameSceneManager::Phase_Volcano()
 {
-	getCurrentPlayerData()->setFood(1);
-
-	//만약 옥토 타일 위에 턴주의 병사가 있다면 해당 병사 한명당 식량 1 ++해야함.
-	auto CharacterList = getCurrentPlayerData()->getCharacterList(); ///# 코딩 컨벤션: 지역변수는 소문자로 시작하도록 추천.
-
-	for (auto iter : *CharacterList)
-	{
-		if (iter->getCurrentTile()->getTypeOfTile() == TILE_RICH)
-			getCurrentPlayerData()->addFood(1);
-	}
-	currentPhase = PHASE_OCCUPY;
+	
 }
 
-void GameMaster::Phase_Occupy()
-{
-	auto CharacterList = getCurrentPlayerData()->getCharacterList();
-	for (auto iter : *CharacterList)
-	{
-		if (iter->getCurrentTile()->getOwnerPlayer() == getCurrentPlayer())
-		{
-			giveTileToPlayer(iter->getCurrentTile(), getCurrentPlayer());
-		}
-	}
-	currentPhase = PHASE_VOLCANO;
-}
-
-
-void GameMaster::Phase_Volcano()
-{
-	switch (_progressVolcano)
-	{
-	case 0:
-		if (cocos2d::random(1, 5) == 1)//5분의 1 확률로 이벤트 발생
-		{
-			_isVolcanoActivated = true;
-			_progressVolcano = 1;
-		}
-		break;
-
-	default:
-		break;
-	}
-	currentPhase = PHASE_ACTION;
-}
-
-void GameMaster::Phase_Action()
-{
-
-}
-
-void GameMaster::Phase_Pasteur()
-{
-	currentPhase = PHASE_HARVEST;
-	ChangePlayer();
-}
-
-void GameMaster::ChangeRichToLava(Self_Tile* target)
+*/
+void GameSceneManager::ChangeRichToLava(Self_Tile* target)
 {
 	target->changeTile(TILE_LAVA);
 	killCharacter(target->getCharacterOnThisTile());
 }
 
-void GameMaster::InitializeGame()
+void GameSceneManager::InitializeGame()
 {
 	this->nodes->setName("MasterNode");
 	tileMap = TileMap::getInstance();
@@ -82,15 +37,26 @@ void GameMaster::InitializeGame()
 	this->addChild(tileMap);
 	for (int i = 0; i < NUM_OF_PLAYER; ++i)
 	{
-		playerData[i] = new PlayerData();  //PlayerData::create();
+		playerData[i] = new PlayerData();
 	}
+	
+	phases[PHASE_READY] = nullptr;
+	phases[PHASE_HARVEST] = new Phase_Harvest();
+	phases[PHASE_OCCUPY] = new Phase_Occupy();
+	phases[PHASE_VOLCANO] = new Phase_Volcano();
+	phases[PHASE_ACTION] = new Phase_Action();
+	phases[PHASE_PASTEUR] = new Phase_Pasteur();
+	phases[PHASE_ERR] = nullptr;
+
+	currentPlayer = PLAYER_RED;
+	currentPhase = phases[PHASE_HARVEST];
 }
 
-void GameMaster::mouseDownDispatcher(cocos2d::EventMouse *event)
+void GameSceneManager::mouseDownDispatcher(cocos2d::EventMouse *event)
 {
 	//이하 입력이 제대로 들어오는지 확인하기 위한 테스트코드.
 	//입력이 제대로 들어왔다면 마우스 버튼따라서 도레미가 나온다.
-	if (currentPhase != PHASE_ACTION)
+	if (currentPhaseInfo != PHASE_ACTION)
 		return;
 
 	int frequency = 0;
@@ -122,7 +88,7 @@ void GameMaster::mouseDownDispatcher(cocos2d::EventMouse *event)
 
 					tile->setCharacterOnThisTile(sprite);
 					TileMap::getInstance()->setCharacterOnTile(sprite, tile);
-					playerData[getCurrentPlayer()]->addCharacter(sprite);
+					playerData[getCurrentPlayer()]->AddCharacter(sprite);
 					sprite->setCurrentTile(tile);
 					frequency = 262;
 					break;
@@ -171,18 +137,16 @@ void GameMaster::mouseDownDispatcher(cocos2d::EventMouse *event)
 	default:
 		break;
 	}
-	//Beep(frequency, 200);
-	//테스트코드 끝
 }
 
-PlayerData* GameMaster::getCurrentPlayerData()
+PlayerData* GameSceneManager::getCurrentPlayerData()
 {
 	return playerData[currentPlayer];
 }
 
-void GameMaster::ChangePlayer()
+void GameSceneManager::ChangePlayer()
 {
-	if (currentPhase != PHASE_ACTION)
+	if (currentPhaseInfo != PHASE_ACTION)
 		return;
 
 	if (currentPlayer == PLAYER_RED)
@@ -202,28 +166,18 @@ void GameMaster::ChangePlayer()
 	}
 }
 
-void GameMaster::scheduleCallback(float delta)
+void GameSceneManager::scheduleCallback(float delta)
 {
-	switch (currentPhase)
-	{
-		
-	case PHASE_ACTION:
-		break;
-	case PHASE_ERR:
-		Beep(1000, 300);
-		Director::getInstance()->end();
-		break;
-	default:
-		break;
-	}
+	currentPhase->Tick();
+	ChangePhase(currentPhase->nextPhase);
 }
 
-void GameMaster::giveTileToPlayer(Self_Tile* targetTile, PlayerInfo pInfo)
+void GameSceneManager::GiveTileToPlayer(Self_Tile* targetTile, PlayerInfo pInfo)
 {
 	targetTile->setOwnerPlayer(pInfo);
 }
 
-void GameMaster::killCharacter(Character* target)
+void GameSceneManager::killCharacter(Character* target)
 {
 	auto CharacterList = getCurrentPlayerData()->getCharacterList();
 	target->getCurrentTile()->setCharacterOnThisTile(nullptr);
@@ -231,39 +185,45 @@ void GameMaster::killCharacter(Character* target)
 	CharacterList->remove(target);
 }
 
-PlayerInfo GameMaster::getCurrentPlayer()
+void GameSceneManager::ChangePhase(PhaseInfo nextPhase)
+{
+	currentPhaseInfo = nextPhase;
+	currentPhase = phases[nextPhase];
+}
+
+PlayerInfo GameSceneManager::getCurrentPlayer()
 {
 	return currentPlayer;
 }
 
-void GameMaster::addChild(Node* targetNode)
+void GameSceneManager::addChild(Node* targetNode)
 {
 	nodes->addChild(targetNode);
 }
 
-void GameMaster::toggleTurn(Object* pSender)
+void GameSceneManager::toggleTurn(Object* pSender)
 {
-	if (currentPhase != PHASE_ACTION)
+	if (currentPhaseInfo != PHASE_ACTION)
 		return;
 
 	ChangePlayer();
 	Beep(262, 300);
 	Beep(294, 300);
 	Beep(330, 300);
-	currentPhase = PHASE_PASTEUR;
+	currentPhaseInfo = PHASE_PASTEUR;
 }
 
-GameMaster::GameMaster()
+GameSceneManager::GameSceneManager()
 {
 
 }
 
-GameMaster::~GameMaster()
+GameSceneManager::~GameSceneManager()
 {
 
 }
 
-void GameMaster::pushTileToList(Rect rect, Self_Tile* tile)
+void GameSceneManager::pushTileToList(Rect rect, Self_Tile* tile)
 {
 	TILEARRAYSET tileSet;
 	tileSet.tile = tile;
@@ -272,7 +232,7 @@ void GameMaster::pushTileToList(Rect rect, Self_Tile* tile)
 	TileList.push_back(tileSet);
 }
 
-Self_Tile* GameMaster::getExistingTileWithMousePoint(Vec2 vec)
+Self_Tile* GameSceneManager::getExistingTileWithMousePoint(Vec2 vec)
 {
 	for (auto iter : TileList)
 	{

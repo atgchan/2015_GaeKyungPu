@@ -1,6 +1,8 @@
 #pragma once
 USING_NS_CC;
 
+#define GM GameSceneManager::getInstance()
+
 enum PhaseInfo{
 	PHASE_READY,
 	PHASE_HARVEST,

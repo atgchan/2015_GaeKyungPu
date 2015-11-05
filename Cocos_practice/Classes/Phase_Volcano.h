@@ -5,5 +5,6 @@ class Phase_Volcano : public Phase
 public:
 	Phase_Volcano();
 	~Phase_Volcano();
+	void Tick();
 };
 

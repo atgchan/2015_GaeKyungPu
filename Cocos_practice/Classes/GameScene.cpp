@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "GameScene.h"
-#include "GameMaster.h"
+#include "GameSceneManager.h"
 
 Scene* GameScene::createScene()
 {
@@ -17,7 +17,7 @@ bool GameScene::init()
 
 //이하 초기화 block은 상용구처럼 쓰이는 것이므로 바뀔 여지 x
 	//GameMaster의 인스턴스 저장. GameScene 안에서 계속 쓰인다.
-	GameMaster* gmInstance = GameMaster::getInstance();
+	GameSceneManager* gmInstance = GameSceneManager::getInstance();
 	//맵을 그리는 등의 게임 초기 셋팅을 한다.
 	gmInstance->InitializeGame();
 	//게임 내 모든 node들을 추가.아래와 같이 호출하면 된다.
@@ -28,7 +28,7 @@ bool GameScene::init()
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	auto toggleButton = Label::createWithTTF("toggleTurn", "fonts/Marker Felt.ttf", 24);
-	auto menu_toggle = MenuItemLabel::create(toggleButton, CC_CALLBACK_1(GameMaster::toggleTurn, gmInstance));
+	auto menu_toggle = MenuItemLabel::create(toggleButton, CC_CALLBACK_1(GameSceneManager::toggleTurn, gmInstance));
 	menu_toggle->setPosition(Vec2(visibleSize.width * 4 / 5, visibleSize.height * 1 / 5));
 
 	auto mainMenu = Menu::create(menu_toggle, NULL);
@@ -39,7 +39,7 @@ bool GameScene::init()
 	auto clickListener = EventListenerMouse::create();
 	
 //마우스 이벤트를 GameMaster로 바로 넘기기 위한 테스트 코드. 제대로 넘어갔다면 클릭시 Beep 음이 들린다.
-	clickListener->onMouseDown = CC_CALLBACK_1(GameMaster::mouseDownDispatcher, gmInstance);
+	clickListener->onMouseDown = CC_CALLBACK_1(GameSceneManager::mouseDownDispatcher, gmInstance);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(clickListener, this);
 
 	//tick을 넘겨본다.
@@ -49,5 +49,5 @@ bool GameScene::init()
 
 void GameScene::scheduleCallback(float delta)
 {
-	GameMaster::getInstance()->scheduleCallback(delta);
+	GameSceneManager::getInstance()->scheduleCallback(delta);
 }
