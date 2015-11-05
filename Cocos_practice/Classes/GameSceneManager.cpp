@@ -62,6 +62,49 @@ PlayerData* GameSceneManager::getPlayerDataByPlayerInfo(PlayerInfo player)
 	return playerData[player];
 }
 
+void GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
+{
+	if (clickedTile == nullptr)
+		return;
+
+	if (draftMode == true)
+	{
+		//클릭한 타일이 배럭 주변이고 이미 위치한 유닛이 없으면
+		if ((draftTile->CheckTileAndReturnItsType(clickedTile) != IT_IS_NOT_NEAR_TILE) && (clickedTile->getCharacterOnThisTile() == nullptr))
+		{
+			int spriteNum = draftTile->CheckTileAndReturnItsType(clickedTile);
+			SpawnCharacterOnTile(clickedTile, spriteNum);
+			draftTile = nullptr;
+			draftMode = false;
+			return;
+		}
+		else
+		{
+			draftTile = nullptr;
+			draftMode = false;
+			return;
+		}
+	}
+	else//if (draftMode == false)
+	{
+		if (clickedTile->getCharacterOnThisTile() != nullptr)
+		{
+			Character* target = clickedTile->getCharacterOnThisTile();
+			target->rotateToDirection(ROTATE_LEFT, target);
+			return;
+		}
+		if (clickedTile->getTypeOfTile() == TILE_BARRACK || clickedTile->getTypeOfTile() == TILE_HEADQUARTER)
+		{
+			if (getCurrentPlayerData()->getFood() >= 1)
+			{
+				draftTile = clickedTile;
+				draftMode = true;
+				return;
+			}
+		}
+	}
+}
+
 void GameSceneManager::SpawnCharacterOnTile(Self_Tile* tile, int spriteNum, bool spendFood/*=true*/)
 {
 	Character* unit = Character::create(getCurrentPlayer(), spriteNum);
@@ -94,42 +137,8 @@ void GameSceneManager::mouseDownDispatcher(cocos2d::EventMouse *event)
 	{
 	case MOUSE_BUTTON_LEFT:
 		if (clickedTile == nullptr) { break; }
-		
-		if (draftMode == true)
-		{
-			//클릭한 타일이 배럭 주변이고 이미 위치한 유닛이 없으면
-			if ( (draftTile->CheckTileAndReturnItsType(clickedTile) != IT_IS_NOT_NEAR_TILE) && (clickedTile->getCharacterOnThisTile() == nullptr))
-			{
-				int spriteNum = draftTile->CheckTileAndReturnItsType(clickedTile);
-				SpawnCharacterOnTile(clickedTile, spriteNum);
-				draftTile = nullptr;
-				draftMode = false;
-				break;
-			}
-			else
-			{
-				draftTile = nullptr;
-				draftMode = false;
-				break;
-			}
-		}
+		DraftNewCharacterByClick(clickedTile);
 
-		if (draftMode == false)
-		{
-			if (clickedTile->getCharacterOnThisTile() != nullptr)
-			{
-				Character* target = clickedTile->getCharacterOnThisTile();
-				target->rotateToDirection(ROTATE_LEFT, target);
-				break;
-			}
-			if (clickedTile->getTypeOfTile() == TILE_BARRACK || clickedTile->getTypeOfTile() == TILE_HEADQUARTER)
-				if (getCurrentPlayerData()->getFood() >= 1)
-				{
-					draftTile = clickedTile;
-					draftMode = true;
-					break;
-				}
-		}
 		break;
 
 	case MOUSE_BUTTON_RIGHT:

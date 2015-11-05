@@ -79,7 +79,7 @@ public:
 	Self_Tile* getTileFromMouseEvent(const cocos2d::EventMouse *event);
 
 	PlayerData*	getPlayerDataByPlayerInfo(PlayerInfo player);
-
+	void DraftNewCharacterByClick(Self_Tile* clickedTile);
 private:
 	static GameSceneManager *inst;
 	TileMap* tileMap;
