@@ -34,3 +34,20 @@ enum TileKind {
 	TILE_VOCANO,
 	TILE_LAVA
 };
+enum DirectionKind
+{
+	ANGLE_DOWN_LEFT,
+	ANGLE_DOWN,
+	ANGLE_DOWN_RIGHT,
+	ANGLE_UP_RIGHT,
+	ANGLE_UP,
+	ANGLE_UP_LEFT,
+	ANGLE_ERR = -1
+};
+
+	enum RotateDirection
+	{
+		ROTATE_LEFT,
+		ROTATE_RIGHT,
+		ROTATE_ERR = -1
+	};
