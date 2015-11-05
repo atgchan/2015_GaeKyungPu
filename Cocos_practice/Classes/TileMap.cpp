@@ -3,7 +3,7 @@
 #include "GameSceneManager.h"
 
 TileMap* TileMap::inst = NULL;
-TileKind TileMap::_MapData[9][8] = { ///# 원래 이런거는 나중에 파일로 빼서, 컴파일 하지 않고서도 배치 가능하게 하는게 정석이다. 참고~
+TileKind TileMap::_MapData[9][8] = {
 	{ TILE_NULL, TILE_PLAIN, TILE_PLAIN, TILE_PLAIN, TILE_NULL, TILE_NULL, TILE_NULL, TILE_NULL },
 	{ TILE_NULL, TILE_RICH, TILE_LAKE, TILE_VILLAGE, TILE_PLAIN, TILE_PLAIN, TILE_PLAIN, TILE_NULL },
 	{ TILE_PLAIN, TILE_PLAIN, TILE_PLAIN, TILE_PLAIN, TILE_FOREST, TILE_HEADQUARTER, TILE_PLAIN, TILE_NULL },

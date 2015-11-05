@@ -6,8 +6,7 @@
 Character* Character::create(PlayerInfo cPInfo, int spriteNum)
 {
 	Character* sprite = new Character();
-	//std::string fileName = std::string("Character/spear_"); 
-	std::string fileName("Character/spear_"); ///# 이렇게 바로 생성해도 될텐데?
+	std::string fileName("Character/spear_");
 
 	if (cPInfo == PLAYER_RED)
 	{
@@ -38,10 +37,9 @@ Character* Character::create(PlayerInfo cPInfo, int spriteNum)
 bool Character::isOnTile(TileKind tileTypeToCheck)
 {
 	if (this->getCurrentTile()->getTypeOfTile() == tileTypeToCheck)
-	{
 		return true;
-	}
-	else return false; ///# 코딩 컨벤션 맞출것
+	else
+		return false;
 }
 
 void Character::rotateToDirection(RotateDirection rotateDirection, Character* character)
@@ -63,7 +61,8 @@ void Character::rotateToDirection(RotateDirection rotateDirection, Character* ch
 
 	if (rotateDirection == ROTATE_LEFT)
 	{
-		if (cAngle == 5) cAngle = 0; ///# 코딩 컨벤션
+		if (cAngle == 5)
+			cAngle = 0;
 		else cAngle++;
 
 		std::ostringstream ostr;

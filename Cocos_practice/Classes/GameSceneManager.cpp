@@ -22,6 +22,7 @@ void GameSceneManager::ChangeRichToLava(Self_Tile* target)
 
 void GameSceneManager::InitializeGame()
 {
+	nodes = Node::create();
 	this->nodes->setName("MasterNode");
 	tileMap = TileMap::getInstance();
 	tileMap->create();
@@ -239,7 +240,6 @@ Self_Tile* GameSceneManager::getExistingTileWithMousePoint(Vec2 vec)
 
 GameSceneManager::GameSceneManager()
 {
-
 }
 
 GameSceneManager::~GameSceneManager()
