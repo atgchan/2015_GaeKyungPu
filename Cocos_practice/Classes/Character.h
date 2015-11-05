@@ -27,7 +27,7 @@ public:
 	/**
 	@brief	플레이어의 종류(레드, 블루)를 받아와서 해당 팀에 속하는 색깔의 캐릭터 스프라이트를 생성한다.
 	*/
-	static Character* create(PlayerInfo currentPlayerInfo);
+	static Character* create(PlayerInfo currentPlayerInfo, int spriteNum = 0);
 
 	/**
 	@brief	방향을 받아서 해당 방향으로 스프라이트 이미지를 회전한다.

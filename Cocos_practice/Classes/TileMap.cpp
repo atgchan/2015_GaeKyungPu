@@ -23,6 +23,8 @@ bool TileMap::create()
 			float positionX;
 			float positionY;
 			_TileSet[i][j] = Self_Tile::create(_MapData[i][j]);
+			//_TileSet[i][j]->setPositionInt(i, j);
+
 			if (j == 0)
 			{
 				if ((i % 2) == 0)
@@ -67,6 +69,32 @@ bool TileMap::create()
 			//this->setAnchorPoint(Point(0.5, 0.0));
 		}
 	}
+
+	for (int i = 0; i < 9; ++i)
+	{
+		for (int j = 0; j < 8; ++j)
+		{
+			if (i % 2 == 0)
+			{
+				_TileSet[i][j]->setNearTile(0, _TileSet[i][j - 1]);
+				_TileSet[i][j]->setNearTile(1, _TileSet[i + 1][j]);
+				_TileSet[i][j]->setNearTile(2, _TileSet[i + 1][j + 1]);
+				_TileSet[i][j]->setNearTile(3, _TileSet[i][j + 1]);
+				_TileSet[i][j]->setNearTile(4, _TileSet[i - 1][j + 1]);
+				_TileSet[i][j]->setNearTile(5, _TileSet[i - 1][j]);
+			}
+			else
+			{
+				_TileSet[i][j]->setNearTile(0, _TileSet[i][j - 1]);
+				_TileSet[i][j]->setNearTile(1, _TileSet[i + 1][j - 1]);
+				_TileSet[i][j]->setNearTile(2, _TileSet[i + 1][j]);
+				_TileSet[i][j]->setNearTile(3, _TileSet[i][j + 1]);
+				_TileSet[i][j]->setNearTile(4, _TileSet[i - 1][j]);
+				_TileSet[i][j]->setNearTile(5, _TileSet[i - 1][j - 1]);
+			}
+		}
+	}
+
 
 	return true;
 }

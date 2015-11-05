@@ -90,7 +90,7 @@ private:
 
 	bool	draftMode = false;
 
-	void	SpawnCharacterOnTile(Self_Tile*);
+	void	SpawnCharacterOnTile(Self_Tile* tile, int spriteNum);
 
 	int progressVolcano = 0;
 
@@ -102,6 +102,7 @@ private:
 	bool isVolcanoActivated = false;
 	bool isTurnRunning = true;
 	Phase* phases[7];
+	Self_Tile* draftTile;
 
 	void ChangePhase(PhaseInfo);
 };

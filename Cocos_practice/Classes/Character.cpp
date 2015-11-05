@@ -3,7 +3,7 @@
 #include "Character.h"
 
 
-Character* Character::create(PlayerInfo cPInfo)
+Character* Character::create(PlayerInfo cPInfo, int spriteNum)
 {
 	Character* sprite = new Character();
 	//std::string fileName = std::string("Character/spear_"); 
@@ -17,7 +17,9 @@ Character* Character::create(PlayerInfo cPInfo)
 	{
 		fileName += std::string("blue");
 	}
-	fileName += std::string("_00.png");
+	fileName += std::string("_0");
+	fileName += std::to_string(spriteNum);
+	fileName += std::string(".png");
 
 	if (sprite && (sprite->initWithFile(fileName)))
 	{

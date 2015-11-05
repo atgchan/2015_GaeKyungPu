@@ -29,6 +29,7 @@ void GameSceneManager::InitializeGame()
 	for (int i = 0; i < NUM_OF_PLAYER; ++i)
 	{
 		playerData[i] = new PlayerData();
+		playerData[i]->setFood(1);
 	}
 	
 	phases[PHASE_READY] = nullptr;
@@ -43,6 +44,29 @@ void GameSceneManager::InitializeGame()
 	currentPhase = phases[PHASE_HARVEST];
 }
 
+Self_Tile* GameSceneManager::getTileFromMouseEvent(const cocos2d::EventMouse *event)
+{
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+
+	float xPos = event->getCursorX();
+	float yPos = event->getCursorY() + visibleSize.height;
+
+	Self_Tile* tile = getExistingTileWithMousePoint(Vec2(xPos, yPos));
+
+	return tile;
+}
+
+void GameSceneManager::SpawnCharacterOnTile(Self_Tile* tile, int spriteNum)
+{
+	Character* unit = Character::create(getCurrentPlayer(), spriteNum);
+	unit->setAnchorPoint(Vec2(0.5, 0.13));
+
+	tile->setCharacterOnThisTile(unit);
+	TileMap::getInstance()->setCharacterOnTile(unit, tile);
+	playerData[getCurrentPlayer()]->AddCharacter(unit);
+	unit->setCurrentTile(tile);
+}
+
 void GameSceneManager::mouseDownDispatcher(cocos2d::EventMouse *event)
 {
 	if (currentPhaseInfo != PHASE_ACTION)
@@ -55,60 +79,56 @@ void GameSceneManager::mouseDownDispatcher(cocos2d::EventMouse *event)
 	float yPos = event->getCursorY() + visibleSize.height;
 	auto children = TileMap::getInstance()->getChildren();
 
-	auto clickedTile = getTileFromMouseEvent(event);
+	Self_Tile* clickedTile = getTileFromMouseEvent(event);
 	switch (event->getMouseButton())
 	{
 	case MOUSE_BUTTON_LEFT:
-
+		if (clickedTile == nullptr) { break; }
+		
+		if (draftMode == true)
+		{
+			//클릭한 타일이 배럭 주변이고 이미 위치한 유닛이 없으면
+			if ( (draftTile->isNearTile(clickedTile) != -1) && (clickedTile->getCharacterOnThisTile() == nullptr))
+			{
+				int spriteNum = draftTile->isNearTile(clickedTile);
+				SpawnCharacterOnTile(clickedTile, spriteNum);
+				draftTile = nullptr;
+				draftMode = false;
+				break;
+			}
+			else
+			{
+				draftTile = nullptr;
+				draftMode = false;
+				break;
+			}
+		}
 
 		if (draftMode == false)
 		{
-			if (clickedTile->getTypeOfTile() == TILE_BARRACK)
-				if (getCurrentPlayerData()->getFood() >= 1)
-					draftMode = true;
-		}
-		else//draftmode==true then
-		{
-			if (클릭한 타일이 배럭 주변이고 이미 위치한 유닛이 없으면)
-				SpawnCharacterOnTile(clickedTile);
-		}
-		/*
-		for (auto iter : TileList) ///# 버튼 누를때마다 모든 타일을 순회하는것이 좋을까? 더 좋은 방법은 없는가?
-		origin/master
-		{
-			auto tile = getExistingTileWithMousePoint(Vec2(xPos, yPos));
-			if (tile != nullptr)
+			if (clickedTile->getCharacterOnThisTile() != nullptr)
 			{
-				if (tile->getCharacterOnThisTile() != nullptr)
-				{
-					Character* target = tile->getCharacterOnThisTile();
-					target->rotateToDirection(ROTATE_LEFT, target);
-					break;
-				}
-				else
-				{
-					Character* sprite = Character::create(getCurrentPlayer());
-					sprite->setAnchorPoint(Vec2(0.5, 0.13));
-
-					tile->setCharacterOnThisTile(sprite);
-					TileMap::getInstance()->setCharacterOnTile(sprite, tile);
-					playerData[getCurrentPlayer()]->AddCharacter(sprite);
-					sprite->setCurrentTile(tile);
-					break;
-				}
+				Character* target = clickedTile->getCharacterOnThisTile();
+				target->rotateToDirection(ROTATE_LEFT, target);
+				break;
 			}
-		}*/
+			if (clickedTile->getTypeOfTile() == TILE_BARRACK || clickedTile->getTypeOfTile() == TILE_HEADQUARTER)
+				if (getCurrentPlayerData()->getFood() >= 1)
+				{
+					draftTile = clickedTile;
+					draftMode = true;
+					break;
+				}
+		}
 		break;
 
 	case MOUSE_BUTTON_RIGHT:
 		{
-			auto tile = getExistingTileWithMousePoint(Vec2(xPos, yPos));
-			if (tile != nullptr)
+			if (clickedTile != nullptr)
 			{
-				if (tile->getCharacterOnThisTile() != nullptr)
+				if (clickedTile->getCharacterOnThisTile() != nullptr)
 				{
-					frequency = 1000;
-					Character* target = tile->getCharacterOnThisTile();
+					Character* target = clickedTile->getCharacterOnThisTile();
 					target->rotateToDirection(ROTATE_RIGHT, target);
 					break;
 				}
@@ -118,12 +138,11 @@ void GameSceneManager::mouseDownDispatcher(cocos2d::EventMouse *event)
 
 	case MOUSE_BUTTON_MIDDLE:
 	{
-		auto tile = getExistingTileWithMousePoint(Vec2(xPos, yPos));
-		if (tile != nullptr)
+		if (clickedTile != nullptr)
 		{
-			if (tile->getCharacterOnThisTile() != nullptr)
+			if (clickedTile->getCharacterOnThisTile() != nullptr)
 			{
-				Character* target = tile->getCharacterOnThisTile();
+				Character* target = clickedTile->getCharacterOnThisTile();
 				killCharacter(target);
 				return;
 			}

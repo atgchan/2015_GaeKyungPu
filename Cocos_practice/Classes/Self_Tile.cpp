@@ -67,3 +67,24 @@ void Self_Tile::setCharacterOnThisTile(Character* character)
 {
 	this->characterOnThisTile = character;
 }
+
+//void Self_Tile::setPositionInt(int _xPos, int _yPos)
+//{
+//	xPos = _xPos;
+//	yPos = _yPos;
+//}
+
+int Self_Tile::isNearTile(Self_Tile* clickedTile)
+{
+	for (int i = 0; i < 6; ++i)
+	{
+		if (nearTile[i] == clickedTile)
+			return i;
+	}
+	return -1;
+}
+
+void Self_Tile::setNearTile(int num, Self_Tile* tile)
+{
+	nearTile[num] = tile;
+}
