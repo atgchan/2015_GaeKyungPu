@@ -82,7 +82,7 @@ void Character::rotateToDirection(RotateDirection rotateDirection, Character* ch
 		fileName += std::string(ostr.str());
 		fileName += std::string(".png");
 	}
-	character->setCurrentAngle(CharacterAngle(cAngle));
+	character->setCurrentAngle(DirectionKind(cAngle));
 
 	character->initWithFile(fileName);
 	character->setAnchorPoint(Point(0.5, 0.13));
