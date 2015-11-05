@@ -6,10 +6,10 @@
 #include "TileMap.h"
 class Phase;
 
-struct TILEARRAYSET ///# 구조체나 클래스의 멤버변수는 반드시 기본값으로 초기화.
+struct TILEARRAYSET
 {
 	Self_Tile* tile = nullptr;
-	Rect rect;
+	Rect rect = Rect();
 };
 
 //싱글톤으로 구현
@@ -51,7 +51,7 @@ public:
 	bool	getIsVolcanoActivated(){	return isVolcanoActivated;	}
 	int		getProgressVolcano(){ return progressVolcano; }
 	void	setProgressVolcano(int progress){ progressVolcano = progress; }
-	bool	getIsMouseLocked(){ return _isMouseLocked; }
+	bool	getIsMouseLocked(){ return isMouseLocked; }
 
 	void scheduleCallback(float delta);
 
@@ -79,10 +79,10 @@ public:
 	Self_Tile* getTileFromMouseEvent(const cocos2d::EventMouse *event);
 
 private:
-	static GameSceneManager *inst; ///# 멤버 변수 코딩 컨벤션
+	static GameSceneManager *inst;
 	TileMap* tileMap;
 	PlayerData* playerData[NUM_OF_PLAYER];
-	Node* const nodes = Node::create(); ///# 함수 호출해서 초기화하는 종류는 생성자 또는 init에서 직접
+	Node* nodes;
 
 	PhaseInfo currentPhaseInfo = PHASE_HARVEST;
 	PlayerInfo currentPlayer = PLAYER_RED;
@@ -97,7 +97,7 @@ private:
 	/*타일만 별도로 저장할 배열을 만든다..*/
 	std::vector<TILEARRAYSET> TileList;
 
-	bool _isMouseLocked = true; ///# 코딩 컨벤션. _의 의미는..
+	bool isMouseLocked = true;
 	bool isGameInitialized = false;
 	bool isVolcanoActivated = false;
 	bool isTurnRunning = true;
