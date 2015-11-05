@@ -73,6 +73,8 @@ public:
 
 	void setVolcanoActivated(bool activated){ isVolcanoActivated = activated; };
 
+	Self_Tile* getTileFromMouseEvent(const cocos2d::EventMouse *event);
+
 private:
 	enum { NUM_OF_PLAYER = 2 }; ///# 코딩 컨벤션, 그리고 이런 전역 설정에 관계된거는 config.h같은거 만들어서 빼놔도 좋다.
 	static GameSceneManager *inst; ///# 멤버 변수 코딩 컨벤션
@@ -83,6 +85,10 @@ private:
 	PhaseInfo currentPhaseInfo = PHASE_HARVEST;
 	PlayerInfo currentPlayer = PLAYER_RED;
 	Phase* currentPhase = nullptr;
+
+	bool	draftMode = false;
+
+	void	SpawnCharacterOnTile(Self_Tile*);
 
 	int progressVolcano = 0;
 

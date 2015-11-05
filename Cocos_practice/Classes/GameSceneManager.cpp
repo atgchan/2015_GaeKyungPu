@@ -66,9 +66,23 @@ void GameSceneManager::mouseDownDispatcher(cocos2d::EventMouse *event)
 	float yPos = event->getCursorY() + visibleSize.height;
 	auto children = TileMap::getInstance()->getChildren();
 
+	auto clickedTile = getTileFromMouseEvent(event);
 	switch (event->getMouseButton())
 	{
 	case MOUSE_BUTTON_LEFT:
+
+		if (draftMode == false)
+		{
+			if (clickedTile->getTypeOfTile() == TILE_BARRACK)
+				if (getCurrentPlayerData()->getFood() >= 1)
+					draftMode = true;
+		}
+		else//draftmode==true then
+		{
+			if (클릭한 타일이 배럭 주변이고 이미 위치한 유닛이 없으면)
+				SpawnCharacterOnTile(clickedTile);
+		}
+		/*
 		for (auto iter : TileList) ///# 버튼 누를때마다 모든 타일을 순회하는것이 좋을까? 더 좋은 방법은 없는가?
 		{
 			auto tile = getExistingTileWithMousePoint(Vec2(xPos, yPos));
@@ -94,7 +108,7 @@ void GameSceneManager::mouseDownDispatcher(cocos2d::EventMouse *event)
 					break;
 				}
 			}
-		}
+		}*/
 		break;
 
 	case MOUSE_BUTTON_RIGHT:
