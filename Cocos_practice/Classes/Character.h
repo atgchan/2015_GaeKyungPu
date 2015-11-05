@@ -24,8 +24,7 @@ public:
 	bool isTile(){ return false; }
 
 private:
-	CC_SYNTHESIZE(CharacterAngle, CurrentAngle, CurrentAngle);
+	CC_SYNTHESIZE(DirectionKind, CurrentDirection, CurrentDirection);
 	CC_SYNTHESIZE(Self_Tile*, CurrentTile, CurrentTile);
 	CC_SYNTHESIZE(PlayerInfo, CurrentPlayerInfo, CurrentPlayerInfo);
-
 };
