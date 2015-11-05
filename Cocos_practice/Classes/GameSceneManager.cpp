@@ -14,15 +14,6 @@
 
 GameSceneManager* GameSceneManager::inst = NULL;
 
-
-/*
-
-void GameSceneManager::Phase_Volcano()
-{
-	
-}
-
-*/
 void GameSceneManager::ChangeRichToLava(Self_Tile* target)
 {
 	target->changeTile(TILE_LAVA);
@@ -54,8 +45,6 @@ void GameSceneManager::InitializeGame()
 
 void GameSceneManager::mouseDownDispatcher(cocos2d::EventMouse *event)
 {
-	//이하 입력이 제대로 들어오는지 확인하기 위한 테스트코드.
-	//입력이 제대로 들어왔다면 마우스 버튼따라서 도레미가 나온다.
 	if (currentPhaseInfo != PHASE_ACTION)
 		return;
 
@@ -71,6 +60,7 @@ void GameSceneManager::mouseDownDispatcher(cocos2d::EventMouse *event)
 	{
 	case MOUSE_BUTTON_LEFT:
 
+
 		if (draftMode == false)
 		{
 			if (clickedTile->getTypeOfTile() == TILE_BARRACK)
@@ -84,6 +74,7 @@ void GameSceneManager::mouseDownDispatcher(cocos2d::EventMouse *event)
 		}
 		/*
 		for (auto iter : TileList) ///# 버튼 누를때마다 모든 타일을 순회하는것이 좋을까? 더 좋은 방법은 없는가?
+		origin/master
 		{
 			auto tile = getExistingTileWithMousePoint(Vec2(xPos, yPos));
 			if (tile != nullptr)
@@ -92,10 +83,9 @@ void GameSceneManager::mouseDownDispatcher(cocos2d::EventMouse *event)
 				{
 					Character* target = tile->getCharacterOnThisTile();
 					target->rotateToDirection(ROTATE_LEFT, target);
-					frequency = 1000;
 					break;
 				}
-				else if (tile->getCharacterOnThisTile() == nullptr) ///# 그냥 else하면 되는거 아닌가?
+				else
 				{
 					Character* sprite = Character::create(getCurrentPlayer());
 					sprite->setAnchorPoint(Vec2(0.5, 0.13));
@@ -104,7 +94,6 @@ void GameSceneManager::mouseDownDispatcher(cocos2d::EventMouse *event)
 					TileMap::getInstance()->setCharacterOnTile(sprite, tile);
 					playerData[getCurrentPlayer()]->AddCharacter(sprite);
 					sprite->setCurrentTile(tile);
-					frequency = 262;
 					break;
 				}
 			}
@@ -112,7 +101,6 @@ void GameSceneManager::mouseDownDispatcher(cocos2d::EventMouse *event)
 		break;
 
 	case MOUSE_BUTTON_RIGHT:
-		for (auto iter : TileList)
 		{
 			auto tile = getExistingTileWithMousePoint(Vec2(xPos, yPos));
 			if (tile != nullptr)
@@ -126,7 +114,6 @@ void GameSceneManager::mouseDownDispatcher(cocos2d::EventMouse *event)
 				}
 			}
 		}
-		frequency = 330;
 		break;
 
 	case MOUSE_BUTTON_MIDDLE:
@@ -138,14 +125,9 @@ void GameSceneManager::mouseDownDispatcher(cocos2d::EventMouse *event)
 			{
 				Character* target = tile->getCharacterOnThisTile();
 				killCharacter(target);
-				//TileMap::getInstance()->removeChild(target);
-				//tile->setCharacterOnThisTile(nullptr);
 				return;
 			}
 		}
-
-		frequency = 294;
-
 		break;
 	}
 	default:
@@ -163,21 +145,12 @@ void GameSceneManager::ChangePlayer()
 	if (currentPhaseInfo != PHASE_ACTION)
 		return;
 
-	if (currentPlayer == PLAYER_RED)
+	if (currentPlayer == PLAYER_RED || currentPlayer == PLAYER_BLUE)
 	{
-		currentPlayer = PLAYER_BLUE;
-		return;
-	}
-	if (currentPlayer == PLAYER_BLUE)
-	{
-		currentPlayer = PLAYER_RED;
-		return;
+		currentPlayer = (PlayerInfo)((currentPlayer + 1) % 2);
 	}
 	else
-	{
-		Beep(1000, 1000);
-		Director::getInstance()->end();
-	}
+	{	Director::getInstance()->end();	}
 }
 
 void GameSceneManager::scheduleCallback(float delta)
@@ -221,20 +194,7 @@ void GameSceneManager::toggleTurn(Object* pSender)
 		return;
 
 	ChangePlayer();
-	Beep(262, 300);
-	Beep(294, 300);
-	Beep(330, 300);
 	currentPhaseInfo = PHASE_PASTEUR;
-}
-
-GameSceneManager::GameSceneManager()
-{
-
-}
-
-GameSceneManager::~GameSceneManager()
-{
-
 }
 
 void GameSceneManager::pushTileToList(Rect rect, Self_Tile* tile)
@@ -256,4 +216,14 @@ Self_Tile* GameSceneManager::getExistingTileWithMousePoint(Vec2 vec)
 		}
 	}
 	return nullptr;
+}
+
+GameSceneManager::GameSceneManager()
+{
+
+}
+
+GameSceneManager::~GameSceneManager()
+{
+
 }

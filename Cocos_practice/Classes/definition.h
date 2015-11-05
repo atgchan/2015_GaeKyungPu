@@ -3,6 +3,8 @@ USING_NS_CC;
 
 #define GM GameSceneManager::getInstance()
 
+enum { NUM_OF_PLAYER = 2 };
+
 enum PhaseInfo{
 	PHASE_READY,
 	PHASE_HARVEST,
