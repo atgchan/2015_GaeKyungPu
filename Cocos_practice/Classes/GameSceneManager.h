@@ -19,16 +19,16 @@ public:
 	GameSceneManager();
 	~GameSceneManager();
 
-	/**
+	/*
 	@brief		게임의 초기 셋팅을 진행합니다. 현재 기능 : 초기 맵 그리기
 	@warning	이 함수를 통해 셋팅하지 않은 GameMaster는 사용할 수 없습니다.
 	*/
 	void InitializeGame();
-	/**
+	/*
 	@brief		mouse버튼 이벤트 리스너에 걸어둘 수 있는 2차 디스패쳐입니다.
 	*/
 	void mouseDownDispatcher(cocos2d::EventMouse *event);
-	/**
+	/*
 	@brief		GameMaster에게서 요청할 어떠한 기능이라도 getInstance()를 통해 pointer를 얻어 요청합니다.
 	*/
 	static GameSceneManager* getInstance()
@@ -39,7 +39,7 @@ public:
 		}
 		return inst;
 	}
-	/**
+	/*
 	@brief		GameMaster가 포함하고 있는 모든 node를 하나의 트리로 묶어 포인터로 반환합니다.
 	*/
 	Node* getNodes(){ return nodes; }
@@ -54,14 +54,18 @@ public:
 	bool	getIsMouseLocked(){ return _isMouseLocked; }
 
 	void scheduleCallback(float delta);
+
+	/*
+	@brief		GameScene으로부터 CALLBACK 받아 턴 변경. (추후에 UI 클래스에서 CALLBACK 하도록)
+	*/
 	void toggleTurn(Object* pSender);
 
-	/**
+	/*
 		@brief	타일의 포인터와 타일의 클릭 가능한 위치를 나타내는 사각형을 받아서 배열로 저장한다.
 	*/
 	void pushTileToList(Rect rect, Self_Tile* tile);
 
-	/**
+	/*
 		@brief	타일 리스트에서 해당 좌표값의 위치에 포함되는 타일이 있는지 검사해서 있으면 타일 포인터를 반환한다.
 	*/
 	Self_Tile* getExistingTileWithMousePoint(Vec2 vec);
@@ -70,11 +74,9 @@ public:
 	void ChangeRichToLava(Self_Tile* target);
 	void GiveTileToPlayer(Self_Tile* targetTile, PlayerInfo pInfo);
 	void killCharacter(Character* target);
-
 	void setVolcanoActivated(bool activated){ isVolcanoActivated = activated; };
 
 private:
-	enum { NUM_OF_PLAYER = 2 }; ///# 코딩 컨벤션, 그리고 이런 전역 설정에 관계된거는 config.h같은거 만들어서 빼놔도 좋다.
 	static GameSceneManager *inst; ///# 멤버 변수 코딩 컨벤션
 	TileMap* tileMap;
 	PlayerData* playerData[NUM_OF_PLAYER];
@@ -95,11 +97,5 @@ private:
 	bool isTurnRunning = true;
 	Phase* phases[7];
 
-	/*
-	void Phase_Harvest();
-	void Phase_Occupy();
-	void Phase_Volcano();
-	void Phase_Action();
-	void Phase_Pasteur();*/
 	void ChangePhase(PhaseInfo);
 };
