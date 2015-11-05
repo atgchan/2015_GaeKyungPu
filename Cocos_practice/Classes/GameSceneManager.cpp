@@ -57,7 +57,7 @@ Self_Tile* GameSceneManager::getTileFromMouseEvent(const cocos2d::EventMouse *ev
 	return tile;
 }
 
-void GameSceneManager::SpawnCharacterOnTile(Self_Tile* tile, int spriteNum)
+void GameSceneManager::SpawnCharacterOnTile(Self_Tile* tile, int spriteNum, bool spendFood/*=true*/)
 {
 	Character* unit = Character::create(getCurrentPlayer(), spriteNum);
 	unit->setAnchorPoint(Vec2(0.5, 0.13));
@@ -66,6 +66,9 @@ void GameSceneManager::SpawnCharacterOnTile(Self_Tile* tile, int spriteNum)
 	TileMap::getInstance()->setCharacterOnTile(unit, tile);
 	playerData[getCurrentPlayer()]->AddCharacter(unit);
 	unit->setCurrentTile(tile);
+	
+	getCurrentPlayerData()->AddFood(-1 * spendFood);
+
 }
 
 void GameSceneManager::mouseDownDispatcher(cocos2d::EventMouse *event)
@@ -89,9 +92,9 @@ void GameSceneManager::mouseDownDispatcher(cocos2d::EventMouse *event)
 		if (draftMode == true)
 		{
 			//클릭한 타일이 배럭 주변이고 이미 위치한 유닛이 없으면
-			if ( (draftTile->isNearTile(clickedTile) != -1) && (clickedTile->getCharacterOnThisTile() == nullptr))
+			if ( (draftTile->CheckTileAndReturnItsType(clickedTile) != IT_IS_NOT_NEAR_TILE) && (clickedTile->getCharacterOnThisTile() == nullptr))
 			{
-				int spriteNum = draftTile->isNearTile(clickedTile);
+				int spriteNum = draftTile->CheckTileAndReturnItsType(clickedTile);
 				SpawnCharacterOnTile(clickedTile, spriteNum);
 				draftTile = nullptr;
 				draftMode = false;
@@ -162,9 +165,6 @@ PlayerData* GameSceneManager::getCurrentPlayerData()
 
 void GameSceneManager::ChangePlayer()
 {
-	if (currentPhaseInfo != PHASE_ACTION)
-		return;
-
 	if (currentPlayer == PLAYER_RED || currentPlayer == PLAYER_BLUE)
 	{
 		currentPlayer = (PlayerInfo)((currentPlayer + 1) % 2);
@@ -212,9 +212,7 @@ void GameSceneManager::toggleTurn(Object* pSender)
 {
 	if (currentPhaseInfo != PHASE_ACTION)
 		return;
-
-	ChangePlayer();
-	currentPhaseInfo = PHASE_PASTEUR;
+	ChangePhase(PHASE_PASTEUR);
 }
 
 void GameSceneManager::pushTileToList(Rect rect, Self_Tile* tile)

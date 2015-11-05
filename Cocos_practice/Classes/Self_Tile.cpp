@@ -74,7 +74,7 @@ void Self_Tile::setCharacterOnThisTile(Character* character)
 //	yPos = _yPos;
 //}
 
-int Self_Tile::isNearTile(Self_Tile* clickedTile)
+int Self_Tile::CheckTileAndReturnItsType(Self_Tile* clickedTile)
 {
 	for (int i = 0; i < 6; ++i)
 	{

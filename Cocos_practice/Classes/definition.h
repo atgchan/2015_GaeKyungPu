@@ -3,6 +3,7 @@ USING_NS_CC;
 
 #define GM GameSceneManager::getInstance()
 
+enum {IT_IS_NOT_NEAR_TILE = -1};
 enum { NUM_OF_PLAYER = 2 };
 
 enum PhaseInfo{

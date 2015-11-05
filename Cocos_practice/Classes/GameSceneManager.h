@@ -90,7 +90,7 @@ private:
 
 	bool	draftMode = false;
 
-	void	SpawnCharacterOnTile(Self_Tile* tile, int spriteNum);
+	void SpawnCharacterOnTile(Self_Tile* tile, int spriteNum, bool spendFood=true);
 
 	int progressVolcano = 0;
 

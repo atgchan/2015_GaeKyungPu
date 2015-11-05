@@ -32,7 +32,7 @@ public:
 				해당 숫자는 sprite 생성시, 초기 sprite의 기준이 된다.
 	@warning	인근에 해당 타일이 없는 경우 -1을 반환한다.
 	*/
-	int	isNearTile(Self_Tile* tile);
+	int	CheckTileAndReturnItsType(Self_Tile* tile);
 	void setNearTile(int num, Self_Tile* tile);
 
 	Self_Tile();
