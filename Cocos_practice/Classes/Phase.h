@@ -1,13 +1,8 @@
-#ifndef Phase_h__
-#define Phase_h__
-
+#pragma once
 class Phase
 {
 public:
-	virtual void playPhase() = 0;
-
-private:
-
-
+	Phase();
+	virtual ~Phase();
 };
-#endif // Phase_h__
+
