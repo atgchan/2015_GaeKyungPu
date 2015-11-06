@@ -87,7 +87,7 @@ void GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
 	}
 	else//if (draftMode == false)
 	{
-		if ((clickedTile->getOwnerPlayer() == currentPlayer) && (clickedTile->getTypeOfTile() == TILE_BARRACK || clickedTile->getTypeOfTile() == TILE_HEADQUARTER))
+		if ((clickedTile->getOwnerPlayer() == currentPlayer) && (clickedTile->getTypeOfTile() == TILE_BARRACK || clickedTile->getTypeOfTile() == TILE_HEADQUARTER) && (clickedTile->getCharacterOnThisTile() == nullptr))
 		{
 			if (getCurrentPlayerData()->getFood() >= 1)
 			{
