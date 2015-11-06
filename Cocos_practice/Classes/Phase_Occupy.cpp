@@ -12,13 +12,12 @@ Phase_Occupy::~Phase_Occupy()
 
 void Phase_Occupy::Tick()
 {
-	auto gm = GameSceneManager::getInstance();
-	auto CharacterList = gm->getCurrentPlayerData()->getCharacterList();
+	auto CharacterList = GM->getCurrentPlayerData()->getCharacterList();
 	for (auto iter : *CharacterList)
 	{
-		if (iter->getCurrentTile()->getOwnerPlayer() == gm->getCurrentPlayer())
+		if (iter->getCurrentTile()->getOwnerPlayer() == GM->getCurrentPlayer())
 		{
-			gm->GiveTileToPlayer(iter->getCurrentTile(), gm->getCurrentPlayer());
+			GM->GiveTileToPlayer(iter->getCurrentTile(), GM->getCurrentPlayer());
 		}
 	}
 	nextPhase = PHASE_VOLCANO;

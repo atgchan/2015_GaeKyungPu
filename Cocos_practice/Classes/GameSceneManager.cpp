@@ -161,6 +161,20 @@ void GameSceneManager::SpawnCharacterOnTile(Self_Tile* tile, int spriteNum, bool
 
 }
 
+void GameSceneManager::KeyReleasedDispatcher(EventKeyboard::KeyCode keyCode, cocos2d::Event *event)
+{
+	switch (keyCode)
+	{
+	case EventKeyboard::KeyCode::KEY_TAB:
+		Beep(1000, 100);
+		break;
+
+	default:
+		break;
+	}
+}
+
+
 void GameSceneManager::mouseDownDispatcher(cocos2d::EventMouse *event)
 {
 	if (currentPhaseInfo != PHASE_ACTION)

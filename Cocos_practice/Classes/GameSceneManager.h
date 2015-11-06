@@ -28,6 +28,12 @@ public:
 	@brief		mouse버튼 이벤트 리스너에 걸어둘 수 있는 2차 디스패쳐입니다.
 	*/
 	void mouseDownDispatcher(cocos2d::EventMouse *event);
+
+	/*
+	@brief		mouse버튼 이벤트 리스너에 걸어둘 수 있는 2차 디스패쳐입니다.
+	*/
+	void KeyReleasedDispatcher(EventKeyboard::KeyCode keyCode, cocos2d::Event *event);
+
 	/*
 	@brief		GameMaster에게서 요청할 어떠한 기능이라도 getInstance()를 통해 pointer를 얻어 요청합니다.
 	*/

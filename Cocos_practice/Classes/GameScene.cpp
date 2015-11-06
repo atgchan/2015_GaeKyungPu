@@ -37,10 +37,13 @@ bool GameScene::init()
 
 //	Mouse Event
 	auto clickListener = EventListenerMouse::create();
-	
-//마우스 이벤트를 GameMaster로 바로 넘기기 위한 테스트 코드. 제대로 넘어갔다면 클릭시 Beep 음이 들린다.
 	clickListener->onMouseDown = CC_CALLBACK_1(GameSceneManager::mouseDownDispatcher, gmInstance);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(clickListener, this);
+
+//	Keyboard Event
+	auto keylistener = EventListenerKeyboard::create();
+	keylistener->onKeyReleased = CC_CALLBACK_2(GameSceneManager::KeyReleasedDispatcher, gmInstance);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(keylistener, this);
 
 	//tick을 넘겨본다.
 	this->schedule(schedule_selector(GameScene::scheduleCallback));

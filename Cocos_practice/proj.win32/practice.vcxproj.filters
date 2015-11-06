@@ -43,6 +43,9 @@
     <ClCompile Include="..\Classes\GameSceneManager.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\DebugUI.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
@@ -88,6 +91,9 @@
     <ClInclude Include="..\Classes\GameSceneManager.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\DebugUI.h">
+      <Filter>UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc" />
@@ -107,6 +113,9 @@
     </Filter>
     <Filter Include="Game\Phase">
       <UniqueIdentifier>{563d1ab2-4001-4396-b8d4-fada9168d91a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{b3aad223-5c96-44bf-a366-a7512262cdda}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
