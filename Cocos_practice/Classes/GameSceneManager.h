@@ -114,6 +114,8 @@ private:
 	bool isGameInitialized = false;
 	bool isVolcanoActivated = false;
 	bool isTurnRunning = true;
+	bool isDebugingActivated = false;
+
 	Phase* phases[7];
 	Self_Tile* draftTile;
 

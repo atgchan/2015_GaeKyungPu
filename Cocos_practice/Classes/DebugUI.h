@@ -1,10 +1,15 @@
 #pragma once
 #include "definition.h"
 
-class DebugUI : public PopLayer
+class DebugUI : public cocos2d::LayerColor
 {
 public:
-	virtual bool init();
+	bool init();
+	static cocos2d::Scene* scene();
+
+	CREATE_FUNC(DebugUI);
+
 private:
-	bool	isActivated;
+	LayerColor* backLayer;
+	LayerColor* popUpLayer;
 };

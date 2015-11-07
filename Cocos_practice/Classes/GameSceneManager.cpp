@@ -7,7 +7,7 @@
 #include "Phase_Volcano.h"
 #include "Phase_Action.h"
 #include "Phase_Pasteur.h"
-
+#include "DebugUI.h"
 
 //USING_NS_CC;
 #define COCOS2D_DEBUG 1
@@ -165,8 +165,24 @@ void GameSceneManager::KeyReleasedDispatcher(EventKeyboard::KeyCode keyCode, coc
 {
 	switch (keyCode)
 	{
+
 	case EventKeyboard::KeyCode::KEY_TAB:
-		Beep(1000, 100);
+	{
+		if (isDebugingActivated == false)
+		{
+			DebugUI* DebugingUI = DebugUI::create();
+			DebugingUI->setName("debug");
+			this->addChild(DebugingUI);
+			isDebugingActivated = true;
+			break;
+		}
+		else
+		{
+			this->nodes->removeChildByName("debug", true);
+			isDebugingActivated = false;
+			break;
+		}
+	}
 		break;
 
 	default:
