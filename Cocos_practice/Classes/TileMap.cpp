@@ -95,6 +95,8 @@ bool TileMap::create()
 		}
 	}
 
+	_TileSet[6][1]->setOwnerPlayer(PLAYER_RED);
+	_TileSet[2][5]->setOwnerPlayer(PLAYER_BLUE);
 
 	return true;
 }
