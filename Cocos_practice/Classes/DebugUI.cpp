@@ -4,7 +4,7 @@
 cocos2d::Scene* DebugUI::scene()
 {
 	cocos2d::Scene *scene = Scene::create();
-	DebugUI *layer = DebugUI::create();
+	DebugUI* layer = DebugUI::create();
 
 	scene->addChild(layer);
 	return scene;
@@ -40,4 +40,22 @@ bool DebugUI::init()
 	this->addChild(popUpLayer);
 
 	return true;
+}
+
+const void DebugUI::SetValue(PlayerData* pData1, PlayerData* pData2) const
+{
+	int pData1Food = pData1->getFood();
+	int pData2Food = pData2->getFood();
+	
+	auto p1Food = Label::createWithTTF(std::to_string(pData1Food), "fonts/Marker Felt.ttf", 20);
+	auto p2Food = Label::createWithTTF(std::to_string(pData2Food), "fonts/Marker Felt.ttf", 20);
+
+	float width = popUpLayer->getContentSize().width;
+	float height = popUpLayer->getContentSize().height;
+
+	p1Food->setPosition(Vec2(100, height - 120));
+	p2Food->setPosition(Vec2(100 + width / 2, height - 120));
+
+	popUpLayer->addChild(p1Food);
+	popUpLayer->addChild(p2Food);
 }

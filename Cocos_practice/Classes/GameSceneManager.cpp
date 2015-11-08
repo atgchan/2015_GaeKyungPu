@@ -171,6 +171,7 @@ void GameSceneManager::KeyReleasedDispatcher(EventKeyboard::KeyCode keyCode, coc
 		if (isDebugingActivated == false)
 		{
 			DebugUI* DebugingUI = DebugUI::create();
+			DebugingUI->SetValue(getPlayerDataByPlayerInfo(PLAYER_RED), getPlayerDataByPlayerInfo(PLAYER_BLUE));
 			DebugingUI->setName("debug");
 			this->addChild(DebugingUI);
 			isDebugingActivated = true;
