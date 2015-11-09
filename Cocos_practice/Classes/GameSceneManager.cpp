@@ -66,17 +66,22 @@ bool GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
 {
 	if (clickedTile == nullptr)
 		return false;
-
+	int foodToConsume = 0;
 	if (draftMode == true)
 	{
 		//클릭한 타일이 배럭 주변이고 이미 위치한 유닛이 없으면
 		if ((draftTile->CheckTileAndReturnItsType(clickedTile) != IT_IS_NOT_NEAR_TILE) && (clickedTile->getCharacterOnThisTile() == nullptr))
 		{
-			int spriteNum = draftTile->CheckTileAndReturnItsType(clickedTile);
-			SpawnCharacterOnTile(clickedTile, spriteNum);
-			draftTile = nullptr;
-			draftMode = false;
-			return true;
+			foodToConsume = (clickedTile->getTypeOfTile() == TILE_FOREST) ? 2 : 1;
+			if (getCurrentPlayerData()->getFood() >= foodToConsume)
+			{
+				int spriteNum = draftTile->CheckTileAndReturnItsType(clickedTile);
+				SpawnCharacterOnTile(clickedTile, spriteNum,foodToConsume);
+				draftTile = nullptr;
+				draftMode = false;
+				return true;
+			}
+			
 		}
 		else
 		{
@@ -89,15 +94,11 @@ bool GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
 	{
 		if ((clickedTile->getOwnerPlayer() == currentPlayer) && (clickedTile->getTypeOfTile() == TILE_BARRACK || clickedTile->getTypeOfTile() == TILE_HEADQUARTER) && (clickedTile->getCharacterOnThisTile() == nullptr))
 		{
-			if (getCurrentPlayerData()->getFood() >= 1)
-			{
-				draftTile = clickedTile;
-				draftMode = true;
-				return false;
-			}
+			draftTile = clickedTile;
+			draftMode = true;
+			return false;
 		}
 	}
-
 	return false;
 }
 
@@ -105,24 +106,23 @@ void GameSceneManager::MoveCharacterByClick(Self_Tile* clickedTile)
 {
 	if (clickedTile == nullptr)
 		return;
+	int foodToComsume = 0;
 
 	if (readyToMove == true)
 	{
 		//클릭한 타일이 옮길 유닛 주변이고 위에 아무 유닛도 없으면
 		if ((characterToMove->getCurrentTile()->CheckTileAndReturnItsType(clickedTile) == characterToMove->getCurrentDirection()) && (clickedTile->getCharacterOnThisTile() == nullptr))
 		{
-			MoveCharacter(characterToMove, clickedTile);
-			getCurrentPlayerData()->AddFood(-1);
-			characterToMove = nullptr;
-			readyToMove = false;
-			return;
+			foodToComsume = (clickedTile->getTypeOfTile() == TILE_FOREST) ? 2 : 1;
+			if (getCurrentPlayerData()->getFood() >= foodToComsume)
+			{
+				getCurrentPlayerData()->AddFood(foodToComsume * -1);
+				MoveCharacter(characterToMove, clickedTile);
+			}
 		}
-		else
-		{
-			characterToMove = nullptr;
-			readyToMove = false;
-			return;
-		}
+		characterToMove = nullptr;
+		readyToMove = false;
+		return;
 	}
 	else
 	{
@@ -130,12 +130,9 @@ void GameSceneManager::MoveCharacterByClick(Self_Tile* clickedTile)
 		{
 			if (clickedTile->getCharacterOnThisTile()->ownerPlayer != currentPlayer)
 				return;
-			if (getCurrentPlayerData()->getFood() >= 1)
-			{
-				characterToMove = clickedTile->getCharacterOnThisTile();
-				readyToMove = true;
-				return;
-			}
+			characterToMove = clickedTile->getCharacterOnThisTile();
+			readyToMove = true;
+			return;
 		}
 	}
 }
@@ -148,7 +145,7 @@ void GameSceneManager::MoveCharacter(Character* target, Self_Tile* dest)
 
 }
 
-void GameSceneManager::SpawnCharacterOnTile(Self_Tile* tile, int spriteNum, bool spendFood/*=true*/)
+void GameSceneManager::SpawnCharacterOnTile(Self_Tile* tile, int spriteNum, int spendFood/*=1*/)
 {
 	Character* unit = Character::create(getCurrentPlayer(), spriteNum);
 	unit->ownerPlayer = currentPlayer;
