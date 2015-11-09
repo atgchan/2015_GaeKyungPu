@@ -62,10 +62,10 @@ PlayerData* GameSceneManager::getPlayerDataByPlayerInfo(PlayerInfo player)
 	return playerData[player];
 }
 
-void GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
+bool GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
 {
 	if (clickedTile == nullptr)
-		return;
+		return false;
 
 	if (draftMode == true)
 	{
@@ -76,13 +76,13 @@ void GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
 			SpawnCharacterOnTile(clickedTile, spriteNum);
 			draftTile = nullptr;
 			draftMode = false;
-			return;
+			return true;
 		}
 		else
 		{
 			draftTile = nullptr;
 			draftMode = false;
-			return;
+			return false;
 		}
 	}
 	else//if (draftMode == false)
@@ -93,10 +93,12 @@ void GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
 			{
 				draftTile = clickedTile;
 				draftMode = true;
-				return;
+				return false;
 			}
 		}
 	}
+
+	return false;
 }
 
 void GameSceneManager::MoveCharacterByClick(Self_Tile* clickedTile)
@@ -209,8 +211,8 @@ void GameSceneManager::mouseDownDispatcher(cocos2d::EventMouse *event)
 	{
 	case MOUSE_BUTTON_LEFT:
 		if (clickedTile == nullptr) { break; }
-		DraftNewCharacterByClick(clickedTile);
-		MoveCharacterByClick(clickedTile);
+		if(!DraftNewCharacterByClick(clickedTile))
+			MoveCharacterByClick(clickedTile);
 		//이동 부분
 		
 
@@ -328,9 +330,11 @@ Self_Tile* GameSceneManager::getExistingTileWithMousePoint(Vec2 vec)
 
 GameSceneManager::GameSceneManager()
 {
+	return;
 }
 
 GameSceneManager::~GameSceneManager()
 {
 
+	return;
 }

@@ -16,8 +16,6 @@ struct TILEARRAYSET
 class GameSceneManager
 {
 public:
-	GameSceneManager();
-	~GameSceneManager();
 
 	/*
 	@brief		게임의 초기 셋팅을 진행합니다. 현재 기능 : 초기 맵 그리기
@@ -85,13 +83,16 @@ public:
 	Self_Tile*	getTileFromMouseEvent(const cocos2d::EventMouse *event);
 
 	PlayerData*	getPlayerDataByPlayerInfo(PlayerInfo player);
-	void		DraftNewCharacterByClick(Self_Tile* clickedTile);
+	bool DraftNewCharacterByClick(Self_Tile* clickedTile);
 	void		MoveCharacterByClick(Self_Tile* clickedTile);
 	void		MoveCharacter(Character* target, Self_Tile* dest);
 
 	bool		readyToMove = false;
 	Character*		characterToMove = nullptr;
 private:
+	GameSceneManager();
+	~GameSceneManager();
+
 	static GameSceneManager *inst;
 	TileMap* tileMap;
 	PlayerData* playerData[NUM_OF_PLAYER];
