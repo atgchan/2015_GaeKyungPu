@@ -33,6 +33,7 @@ void GameSceneManager::InitializeGame()
 		playerData[i]->setFood(0);
 	}
 	
+	///# 아래 자원들 delete는 언제 하지?
 	phases[PHASE_READY] = nullptr;
 	phases[PHASE_HARVEST] = new Phase_Harvest();
 	phases[PHASE_OCCUPY] = new Phase_Occupy();
