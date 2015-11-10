@@ -93,10 +93,14 @@ private:
 	GameSceneManager();
 	~GameSceneManager();
 
+	///# 아래 멤버 변수들과 일반 변수들의 형태가 똑같아서 구분이 안됨.. 멤버 변수는 따로 코딩컨벤션을 정해서 일괄 적용하도록..
+
 	static GameSceneManager *inst;
 	TileMap* tileMap;
 	PlayerData* playerData[NUM_OF_PLAYER];
 	Node* nodes;
+
+	///# 멤버 변수 초기화도 통일되게 선언과 동시에 하든가 생성자에서 하든가.. 코딩 컨벤션으로 정할 것.
 
 	PhaseInfo currentPhaseInfo = PHASE_HARVEST;
 	PlayerInfo currentPlayer = PLAYER_RED;

@@ -20,7 +20,7 @@ Character* Character::create(PlayerInfo cPInfo, int spriteNum)
 	fileName += std::to_string(spriteNum);
 	fileName += std::string(".png");
 
-	if (sprite && (sprite->initWithFile(fileName)))
+	if (sprite && (sprite->initWithFile(fileName))) ///# sprite를 널체크 할 필요가 있나? 
 	{
 		sprite->autorelease();
 		sprite->setCurrentPlayerInfo(cPInfo);

@@ -76,15 +76,19 @@ bool TileMap::create()
 		{
 			if (i % 2 == 0)
 			{
-				_TileSet[i][j]->setNearTile(0, _TileSet[i][j - 1]);
+				_TileSet[i][j]->setNearTile(0, _TileSet[i][j - 1]); ///# 메모리 언더런!! 왜 그럴까?
 				_TileSet[i][j]->setNearTile(1, _TileSet[i + 1][j]);
 				_TileSet[i][j]->setNearTile(2, _TileSet[i + 1][j + 1]);
-				_TileSet[i][j]->setNearTile(3, _TileSet[i][j + 1]);
+				_TileSet[i][j]->setNearTile(3, _TileSet[i][j + 1]); ///# 메모리 오버런!! 뷁!!
 				_TileSet[i][j]->setNearTile(4, _TileSet[i - 1][j + 1]);
 				_TileSet[i][j]->setNearTile(5, _TileSet[i - 1][j]);
 			}
 			else
 			{
+				///# 여기도 마찬가지.. 메모리 오버/언더 런 다 발생..
+				/// 배열 범위 초과 자신 없으면 std::array를 써라!
+				/// 참고: 타일셋을 이 방법으로 바꿀 것: http://blog.naver.com/spacesun/140202708191
+
 				_TileSet[i][j]->setNearTile(0, _TileSet[i][j - 1]);
 				_TileSet[i][j]->setNearTile(1, _TileSet[i + 1][j - 1]);
 				_TileSet[i][j]->setNearTile(2, _TileSet[i + 1][j]);
