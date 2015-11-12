@@ -26,10 +26,20 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 	}
 }
 
+Winner BattleManager::FightBetween(Character* attacker, Character* defender)
+{
+	return WINNER_ATTACKER;
+}
+
 void BattleManager::SetAttackFormation(Character* attacker)
 {
 	std::list<Character*> tempList;
 	SearchGraphAndOverwriteAttackFormation(tempList, attacker, 1);
+
+}
+
+void BattleManager::SetDefenseFormation(Character* defender)
+{
 
 }
 
