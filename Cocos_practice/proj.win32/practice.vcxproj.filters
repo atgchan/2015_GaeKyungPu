@@ -49,6 +49,9 @@
     <ClCompile Include="..\Classes\BattleManager.cpp">
       <Filter>Game\Battle</Filter>
     </ClCompile>
+    <ClCompile Include="DiceDice.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
@@ -99,6 +102,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\BattleManager.h">
       <Filter>Game\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="DiceDice.h">
+      <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

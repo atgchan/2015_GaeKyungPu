@@ -93,7 +93,7 @@ private:
 	GameSceneManager();
 	~GameSceneManager();
 
-	static		GameSceneManager *inst;
+	static GameSceneManager *inst;
 	TileMap*	_TileMap;
 	PlayerData*	_PlayerData[NUM_OF_PLAYER];
 	Node*		_Nodes;
@@ -101,6 +101,8 @@ private:
 	PhaseInfo	currentPhaseInfo = PHASE_HARVEST;
 	PlayerInfo	currentPlayer = PLAYER_RED;
 	Phase*		currentPhase = nullptr;
+
+	///# 멤버 변수 초기화도 통일되게 선언과 동시에 하든가 생성자에서 하든가.. 코딩 컨벤션으로 정할 것.
 
 	bool		draftMode = false;
 

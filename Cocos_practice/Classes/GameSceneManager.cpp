@@ -22,15 +22,15 @@ void GameSceneManager::ChangeRichToLava(Self_Tile* target)
 
 void GameSceneManager::InitializeGame()
 {
-	nodes = Node::create();
-	this->nodes->setName("MasterNode");
-	tileMap = TileMap::getInstance();
-	tileMap->create();
-	this->addChild(tileMap);
+	_Nodes = Node::create();
+	this->_Nodes->setName("MasterNode");
+	_TileMap = TileMap::getInstance();
+	_TileMap->create();
+	this->addChild(_TileMap);
 	for (int i = 0; i < NUM_OF_PLAYER; ++i)
 	{
-		playerData[i] = new PlayerData();
-		playerData[i]->setFood(0);
+		_PlayerData[i] = new PlayerData();
+		_PlayerData[i]->setFood(0);
 	}
 	
 	phases[PHASE_READY] = nullptr;
@@ -59,7 +59,7 @@ Self_Tile* GameSceneManager::getTileFromMouseEvent(const cocos2d::EventMouse *ev
 
 PlayerData* GameSceneManager::getPlayerDataByPlayerInfo(PlayerInfo player)
 {
-	return playerData[player];
+	return _PlayerData[player];
 }
 
 bool GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
@@ -153,7 +153,7 @@ void GameSceneManager::SpawnCharacterOnTile(Self_Tile* tile, int spriteNum, int 
 
 	
 	TileMap::getInstance()->setCharacterOnTile(unit, tile);
-	playerData[getCurrentPlayer()]->AddCharacter(unit);
+	_PlayerData[getCurrentPlayer()]->AddCharacter(unit);
 	unit->setCurrentTile(tile);
 	
 	getCurrentPlayerData()->AddFood(-1 * spendFood);
@@ -167,19 +167,19 @@ void GameSceneManager::KeyReleasedDispatcher(EventKeyboard::KeyCode keyCode, coc
 
 	case EventKeyboard::KeyCode::KEY_TAB:
 	{
-		if (isDebugingActivated == false)
+		if (_IsDebugingActivated == false)
 		{
 			DebugUI* DebugingUI = DebugUI::create();
 			DebugingUI->SetValue(getPlayerDataByPlayerInfo(PLAYER_RED), getPlayerDataByPlayerInfo(PLAYER_BLUE));
 			DebugingUI->setName("debug");
 			this->addChild(DebugingUI);
-			isDebugingActivated = true;
+			_IsDebugingActivated = true;
 			break;
 		}
 		else
 		{
-			this->nodes->removeChildByName("debug", true);
-			isDebugingActivated = false;
+			this->_Nodes->removeChildByName("debug", true);
+			_IsDebugingActivated = false;
 			break;
 		}
 	}
@@ -249,7 +249,7 @@ void GameSceneManager::mouseDownDispatcher(cocos2d::EventMouse *event)
 
 PlayerData* GameSceneManager::getCurrentPlayerData()
 {
-	return playerData[currentPlayer];
+	return _PlayerData[currentPlayer];
 }
 
 void GameSceneManager::ChangePlayer()
@@ -294,7 +294,7 @@ PlayerInfo GameSceneManager::getCurrentPlayer()
 
 void GameSceneManager::addChild(Node* targetNode)
 {
-	nodes->addChild(targetNode);
+	_Nodes->addChild(targetNode);
 }
 
 void GameSceneManager::toggleTurn(Object* pSender)
