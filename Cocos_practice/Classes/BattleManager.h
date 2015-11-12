@@ -1,4 +1,6 @@
 #pragma once
+#include "definition.h"
+
 class Character;
 
 class BattleManager
@@ -6,6 +8,6 @@ class BattleManager
 public:
 	BattleManager();
 	~BattleManager();
-	void	BattleBetween(Character*, Character*);
-	void	SetAttackPower();
+	void	BattleBetween(Character* attacker, Character* defender);
+	void	SetAttackPower(std::list<Character*>* attackersCharacterList);
 };
