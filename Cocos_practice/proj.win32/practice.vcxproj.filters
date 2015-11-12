@@ -49,7 +49,7 @@
     <ClCompile Include="..\Classes\BattleManager.cpp">
       <Filter>Game\Battle</Filter>
     </ClCompile>
-    <ClCompile Include="DiceDice.cpp">
+    <ClCompile Include="..\Classes\DiceDice.cpp">
       <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>
@@ -103,7 +103,7 @@
     <ClInclude Include="..\Classes\BattleManager.h">
       <Filter>Game\Battle</Filter>
     </ClInclude>
-    <ClInclude Include="DiceDice.h">
+    <ClInclude Include="..\Classes\DiceDice.h">
       <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>
