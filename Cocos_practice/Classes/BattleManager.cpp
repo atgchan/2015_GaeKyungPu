@@ -11,6 +11,21 @@ BattleManager::~BattleManager()
 {
 }
 
+void BattleManager::BattleBetween(Character* attacker, Character* defender)
+{
+	SetAttackFormation(attacker);
+	SetDefenseFormation(defender);
+
+	while (_CurrentAttackFormation.size() && _CurrentDefenseFormation.size())
+	{
+		std::list<Character*> *winner = nullptr, *loser = nullptr;
+		winner = (FightBetween(_CurrentAttackFormation.front(), _CurrentDefenseFormation.front()) == WINNER_ATTACKER) ? &_CurrentAttackFormation : &_CurrentDefenseFormation;
+		loser = (winner == &_CurrentAttackFormation) ? &_CurrentDefenseFormation : &_CurrentAttackFormation;
+		winner->pop_front();
+		
+	}
+}
+
 void BattleManager::SetAttackFormation(Character* attacker)
 {
 	std::list<Character*> tempList;

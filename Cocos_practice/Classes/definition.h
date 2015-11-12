@@ -51,3 +51,9 @@ enum RotateDirection
 	ROTATE_RIGHT,
 	ROTATE_ERR = -1
 };
+
+enum Winner
+{
+	WINNER_ATTACKER = true,
+	WINDDER_DEFENDER = false
+};
