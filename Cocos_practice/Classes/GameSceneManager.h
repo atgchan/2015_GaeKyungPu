@@ -21,16 +21,16 @@ public:
 	@brief		게임의 초기 셋팅을 진행합니다. 현재 기능 : 초기 맵 그리기
 	@warning	이 함수를 통해 셋팅하지 않은 GameMaster는 사용할 수 없습니다.
 	*/
-	void InitializeGame();
+	void		InitializeGame();
 	/*
 	@brief		mouse버튼 이벤트 리스너에 걸어둘 수 있는 2차 디스패쳐입니다.
 	*/
-	void mouseDownDispatcher(cocos2d::EventMouse *event);
+	void		mouseDownDispatcher(cocos2d::EventMouse *event);
 
 	/*
 	@brief		mouse버튼 이벤트 리스너에 걸어둘 수 있는 2차 디스패쳐입니다.
 	*/
-	void KeyReleasedDispatcher(EventKeyboard::KeyCode keyCode, cocos2d::Event *event);
+	void		KeyReleasedDispatcher(EventKeyboard::KeyCode keyCode, cocos2d::Event *event);
 
 	/*
 	@brief		GameMaster에게서 요청할 어떠한 기능이라도 getInstance()를 통해 pointer를 얻어 요청합니다.
@@ -46,79 +46,79 @@ public:
 	/*
 	@brief		GameMaster가 포함하고 있는 모든 node를 하나의 트리로 묶어 포인터로 반환합니다.
 	*/
-	Node* getNodes(){ return nodes; }
+	Node*		getNodes(){ return _Nodes;}
 
-	PlayerData* getCurrentPlayerData();
-	PlayerInfo getCurrentPlayer();
+	PlayerData*	getCurrentPlayerData();
+	PlayerInfo	getCurrentPlayer();
 
-	void	ChangePlayer();
-	bool	getIsVolcanoActivated(){	return isVolcanoActivated;	}
-	int		getProgressVolcano(){ return progressVolcano; }
-	void	setProgressVolcano(int progress){ progressVolcano = progress; }
-	bool	getIsMouseLocked(){ return isMouseLocked; }
+	void		ChangePlayer();
+	bool		getIsVolcanoActivated(){	return _IsVolcanoActivated;	}
+	int			getProgressVolcano(){ return progressVolcano; }
+	void		setProgressVolcano(int progress){ progressVolcano = progress; }
+	bool		getIsMouseLocked(){ return _IsMouseLocked; }
 
-	void scheduleCallback(float delta);
+	void		scheduleCallback(float delta);
 
 	/*
 	@brief		GameScene으로부터 CALLBACK 받아 턴 변경. (추후에 UI 클래스에서 CALLBACK 하도록)
 	*/
-	void toggleTurn(Object* pSender);
+	void		toggleTurn(Object* pSender);
 
 	/*
 		@brief	타일의 포인터와 타일의 클릭 가능한 위치를 나타내는 사각형을 받아서 배열로 저장한다.
 	*/
-	void pushTileToList(Rect rect, Self_Tile* tile);
+	void		pushTileToList(Rect rect, Self_Tile* tile);
 
 	/*
 		@brief	타일 리스트에서 해당 좌표값의 위치에 포함되는 타일이 있는지 검사해서 있으면 타일 포인터를 반환한다.
 	*/
-	Self_Tile* getExistingTileWithMousePoint(Vec2 vec);
+	Self_Tile*	getExistingTileWithMousePoint(Vec2 vec);
 
-	void addChild(Node* targetNode);
-	void ChangeRichToLava(Self_Tile* target);
-	void GiveTileToPlayer(Self_Tile* targetTile, PlayerInfo pInfo);
-	void killCharacter(Character* target);
-	void setVolcanoActivated(bool activated){ isVolcanoActivated = activated; };
+	void		addChild(Node* targetNode);
+	void		ChangeRichToLava(Self_Tile* target);
+	void		GiveTileToPlayer(Self_Tile* targetTile, PlayerInfo pInfo);
+	void		killCharacter(Character* target);
+	void		setVolcanoActivated(bool activated){ _IsVolcanoActivated = activated; };
 
 	Self_Tile*	getTileFromMouseEvent(const cocos2d::EventMouse *event);
 
 	PlayerData*	getPlayerDataByPlayerInfo(PlayerInfo player);
-	bool DraftNewCharacterByClick(Self_Tile* clickedTile);
+	bool		DraftNewCharacterByClick(Self_Tile* clickedTile);
 	void		MoveCharacterByClick(Self_Tile* clickedTile);
 	void		MoveCharacter(Character* target, Self_Tile* dest);
 
 	bool		readyToMove = false;
-	Character*		characterToMove = nullptr;
+	Character*	characterToMove = nullptr;
 private:
 	GameSceneManager();
 	~GameSceneManager();
 
-	static GameSceneManager *inst;
-	TileMap* tileMap;
-	PlayerData* playerData[NUM_OF_PLAYER];
-	Node* nodes;
+	static		GameSceneManager *inst;
+	TileMap*	_TileMap;
+	PlayerData*	_PlayerData[NUM_OF_PLAYER];
+	Node*		_Nodes;
 
-	PhaseInfo currentPhaseInfo = PHASE_HARVEST;
-	PlayerInfo currentPlayer = PLAYER_RED;
-	Phase* currentPhase = nullptr;
+	PhaseInfo	currentPhaseInfo = PHASE_HARVEST;
+	PlayerInfo	currentPlayer = PLAYER_RED;
+	Phase*		currentPhase = nullptr;
 
-	bool	draftMode = false;
+	bool		draftMode = false;
 
-	void SpawnCharacterOnTile(Self_Tile* tile, int spriteNum, int spendFood=1);
+	void		SpawnCharacterOnTile(Self_Tile* tile, int spriteNum, int spendFood=1);
 
-	int progressVolcano = 0;
+	int			progressVolcano = 0;
 
 	/*타일만 별도로 저장할 배열을 만든다..*/
 	std::vector<TILEARRAYSET> TileList;
 
-	bool isMouseLocked = true;
-	bool isGameInitialized = false;
-	bool isVolcanoActivated = false;
-	bool isTurnRunning = true;
-	bool isDebugingActivated = false;
+	bool		_IsMouseLocked = true;
+	bool		_IsGameInitialized = false;
+	bool		_IsVolcanoActivated = false;
+	bool		_IsTurnRunning = true;
+	bool		_IsDebugingActivated = false;
 
-	Phase* phases[7];
-	Self_Tile* draftTile;
+	Phase*		phases[7];
+	Self_Tile*	draftTile;
 
-	void ChangePhase(PhaseInfo);
+	void		ChangePhase(PhaseInfo);
 };

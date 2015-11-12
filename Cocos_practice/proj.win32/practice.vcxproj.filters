@@ -46,6 +46,9 @@
     <ClCompile Include="..\Classes\DebugUI.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\BattleManager.cpp">
+      <Filter>Game\Battle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
@@ -94,6 +97,9 @@
     <ClInclude Include="..\Classes\DebugUI.h">
       <Filter>UI</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\BattleManager.h">
+      <Filter>Game\Battle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc" />
@@ -116,6 +122,9 @@
     </Filter>
     <Filter Include="UI">
       <UniqueIdentifier>{b3aad223-5c96-44bf-a366-a7512262cdda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Battle">
+      <UniqueIdentifier>{50751799-4aa2-46d3-9e22-c796ddee06fa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
