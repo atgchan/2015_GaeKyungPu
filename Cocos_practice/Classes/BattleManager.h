@@ -9,5 +9,6 @@ public:
 	BattleManager();
 	~BattleManager();
 	void	BattleBetween(Character* attacker, Character* defender);
-	void	SetAttackPower(std::list<Character*>* attackersCharacterList);
+	void	GetAttackFormation(Character* attacker);
+	void	getDefenseFormation(Character* defender);
 };
