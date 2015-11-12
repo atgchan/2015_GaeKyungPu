@@ -10,3 +10,8 @@ BattleManager::BattleManager()
 BattleManager::~BattleManager()
 {
 }
+
+void BattleManager::SetAttackPower(std::list<Character*>* attackersCharacterList)
+{
+
+}
