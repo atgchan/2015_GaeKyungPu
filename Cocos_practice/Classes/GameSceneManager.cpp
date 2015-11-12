@@ -342,11 +342,8 @@ GameSceneManager::GameSceneManager()
 
 GameSceneManager::~GameSceneManager()
 {
-<<<<<<< HEAD
 	delete(_BMInstance);
-=======
 	delete dice;
 	delete[] phases;
->>>>>>> wonseok
 	return;
 }
