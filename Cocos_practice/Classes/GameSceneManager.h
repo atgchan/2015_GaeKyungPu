@@ -4,7 +4,9 @@
 #include "PlayerData.h"
 
 #include "TileMap.h"
+
 class Phase;
+class DiceDice;
 
 struct TILEARRAYSET
 {
@@ -122,5 +124,8 @@ private:
 	Phase*		phases[7];
 	Self_Tile*	draftTile;
 
+	DiceDice* dice;
+
 	void		ChangePhase(PhaseInfo);
+
 };

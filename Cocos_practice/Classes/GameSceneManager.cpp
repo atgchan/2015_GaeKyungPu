@@ -8,6 +8,7 @@
 #include "Phase_Action.h"
 #include "Phase_Pasteur.h"
 #include "DebugUI.h"
+#include "DiceDice.h"
 
 //USING_NS_CC;
 #define COCOS2D_DEBUG 1
@@ -43,6 +44,8 @@ void GameSceneManager::InitializeGame()
 
 	currentPlayer = PLAYER_RED;
 	currentPhase = phases[PHASE_HARVEST];
+
+	dice = new DiceDice();
 }
 
 Self_Tile* GameSceneManager::getTileFromMouseEvent(const cocos2d::EventMouse *event)
@@ -332,6 +335,7 @@ GameSceneManager::GameSceneManager()
 
 GameSceneManager::~GameSceneManager()
 {
-
+	delete dice;
+	delete[] phases;
 	return;
 }
