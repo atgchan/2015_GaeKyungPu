@@ -22,11 +22,13 @@ public:
 	bool		isOnTile(TileKind tileTypeToCheck);
 	
 	bool		isTile(){ return false; }
-	PlayerInfo	_OwnerPlayer = PLAYER_ERR;
 	int			_AttackPower = 0;
 	int			_DefensePower = 0;
-
+	const PlayerInfo	GetOwnerPlayer(){ return _OwnerPlayer; }
+	void			SetOwnerPlayer(PlayerInfo pInfo){ _OwnerPlayer = pInfo; }
+	Character*			GetNearCharacter(DirectionKind direction);
 private:
+	PlayerInfo		_OwnerPlayer = PLAYER_ERR;
 	CC_SYNTHESIZE(DirectionKind, CurrentDirection, CurrentDirection);
 	CC_SYNTHESIZE(Self_Tile*, CurrentTile, CurrentTile);
 	CC_SYNTHESIZE(PlayerInfo, CurrentPlayerInfo, CurrentPlayerInfo);

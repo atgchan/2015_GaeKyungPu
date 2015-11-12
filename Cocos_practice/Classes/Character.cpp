@@ -71,3 +71,8 @@ void Character::rotateToDirection(RotateDirection rotateDirection, Character* ch
 	character->initWithFile(fileName);
 	character->setAnchorPoint(Point(0.5, 0.13));
 }
+
+Character* Character::GetNearCharacter(DirectionKind direction)
+{
+	return this->getCurrentTile()->GetNearTile(direction)->getCharacterOnThisTile();
+}

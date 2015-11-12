@@ -74,17 +74,22 @@ void Self_Tile::setCharacterOnThisTile(Character* character)
 //	yPos = _yPos;
 //}
 
-int Self_Tile::CheckTileAndReturnItsType(Self_Tile* clickedTile)
+DirectionKind Self_Tile::CheckNearTileAndReturnItsDirection(Self_Tile* tile)
 {
 	for (int i = 0; i < 6; ++i)
 	{
-		if (nearTile[i] == clickedTile)
-			return i;
+		if (nearTile[i] == tile)
+			return static_cast<DirectionKind>(i);
 	}
-	return -1;
+	return DIRECTION_ERR;
 }
 
 void Self_Tile::setNearTile(int num, Self_Tile* tile)
 {
 	nearTile[num] = tile;
+}
+
+Self_Tile* Self_Tile::GetNearTile(DirectionKind direction)
+{
+	return nearTile[direction];
 }

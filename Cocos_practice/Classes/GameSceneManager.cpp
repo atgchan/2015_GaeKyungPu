@@ -8,7 +8,7 @@
 #include "Phase_Action.h"
 #include "Phase_Pasteur.h"
 #include "DebugUI.h"
-
+#include "BattleManager.h"
 //USING_NS_CC;
 #define COCOS2D_DEBUG 1
 
@@ -22,6 +22,7 @@ void GameSceneManager::ChangeRichToLava(Self_Tile* target)
 
 void GameSceneManager::InitializeGame()
 {
+	_BMInstance = new BattleManager();
 	_Nodes = Node::create();
 	this->_Nodes->setName("MasterNode");
 	_TileMap = TileMap::getInstance();
@@ -70,12 +71,12 @@ bool GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
 	if (draftMode == true)
 	{
 		//클릭한 타일이 배럭 주변이고 이미 위치한 유닛이 없으면
-		if ((draftTile->CheckTileAndReturnItsType(clickedTile) != IT_IS_NOT_NEAR_TILE) && (clickedTile->getCharacterOnThisTile() == nullptr))
+		if ((draftTile->CheckNearTileAndReturnItsDirection(clickedTile) != IT_IS_NOT_NEAR_TILE) && (clickedTile->getCharacterOnThisTile() == nullptr))
 		{
 			foodToConsume = (clickedTile->getTypeOfTile() == TILE_FOREST) ? 2 : 1;
 			if (getCurrentPlayerData()->getFood() >= foodToConsume)
 			{
-				int spriteNum = draftTile->CheckTileAndReturnItsType(clickedTile);
+				int spriteNum = draftTile->CheckNearTileAndReturnItsDirection(clickedTile);
 				SpawnCharacterOnTile(clickedTile, spriteNum,foodToConsume);
 				draftTile = nullptr;
 				draftMode = false;
@@ -111,7 +112,7 @@ void GameSceneManager::MoveCharacterByClick(Self_Tile* clickedTile)
 	if (readyToMove == true)
 	{
 		//클릭한 타일이 옮길 유닛 주변이고 위에 아무 유닛도 없으면
-		if ((characterToMove->getCurrentTile()->CheckTileAndReturnItsType(clickedTile) == characterToMove->getCurrentDirection()) && (clickedTile->getCharacterOnThisTile() == nullptr))
+		if ((characterToMove->getCurrentTile()->CheckNearTileAndReturnItsDirection(clickedTile) == characterToMove->getCurrentDirection()) && (clickedTile->getCharacterOnThisTile() == nullptr))
 		{
 			foodToComsume = (clickedTile->getTypeOfTile() == TILE_FOREST) ? 2 : 1;
 			if (getCurrentPlayerData()->getFood() >= foodToComsume)
@@ -128,7 +129,7 @@ void GameSceneManager::MoveCharacterByClick(Self_Tile* clickedTile)
 	{
 		if (clickedTile->getCharacterOnThisTile() != nullptr)
 		{
-			if (clickedTile->getCharacterOnThisTile()->ownerPlayer != currentPlayer)
+			if (clickedTile->getCharacterOnThisTile()->GetOwnerPlayer() != currentPlayer)
 				return;
 			characterToMove = clickedTile->getCharacterOnThisTile();
 			readyToMove = true;
@@ -148,7 +149,7 @@ void GameSceneManager::MoveCharacter(Character* target, Self_Tile* dest)
 void GameSceneManager::SpawnCharacterOnTile(Self_Tile* tile, int spriteNum, int spendFood/*=1*/)
 {
 	Character* unit = Character::create(getCurrentPlayer(), spriteNum);
-	unit->ownerPlayer = currentPlayer;
+	unit->SetOwnerPlayer(currentPlayer);
 	unit->setAnchorPoint(Vec2(0.5, 0.13));
 
 	
@@ -236,8 +237,13 @@ void GameSceneManager::mouseDownDispatcher(cocos2d::EventMouse *event)
 			if (clickedTile->getCharacterOnThisTile() != nullptr)
 			{
 				Character* target = clickedTile->getCharacterOnThisTile();
+				/*
 				killCharacter(target);
-				return;
+				return;*/
+				_BMInstance->SetAttackFormation(target);
+				auto AF = _BMInstance->GetCurrentAttackFormation();
+				for (auto i : AF)
+					killCharacter(i);
 			}
 		}
 		break;
@@ -275,7 +281,7 @@ void GameSceneManager::GiveTileToPlayer(Self_Tile* targetTile, PlayerInfo pInfo)
 
 void GameSceneManager::killCharacter(Character* target)
 {
-	auto CharacterList = getPlayerDataByPlayerInfo(target->ownerPlayer)->getCharacterList();
+	auto CharacterList = getPlayerDataByPlayerInfo(target->GetOwnerPlayer())->getCharacterList();
 	target->getCurrentTile()->setCharacterOnThisTile(nullptr);
 	TileMap::getInstance()->killCharacter(target);
 	CharacterList->remove(target);
@@ -332,6 +338,6 @@ GameSceneManager::GameSceneManager()
 
 GameSceneManager::~GameSceneManager()
 {
-
+	delete(_BMInstance);
 	return;
 }

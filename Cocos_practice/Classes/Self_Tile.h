@@ -32,12 +32,12 @@ public:
 				해당 숫자는 sprite 생성시, 초기 sprite의 기준이 된다.
 	@warning	인근에 해당 타일이 없는 경우 -1을 반환한다.
 	*/
-	int	CheckTileAndReturnItsType(Self_Tile* tile);
+	DirectionKind CheckNearTileAndReturnItsDirection(Self_Tile* tile);
 	void setNearTile(int num, Self_Tile* tile);
 
 	Self_Tile();
 	~Self_Tile();
-	
+	Self_Tile*		GetNearTile(DirectionKind direction);
 private:
 	//타일 종류에 따른 스프라이트 파일명을 저장해둘 배열
 	static std::string DictionaryForFilenames[10]; ///# 상수값은 하드코딩 하지 말 것 반드시 따로 define또는 const로 뺄 것.

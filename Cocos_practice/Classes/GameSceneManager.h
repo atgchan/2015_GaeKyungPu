@@ -5,13 +5,13 @@
 
 #include "TileMap.h"
 class Phase;
+class BattleManager;
 
 struct TILEARRAYSET
 {
 	Self_Tile* tile = nullptr;
 	Rect rect = Rect();
 };
-
 //½Ì±ÛÅæÀ¸·Î ±¸Çö
 class GameSceneManager
 {
@@ -90,6 +90,7 @@ public:
 	bool		readyToMove = false;
 	Character*	characterToMove = nullptr;
 private:
+	BattleManager*	_BMInstance;
 	GameSceneManager();
 	~GameSceneManager();
 
