@@ -221,15 +221,13 @@ void GameSceneManager::mouseDownDispatcher(cocos2d::EventMouse *event)
 		break;
 
 	case MOUSE_BUTTON_RIGHT:
+		if (clickedTile != nullptr)
 		{
-			if (clickedTile != nullptr)
+			if (clickedTile->getCharacterOnThisTile() != nullptr)
 			{
-				if (clickedTile->getCharacterOnThisTile() != nullptr)
-				{
-					Character* target = clickedTile->getCharacterOnThisTile();
-					target->rotateToDirection(ROTATE_RIGHT, target);
-					break;
-				}
+				Character* target = clickedTile->getCharacterOnThisTile();
+				target->rotateToDirection(ROTATE_RIGHT, target);
+				break;
 			}
 		}
 		break;
@@ -241,13 +239,13 @@ void GameSceneManager::mouseDownDispatcher(cocos2d::EventMouse *event)
 			if (clickedTile->getCharacterOnThisTile() != nullptr)
 			{
 				Character* target = clickedTile->getCharacterOnThisTile();
-				/*
+				
 				killCharacter(target);
-				return;*/
-				_BMInstance->SetAttackFormation(target);
+				return;
+				/*_BMInstance->SetAttackFormation(target);
 				auto AF = _BMInstance->GetCurrentAttackFormation();
 				for (auto i : AF)
-					killCharacter(i);
+					killCharacter(i);*/
 			}
 		}
 		break;

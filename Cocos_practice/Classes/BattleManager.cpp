@@ -40,7 +40,15 @@ void BattleManager::SetAttackFormation(Character* attacker)
 
 void BattleManager::SetDefenseFormation(Character* defender)
 {
-
+	Character* nearby = nullptr;
+	for (int i = DIRECTION_DOWN_LEFT; i <= DIRECTION_UP_LEFT; i++)
+	{
+		nearby = defender->GetNearCharacter((DirectionKind)i);
+		if (nearby != nullptr && isCharFacingMe(defender, nearby))
+		{
+			_CurrentDefenseFormation.push_back(nearby);
+		}
+	}
 }
 
 bool isHave(std::list<Character*> *checkedNode, Character* node)
@@ -78,4 +86,14 @@ void BattleManager::SearchGraphAndOverwriteAttackFormation(std::list<Character*>
 				if (!isHave(&checkedNode, compareNode))
 					SearchGraphAndOverwriteAttackFormation(checkedNode, compareNode, currentDepth + 1);
 	}
+}
+
+bool BattleManager::isCharFacingMe(Character* me, Character* other)
+{
+	if (other->GetNearCharacter(other->getCurrentDirection()) == me)
+	{
+		return true;
+	}
+	else
+		return false;
 }
