@@ -1,4 +1,5 @@
 #pragma once
+#include <array>
 
 class CharacterAnimation
 {
@@ -7,5 +8,4 @@ public:
 
 private:
 	static std::string CharacterAnimation::GetDirectionName(int spriteNum);
-
 };

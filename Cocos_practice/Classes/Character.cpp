@@ -50,6 +50,7 @@ void Character::rotateToDirection(RotateDirection rotateDirection)
 
 	Animation* animationDefault = CharacterAnimation::CreateAnimationDefault(getCurrentPlayerInfo(), chracterDirection);
 	init();
+	stopAllActions();
 	runAction(Animate::create(animationDefault));
 
 	setAnchorPoint(Vec2(0.5, 0.13));
