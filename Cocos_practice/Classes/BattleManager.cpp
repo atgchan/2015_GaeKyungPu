@@ -21,7 +21,14 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 		std::list<Character*> *winner = nullptr, *loser = nullptr;
 		winner = (FightBetween(_CurrentAttackFormation.front(), _CurrentDefenseFormation.front()) == WINNER_ATTACKER) ? &_CurrentAttackFormation : &_CurrentDefenseFormation;
 		loser = (winner == &_CurrentAttackFormation) ? &_CurrentDefenseFormation : &_CurrentAttackFormation;
-		winner->pop_front();
+		loser->pop_front();
+		
+		for (auto iter : *loser)
+		{
+			GM->MoveCharacter(iter,iter->getCurrentTile()->GetNearTile(iter->getCurrentDirection()));
+			iter->setCurrentDirection((iter - 1)->getCurrentDirection);
+			//in progress
+		}
 		
 	}
 }
