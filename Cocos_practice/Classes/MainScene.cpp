@@ -56,6 +56,32 @@ bool MainScene::init()
 	this->addChild(mainMenu);
 	this->addChild(cursor);
 
+	Sprite* test = Sprite::create();
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Character/unit_red.plist");
+
+	Animation* animation = Animation::create();
+	animation->setDelayPerUnit(0.1f);
+	//float값은 습관적으로 접미 붙이자...
+
+	SpriteFrame* spriteFrame0 = SpriteFrameCache::getInstance()->getSpriteFrameByName("spear_R_lu_00.png");
+	SpriteFrame* spriteFrame1 = SpriteFrameCache::getInstance()->getSpriteFrameByName("spear_R_lu_01.png");
+	SpriteFrame* spriteFrame2 = SpriteFrameCache::getInstance()->getSpriteFrameByName("spear_R_lu_02.png");
+	SpriteFrame* spriteFrame3 = SpriteFrameCache::getInstance()->getSpriteFrameByName("spear_R_lu_03.png");
+
+	animation->addSpriteFrame(spriteFrame0);
+	animation->addSpriteFrame(spriteFrame1);
+	animation->addSpriteFrame(spriteFrame2);
+	animation->addSpriteFrame(spriteFrame3);
+	animation->addSpriteFrame(spriteFrame2);
+	animation->addSpriteFrame(spriteFrame1);
+	animation->addSpriteFrame(spriteFrame0);
+
+	animation->setLoops(-1);
+	test->runAction(Animate::create(animation));
+	test->setPosition(Vec2(visibleSize.width / 4, visibleSize.height / 4));
+	this->addChild(test);
+
+
 //	Keyboard Event
 	auto keyListener = EventListenerKeyboard::create();
 	keyListener->onKeyPressed = CC_CALLBACK_2(MainScene::onKeyPressed, this);

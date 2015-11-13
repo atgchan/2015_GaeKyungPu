@@ -226,7 +226,7 @@ void GameSceneManager::mouseDownDispatcher(cocos2d::EventMouse *event)
 			if (clickedTile->getCharacterOnThisTile() != nullptr)
 			{
 				Character* target = clickedTile->getCharacterOnThisTile();
-				target->rotateToDirection(ROTATE_RIGHT, target);
+				target->rotateToDirection(ROTATE_RIGHT);
 				break;
 			}
 		}

@@ -52,6 +52,9 @@
     <ClCompile Include="..\Classes\DiceDice.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\CharacterAnimation.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
@@ -106,6 +109,9 @@
     <ClInclude Include="..\Classes\DiceDice.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\CharacterAnimation.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc" />
@@ -131,6 +137,9 @@
     </Filter>
     <Filter Include="Game\Battle">
       <UniqueIdentifier>{50751799-4aa2-46d3-9e22-c796ddee06fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Animation">
+      <UniqueIdentifier>{15a1d808-ccda-4278-a250-8344dc24875b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

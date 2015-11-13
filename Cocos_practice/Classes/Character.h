@@ -14,7 +14,7 @@ public:
 	@brief	방향을 받아서 해당 방향으로 스프라이트 이미지를 회전한다.
 	@args	돌릴 방향(RotateDirection enum이다.), 돌릴 character의 포인터
 	*/
-	void rotateToDirection(RotateDirection, Character* character);
+	void rotateToDirection(RotateDirection);
 
 	/**
 	@brief	타일 카인드를 하나 받아와서 현재 캐릭터가 올라와있는 타일과 동일한 종류인지 검사하고 bool을 리턴한다.
@@ -28,6 +28,9 @@ public:
 	void			SetOwnerPlayer(PlayerInfo pInfo){ _OwnerPlayer = pInfo; }
 	Character*			GetNearCharacter(DirectionKind direction);
 private:
+	
+	Character(PlayerInfo cPInfo, int spriteNum);
+
 	PlayerInfo		_OwnerPlayer = PLAYER_ERR;
 	CC_SYNTHESIZE(DirectionKind, CurrentDirection, CurrentDirection);
 	CC_SYNTHESIZE(Self_Tile*, CurrentTile, CurrentTile);
