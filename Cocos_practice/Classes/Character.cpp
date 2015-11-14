@@ -69,17 +69,14 @@ void Character::MovoToTile(Self_Tile* dest)
 	Animation* animationMove = CharacterAnimation::CreateAnimationDefault(GetOwnerPlayer(), 1);
 	Animation* animationDefault = CharacterAnimation::CreateAnimationDefault(GetOwnerPlayer(), getCurrentDirection());
 	
-	Animate* actionMove = Animate::create(animationMove);
-	MoveTo* moveTo = MoveTo::create(0.5f, Vec2(dest->getPositionX() + 80, dest->getPositionY() + 60));
-	Animate* actionDefault = Animate::create(animationDefault);
+	ActionInterval* actionMove = Animate::create(animationMove);
+	actionMove->setDuration(0.5f);
 
-	ActionInterval* action1 = actionMove;
-	ActionInterval* action2 = moveTo;
-	ActionInterval* action3 = actionDefault;
+	ActionInterval* moveTo = MoveTo::create(0.5f, Vec2(dest->getPositionX() + 80, dest->getPositionY() + 60));
+	ActionInterval* actionDefault = Animate::create(animationDefault);
 
-	action1->setDuration(0.5f);
-	FiniteTimeAction* seq = Spawn::create(action1, action2, NULL);
-	FiniteTimeAction* seq1 = Sequence::create(seq, action3, NULL);
+	FiniteTimeAction* seq = Spawn::create(actionMove, moveTo, NULL);
+	FiniteTimeAction* seq1 = Sequence::create(seq, actionDefault, NULL);
 
 	init();
 	stopAllActions();
@@ -90,8 +87,43 @@ void Character::MovoToTile(Self_Tile* dest)
 	setCurrentTile(dest);
 	this->setZOrder(dest->getZOrder() + 100);
 
-	/*runAction(moveTo);*/
 	runAction(seq1);
+}
+
+void Character::CharacterBeHit()
+{
+	Animation* animationBeHit = CharacterAnimation::CreateAnimationDefault(GetOwnerPlayer(), 2);
+	Animation* animationDefault = CharacterAnimation::CreateAnimationDefault(GetOwnerPlayer(), getCurrentDirection());
+
+	ActionInterval* actionBeHit = Animate::create(animationBeHit);
+	actionBeHit->setDuration(1);
+	ActionInterval* actionDefault = Animate::create(animationDefault);
+
+	FiniteTimeAction* seq = Spawn::create(actionBeHit, actionDefault, NULL);
+
+	init();
+	stopAllActions();
+	setAnchorPoint(Vec2(0.5, 0.13));
+
+	runAction(seq);
+}
+
+void Character::CharacterAttack()
+{
+	Animation* animationAttack = CharacterAnimation::CreateAnimationDefault(GetOwnerPlayer(), 2);
+	Animation* animationDefault = CharacterAnimation::CreateAnimationDefault(GetOwnerPlayer(), getCurrentDirection());
+
+	ActionInterval* actionAttack = Animate::create(animationAttack);
+	actionAttack->setDuration(1);
+	ActionInterval* actionDefault = Animate::create(animationDefault);
+
+	FiniteTimeAction* seq = Spawn::create(actionAttack, actionDefault, NULL);
+
+	init();
+	stopAllActions();
+	setAnchorPoint(Vec2(0.5, 0.13));
+
+	runAction(seq);
 }
 
 const PlayerInfo Character::GetOwnerPlayer()
