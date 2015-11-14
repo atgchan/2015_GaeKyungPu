@@ -25,7 +25,8 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 		
 		for (auto iter : *loser)
 		{
-			GM->MoveCharacter(iter,iter->getCurrentTile()->GetNearTile(iter->getCurrentDirection()));
+			iter->MovoToTile(iter->getCurrentTile()->GetNearTile(iter->getCurrentDirection()));
+			//GM->MoveCharacter(iter,iter->getCurrentTile()->GetNearTile(iter->getCurrentDirection()));
 			iter->setCurrentDirection((iter - 1)->getCurrentDirection());
 			//in progress
 		}

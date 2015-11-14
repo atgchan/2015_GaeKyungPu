@@ -87,7 +87,6 @@ public:
 	PlayerData*	getPlayerDataByPlayerInfo(PlayerInfo player);
 	bool		DraftNewCharacterByClick(Self_Tile* clickedTile);
 	void		MoveCharacterByClick(Self_Tile* clickedTile);
-	void		MoveCharacter(Character* target, Self_Tile* dest);
 
 	bool		readyToMove = false;
 	Character*	characterToMove = nullptr;

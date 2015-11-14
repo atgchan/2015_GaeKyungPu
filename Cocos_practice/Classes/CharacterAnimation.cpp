@@ -44,6 +44,24 @@ Animation* CharacterAnimation::CreateAnimationDefault(PlayerInfo cPInfo, int spr
 	return animation;
 }
 
+Animation* CharacterAnimation::CreateAnimationMove(int spriteNum)
+{
+	Animation* animation = Animation::create();
+	return animation;
+}
+
+Animation* CharacterAnimation::CreateAnimationAttack(PlayerInfo cPInfo, int spriteNum)
+{
+	Animation* animation = Animation::create();
+	return animation;
+}
+
+Animation* CharacterAnimation::CreateAnimationBeHit(PlayerInfo cPInfo, int spriteNum)
+{
+	Animation* animation = Animation::create();
+	return animation;
+}
+
 std::string CharacterAnimation::GetDirectionName(int spriteNum)
 {
 	std::string direction = "";

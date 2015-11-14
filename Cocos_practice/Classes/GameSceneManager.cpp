@@ -122,7 +122,7 @@ void GameSceneManager::MoveCharacterByClick(Self_Tile* clickedTile)
 			if (getCurrentPlayerData()->getFood() >= foodToComsume)
 			{
 				getCurrentPlayerData()->AddFood(foodToComsume * -1);
-				MoveCharacter(characterToMove, clickedTile);
+				characterToMove->MovoToTile(clickedTile);
 			}
 		}
 		characterToMove = nullptr;
@@ -142,27 +142,17 @@ void GameSceneManager::MoveCharacterByClick(Self_Tile* clickedTile)
 	}
 }
 
-void GameSceneManager::MoveCharacter(Character* target, Self_Tile* dest)
-{
-	target->getCurrentTile()->setCharacterOnThisTile(nullptr);
-	TileMap::getInstance()->setCharacterOnTile(target, dest,true);
-	target->setCurrentTile(dest);
-
-}
-
 void GameSceneManager::SpawnCharacterOnTile(Self_Tile* tile, int spriteNum, int spendFood/*=1*/)
 {
 	Character* unit = Character::create(getCurrentPlayer(), spriteNum);
 	unit->SetOwnerPlayer(currentPlayer);
 	unit->setAnchorPoint(Vec2(0.5, 0.13));
 
-	
 	TileMap::getInstance()->setCharacterOnTile(unit, tile);
 	_PlayerData[getCurrentPlayer()]->AddCharacter(unit);
 	unit->setCurrentTile(tile);
 	
 	getCurrentPlayerData()->AddFood(-1 * spendFood);
-
 }
 
 void GameSceneManager::KeyReleasedDispatcher(EventKeyboard::KeyCode keyCode, cocos2d::Event *event)
@@ -195,13 +185,10 @@ void GameSceneManager::KeyReleasedDispatcher(EventKeyboard::KeyCode keyCode, coc
 	}
 }
 
-
 void GameSceneManager::mouseDownDispatcher(cocos2d::EventMouse *event)
 {
 	if (currentPhaseInfo != PHASE_ACTION)
 		return;
-
-	int frequency = 0;
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	float xPos = event->getCursorX();
@@ -215,41 +202,29 @@ void GameSceneManager::mouseDownDispatcher(cocos2d::EventMouse *event)
 		if (clickedTile == nullptr) { break; }
 		if(!DraftNewCharacterByClick(clickedTile))
 			MoveCharacterByClick(clickedTile);
-		//이동 부분
-		
-
 		break;
 
 	case MOUSE_BUTTON_RIGHT:
-		if (clickedTile != nullptr)
+		if (clickedTile != nullptr && clickedTile->getCharacterOnThisTile() != nullptr)
 		{
-			if (clickedTile->getCharacterOnThisTile() != nullptr)
-			{
-				Character* target = clickedTile->getCharacterOnThisTile();
-				target->rotateToDirection(ROTATE_RIGHT);
-				break;
-			}
+			Character* target = clickedTile->getCharacterOnThisTile();
+			target->rotateToDirection(ROTATE_RIGHT);
+			break;
 		}
-		break;
 
 	case MOUSE_BUTTON_MIDDLE:
-	{
-		if (clickedTile != nullptr)
+		if (clickedTile != nullptr && clickedTile->getCharacterOnThisTile() != nullptr)
 		{
-			if (clickedTile->getCharacterOnThisTile() != nullptr)
-			{
-				Character* target = clickedTile->getCharacterOnThisTile();
-				
-				killCharacter(target);
-				return;
-				/*_BMInstance->SetAttackFormation(target);
-				auto AF = _BMInstance->GetCurrentAttackFormation();
-				for (auto i : AF)
-					killCharacter(i);*/
-			}
+			Character* target = clickedTile->getCharacterOnThisTile();
+			killCharacter(target);
+			break;
+
+			/*_BMInstance->SetAttackFormation(target);
+			auto AF = _BMInstance->GetCurrentAttackFormation();
+			for (auto i : AF)
+				killCharacter(i);*/
 		}
-		break;
-	}
+
 	default:
 		break;
 	}

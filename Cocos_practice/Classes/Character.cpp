@@ -51,9 +51,9 @@ void Character::rotateToDirection(RotateDirection rotateDirection)
 	Animation* animationDefault = CharacterAnimation::CreateAnimationDefault(getCurrentPlayerInfo(), chracterDirection);
 	init();
 	stopAllActions();
+	setAnchorPoint(Vec2(0.5, 0.13));
 	runAction(Animate::create(animationDefault));
 
-	setAnchorPoint(Vec2(0.5, 0.13));
 	setCurrentDirection(DirectionKind(chracterDirection));
 
 	return;	
@@ -62,4 +62,49 @@ void Character::rotateToDirection(RotateDirection rotateDirection)
 Character* Character::GetNearCharacter(DirectionKind direction)
 {
 	return this->getCurrentTile()->GetNearTile(direction)->getCharacterOnThisTile();
+}
+
+void Character::MovoToTile(Self_Tile* dest)
+{
+	Animation* animationMove = CharacterAnimation::CreateAnimationDefault(GetOwnerPlayer(), 1);
+	Animation* animationDefault = CharacterAnimation::CreateAnimationDefault(GetOwnerPlayer(), getCurrentDirection());
+	
+	Animate* actionMove = Animate::create(animationMove);
+	MoveTo* moveTo = MoveTo::create(0.5f, Vec2(dest->getPositionX() + 80, dest->getPositionY() + 60));
+	Animate* actionDefault = Animate::create(animationDefault);
+
+	ActionInterval* action1 = actionMove;
+	ActionInterval* action2 = moveTo;
+	ActionInterval* action3 = actionDefault;
+
+	action1->setDuration(0.5f);
+	FiniteTimeAction* seq = Spawn::create(action1, action2, NULL);
+	FiniteTimeAction* seq1 = Sequence::create(seq, action3, NULL);
+
+	init();
+	stopAllActions();
+	setAnchorPoint(Vec2(0.5, 0.13));
+
+	getCurrentTile()->setCharacterOnThisTile(nullptr);
+	dest->setCharacterOnThisTile(this);
+	setCurrentTile(dest);
+	this->setZOrder(dest->getZOrder() + 100);
+
+	/*runAction(moveTo);*/
+	runAction(seq1);
+}
+
+const PlayerInfo Character::GetOwnerPlayer()
+{ 
+	return _OwnerPlayer;
+}
+
+void Character::SetOwnerPlayer(PlayerInfo pInfo)
+{ 
+	_OwnerPlayer = pInfo;
+}
+
+Character::~Character()
+{
+	stopAllActions();
 }
