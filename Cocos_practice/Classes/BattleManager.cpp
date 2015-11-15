@@ -23,13 +23,19 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 		loser = (winner == &_CurrentAttackFormation) ? &_CurrentDefenseFormation : &_CurrentAttackFormation;
 		loser->pop_front();
 		
-		for (auto iter : *loser)
+
+		Character* pIter = nullptr;
+		loser->front()->setVisible(false);
+		DirectionKind tempDirection = DIRECTION_ERR, prevDirection = DIRECTION_ERR;
+		for (auto iter = ++(loser->begin()); iter != loser->end();++iter)
 		{
-			iter->MovoToTile(iter->getCurrentTile()->GetNearTile(iter->getCurrentDirection()));
-			//GM->MoveCharacter(iter,iter->getCurrentTile()->GetNearTile(iter->getCurrentDirection()));
-			iter->setCurrentDirection((iter - 1)->getCurrentDirection());
-			//in progress
+			pIter = *iter;
+			TileMap::getInstance()->MoveCharacterTo(pIter, pIter->getCurrentTile()->GetNearTile(pIter->getCurrentDirection()));
+			tempDirection = pIter->getCurrentDirection();
+			pIter->setCurrentDirection(prevDirection);
+			prevDirection = tempDirection;
 		}
+		GM->killCharacter(loser->front());
 		
 	}
 }
