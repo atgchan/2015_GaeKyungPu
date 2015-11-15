@@ -26,8 +26,8 @@ public:
 	void	CharacterBeHit();
 	void	CharacterAttack();
 
-	int		_AttackPower = 0;
-	int		_DefensePower = 0;
+	int		_AttackPower = 3;
+	int		_DefensePower = 3;
 	void	SetOwnerPlayer(PlayerInfo pInfo);
 	
 	const PlayerInfo	GetOwnerPlayer();

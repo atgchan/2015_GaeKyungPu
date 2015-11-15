@@ -14,7 +14,7 @@ public:
 	/**
 		@brief	병사 두명을 싸움을 붙이고 승자를 반환합니다.
 	*/
-	Winner	FightBetween(Character* attacker, Character* defender);
+	bool	IsAttackerWin(Character* attacker, Character* defender);
 
 	/**
 		@brief	attacker를 기점으로 하는 공격 대형을 설정합니다.

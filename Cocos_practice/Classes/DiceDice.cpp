@@ -7,14 +7,17 @@ DiceDice::DiceDice()
 {
 }
 
-
 DiceDice::~DiceDice()
 {
 }
 
+//static으로 쓰고싶다...
 int DiceDice::RollDiceBetween(int start, int end)
 {
-	return cocos2d::RandomHelper::random_int(start, end);
+	int result = rand() % (start - end + 1) + end;
+	//int result = cocos2d::RandomHelper::random_int(start, end);
+	//이거 쓰면 에러난다 왜지?
+	return result;
 }
 
 void DiceDice::DisplayDiceOnScreen(int min, int max)

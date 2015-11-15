@@ -20,7 +20,6 @@ public:
 	bool create();
 
 	void setCharacterOnTile(Character* character, Self_Tile* tile, bool moveMode = false);
-	void MoveCharacterTo(Character* character, Self_Tile* tile);
 	void killCharacter(Character* target);
 private:
 	

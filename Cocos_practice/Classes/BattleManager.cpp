@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "BattleManager.h"
 #include "GameSceneManager.h"
+#include "DiceDice.h"
 
 BattleManager::BattleManager()
 {
@@ -21,17 +22,16 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 	while (_CurrentAttackFormation.size() && _CurrentDefenseFormation.size())
 	{
 		std::list<Character*> *winner = nullptr, *loser = nullptr;
-		winner = (FightBetween(_CurrentAttackFormation.front(), _CurrentDefenseFormation.front()) == WINNER_ATTACKER) ? &_CurrentAttackFormation : &_CurrentDefenseFormation;
+		winner = IsAttackerWin(_CurrentAttackFormation.front(), _CurrentDefenseFormation.front()) ? &_CurrentAttackFormation : &_CurrentDefenseFormation;
 		loser = (winner == &_CurrentAttackFormation) ? &_CurrentDefenseFormation : &_CurrentAttackFormation;
 		
-
 		Character* pIter = nullptr;
 		loser->front()->setVisible(false);
 		DirectionKind tempDirection = DIRECTION_ERR, prevDirection = DIRECTION_ERR;
 		for (auto iter = ++(loser->begin()); iter != loser->end();++iter)
 		{
 			pIter = *iter;
-			TileMap::getInstance()->MoveCharacterTo(pIter, pIter->getCurrentTile()->GetNearTile(pIter->getCurrentDirection()));
+			pIter->MovoToTile(pIter->getCurrentTile()->GetNearTile(pIter->getCurrentDirection()));
 			tempDirection = pIter->getCurrentDirection();
 			pIter->setCurrentDirection(prevDirection);
 			prevDirection = tempDirection;
@@ -54,7 +54,7 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 		for (auto iter = ++(finalWinnerForm.begin()); iter != finalWinnerForm.end(); ++iter)
 		{
 			pIter = *iter;
-			TileMap::getInstance()->MoveCharacterTo(pIter, pIter->getCurrentTile()->GetNearTile(pIter->getCurrentDirection()));
+			pIter->MovoToTile(pIter->getCurrentTile()->GetNearTile(pIter->getCurrentDirection()));
 			tempDirection = pIter->getCurrentDirection();
 			pIter->setCurrentDirection(prevDirection);
 			prevDirection = tempDirection;
@@ -62,9 +62,23 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 	}
 }
 
-Winner BattleManager::FightBetween(Character* attacker, Character* defender)
+bool BattleManager::IsAttackerWin(Character* attacker, Character* defender)
 {
-	return WINNER_ATTACKER;
+	DiceDice dice;
+	int attackerDice = 0;
+	int defenderDice = 0;
+
+	while (true)
+	{
+		attackerDice = dice.RollDiceBetween(attacker->_AttackPower, 1);
+		dice.DisplayDiceOnScreen(attacker->_AttackPower, 1);
+		defenderDice = dice.RollDiceBetween(defender->_DefensePower, 1);
+		dice.DisplayDiceOnScreen(defender->_DefensePower, 1);
+
+		if (attackerDice == defenderDice)
+			continue;
+		return (attackerDice > defenderDice) ? true : false;
+	}
 }
 
 void BattleManager::SetAttackFormation(Character* attacker)

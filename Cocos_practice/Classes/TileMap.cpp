@@ -117,13 +117,6 @@ void TileMap::setCharacterOnTile(Character* character, Self_Tile* tile, bool mov
 		addChild(character);
 }
 
-void TileMap::MoveCharacterTo(Character* character, Self_Tile* tile)
-{
-	float xPos = tile->getPositionX();
-	float yPos = tile->getPositionY();
-	character->setPosition(xPos, yPos);
-}
-
 void TileMap::killCharacter(Character* target)
 {
 	this->removeChild(target);
