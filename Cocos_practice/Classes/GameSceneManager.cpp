@@ -115,16 +115,22 @@ void GameSceneManager::MoveCharacterByClick(Self_Tile* clickedTile)
 
 	if (readyToMove == true)
 	{
-		//클릭한 타일이 옮길 유닛 주변이고 위에 아무 유닛도 없으면
-		if ((characterToMove->getCurrentTile()->CheckNearTileAndReturnItsDirection(clickedTile) == characterToMove->getCurrentDirection()) && (clickedTile->getCharacterOnThisTile() == nullptr))
+		foodToComsume = (clickedTile->getTypeOfTile() == TILE_FOREST) ? 2 : 1;
+		//클릭한 타일이 옮길 유닛 주변이고 
+		if ((characterToMove->getCurrentTile()->CheckNearTileAndReturnItsDirection(clickedTile) == characterToMove->getCurrentDirection()))
 		{
-			foodToComsume = (clickedTile->getTypeOfTile() == TILE_FOREST) ? 2 : 1;
-			if (getCurrentPlayerData()->getFood() >= foodToComsume)
+			if (clickedTile->getCharacterOnThisTile() == nullptr)//위에 아무 유닛도 없으면
 			{
-				getCurrentPlayerData()->AddFood(foodToComsume * -1);
-				characterToMove->MovoToTile(clickedTile);
+				if (getCurrentPlayerData()->getFood() >= foodToComsume)
+				{
+					getCurrentPlayerData()->AddFood(foodToComsume * -1);
+					characterToMove->MovoToTile(clickedTile);
+				}
 			}
+			if (clickedTile->getCharacterOnThisTile()->GetOwnerPlayer() != currentPlayer)
+				_BMInstance->BattleBetween(characterToMove, clickedTile->getCharacterOnThisTile());
 		}
+		
 		characterToMove = nullptr;
 		readyToMove = false;
 		return;

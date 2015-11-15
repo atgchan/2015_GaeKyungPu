@@ -16,12 +16,11 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 	SetAttackFormation(attacker);
 	SetDefenseFormation(defender);
 
+	std::list<Character*> *winner = nullptr, *loser = nullptr;
 	while (_CurrentAttackFormation.size() && _CurrentDefenseFormation.size())
 	{
-		std::list<Character*> *winner = nullptr, *loser = nullptr;
 		winner = (FightBetween(_CurrentAttackFormation.front(), _CurrentDefenseFormation.front()) == WINNER_ATTACKER) ? &_CurrentAttackFormation : &_CurrentDefenseFormation;
 		loser = (winner == &_CurrentAttackFormation) ? &_CurrentDefenseFormation : &_CurrentAttackFormation;
-		loser->pop_front();
 		
 
 		Character* pIter = nullptr;
@@ -36,8 +35,10 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 			prevDirection = tempDirection;
 		}
 		GM->killCharacter(loser->front());
-		
+		loser->pop_front();
 	}
+	
+	
 }
 
 Winner BattleManager::FightBetween(Character* attacker, Character* defender)
@@ -48,17 +49,22 @@ Winner BattleManager::FightBetween(Character* attacker, Character* defender)
 void BattleManager::SetAttackFormation(Character* attacker)
 {
 	std::list<Character*> tempList;
-	SearchGraphAndOverwriteAttackFormation(tempList, attacker, 1);
+	int max_depth = 0;
+	_CurrentAttackFormation.clear();
+	SearchGraphAndOverwriteAttackFormation(tempList, attacker, 1,0);
 
 }
 
 void BattleManager::SetDefenseFormation(Character* defender)
 {
 	Character* nearby = nullptr;
+	_CurrentDefenseFormation.clear();
+
+	_CurrentDefenseFormation.push_back(defender);
 	for (int i = DIRECTION_DOWN_LEFT; i <= DIRECTION_UP_LEFT; i++)
 	{
 		nearby = defender->GetNearCharacter((DirectionKind)i);
-		if (nearby != nullptr && isCharFacingMe(defender, nearby))
+		if (nearby != nullptr && isCharFacingMe(defender, nearby) && nearby->GetOwnerPlayer() == defender->GetOwnerPlayer())
 		{
 			_CurrentDefenseFormation.push_back(nearby);
 		}
@@ -74,9 +80,8 @@ bool isHave(std::list<Character*> *checkedNode, Character* node)
 	}
 	return false;
 }
-void BattleManager::SearchGraphAndOverwriteAttackFormation(std::list<Character*> checkedNode,Character* currentNode, int currentDepth)
+void BattleManager::SearchGraphAndOverwriteAttackFormation(std::list<Character*> checkedNode, Character* currentNode, int currentDepth, int maxDepth)
 {
-	static int maxDepth = 0;
 	
 	checkedNode.push_back(currentNode);
 
@@ -95,10 +100,10 @@ void BattleManager::SearchGraphAndOverwriteAttackFormation(std::list<Character*>
 		
 		if (compareNode != nullptr)
 			//해당 캐릭터가 자신을 바라보고 있으면
-			if (compareNode->GetNearCharacter(compareNode->getCurrentDirection()) == currentNode)
+			if (compareNode->GetNearCharacter(compareNode->getCurrentDirection()) == currentNode && compareNode->GetOwnerPlayer() == currentNode->GetOwnerPlayer())
 				//이미 탐색했던 node가 아니면
 				if (!isHave(&checkedNode, compareNode))
-					SearchGraphAndOverwriteAttackFormation(checkedNode, compareNode, currentDepth + 1);
+					SearchGraphAndOverwriteAttackFormation(checkedNode, compareNode, currentDepth + 1, maxDepth);
 	}
 }
 
