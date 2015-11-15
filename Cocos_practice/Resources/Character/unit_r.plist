@@ -4,7 +4,7 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>spear_R_d_00.png</key>
+            <key>spear-red-d/png/spear_R_d_00.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -19,7 +19,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_d_01.png</key>
+            <key>spear-red-d/png/spear_R_d_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -34,7 +34,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_d_02.png</key>
+            <key>spear-red-d/png/spear_R_d_02.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -49,7 +49,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_d_03.png</key>
+            <key>spear-red-d/png/spear_R_d_03.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -64,7 +64,7 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
-            <key>spear_R_d_attack_00.png</key>
+            <key>spear-red-d/png/spear_R_d_attack_00.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -79,7 +79,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_d_attack_01.png</key>
+            <key>spear-red-d/png/spear_R_d_attack_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -94,7 +94,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_d_behit_00.png</key>
+            <key>spear-red-d/png/spear_R_d_behit_00.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -109,7 +109,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_d_behit_01.png</key>
+            <key>spear-red-d/png/spear_R_d_behit_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -124,7 +124,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_d_move_00.png</key>
+            <key>spear-red-d/png/spear_R_d_move_00.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -139,7 +139,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_d_move_01.png</key>
+            <key>spear-red-d/png/spear_R_d_move_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -154,7 +154,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_ld_00.png</key>
+            <key>spear-red-ld/png/spear_R_ld_00.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -169,7 +169,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_ld_01.png</key>
+            <key>spear-red-ld/png/spear_R_ld_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -184,7 +184,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_ld_02.png</key>
+            <key>spear-red-ld/png/spear_R_ld_02.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -199,7 +199,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_ld_03.png</key>
+            <key>spear-red-ld/png/spear_R_ld_03.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -214,7 +214,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_ld_attack_00.png</key>
+            <key>spear-red-ld/png/spear_R_ld_attack_00.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -229,7 +229,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_ld_attack_01.png</key>
+            <key>spear-red-ld/png/spear_R_ld_attack_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -244,7 +244,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_ld_behit_00.png</key>
+            <key>spear-red-ld/png/spear_R_ld_behit_00.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -259,7 +259,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_ld_behit_01.png</key>
+            <key>spear-red-ld/png/spear_R_ld_behit_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -274,7 +274,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_ld_move_00.png</key>
+            <key>spear-red-ld/png/spear_R_ld_move_00.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -289,7 +289,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_ld_move_01.png</key>
+            <key>spear-red-ld/png/spear_R_ld_move_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -304,7 +304,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_lu_00.png</key>
+            <key>spear-red-lu/png/spear_R_lu_00.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -319,7 +319,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_lu_01.png</key>
+            <key>spear-red-lu/png/spear_R_lu_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -334,7 +334,7 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
-            <key>spear_R_lu_02.png</key>
+            <key>spear-red-lu/png/spear_R_lu_02.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -349,7 +349,7 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
-            <key>spear_R_lu_03.png</key>
+            <key>spear-red-lu/png/spear_R_lu_03.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -364,7 +364,7 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
-            <key>spear_R_lu_attack_00.png</key>
+            <key>spear-red-lu/png/spear_R_lu_attack_00.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -379,7 +379,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_lu_attack_01.png</key>
+            <key>spear-red-lu/png/spear_R_lu_attack_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -394,7 +394,7 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
-            <key>spear_R_lu_behit_00.png</key>
+            <key>spear-red-lu/png/spear_R_lu_behit_00.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -409,7 +409,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_lu_behit_01.png</key>
+            <key>spear-red-lu/png/spear_R_lu_behit_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -424,7 +424,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_lu_move_00.png</key>
+            <key>spear-red-lu/png/spear_R_lu_move_00.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -439,7 +439,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_lu_move_01.png</key>
+            <key>spear-red-lu/png/spear_R_lu_move_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -454,7 +454,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_rd_00.png</key>
+            <key>spear-red-rd/png/spear_R_rd_00.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -469,7 +469,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_rd_01.png</key>
+            <key>spear-red-rd/png/spear_R_rd_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -484,7 +484,7 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
-            <key>spear_R_rd_02.png</key>
+            <key>spear-red-rd/png/spear_R_rd_02.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -499,7 +499,7 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
-            <key>spear_R_rd_03.png</key>
+            <key>spear-red-rd/png/spear_R_rd_03.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -514,7 +514,7 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
-            <key>spear_R_rd_attack_00.png</key>
+            <key>spear-red-rd/png/spear_R_rd_attack_00.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -529,7 +529,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_rd_attack_01.png</key>
+            <key>spear-red-rd/png/spear_R_rd_attack_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -544,7 +544,7 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
-            <key>spear_R_rd_behit_00.png</key>
+            <key>spear-red-rd/png/spear_R_rd_behit_00.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -559,7 +559,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_rd_behit_01.png</key>
+            <key>spear-red-rd/png/spear_R_rd_behit_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -574,7 +574,7 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
-            <key>spear_R_rd_move_00.png</key>
+            <key>spear-red-rd/png/spear_R_rd_move_00.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -589,7 +589,7 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
-            <key>spear_R_rd_move_01.png</key>
+            <key>spear-red-rd/png/spear_R_rd_move_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -604,7 +604,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_ru_00.png</key>
+            <key>spear-red-ru/png/spear_R_ru_00.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -619,7 +619,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_ru_01.png</key>
+            <key>spear-red-ru/png/spear_R_ru_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -634,7 +634,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_ru_02.png</key>
+            <key>spear-red-ru/png/spear_R_ru_02.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -649,7 +649,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_ru_03.png</key>
+            <key>spear-red-ru/png/spear_R_ru_03.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -664,7 +664,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_ru_attack_00.png</key>
+            <key>spear-red-ru/png/spear_R_ru_attack_00.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -679,7 +679,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_ru_attack_01.png</key>
+            <key>spear-red-ru/png/spear_R_ru_attack_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -694,7 +694,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_ru_behit_00.png</key>
+            <key>spear-red-ru/png/spear_R_ru_behit_00.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -709,7 +709,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_ru_behit_01.png</key>
+            <key>spear-red-ru/png/spear_R_ru_behit_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -724,7 +724,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_ru_move_00.png</key>
+            <key>spear-red-ru/png/spear_R_ru_move_00.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -739,7 +739,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_ru_move_01.png</key>
+            <key>spear-red-ru/png/spear_R_ru_move_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -754,7 +754,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_u_00.png</key>
+            <key>spear-red-u/png/spear_R_u_00.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -769,7 +769,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_u_01.png</key>
+            <key>spear-red-u/png/spear_R_u_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -784,7 +784,7 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
-            <key>spear_R_u_02.png</key>
+            <key>spear-red-u/png/spear_R_u_02.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -799,7 +799,7 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
-            <key>spear_R_u_03.png</key>
+            <key>spear-red-u/png/spear_R_u_03.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -814,7 +814,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_u_attack_00.png</key>
+            <key>spear-red-u/png/spear_R_u_attack_00.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -829,7 +829,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_u_attack_01.png</key>
+            <key>spear-red-u/png/spear_R_u_attack_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -844,7 +844,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_u_behit_00.png</key>
+            <key>spear-red-u/png/spear_R_u_behit_00.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -859,7 +859,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_u_behit_01.png</key>
+            <key>spear-red-u/png/spear_R_u_behit_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -874,7 +874,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_u_move_00.png</key>
+            <key>spear-red-u/png/spear_R_u_move_00.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -889,7 +889,7 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
-            <key>spear_R_u_move_01.png</key>
+            <key>spear-red-u/png/spear_R_u_move_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
@@ -910,13 +910,13 @@
             <key>format</key>
             <integer>3</integer>
             <key>realTextureFileName</key>
-            <string>unit_red.png</string>
+            <string>unit_r.png</string>
             <key>size</key>
             <string>{236,1952}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:5c9298d9ee3921429fd91d1360902812:88630809677f7cc6ab9e80e3446dd84b:6429b93c2086fb51f557e717466b03cc$</string>
+            <string>$TexturePacker:SmartUpdate:dae20da08343470005cfcb6b0fa6368d:88630809677f7cc6ab9e80e3446dd84b:294639f10d1c6d8ba6d6941d715869e2$</string>
             <key>textureFileName</key>
-            <string>unit_red.png</string>
+            <string>unit_r.png</string>
         </dict>
     </dict>
 </plist>

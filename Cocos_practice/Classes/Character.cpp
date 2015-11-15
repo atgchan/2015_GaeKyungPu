@@ -13,19 +13,16 @@ Character::Character(PlayerInfo cPInfo, int spriteNum)
 Character* Character::create(PlayerInfo cPInfo, int spriteNum)
 {
 	Character* character = new Character(cPInfo, spriteNum);
-
-//	파일 명 때문에 Red Blue 구분은 CharacterAnimation내부에서 구분한다.
-//	create은 그저 캐릭터 객체를 만들 뿐, 실제 그래픽 구현은 CharacterAnimation에서 처리하는 형식
-
-	Animation* animationDefault = CharacterAnimation::CreateAnimationDefault(cPInfo, spriteNum);
-	character->init();
-	character->runAction(Animate::create(animationDefault));
-
+	
 	if (!character)
 	{
 		CC_SAFE_DELETE(character);
 		return nullptr;
 	}
+	
+	Animation* animationDefault = CharacterAnimation::CreateAnimationDefault(cPInfo, spriteNum);
+	character->init();
+	character->runAction(Animate::create(animationDefault));
 
 	return character;
 }
@@ -59,20 +56,15 @@ void Character::rotateToDirection(RotateDirection rotateDirection)
 	return;	
 }
 
-Character* Character::GetNearCharacter(DirectionKind direction)
-{
-	return this->getCurrentTile()->GetNearTile(direction)->getCharacterOnThisTile();
-}
-
 void Character::MovoToTile(Self_Tile* dest)
 {
-	Animation* animationMove = CharacterAnimation::CreateAnimationDefault(GetOwnerPlayer(), 1);
+	Animation* animationMove = CharacterAnimation::CreateAnimationMove(GetOwnerPlayer(), getCurrentDirection());
 	Animation* animationDefault = CharacterAnimation::CreateAnimationDefault(GetOwnerPlayer(), getCurrentDirection());
 	
 	ActionInterval* actionMove = Animate::create(animationMove);
-	actionMove->setDuration(0.5f);
+	//actionMove->setDuration(0.5f);
 
-	ActionInterval* moveTo = MoveTo::create(0.5f, Vec2(dest->getPositionX() + 80, dest->getPositionY() + 60));
+	ActionInterval* moveTo = MoveTo::create(1, Vec2(dest->getPositionX() + 80, dest->getPositionY() + 60));
 	ActionInterval* actionDefault = Animate::create(animationDefault);
 
 	FiniteTimeAction* seq = Spawn::create(actionMove, moveTo, NULL);
@@ -92,14 +84,13 @@ void Character::MovoToTile(Self_Tile* dest)
 
 void Character::CharacterBeHit()
 {
-	Animation* animationBeHit = CharacterAnimation::CreateAnimationDefault(GetOwnerPlayer(), 2);
+	Animation* animationBeHit = CharacterAnimation::CreateAnimationBeHit(GetOwnerPlayer(), 2);
 	Animation* animationDefault = CharacterAnimation::CreateAnimationDefault(GetOwnerPlayer(), getCurrentDirection());
 
 	ActionInterval* actionBeHit = Animate::create(animationBeHit);
-	actionBeHit->setDuration(1);
 	ActionInterval* actionDefault = Animate::create(animationDefault);
 
-	FiniteTimeAction* seq = Spawn::create(actionBeHit, actionDefault, NULL);
+	FiniteTimeAction* seq = Sequence::create(actionBeHit, actionDefault, NULL);
 
 	init();
 	stopAllActions();
@@ -110,20 +101,24 @@ void Character::CharacterBeHit()
 
 void Character::CharacterAttack()
 {
-	Animation* animationAttack = CharacterAnimation::CreateAnimationDefault(GetOwnerPlayer(), 2);
+	Animation* animationAttack = CharacterAnimation::CreateAnimationAttack(GetOwnerPlayer(), 2);
 	Animation* animationDefault = CharacterAnimation::CreateAnimationDefault(GetOwnerPlayer(), getCurrentDirection());
 
 	ActionInterval* actionAttack = Animate::create(animationAttack);
-	actionAttack->setDuration(1);
 	ActionInterval* actionDefault = Animate::create(animationDefault);
 
-	FiniteTimeAction* seq = Spawn::create(actionAttack, actionDefault, NULL);
+	FiniteTimeAction* seq = Sequence::create(actionAttack, actionDefault, NULL);
 
 	init();
 	stopAllActions();
 	setAnchorPoint(Vec2(0.5, 0.13));
 
 	runAction(seq);
+}
+
+Character* Character::GetNearCharacter(DirectionKind direction)
+{
+	return this->getCurrentTile()->GetNearTile(direction)->getCharacterOnThisTile();
 }
 
 const PlayerInfo Character::GetOwnerPlayer()
