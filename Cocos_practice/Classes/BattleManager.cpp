@@ -16,9 +16,11 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 	SetAttackFormation(attacker);
 	SetDefenseFormation(defender);
 
-	std::list<Character*> *winner = nullptr, *loser = nullptr;
+	PlayerInfo playerAttacker = attacker->GetOwnerPlayer(), playerDefender = defender->GetOwnerPlayer();
+
 	while (_CurrentAttackFormation.size() && _CurrentDefenseFormation.size())
 	{
+		std::list<Character*> *winner = nullptr, *loser = nullptr;
 		winner = (FightBetween(_CurrentAttackFormation.front(), _CurrentDefenseFormation.front()) == WINNER_ATTACKER) ? &_CurrentAttackFormation : &_CurrentDefenseFormation;
 		loser = (winner == &_CurrentAttackFormation) ? &_CurrentDefenseFormation : &_CurrentAttackFormation;
 		
@@ -37,8 +39,27 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 		GM->killCharacter(loser->front());
 		loser->pop_front();
 	}
-	
-	
+
+	std::list<Character*> finalWinnerForm = (_CurrentAttackFormation.size()) ? _CurrentAttackFormation : _CurrentDefenseFormation;
+	PlayerInfo finalWinnerPlayer = finalWinnerForm.front()->GetOwnerPlayer();
+
+	if (finalWinnerPlayer == playerAttacker)
+	{
+		Character* pIter = nullptr;
+		Character *characterToMove = finalWinnerForm.front();
+
+		characterToMove->MovoToTile(characterToMove->getCurrentTile()->GetNearTile(characterToMove->getCurrentDirection()));
+
+		DirectionKind tempDirection = DIRECTION_ERR, prevDirection = DIRECTION_ERR;
+		for (auto iter = ++(finalWinnerForm.begin()); iter != finalWinnerForm.end(); ++iter)
+		{
+			pIter = *iter;
+			TileMap::getInstance()->MoveCharacterTo(pIter, pIter->getCurrentTile()->GetNearTile(pIter->getCurrentDirection()));
+			tempDirection = pIter->getCurrentDirection();
+			pIter->setCurrentDirection(prevDirection);
+			prevDirection = tempDirection;
+		}
+	}
 }
 
 Winner BattleManager::FightBetween(Character* attacker, Character* defender)
