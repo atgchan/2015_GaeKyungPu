@@ -92,6 +92,8 @@ public:
 
 	bool		_ReadyToMove = false;
 	Character*	_CharacterToMove = nullptr;
+	void		setInputMode(bool mode){ _IsInputAble = mode; }
+
 private:
 	BattleManager*	_BMInstance;
 	GameSceneManager();
@@ -105,8 +107,6 @@ private:
 	PhaseInfo	_CurrentPhaseInfo = PHASE_HARVEST;
 	PlayerInfo	_RurrentPlayer = PLAYER_RED;
 	Phase*		_CurrentPhase = nullptr;
-
-	///# 멤버 변수 초기화도 통일되게 선언과 동시에 하든가 생성자에서 하든가.. 코딩 컨벤션으로 정할 것.
 
 	bool		_DraftMode = false;
 
@@ -122,6 +122,7 @@ private:
 	bool		_IsVolcanoActivated = false;
 	bool		_IsTurnRunning = true;
 	bool		_IsDebugingActivated = false;
+	bool		_IsInputAble = true;
 
 	Phase*		_Phases[7];
 	Self_Tile*	_DraftTile;

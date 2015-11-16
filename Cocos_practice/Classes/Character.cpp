@@ -3,6 +3,7 @@
 #include "CharacterAnimation.h"
 #include "Character.h"
 #include "TileMap.h"
+#include "GameSceneManager.h"
 
 Character::Character(PlayerInfo cPInfo, int spriteNum)
 {
@@ -14,13 +15,13 @@ Character::Character(PlayerInfo cPInfo, int spriteNum)
 Character* Character::create(PlayerInfo cPInfo, int spriteNum)
 {
 	Character* character = new Character(cPInfo, spriteNum);
-	
+
 	if (!character)
 	{
 		CC_SAFE_DELETE(character);
 		return nullptr;
 	}
-	
+
 	Animation* animationDefault = CharacterAnimation::CreateAnimationDefault(cPInfo, spriteNum);
 	character->init();
 	character->runAction(Animate::create(animationDefault));
@@ -54,21 +55,24 @@ void Character::RotateToDirection(RotateDirection rotateDirection)
 
 	setCurrentDirection(DirectionKind(chracterDirection));
 
-	return;	
+	return;
 }
 
 void Character::MovoToTile(Self_Tile* dest)
 {
 	Animation* animationMove = CharacterAnimation::CreateAnimationMove(GetOwnerPlayer(), getCurrentDirection());
 	Animation* animationDefault = CharacterAnimation::CreateAnimationDefault(GetOwnerPlayer(), getCurrentDirection());
-	
+
 	ActionInterval* actionMove = Animate::create(animationMove);
 
 	ActionInterval* moveTo = MoveTo::create(1, Vec2(dest->getPositionX() + 80, dest->getPositionY() + 60));
 	ActionInterval* actionDefault = Animate::create(animationDefault);
 
+	auto able = CallFunc::create(CC_CALLBACK_0(GameSceneManager::setInputMode, GM, true));
+	auto dissable = CallFunc::create(CC_CALLBACK_0(GameSceneManager::setInputMode,GM, false));
+
 	FiniteTimeAction* seq = Spawn::create(actionMove, moveTo, NULL);
-	FiniteTimeAction* seq1 = Sequence::create(seq, actionDefault, NULL);
+	FiniteTimeAction* seq1 = Sequence::create(dissable, seq, able, actionDefault, NULL);
 
 	init();
 	stopAllActions();
@@ -121,12 +125,12 @@ Character* Character::GetNearCharacter(DirectionKind direction)
 }
 
 const PlayerInfo Character::GetOwnerPlayer()
-{ 
+{
 	return _OwnerPlayer;
 }
 
 void Character::SetOwnerPlayer(PlayerInfo pInfo)
-{ 
+{
 	_OwnerPlayer = pInfo;
 }
 

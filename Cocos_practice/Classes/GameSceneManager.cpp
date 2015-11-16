@@ -126,18 +126,28 @@ void GameSceneManager::MoveCharacterByClick(Self_Tile* clickedTile)
 	{
 		foodToComsume = (clickedTile->getTypeOfTile() == TILE_FOREST) ? 2 : 1;
 		//클릭한 타일이 옮길 유닛 주변이고 
-		if ((_CharacterToMove->getCurrentTile()->CheckNearTileAndReturnItsDirection(clickedTile) == _CharacterToMove->getCurrentDirection()))
+		if (!(clickedTile->getTypeOfTile() == TILE_LAVA || clickedTile->getTypeOfTile() == TILE_VOCANO || clickedTile->getTypeOfTile() == TILE_NULL || clickedTile->getTypeOfTile() == TILE_LAKE))
 		{
-			if (clickedTile->getCharacterOnThisTile() == nullptr)//위에 아무 유닛도 없으면
+			if ((_CharacterToMove->getCurrentTile()->CheckNearTileAndReturnItsDirection(clickedTile) == _CharacterToMove->getCurrentDirection()))
 			{
-				if (getCurrentPlayerData()->getFood() >= foodToComsume)
+
+				if (clickedTile->getCharacterOnThisTile() == nullptr)//위에 아무 유닛도 없으면
 				{
-					getCurrentPlayerData()->AddFood(foodToComsume * -1);
-					_CharacterToMove->MovoToTile(clickedTile);
+					if (getCurrentPlayerData()->getFood() >= foodToComsume)
+					{
+						getCurrentPlayerData()->AddFood(foodToComsume * -1);
+						_CharacterToMove->MovoToTile(clickedTile);
+					}
+				}
+				else if (clickedTile->getCharacterOnThisTile()->GetOwnerPlayer() != _RurrentPlayer)
+				{
+					if (getCurrentPlayerData()->getFood() >= foodToComsume)
+					{
+						getCurrentPlayerData()->AddFood(foodToComsume * -1);
+						_BMInstance->BattleBetween(_CharacterToMove, clickedTile->getCharacterOnThisTile());
+					}				
 				}
 			}
-			else if (clickedTile->getCharacterOnThisTile()->GetOwnerPlayer() != _RurrentPlayer)
-				_BMInstance->BattleBetween(_CharacterToMove, clickedTile->getCharacterOnThisTile());
 		}
 		
 		_CharacterToMove = nullptr;
@@ -204,6 +214,8 @@ void GameSceneManager::MouseDownDispatcher(cocos2d::EventMouse *event)
 {
 	if (_CurrentPhaseInfo != PHASE_ACTION)
 		return;
+	if (_IsInputAble == false)
+		return;
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	float xPos = event->getCursorX();
@@ -231,13 +243,8 @@ void GameSceneManager::MouseDownDispatcher(cocos2d::EventMouse *event)
 		if (clickedTile != nullptr && clickedTile->getCharacterOnThisTile() != nullptr)
 		{
 			Character* target = clickedTile->getCharacterOnThisTile();
-			KillCharacter(target);
+			target->RotateToDirection(ROTATE_LEFT);
 			break;
-
-			/*_BMInstance->SetAttackFormation(target);
-			auto AF = _BMInstance->GetCurrentAttackFormation();
-			for (auto i : AF)
-				killCharacter(i);*/
 		}
 
 	default:
@@ -273,7 +280,7 @@ void GameSceneManager::GiveTileToPlayer(Self_Tile* targetTile, PlayerInfo pInfo)
 
 void GameSceneManager::KillCharacter(Character* target)
 {
-	auto CharacterList = getPlayerDataByPlayerInfo(target->GetOwnerPlayer())->getCharacterList();
+	std::list<Character*>* CharacterList = getPlayerDataByPlayerInfo(target->GetOwnerPlayer())->getCharacterList();
 	target->getCurrentTile()->setCharacterOnThisTile(nullptr);
 	TileMap::getInstance()->KillCharacter(target);
 	CharacterList->remove(target);

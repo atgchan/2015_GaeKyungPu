@@ -29,6 +29,8 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 			&_CurrentDefenseFormation;
 
 		loser = (winner == &_CurrentAttackFormation) ? &_CurrentDefenseFormation : &_CurrentAttackFormation;
+		//WaitForAnimation(TTAnimation::Animation_Batlle(winner, loser);
+		
 		
 		Character* pIter = nullptr;
 		loser->front()->setVisible(false);
@@ -137,7 +139,7 @@ void BattleManager::SearchGraphAndOverwriteAttackFormation(std::list<Character*>
 	for (int i = DIRECTION_DOWN_LEFT; i <= DIRECTION_UP_LEFT; ++i)
 	{
 		//i방향으로 인접한 캐릭터
-		auto compareNode = currentNode->GetNearCharacter(static_cast<DirectionKind>(i));
+		Character* compareNode = currentNode->GetNearCharacter(static_cast<DirectionKind>(i));
 
 		
 		if (compareNode != nullptr)
