@@ -105,7 +105,7 @@ private:
 	Node*		_Nodes;
 
 	PhaseInfo	_CurrentPhaseInfo = PHASE_HARVEST;
-	PlayerInfo	_RurrentPlayer = PLAYER_RED;
+	PlayerInfo	_CurrentPlayer = PLAYER_RED;
 	Phase*		_CurrentPhase = nullptr;
 
 	bool		_DraftMode = false;

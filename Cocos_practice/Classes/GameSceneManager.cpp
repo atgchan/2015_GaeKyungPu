@@ -44,7 +44,7 @@ void GameSceneManager::InitializeGame()
 	_Phases[PHASE_PASTEUR] = new Phase_Pasteur();
 	_Phases[PHASE_ERR] = nullptr;
 
-	_RurrentPlayer = PLAYER_RED;
+	_CurrentPlayer = PLAYER_RED;
 	_CurrentPhase = _Phases[PHASE_HARVEST];
 
 	_Dice = new DiceDice();
@@ -106,7 +106,7 @@ bool GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
 	}
 	else//if (_DraftMode == false)
 	{
-		if ((clickedTile->getOwnerPlayer() == _RurrentPlayer) && (clickedTile->getTypeOfTile() == TILE_BARRACK || clickedTile->getTypeOfTile() == TILE_HEADQUARTER) && (clickedTile->getCharacterOnThisTile() == nullptr))
+		if ((clickedTile->getOwnerPlayer() == _CurrentPlayer) && (clickedTile->getTypeOfTile() == TILE_BARRACK || clickedTile->getTypeOfTile() == TILE_HEADQUARTER) && (clickedTile->getCharacterOnThisTile() == nullptr))
 		{
 			_DraftTile = clickedTile;
 			_DraftMode = true;
@@ -139,7 +139,7 @@ void GameSceneManager::MoveCharacterByClick(Self_Tile* clickedTile)
 						_CharacterToMove->MovoToTile(clickedTile);
 					}
 				}
-				else if (clickedTile->getCharacterOnThisTile()->GetOwnerPlayer() != _RurrentPlayer)
+				else if (clickedTile->getCharacterOnThisTile()->GetOwnerPlayer() != _CurrentPlayer)
 				{
 					if (getCurrentPlayerData()->getFood() >= foodToComsume)
 					{
@@ -158,7 +158,7 @@ void GameSceneManager::MoveCharacterByClick(Self_Tile* clickedTile)
 	{
 		if (clickedTile->getCharacterOnThisTile() != nullptr)
 		{
-			if (clickedTile->getCharacterOnThisTile()->GetOwnerPlayer() != _RurrentPlayer)
+			if (clickedTile->getCharacterOnThisTile()->GetOwnerPlayer() != _CurrentPlayer)
 				return;
 			_CharacterToMove = clickedTile->getCharacterOnThisTile();
 			_ReadyToMove = true;
@@ -170,7 +170,7 @@ void GameSceneManager::MoveCharacterByClick(Self_Tile* clickedTile)
 void GameSceneManager::SpawnCharacterOnTile(Self_Tile* tile, int spriteNum, int spendFood/*=1*/)
 {
 	Character* unit = Character::create(getCurrentPlayer(), spriteNum);
-	unit->SetOwnerPlayer(_RurrentPlayer);
+	unit->SetOwnerPlayer(_CurrentPlayer);
 	unit->setAnchorPoint(Vec2(0.5f, 0.13f));
 
 	TileMap::getInstance()->setCharacterOnTile(unit, tile);
@@ -232,7 +232,7 @@ void GameSceneManager::MouseDownDispatcher(cocos2d::EventMouse *event)
 		break;
 
 	case MOUSE_BUTTON_RIGHT:
-		if (clickedTile != nullptr && clickedTile->getCharacterOnThisTile() != nullptr)
+		if (clickedTile != nullptr && clickedTile->getCharacterOnThisTile() != nullptr && clickedTile->getCharacterOnThisTile()->GetOwnerPlayer() == _CurrentPlayer)
 		{
 			Character* target = clickedTile->getCharacterOnThisTile();
 			target->RotateToDirection(ROTATE_RIGHT);
@@ -240,7 +240,7 @@ void GameSceneManager::MouseDownDispatcher(cocos2d::EventMouse *event)
 		}
 
 	case MOUSE_BUTTON_MIDDLE:
-		if (clickedTile != nullptr && clickedTile->getCharacterOnThisTile() != nullptr)
+		if (clickedTile != nullptr && clickedTile->getCharacterOnThisTile() != nullptr && clickedTile->getCharacterOnThisTile()->GetOwnerPlayer() == _CurrentPlayer)
 		{
 			Character* target = clickedTile->getCharacterOnThisTile();
 			target->RotateToDirection(ROTATE_LEFT);
@@ -254,14 +254,14 @@ void GameSceneManager::MouseDownDispatcher(cocos2d::EventMouse *event)
 
 PlayerData* GameSceneManager::getCurrentPlayerData()
 {
-	return _PlayerData[_RurrentPlayer];
+	return _PlayerData[_CurrentPlayer];
 }
 
 void GameSceneManager::ChangePlayer()
 {
-	if (_RurrentPlayer == PLAYER_RED || _RurrentPlayer == PLAYER_BLUE)
+	if (_CurrentPlayer == PLAYER_RED || _CurrentPlayer == PLAYER_BLUE)
 	{
-		_RurrentPlayer = (PlayerInfo)((_RurrentPlayer + 1) % 2);
+		_CurrentPlayer = (PlayerInfo)((_CurrentPlayer + 1) % 2);
 	}
 	else
 	{	Director::getInstance()->end();	}
@@ -294,7 +294,7 @@ void GameSceneManager::ChangePhase(PhaseInfo nextPhase)
 
 PlayerInfo GameSceneManager::getCurrentPlayer()
 {
-	return _RurrentPlayer;
+	return _CurrentPlayer;
 }
 
 void GameSceneManager::AddChild(Node* targetNode)
