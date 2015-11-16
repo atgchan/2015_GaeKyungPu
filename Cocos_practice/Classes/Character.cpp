@@ -2,6 +2,7 @@
 #include "definition.h"
 #include "CharacterAnimation.h"
 #include "Character.h"
+#include "TileMap.h"
 
 Character::Character(PlayerInfo cPInfo, int spriteNum)
 {
@@ -62,7 +63,6 @@ void Character::MovoToTile(Self_Tile* dest)
 	Animation* animationDefault = CharacterAnimation::CreateAnimationDefault(GetOwnerPlayer(), getCurrentDirection());
 	
 	ActionInterval* actionMove = Animate::create(animationMove);
-	//actionMove->setDuration(0.5f);
 
 	ActionInterval* moveTo = MoveTo::create(1, Vec2(dest->getPositionX() + 80, dest->getPositionY() + 60));
 	ActionInterval* actionDefault = Animate::create(animationDefault);
@@ -91,7 +91,6 @@ void Character::CharacterBeHit()
 	ActionInterval* actionDefault = Animate::create(animationDefault);
 
 	FiniteTimeAction* seq = Sequence::create(actionBeHit, actionDefault, NULL);
-
 	init();
 	stopAllActions();
 	setAnchorPoint(Vec2(0.5, 0.13));

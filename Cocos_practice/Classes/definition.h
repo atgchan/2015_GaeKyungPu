@@ -2,7 +2,7 @@
 USING_NS_CC;
 
 #define GM GameSceneManager::getInstance()
-
+enum { MAX_TILEKIND  = 10};
 enum {IT_IS_NOT_NEAR_TILE = -1};
 enum { NUM_OF_PLAYER = 2 };
 

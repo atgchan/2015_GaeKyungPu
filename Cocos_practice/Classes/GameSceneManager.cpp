@@ -50,6 +50,14 @@ void GameSceneManager::InitializeGame()
 	_Dice = new DiceDice();
 }
 
+void GameSceneManager::EndGame()
+{
+
+	_TileMap->Terminate();
+	delete(_Dice);
+	delete(this);
+}
+
 Self_Tile* GameSceneManager::getTileFromMouseEvent(const cocos2d::EventMouse *event)
 {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
@@ -96,7 +104,7 @@ bool GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
 			return false;
 		}
 	}
-	else//if (draftMode == false)
+	else//if (_DraftMode == false)
 	{
 		if ((clickedTile->getOwnerPlayer() == _RurrentPlayer) && (clickedTile->getTypeOfTile() == TILE_BARRACK || clickedTile->getTypeOfTile() == TILE_HEADQUARTER) && (clickedTile->getCharacterOnThisTile() == nullptr))
 		{

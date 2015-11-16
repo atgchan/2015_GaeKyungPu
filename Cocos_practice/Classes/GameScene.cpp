@@ -14,7 +14,7 @@ Scene* GameScene::CreateScene()
 bool GameScene::init()
 {
 	if (!Layer::init()) return false;
-
+	_GameIsEnd = false;
 //이하 초기화 block은 상용구처럼 쓰이는 것이므로 바뀔 여지 x
 	//GameMaster의 인스턴스 저장. GameScene 안에서 계속 쓰인다.
 	GameSceneManager* gmInstance = GameSceneManager::getInstance();
@@ -52,5 +52,7 @@ bool GameScene::init()
 
 void GameScene::ScheduleCallback(float delta)
 {
+	if (_GameIsEnd)
+		GameSceneManager::getInstance()->EndGame();
 	GameSceneManager::getInstance()->ScheduleCallback(delta);
 }
