@@ -12,7 +12,7 @@ Phase_Pasteur::~Phase_Pasteur()
 
 void Phase_Pasteur::Tick()
 {
-	nextPhase = PHASE_HARVEST;
+	_NextPhase = PHASE_HARVEST;
 	GM->getCurrentPlayerData()->setFood(0);
 	GM->ChangePlayer();
 }

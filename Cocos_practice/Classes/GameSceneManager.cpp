@@ -72,7 +72,7 @@ bool GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
 	if (clickedTile == nullptr)
 		return false;
 	int foodToConsume = 0;
-	if (draftMode == true)
+	if (_DraftMode == true)
 	{
 		//클릭한 타일이 배럭 주변이고 이미 위치한 유닛이 없으면
 		if ((draftTile->CheckNearTileAndReturnItsDirection(clickedTile) != IT_IS_NOT_NEAR_TILE) && (clickedTile->getCharacterOnThisTile() == nullptr))
@@ -83,7 +83,7 @@ bool GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
 				int spriteNum = draftTile->CheckNearTileAndReturnItsDirection(clickedTile);
 				SpawnCharacterOnTile(clickedTile, spriteNum,foodToConsume);
 				draftTile = nullptr;
-				draftMode = false;
+				_DraftMode = false;
 				return true;
 			}
 			
@@ -91,16 +91,16 @@ bool GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
 		else
 		{
 			draftTile = nullptr;
-			draftMode = false;
+			_DraftMode = false;
 			return false;
 		}
 	}
-	else//if (draftMode == false)
+	else//if (_DraftMode == false)
 	{
 		if ((clickedTile->getOwnerPlayer() == currentPlayer) && (clickedTile->getTypeOfTile() == TILE_BARRACK || clickedTile->getTypeOfTile() == TILE_HEADQUARTER) && (clickedTile->getCharacterOnThisTile() == nullptr))
 		{
 			draftTile = clickedTile;
-			draftMode = true;
+			_DraftMode = true;
 			return false;
 		}
 	}
@@ -254,7 +254,7 @@ void GameSceneManager::ChangePlayer()
 void GameSceneManager::scheduleCallback(float delta)
 {
 	currentPhase->Tick();
-	ChangePhase(currentPhase->nextPhase);
+	ChangePhase(currentPhase->_NextPhase);
 }
 
 void GameSceneManager::GiveTileToPlayer(Self_Tile* targetTile, PlayerInfo pInfo)
@@ -266,14 +266,15 @@ void GameSceneManager::killCharacter(Character* target)
 {
 	auto CharacterList = getPlayerDataByPlayerInfo(target->GetOwnerPlayer())->getCharacterList();
 	target->getCurrentTile()->setCharacterOnThisTile(nullptr);
+	target->CharacterBeHit();
 	TileMap::getInstance()->killCharacter(target);
 	CharacterList->remove(target);
 }
 
-void GameSceneManager::ChangePhase(PhaseInfo nextPhase)
+void GameSceneManager::ChangePhase(PhaseInfo _NextPhase)
 {
-	currentPhaseInfo = nextPhase;
-	currentPhase = phases[nextPhase];
+	currentPhaseInfo = _NextPhase;
+	currentPhase = phases[_NextPhase];
 }
 
 PlayerInfo GameSceneManager::getCurrentPlayer()
