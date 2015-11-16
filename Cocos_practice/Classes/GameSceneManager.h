@@ -24,6 +24,8 @@ public:
 	@warning	이 함수를 통해 셋팅하지 않은 GameMaster는 사용할 수 없습니다.
 	*/
 	void		InitializeGame();
+	void		EndGame();
+
 	/*
 	@brief		mouse버튼 이벤트 리스너에 걸어둘 수 있는 2차 디스패쳐입니다.
 	*/

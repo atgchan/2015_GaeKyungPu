@@ -124,6 +124,11 @@ void TileMap::killCharacter(Character* target)
 	this->removeChild(target);
 }
 
+void TileMap::Terminate()
+{
+	delete(this);
+}
+
 TileMap::TileMap()
 {
 

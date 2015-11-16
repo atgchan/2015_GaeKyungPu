@@ -29,6 +29,7 @@ void GameSceneManager::InitializeGame()
 	this->_Nodes->setName("MasterNode");
 	_TileMap = TileMap::getInstance();
 	_TileMap->create();
+
 	this->addChild(_TileMap);
 	for (int i = 0; i < NUM_OF_PLAYER; ++i)
 	{
@@ -48,6 +49,14 @@ void GameSceneManager::InitializeGame()
 	currentPhase = phases[PHASE_HARVEST];
 
 	dice = new DiceDice();
+}
+
+void GameSceneManager::EndGame()
+{
+
+	_TileMap->Terminate();
+	delete(dice);
+	delete(this);
 }
 
 Self_Tile* GameSceneManager::getTileFromMouseEvent(const cocos2d::EventMouse *event)
