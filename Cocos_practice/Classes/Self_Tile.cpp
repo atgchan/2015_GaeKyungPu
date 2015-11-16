@@ -60,7 +60,10 @@ void Self_Tile::changeTile(TileKind type)
 
 Character* Self_Tile::getCharacterOnThisTile()
 {
-	return characterOnThisTile;
+	if (characterOnThisTile)
+		return characterOnThisTile;
+	else
+		return nullptr;
 }
 
 void Self_Tile::setCharacterOnThisTile(Character* character)

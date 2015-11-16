@@ -24,8 +24,8 @@ public:
 private:
 	
 	///# 아래 두 2차원 배열을 안전하게 바꿀것:  http://blog.naver.com/spacesun/140202708191
-	Self_Tile* _TileSet[9][8];
-	static TileKind _MapData[9][8];
+	Self_Tile* _TileSet[11][10];
+	static TileKind _MapData[11][10];
 	
 	TileMap();
 	TileMap(const TileMap& other); ///# 이거는 private로 해놓았는데 복사대입 연산자 operator=는 왜 private로 안해놓았는가? 항상 복사생성자와 복사대입연산자는 세트로... 왜 그럴까?

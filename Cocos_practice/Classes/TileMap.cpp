@@ -3,22 +3,24 @@
 #include "GameSceneManager.h"
 
 TileMap* TileMap::inst = NULL;
-TileKind TileMap::_MapData[9][8] = {
-	{ TILE_NULL, TILE_PLAIN, TILE_PLAIN, TILE_PLAIN, TILE_NULL, TILE_NULL, TILE_NULL, TILE_NULL },
-	{ TILE_NULL, TILE_RICH, TILE_LAKE, TILE_VILLAGE, TILE_PLAIN, TILE_PLAIN, TILE_PLAIN, TILE_NULL },
-	{ TILE_PLAIN, TILE_PLAIN, TILE_PLAIN, TILE_PLAIN, TILE_FOREST, TILE_HEADQUARTER, TILE_PLAIN, TILE_NULL },
-	{ TILE_PLAIN, TILE_PLAIN, TILE_PLAIN, TILE_RICH, TILE_RICH, TILE_FOREST, TILE_PLAIN, TILE_NULL },
-	{ TILE_PLAIN, TILE_PLAIN, TILE_RICH, TILE_VOCANO, TILE_RICH, TILE_PLAIN, TILE_PLAIN, TILE_NULL },
-	{ TILE_NULL, TILE_PLAIN, TILE_FOREST, TILE_RICH, TILE_RICH, TILE_PLAIN, TILE_PLAIN, TILE_PLAIN },
-	{ TILE_PLAIN, TILE_HEADQUARTER, TILE_FOREST, TILE_PLAIN, TILE_PLAIN, TILE_PLAIN, TILE_PLAIN, TILE_NULL },
-	{ TILE_NULL, TILE_PLAIN, TILE_PLAIN, TILE_PLAIN, TILE_VILLAGE, TILE_LAKE, TILE_RICH, TILE_NULL },
-	{ TILE_NULL, TILE_NULL, TILE_NULL, TILE_PLAIN, TILE_PLAIN, TILE_PLAIN, TILE_NULL, TILE_NULL },
+TileKind TileMap::_MapData[11][10] = {
+	{ TILE_NULL, TILE_NULL, TILE_NULL, TILE_NULL, TILE_NULL, TILE_NULL, TILE_NULL, TILE_NULL, TILE_NULL, TILE_NULL },
+	{ TILE_NULL, TILE_NULL, TILE_PLAIN, TILE_PLAIN, TILE_PLAIN, TILE_NULL, TILE_NULL, TILE_NULL, TILE_NULL, TILE_NULL},
+	{ TILE_NULL, TILE_NULL, TILE_RICH, TILE_LAKE, TILE_VILLAGE, TILE_PLAIN, TILE_PLAIN, TILE_PLAIN, TILE_NULL, TILE_NULL },
+	{ TILE_NULL, TILE_PLAIN, TILE_PLAIN, TILE_PLAIN, TILE_PLAIN, TILE_FOREST, TILE_HEADQUARTER, TILE_PLAIN, TILE_NULL, TILE_NULL },
+	{ TILE_NULL, TILE_PLAIN, TILE_PLAIN, TILE_PLAIN, TILE_RICH, TILE_RICH, TILE_FOREST, TILE_PLAIN, TILE_NULL, TILE_NULL },
+	{ TILE_NULL, TILE_PLAIN, TILE_PLAIN, TILE_RICH, TILE_VOCANO, TILE_RICH, TILE_PLAIN, TILE_PLAIN, TILE_NULL, TILE_NULL },
+	{ TILE_NULL, TILE_NULL, TILE_PLAIN, TILE_FOREST, TILE_RICH, TILE_RICH, TILE_PLAIN, TILE_PLAIN, TILE_PLAIN, TILE_NULL },
+	{ TILE_NULL, TILE_PLAIN, TILE_HEADQUARTER, TILE_FOREST, TILE_PLAIN, TILE_PLAIN, TILE_PLAIN, TILE_PLAIN, TILE_NULL, TILE_NULL },
+	{ TILE_NULL, TILE_NULL, TILE_PLAIN, TILE_PLAIN, TILE_PLAIN, TILE_VILLAGE, TILE_LAKE, TILE_RICH, TILE_NULL, TILE_NULL },
+	{ TILE_NULL, TILE_NULL, TILE_NULL, TILE_NULL, TILE_PLAIN, TILE_PLAIN, TILE_PLAIN, TILE_NULL, TILE_NULL, TILE_NULL },
+	{ TILE_NULL, TILE_NULL, TILE_NULL, TILE_NULL, TILE_NULL, TILE_NULL, TILE_NULL, TILE_NULL, TILE_NULL, TILE_NULL}
 };
 bool TileMap::create()
 {
-	for (int i = 0; i < 9; ++i)
+	for (int i = 0; i < 11; ++i)
 	{
-		for (int j = 0; j < 8; ++j)
+		for (int j = 0; j < 10; ++j)
 		{
 			float positionX;
 			float positionY;
@@ -27,23 +29,23 @@ bool TileMap::create()
 
 			if (j == 0)
 			{
-				if ((i % 2) == 0)
+				if (((i-1) % 2) == 0)
 				{
-					positionX = i * 51 + 12;
+					positionX = i * 51 + 12 -200;
 				}
 				else
 				{
-					positionX = (i - 1) * 51;
+					positionX = (i - 1) * 51 - 200;
 				}
 
 				if (i == 0)
 				{ 
-					positionY = 500;
+					positionY = 550;
 				}
 				else
 				{
 					float addnum = 0;
-					if (i % 2 == 0)
+					if ((i-1) % 2 == 0)
 						addnum = 39;
 					else
 						addnum = 66;
@@ -70,11 +72,11 @@ bool TileMap::create()
 		}
 	}
 
-	for (int i = 0; i < 9; ++i)
+	for (int i = 0; i < 11; ++i)
 	{
-		for (int j = 0; j < 8; ++j)
+		for (int j = 0; j < 10; ++j)
 		{
-			if (i % 2 == 0)
+			if ((i-1) % 2 == 0)
 			{
 				_TileSet[i][j]->setNearTile(0, _TileSet[i][j - 1]); ///# 메모리 언더런!! 왜 그럴까?
 				_TileSet[i][j]->setNearTile(1, _TileSet[i + 1][j]);
@@ -99,8 +101,8 @@ bool TileMap::create()
 		}
 	}
 
-	_TileSet[6][1]->setOwnerPlayer(PLAYER_RED);
-	_TileSet[2][5]->setOwnerPlayer(PLAYER_BLUE);
+	_TileSet[7][2]->setOwnerPlayer(PLAYER_RED);
+	_TileSet[3][6]->setOwnerPlayer(PLAYER_BLUE);
 
 	return true;
 }
