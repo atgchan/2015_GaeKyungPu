@@ -4,9 +4,7 @@
 
 ![image](http://ref.comgal.info/data/cgref_4/1447699508/%EC%9D%B4%EB%AF%B8%EC%A7%80_1.png)
 
-v0.0.7
-
-[v0.0.7 다운로드](http://me2.do/G3b74uOs "다운로드")
+v0.0.7 - [다운로드](http://me2.do/G3b74uOs "다운로드")
 
 * 전투 기능 추가
     + 공식 룰에 있는 로직 그대로 전투를 수행합니다. (아직 옆구리 보너스, 지형 보너스는 미구현)
