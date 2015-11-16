@@ -1,4 +1,5 @@
 #pragma once
+#include <array>
 USING_NS_CC;
 
 #include "definition.h"
@@ -8,31 +9,21 @@ USING_NS_CC;
 class TileMap : public Layer
 {
 public:
-	static TileMap* getInstance()
-	{
-		if (inst == nullptr)
-		{
-			inst = new TileMap();
-			inst->setName("TileMap");
-		}
-		return inst;
-	}
-	bool create();
+	static TileMap* getInstance();
+	bool	create();
+	void	setCharacterOnTile(Character* character, Self_Tile* tile, bool moveMode = false);
+	void	KillCharacter(Character* target);
 
-	void setCharacterOnTile(Character* character, Self_Tile* tile, bool moveMode = false);
-	void KillCharacter(Character* target);
+	void	Terminate();
 
-	void		Terminate();
 private:
-	
-	///# 아래 두 2차원 배열을 안전하게 바꿀것:  http://blog.naver.com/spacesun/140202708191
-	Self_Tile* _TileSet[11][10];
-	static TileKind _MapData[11][10];
-	
+
+	static std::array<std::array<TileKind, MAP_MAX_WIDTH>, MAP_MAX_HEIGHT> _NewMapData;
+	std::array<std::array<Self_Tile*, MAP_MAX_WIDTH>, MAP_MAX_HEIGHT> _TileSet;
+	void SetTotalNearTile();
+
 	TileMap();
 	TileMap(const TileMap& other);
 	TileMap& operator=(TileMap& other);
 	static TileMap* inst;
-
-
 };

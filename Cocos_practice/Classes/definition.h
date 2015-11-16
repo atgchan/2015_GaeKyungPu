@@ -5,6 +5,7 @@ USING_NS_CC;
 enum { MAX_TILEKIND  = 10};
 enum {IT_IS_NOT_NEAR_TILE = -1};
 enum { NUM_OF_PLAYER = 2 };
+enum { MAP_MAX_HEIGHT = 11, MAP_MAX_WIDTH = 10 };
 
 enum PhaseInfo{
 	PHASE_READY,

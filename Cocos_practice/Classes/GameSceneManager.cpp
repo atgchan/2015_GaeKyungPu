@@ -161,7 +161,7 @@ void GameSceneManager::SpawnCharacterOnTile(Self_Tile* tile, int spriteNum, int 
 {
 	Character* unit = Character::create(getCurrentPlayer(), spriteNum);
 	unit->SetOwnerPlayer(_RurrentPlayer);
-	unit->setAnchorPoint(Vec2(0.5, 0.13));
+	unit->setAnchorPoint(Vec2(0.5f, 0.13f));
 
 	TileMap::getInstance()->setCharacterOnTile(unit, tile);
 	_PlayerData[getCurrentPlayer()]->AddCharacter(unit);

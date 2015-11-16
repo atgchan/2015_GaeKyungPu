@@ -49,7 +49,7 @@ void Character::RotateToDirection(RotateDirection rotateDirection)
 	Animation* animationDefault = CharacterAnimation::CreateAnimationDefault(getCurrentPlayerInfo(), chracterDirection);
 	init();
 	stopAllActions();
-	setAnchorPoint(Vec2(0.5, 0.13));
+	setAnchorPoint(Vec2(0.5f, 0.13f));
 	runAction(Animate::create(animationDefault));
 
 	setCurrentDirection(DirectionKind(chracterDirection));
@@ -72,7 +72,7 @@ void Character::MovoToTile(Self_Tile* dest)
 
 	init();
 	stopAllActions();
-	setAnchorPoint(Vec2(0.5, 0.13));
+	setAnchorPoint(Vec2(0.5f, 0.13f));
 
 	getCurrentTile()->setCharacterOnThisTile(nullptr);
 	dest->setCharacterOnThisTile(this);
@@ -93,7 +93,7 @@ void Character::CharacterBeHit()
 	FiniteTimeAction* seq = Sequence::create(actionBeHit, actionDefault, NULL);
 	init();
 	stopAllActions();
-	setAnchorPoint(Vec2(0.5, 0.13));
+	setAnchorPoint(Vec2(0.5f, 0.13f));
 
 	runAction(seq);
 }
@@ -110,7 +110,7 @@ void Character::CharacterAttack()
 
 	init();
 	stopAllActions();
-	setAnchorPoint(Vec2(0.5, 0.13));
+	setAnchorPoint(Vec2(0.5f, 0.13f));
 
 	runAction(seq);
 }
