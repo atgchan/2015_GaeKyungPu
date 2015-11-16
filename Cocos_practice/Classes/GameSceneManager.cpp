@@ -273,7 +273,7 @@ void GameSceneManager::GiveTileToPlayer(Self_Tile* targetTile, PlayerInfo pInfo)
 
 void GameSceneManager::KillCharacter(Character* target)
 {
-	auto CharacterList = getPlayerDataByPlayerInfo(target->GetOwnerPlayer())->getCharacterList();
+	std::list<Character*>* CharacterList = getPlayerDataByPlayerInfo(target->GetOwnerPlayer())->getCharacterList();
 	target->getCurrentTile()->setCharacterOnThisTile(nullptr);
 	TileMap::getInstance()->KillCharacter(target);
 	CharacterList->remove(target);
