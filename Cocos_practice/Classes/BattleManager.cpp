@@ -29,6 +29,8 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 			&_CurrentDefenseFormation;
 
 		loser = (winner == &_CurrentAttackFormation) ? &_CurrentDefenseFormation : &_CurrentAttackFormation;
+		//WaitForAnimation(TTAnimation::Animation_Batlle(winner, loser);
+		
 		
 		Character* pIter = nullptr;
 		loser->front()->setVisible(false);

@@ -92,6 +92,8 @@ public:
 
 	bool		_ReadyToMove = false;
 	Character*	_CharacterToMove = nullptr;
+	void		setInputMode(bool mode){ _IsInputAble = mode; }
+
 private:
 	BattleManager*	_BMInstance;
 	GameSceneManager();
@@ -120,6 +122,7 @@ private:
 	bool		_IsVolcanoActivated = false;
 	bool		_IsTurnRunning = true;
 	bool		_IsDebugingActivated = false;
+	bool		_IsInputAble = true;
 
 	Phase*		_Phases[7];
 	Self_Tile*	_DraftTile;
