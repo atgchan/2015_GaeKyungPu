@@ -67,7 +67,7 @@ bool TileMap::create()
 
 
 			inst->addChild(_TileSet[i][j]);
-			GameSceneManager::getInstance()->pushTileToList(rect, _TileSet[i][j]);
+			GameSceneManager::getInstance()->PushTileToList(rect, _TileSet[i][j]);
 			//this->setAnchorPoint(Point(0.5, 0.0));
 		}
 	}
@@ -119,7 +119,7 @@ void TileMap::setCharacterOnTile(Character* character, Self_Tile* tile, bool mov
 		addChild(character);
 }
 
-void TileMap::killCharacter(Character* target)
+void TileMap::KillCharacter(Character* target)
 {
 	this->removeChild(target);
 }

@@ -40,7 +40,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     director->setAnimationInterval(1.0 / 60);
 
     // Ã¹ scene ½ÇÇà
-	auto mainScene = MainScene::createScene();
+	auto mainScene = MainScene::CreateScene();
 	director->runWithScene(mainScene);
 	
     return true;

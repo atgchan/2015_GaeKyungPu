@@ -18,8 +18,8 @@ GameSceneManager* GameSceneManager::inst = NULL;
 
 void GameSceneManager::ChangeRichToLava(Self_Tile* target)
 {
-	target->changeTile(TILE_LAVA);
-	killCharacter(target->getCharacterOnThisTile());
+	target->ChangeTile(TILE_LAVA);
+	KillCharacter(target->getCharacterOnThisTile());
 }
 
 void GameSceneManager::InitializeGame()
@@ -29,25 +29,25 @@ void GameSceneManager::InitializeGame()
 	this->_Nodes->setName("MasterNode");
 	_TileMap = TileMap::getInstance();
 	_TileMap->create();
-	this->addChild(_TileMap);
+	this->AddChild(_TileMap);
 	for (int i = 0; i < NUM_OF_PLAYER; ++i)
 	{
 		_PlayerData[i] = new PlayerData();
 		_PlayerData[i]->setFood(0);
 	}
 	
-	phases[PHASE_READY] = nullptr;
-	phases[PHASE_HARVEST] = new Phase_Harvest();
-	phases[PHASE_OCCUPY] = new Phase_Occupy();
-	phases[PHASE_VOLCANO] = new Phase_Volcano();
-	phases[PHASE_ACTION] = new Phase_Action();
-	phases[PHASE_PASTEUR] = new Phase_Pasteur();
-	phases[PHASE_ERR] = nullptr;
+	_Phases[PHASE_READY] = nullptr;
+	_Phases[PHASE_HARVEST] = new Phase_Harvest();
+	_Phases[PHASE_OCCUPY] = new Phase_Occupy();
+	_Phases[PHASE_VOLCANO] = new Phase_Volcano();
+	_Phases[PHASE_ACTION] = new Phase_Action();
+	_Phases[PHASE_PASTEUR] = new Phase_Pasteur();
+	_Phases[PHASE_ERR] = nullptr;
 
-	currentPlayer = PLAYER_RED;
-	currentPhase = phases[PHASE_HARVEST];
+	_RurrentPlayer = PLAYER_RED;
+	_CurrentPhase = _Phases[PHASE_HARVEST];
 
-	dice = new DiceDice();
+	_Dice = new DiceDice();
 }
 
 Self_Tile* GameSceneManager::getTileFromMouseEvent(const cocos2d::EventMouse *event)
@@ -72,36 +72,36 @@ bool GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
 	if (clickedTile == nullptr)
 		return false;
 	int foodToConsume = 0;
-	if (draftMode == true)
+	if (_DraftMode == true)
 	{
 		//클릭한 타일이 배럭 주변이고 이미 위치한 유닛이 없으면
-		if ((draftTile->CheckNearTileAndReturnItsDirection(clickedTile) != IT_IS_NOT_NEAR_TILE) && (clickedTile->getCharacterOnThisTile() == nullptr))
+		if ((_DraftTile->CheckNearTileAndReturnItsDirection(clickedTile) != IT_IS_NOT_NEAR_TILE) && (clickedTile->getCharacterOnThisTile() == nullptr))
 		{
 			foodToConsume = (clickedTile->getTypeOfTile() == TILE_FOREST) ? 2 : 1;
 			if (getCurrentPlayerData()->getFood() >= foodToConsume)
 			{
-				int spriteNum = draftTile->CheckNearTileAndReturnItsDirection(clickedTile);
-				SpawnCharacterOnTile(draftTile, spriteNum, foodToConsume);
-				draftTile->getCharacterOnThisTile()->MovoToTile(clickedTile);
-				draftTile = nullptr;
-				draftMode = false;
+				int spriteNum = _DraftTile->CheckNearTileAndReturnItsDirection(clickedTile);
+				SpawnCharacterOnTile(_DraftTile, spriteNum, foodToConsume);
+				_DraftTile->getCharacterOnThisTile()->MovoToTile(clickedTile);
+				_DraftTile = nullptr;
+				_DraftMode = false;
 				return true;
 			}
 			
 		}
 		else
 		{
-			draftTile = nullptr;
-			draftMode = false;
+			_DraftTile = nullptr;
+			_DraftMode = false;
 			return false;
 		}
 	}
 	else//if (draftMode == false)
 	{
-		if ((clickedTile->getOwnerPlayer() == currentPlayer) && (clickedTile->getTypeOfTile() == TILE_BARRACK || clickedTile->getTypeOfTile() == TILE_HEADQUARTER) && (clickedTile->getCharacterOnThisTile() == nullptr))
+		if ((clickedTile->getOwnerPlayer() == _RurrentPlayer) && (clickedTile->getTypeOfTile() == TILE_BARRACK || clickedTile->getTypeOfTile() == TILE_HEADQUARTER) && (clickedTile->getCharacterOnThisTile() == nullptr))
 		{
-			draftTile = clickedTile;
-			draftMode = true;
+			_DraftTile = clickedTile;
+			_DraftMode = true;
 			return false;
 		}
 	}
@@ -114,36 +114,36 @@ void GameSceneManager::MoveCharacterByClick(Self_Tile* clickedTile)
 		return;
 	int foodToComsume = 0;
 
-	if (readyToMove == true)
+	if (_ReadyToMove == true)
 	{
 		foodToComsume = (clickedTile->getTypeOfTile() == TILE_FOREST) ? 2 : 1;
 		//클릭한 타일이 옮길 유닛 주변이고 
-		if ((characterToMove->getCurrentTile()->CheckNearTileAndReturnItsDirection(clickedTile) == characterToMove->getCurrentDirection()))
+		if ((_CharacterToMove->getCurrentTile()->CheckNearTileAndReturnItsDirection(clickedTile) == _CharacterToMove->getCurrentDirection()))
 		{
 			if (clickedTile->getCharacterOnThisTile() == nullptr)//위에 아무 유닛도 없으면
 			{
 				if (getCurrentPlayerData()->getFood() >= foodToComsume)
 				{
 					getCurrentPlayerData()->AddFood(foodToComsume * -1);
-					characterToMove->MovoToTile(clickedTile);
+					_CharacterToMove->MovoToTile(clickedTile);
 				}
 			}
-			else if (clickedTile->getCharacterOnThisTile()->GetOwnerPlayer() != currentPlayer)
-				_BMInstance->BattleBetween(characterToMove, clickedTile->getCharacterOnThisTile());
+			else if (clickedTile->getCharacterOnThisTile()->GetOwnerPlayer() != _RurrentPlayer)
+				_BMInstance->BattleBetween(_CharacterToMove, clickedTile->getCharacterOnThisTile());
 		}
 		
-		characterToMove = nullptr;
-		readyToMove = false;
+		_CharacterToMove = nullptr;
+		_ReadyToMove = false;
 		return;
 	}
 	else
 	{
 		if (clickedTile->getCharacterOnThisTile() != nullptr)
 		{
-			if (clickedTile->getCharacterOnThisTile()->GetOwnerPlayer() != currentPlayer)
+			if (clickedTile->getCharacterOnThisTile()->GetOwnerPlayer() != _RurrentPlayer)
 				return;
-			characterToMove = clickedTile->getCharacterOnThisTile();
-			readyToMove = true;
+			_CharacterToMove = clickedTile->getCharacterOnThisTile();
+			_ReadyToMove = true;
 			return;
 		}
 	}
@@ -152,7 +152,7 @@ void GameSceneManager::MoveCharacterByClick(Self_Tile* clickedTile)
 void GameSceneManager::SpawnCharacterOnTile(Self_Tile* tile, int spriteNum, int spendFood/*=1*/)
 {
 	Character* unit = Character::create(getCurrentPlayer(), spriteNum);
-	unit->SetOwnerPlayer(currentPlayer);
+	unit->SetOwnerPlayer(_RurrentPlayer);
 	unit->setAnchorPoint(Vec2(0.5, 0.13));
 
 	TileMap::getInstance()->setCharacterOnTile(unit, tile);
@@ -174,7 +174,7 @@ void GameSceneManager::KeyReleasedDispatcher(EventKeyboard::KeyCode keyCode, coc
 			DebugUI* DebugingUI = DebugUI::create();
 			DebugingUI->SetValue(getPlayerDataByPlayerInfo(PLAYER_RED), getPlayerDataByPlayerInfo(PLAYER_BLUE));
 			DebugingUI->setName("debug");
-			this->addChild(DebugingUI);
+			this->AddChild(DebugingUI);
 			_IsDebugingActivated = true;
 			break;
 		}
@@ -192,9 +192,9 @@ void GameSceneManager::KeyReleasedDispatcher(EventKeyboard::KeyCode keyCode, coc
 	}
 }
 
-void GameSceneManager::mouseDownDispatcher(cocos2d::EventMouse *event)
+void GameSceneManager::MouseDownDispatcher(cocos2d::EventMouse *event)
 {
-	if (currentPhaseInfo != PHASE_ACTION)
+	if (_CurrentPhaseInfo != PHASE_ACTION)
 		return;
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();
@@ -215,7 +215,7 @@ void GameSceneManager::mouseDownDispatcher(cocos2d::EventMouse *event)
 		if (clickedTile != nullptr && clickedTile->getCharacterOnThisTile() != nullptr)
 		{
 			Character* target = clickedTile->getCharacterOnThisTile();
-			target->rotateToDirection(ROTATE_RIGHT);
+			target->RotateToDirection(ROTATE_RIGHT);
 			break;
 		}
 
@@ -223,7 +223,7 @@ void GameSceneManager::mouseDownDispatcher(cocos2d::EventMouse *event)
 		if (clickedTile != nullptr && clickedTile->getCharacterOnThisTile() != nullptr)
 		{
 			Character* target = clickedTile->getCharacterOnThisTile();
-			killCharacter(target);
+			KillCharacter(target);
 			break;
 
 			/*_BMInstance->SetAttackFormation(target);
@@ -239,23 +239,23 @@ void GameSceneManager::mouseDownDispatcher(cocos2d::EventMouse *event)
 
 PlayerData* GameSceneManager::getCurrentPlayerData()
 {
-	return _PlayerData[currentPlayer];
+	return _PlayerData[_RurrentPlayer];
 }
 
 void GameSceneManager::ChangePlayer()
 {
-	if (currentPlayer == PLAYER_RED || currentPlayer == PLAYER_BLUE)
+	if (_RurrentPlayer == PLAYER_RED || _RurrentPlayer == PLAYER_BLUE)
 	{
-		currentPlayer = (PlayerInfo)((currentPlayer + 1) % 2);
+		_RurrentPlayer = (PlayerInfo)((_RurrentPlayer + 1) % 2);
 	}
 	else
 	{	Director::getInstance()->end();	}
 }
 
-void GameSceneManager::scheduleCallback(float delta)
+void GameSceneManager::ScheduleCallback(float delta)
 {
-	currentPhase->Tick();
-	ChangePhase(currentPhase->nextPhase);
+	_CurrentPhase->Tick();
+	ChangePhase(_CurrentPhase->_NextPhase);
 }
 
 void GameSceneManager::GiveTileToPlayer(Self_Tile* targetTile, PlayerInfo pInfo)
@@ -263,49 +263,49 @@ void GameSceneManager::GiveTileToPlayer(Self_Tile* targetTile, PlayerInfo pInfo)
 	targetTile->setOwnerPlayer(pInfo);
 }
 
-void GameSceneManager::killCharacter(Character* target)
+void GameSceneManager::KillCharacter(Character* target)
 {
 	auto CharacterList = getPlayerDataByPlayerInfo(target->GetOwnerPlayer())->getCharacterList();
 	target->getCurrentTile()->setCharacterOnThisTile(nullptr);
-	TileMap::getInstance()->killCharacter(target);
+	TileMap::getInstance()->KillCharacter(target);
 	CharacterList->remove(target);
 }
 
 void GameSceneManager::ChangePhase(PhaseInfo nextPhase)
 {
-	currentPhaseInfo = nextPhase;
-	currentPhase = phases[nextPhase];
+	_CurrentPhaseInfo = nextPhase;
+	_CurrentPhase = _Phases[nextPhase];
 }
 
 PlayerInfo GameSceneManager::getCurrentPlayer()
 {
-	return currentPlayer;
+	return _RurrentPlayer;
 }
 
-void GameSceneManager::addChild(Node* targetNode)
+void GameSceneManager::AddChild(Node* targetNode)
 {
 	_Nodes->addChild(targetNode);
 }
 
-void GameSceneManager::toggleTurn(Object* pSender)
+void GameSceneManager::ToggleTurn(Object* pSender)
 {
-	if (currentPhaseInfo != PHASE_ACTION)
+	if (_CurrentPhaseInfo != PHASE_ACTION)
 		return;
 	ChangePhase(PHASE_PASTEUR);
 }
 
-void GameSceneManager::pushTileToList(Rect rect, Self_Tile* tile)
+void GameSceneManager::PushTileToList(Rect rect, Self_Tile* tile)
 {
 	TILEARRAYSET tileSet;
 	tileSet.tile = tile;
 	tileSet.rect = rect;
 
-	TileList.push_back(tileSet);
+	_TileList.push_back(tileSet);
 }
 
 Self_Tile* GameSceneManager::getExistingTileWithMousePoint(Vec2 vec)
 {
-	for (auto iter : TileList)
+	for (auto iter : _TileList)
 	{
 		if (iter.rect.containsPoint(vec))
 		{
@@ -323,7 +323,7 @@ GameSceneManager::GameSceneManager()
 GameSceneManager::~GameSceneManager()
 {
 	delete(_BMInstance);
-	delete dice;
-	delete[] phases;
+	delete _Dice;
+	delete[] _Phases;
 	return;
 }

@@ -17,10 +17,10 @@ public:
 	void	AddCharacter(Character* character);
 	void	RemoveCharacter(Character* character);
 	
-	PlayerData* opponentPlayer;
+	PlayerData* _OpponentPlayer;
 
 	static PlayerData* create();
 private:
-	int		food;
-	std::list<Character*> characterList;
+	int		_Food;
+	std::list<Character*> _CharacterList;
 };

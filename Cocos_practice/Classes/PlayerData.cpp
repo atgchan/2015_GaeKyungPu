@@ -18,30 +18,30 @@ PlayerData::~PlayerData()
 
 int	 PlayerData::getFood()
 {
-	return food;
+	return _Food;
 }
 
 void PlayerData::setFood(int _food)
 {
-	food = _food;
+	_Food = _food;
 }
 
 void PlayerData::AddFood(int num)
 {
-	food += num;
+	_Food += num;
 }
 
 void PlayerData::AddCharacter(Character* character)
 {
-	characterList.push_back(character);
+	_CharacterList.push_back(character);
 }
 
 void PlayerData::RemoveCharacter(Character* character)
 {
-	characterList.remove(character);
+	_CharacterList.remove(character);
 }
 
 std::list<Character*>* PlayerData::getCharacterList()
 {
-	return &characterList;
+	return &_CharacterList;
 }

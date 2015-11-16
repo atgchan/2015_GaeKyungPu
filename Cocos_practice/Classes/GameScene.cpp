@@ -2,7 +2,7 @@
 #include "GameScene.h"
 #include "GameSceneManager.h"
 
-Scene* GameScene::createScene()
+Scene* GameScene::CreateScene()
 {
 	auto scene = Scene::create();
 	auto layer = GameScene::create();
@@ -28,7 +28,7 @@ bool GameScene::init()
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	auto toggleButton = Label::createWithTTF("toggleTurn", "fonts/Marker Felt.ttf", 24);
-	auto menu_toggle = MenuItemLabel::create(toggleButton, CC_CALLBACK_1(GameSceneManager::toggleTurn, gmInstance));
+	auto menu_toggle = MenuItemLabel::create(toggleButton, CC_CALLBACK_1(GameSceneManager::ToggleTurn, gmInstance));
 	menu_toggle->setPosition(Vec2(visibleSize.width * 4 / 5, visibleSize.height * 1 / 5));
 
 	auto mainMenu = Menu::create(menu_toggle, NULL);
@@ -37,7 +37,7 @@ bool GameScene::init()
 
 //	Mouse Event
 	auto clickListener = EventListenerMouse::create();
-	clickListener->onMouseDown = CC_CALLBACK_1(GameSceneManager::mouseDownDispatcher, gmInstance);
+	clickListener->onMouseDown = CC_CALLBACK_1(GameSceneManager::MouseDownDispatcher, gmInstance);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(clickListener, this);
 
 //	Keyboard Event
@@ -46,11 +46,11 @@ bool GameScene::init()
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(keylistener, this);
 
 	//tick을 넘겨본다.
-	this->schedule(schedule_selector(GameScene::scheduleCallback));
+	this->schedule(schedule_selector(GameScene::ScheduleCallback));
 	return true;
 }
 
-void GameScene::scheduleCallback(float delta)
+void GameScene::ScheduleCallback(float delta)
 {
-	GameSceneManager::getInstance()->scheduleCallback(delta);
+	GameSceneManager::getInstance()->ScheduleCallback(delta);
 }

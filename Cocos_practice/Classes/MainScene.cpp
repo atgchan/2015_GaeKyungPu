@@ -2,7 +2,7 @@
 #include "GameScene.h"
 #include "MainScene.h"
 
-Scene* MainScene::createScene()
+Scene* MainScene::CreateScene()
 {
 	auto scene = Scene::create();
 	auto layer = MainScene::create();
@@ -28,7 +28,7 @@ bool MainScene::init()
 	auto label_setting = Label::createWithTTF("Setting", "fonts/Marker Felt.ttf", 24);
 	auto label_exit = Label::createWithTTF("Exit", "fonts/Marker Felt.ttf", 24);
 
-	auto closeItem = MenuItemImage::create("CloseNormal.png", "CloseSelected.png", CC_CALLBACK_1(MainScene::menuCloseCallback, this));
+	auto closeItem = MenuItemImage::create("CloseNormal.png", "CloseSelected.png", CC_CALLBACK_1(MainScene::MenuCloseCallback, this));
 	closeItem->setPosition(
 			Vec2(
 				origin.x + visibleSize.width - closeItem->getContentSize().width / 2,
@@ -36,9 +36,9 @@ bool MainScene::init()
 			)
 		);
 
-	auto menu_play = MenuItemLabel::create(label_play, CC_CALLBACK_1(MainScene::menuClickCallback, this));
+	auto menu_play = MenuItemLabel::create(label_play, CC_CALLBACK_1(MainScene::MenuClickCallback, this));
 	auto menu_setting = MenuItemLabel::create(label_setting);
-	auto menu_exit = MenuItemLabel::create(label_exit, CC_CALLBACK_1(MainScene::menuCloseCallback, this));
+	auto menu_exit = MenuItemLabel::create(label_exit, CC_CALLBACK_1(MainScene::MenuCloseCallback, this));
 
 	menu_play->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
 	menu_setting->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 30));
@@ -58,20 +58,20 @@ bool MainScene::init()
 
 //	Keyboard Event
 	auto keyListener = EventListenerKeyboard::create();
-	keyListener->onKeyPressed = CC_CALLBACK_2(MainScene::onKeyPressed, this);
-	keyListener->onKeyReleased = CC_CALLBACK_2(MainScene::onKeyReleased, this);
+	keyListener->onKeyPressed = CC_CALLBACK_2(MainScene::OnKeyPressed, this);
+	keyListener->onKeyReleased = CC_CALLBACK_2(MainScene::OnKeyReleased, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(keyListener, this);
 
 	return true;
 }
 
-void MainScene::menuClickCallback(cocos2d::Ref* pSender)
+void MainScene::MenuClickCallback(cocos2d::Ref* pSender)
 {
-	auto gameScene = GameScene::createScene();
+	auto gameScene = GameScene::CreateScene();
 	Director::getInstance()->pushScene(gameScene);
 }
 
-void MainScene::menuCloseCallback(cocos2d::Ref* pSender)
+void MainScene::MenuCloseCallback(cocos2d::Ref* pSender)
 {
 	Director::getInstance()->end();
 
@@ -80,7 +80,7 @@ void MainScene::menuCloseCallback(cocos2d::Ref* pSender)
 #endif
 }
 
-void MainScene::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
+void MainScene::OnKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 {
 	auto target = event->getCurrentTarget()->getChildByName("cursor");
 	Vec2 loc = target->getPosition();
@@ -97,7 +97,7 @@ void MainScene::onKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 	}
 }
 
-void MainScene::onKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
+void MainScene::OnKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 {
 	auto target = event->getCurrentTarget()->getChildByName("cursor");
 	Vec2 loc = target->getPosition();

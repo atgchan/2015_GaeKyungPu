@@ -12,6 +12,6 @@ public:
 	CREATE_FUNC(DebugUI);
 
 private:
-	LayerColor* backLayer;
-	LayerColor* popUpLayer;
+	LayerColor* BackLayer;
+	LayerColor* PopUpLayer;
 };

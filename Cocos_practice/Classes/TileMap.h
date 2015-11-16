@@ -20,7 +20,7 @@ public:
 	bool create();
 
 	void setCharacterOnTile(Character* character, Self_Tile* tile, bool moveMode = false);
-	void killCharacter(Character* target);
+	void KillCharacter(Character* target);
 private:
 	
 	///# 아래 두 2차원 배열을 안전하게 바꿀것:  http://blog.naver.com/spacesun/140202708191

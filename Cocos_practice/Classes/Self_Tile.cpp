@@ -2,7 +2,7 @@
 #include "definition.h"
 #include "Self_Tile.h";
 
-std::string Self_Tile::DictionaryForFilenames[10] = 
+std::string Self_Tile::_DictionaryForFilenames[10] = 
 {
 	"Map/tile_null.png",
 	"Map/tile_plain.png",
@@ -30,7 +30,7 @@ Self_Tile* Self_Tile::create(TileKind type)
 {
 	Self_Tile* sprite = new Self_Tile();
 
-	if (sprite && (sprite->initWithFile(DictionaryForFilenames[type])))
+	if (sprite && (sprite->initWithFile(_DictionaryForFilenames[type])))
 	{
 		sprite->autorelease();
 		sprite->setTypeOfTile(type);
@@ -47,28 +47,28 @@ void Self_Tile::setOwnerPlayer(PlayerInfo pInfo)
 {
 	if (pInfo != PLAYER_ERR)
 	{
-		ownerPlayer = pInfo;
+		_OwnerPlayer = pInfo;
 	}
 }
 
-void Self_Tile::changeTile(TileKind type)
+void Self_Tile::ChangeTile(TileKind type)
 {
-	this->initWithFile(DictionaryForFilenames[type]);
+	this->initWithFile(_DictionaryForFilenames[type]);
 	this->setTypeOfTile(type);
 	this->setAnchorPoint(cocos2d::Vec2(0, 0));
 }
 
 Character* Self_Tile::getCharacterOnThisTile()
 {
-	if (characterOnThisTile)
-		return characterOnThisTile;
+	if (_CharacterOnThisTile)
+		return _CharacterOnThisTile;
 	else
 		return nullptr;
 }
 
 void Self_Tile::setCharacterOnThisTile(Character* character)
 {
-	this->characterOnThisTile = character;
+	this->_CharacterOnThisTile = character;
 }
 
 //void Self_Tile::setPositionInt(int _xPos, int _yPos)
@@ -81,7 +81,7 @@ DirectionKind Self_Tile::CheckNearTileAndReturnItsDirection(Self_Tile* tile)
 {
 	for (int i = 0; i < 6; ++i)
 	{
-		if (nearTile[i] == tile)
+		if (_NearTile[i] == tile)
 			return static_cast<DirectionKind>(i);
 	}
 	return DIRECTION_ERR;
@@ -89,10 +89,10 @@ DirectionKind Self_Tile::CheckNearTileAndReturnItsDirection(Self_Tile* tile)
 
 void Self_Tile::setNearTile(int num, Self_Tile* tile)
 {
-	nearTile[num] = tile;
+	_NearTile[num] = tile;
 }
 
-Self_Tile* Self_Tile::GetNearTile(DirectionKind direction)
+Self_Tile* Self_Tile::getNearTile(DirectionKind direction)
 {
-	return nearTile[direction];
+	return _NearTile[direction];
 }

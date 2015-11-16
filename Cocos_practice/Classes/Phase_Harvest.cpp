@@ -23,5 +23,5 @@ void Phase_Harvest::Tick()
 		if (iter->getCurrentTile()->getTypeOfTile() == TILE_RICH)
 			currentPlayerData->AddFood(1);
 	}
-	nextPhase = PHASE_OCCUPY;
+	_NextPhase = PHASE_OCCUPY;
 }

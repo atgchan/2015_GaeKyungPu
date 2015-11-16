@@ -38,12 +38,12 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 		for (auto iter = ++(loser->begin()); iter != loser->end();++iter)
 		{
 			pIter = *iter;
-			pIter->MovoToTile(pIter->getCurrentTile()->GetNearTile(pIter->getCurrentDirection()));
+			pIter->MovoToTile(pIter->getCurrentTile()->getNearTile(pIter->getCurrentDirection()));
 			tempDirection = pIter->getCurrentDirection();
 			pIter->setCurrentDirection(prevDirection);
 			prevDirection = tempDirection;
 		}
-		GM->killCharacter(loser->front());
+		GM->KillCharacter(loser->front());
 		loser->pop_front();
 	}
 
@@ -55,13 +55,13 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 		Character* pIter = nullptr;
 		Character *characterToMove = finalWinnerForm.front();
 
-		characterToMove->MovoToTile(characterToMove->getCurrentTile()->GetNearTile(characterToMove->getCurrentDirection()));
+		characterToMove->MovoToTile(characterToMove->getCurrentTile()->getNearTile(characterToMove->getCurrentDirection()));
 
 		DirectionKind tempDirection = DIRECTION_ERR, prevDirection = characterToMove->getCurrentDirection();
 		for (auto iter = ++(finalWinnerForm.begin()); iter != finalWinnerForm.end(); ++iter)
 		{
 			pIter = *iter;
-			pIter->MovoToTile(pIter->getCurrentTile()->GetNearTile(pIter->getCurrentDirection()));
+			pIter->MovoToTile(pIter->getCurrentTile()->getNearTile(pIter->getCurrentDirection()));
 			tempDirection = pIter->getCurrentDirection();
 			pIter->setCurrentDirection(prevDirection);
 			prevDirection = tempDirection;

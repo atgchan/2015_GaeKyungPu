@@ -9,11 +9,10 @@ class Self_Tile : public cocos2d::Sprite
 {
 
 public:
-
 	static Self_Tile* create(TileKind type);
 	void setOwnerPlayer(PlayerInfo pInfo);
-	PlayerInfo getOwnerPlayer(){ return ownerPlayer; }
-	void changeTile(TileKind type);
+	PlayerInfo getOwnerPlayer(){ return _OwnerPlayer; }
+	void ChangeTile(TileKind type);
 	Character* getCharacterOnThisTile();
 	void setCharacterOnThisTile(Character* character);
 	CC_SYNTHESIZE(TileKind, _typeOfTile, TypeOfTile);
@@ -24,7 +23,7 @@ public:
 	int getPositionIntY() { return yPos; }
 	*/
 
-	bool isTile(){ return true; }
+	bool IsTile(){ return true; }
 
 	/*
 	@brief		매개변수로 주어진 타일이 인근에 위치한 타일인 경우, 해당 타일의 상대 숫자를 반환한다
@@ -37,15 +36,15 @@ public:
 
 	Self_Tile();
 	~Self_Tile();
-	Self_Tile*		GetNearTile(DirectionKind direction);
+	Self_Tile*		getNearTile(DirectionKind direction);
 private:
 	//타일 종류에 따른 스프라이트 파일명을 저장해둘 배열
-	static std::string DictionaryForFilenames[10]; ///# 상수값은 하드코딩 하지 말 것 반드시 따로 define또는 const로 뺄 것.
+	static std::string _DictionaryForFilenames[10]; ///# 상수값은 하드코딩 하지 말 것 반드시 따로 define또는 const로 뺄 것.
 
 	//타일의 소유주
-	PlayerInfo ownerPlayer;
-	Character* characterOnThisTile = nullptr;
-	Self_Tile* nearTile[6];
+	PlayerInfo _OwnerPlayer;
+	Character* _CharacterOnThisTile = nullptr;
+	Self_Tile* _NearTile[6];
 	
 	//int xPos, yPos;
 };

@@ -20,8 +20,8 @@ void Phase_Occupy::Tick()
 		{
 			gm->GiveTileToPlayer(iter->getCurrentTile(), gm->getCurrentPlayer());
 			if (iter->getCurrentTile()->getTypeOfTile() == TILE_VILLAGE)
-				iter->getCurrentTile()->changeTile(TILE_BARRACK);
+				iter->getCurrentTile()->ChangeTile(TILE_BARRACK);
 		}
 	}
-	nextPhase = PHASE_VOLCANO;
+	_NextPhase = PHASE_VOLCANO;
 }

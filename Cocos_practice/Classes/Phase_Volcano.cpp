@@ -26,5 +26,5 @@ void Phase_Volcano::Tick()
 	default:
 		break;
 	}
-	nextPhase = PHASE_ACTION;
+	_NextPhase = PHASE_ACTION;
 }

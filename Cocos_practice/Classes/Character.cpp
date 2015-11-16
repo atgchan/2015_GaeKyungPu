@@ -27,7 +27,7 @@ Character* Character::create(PlayerInfo cPInfo, int spriteNum)
 	return character;
 }
 
-bool Character::isOnTile(TileKind tileTypeToCheck)
+bool Character::IsOnTile(TileKind tileTypeToCheck)
 {
 	if (this->getCurrentTile()->getTypeOfTile() == tileTypeToCheck)
 		return true;
@@ -35,7 +35,7 @@ bool Character::isOnTile(TileKind tileTypeToCheck)
 		return false;
 }
 
-void Character::rotateToDirection(RotateDirection rotateDirection)
+void Character::RotateToDirection(RotateDirection rotateDirection)
 {
 	int chracterDirection = getCurrentDirection();
 
@@ -118,7 +118,7 @@ void Character::CharacterAttack()
 
 Character* Character::GetNearCharacter(DirectionKind direction)
 {
-	return this->getCurrentTile()->GetNearTile(direction)->getCharacterOnThisTile();
+	return this->getCurrentTile()->getNearTile(direction)->getCharacterOnThisTile();
 }
 
 const PlayerInfo Character::GetOwnerPlayer()

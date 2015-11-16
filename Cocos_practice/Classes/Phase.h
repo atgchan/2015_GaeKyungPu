@@ -8,6 +8,6 @@ public:
 	Phase();
 	virtual ~Phase();
 	virtual void Tick() = 0;
-	PhaseInfo nextPhase = PHASE_ERR;
+	PhaseInfo _NextPhase = PHASE_ERR;
 };
 
