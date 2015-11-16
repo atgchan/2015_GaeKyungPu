@@ -13,12 +13,10 @@ Animation* CharacterAnimation::CreateAnimationDefault(PlayerInfo cPInfo, int spr
 	if (cPInfo == PLAYER_RED)
 	{
 		frameName += "R_";
-		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Character/unit_red.plist");
 	}
 	else if (cPInfo == PLAYER_BLUE)
 	{
 		frameName += "B_";
-		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Character/unit_blue.plist");
 	}
 
 	std::string direction = GetDirectionName(spriteNum);
@@ -53,12 +51,10 @@ Animation* CharacterAnimation::CreateAnimationMove(PlayerInfo cPInfo, int sprite
 	if (cPInfo == PLAYER_RED)
 	{
 		frameName += "R_";
-		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Character/unit_r.plist");
 	}
 	else if (cPInfo == PLAYER_BLUE)
 	{
 		frameName += "B_";
-		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Character/unit_b.plist");
 	}
 
 	std::string direction = GetDirectionName(spriteNum);
@@ -87,12 +83,10 @@ Animation* CharacterAnimation::CreateAnimationAttack(PlayerInfo cPInfo, int spri
 	if (cPInfo == PLAYER_RED)
 	{
 		frameName += "R_";
-		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Character/unit_r.plist");
 	}
 	else if (cPInfo == PLAYER_BLUE)
 	{
 		frameName += "B_";
-		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Character/unit_b.plist");
 	}
 
 	std::string direction = GetDirectionName(spriteNum);
@@ -119,12 +113,10 @@ Animation* CharacterAnimation::CreateAnimationBeHit(PlayerInfo cPInfo, int sprit
 	if (cPInfo == PLAYER_RED)
 	{
 		frameName += "R_";
-		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Character/unit_r.plist");
 	}
 	else if (cPInfo == PLAYER_BLUE)
 	{
 		frameName += "B_";
-		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Character/unit_b.plist");
 	}
 
 	std::string direction = GetDirectionName(spriteNum);
@@ -149,12 +141,10 @@ std::string LoadPlist(PlayerInfo cPInfo, std::string frameName)
 	if (cPInfo == PLAYER_RED)
 	{
 		frameName += "R_";
-		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Character/unit_r.plist");
 	}
 	else if (cPInfo == PLAYER_BLUE)
 	{
 		frameName += "B_";
-		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Character/unit_b.plist");
 	}
 
 	return frameName;

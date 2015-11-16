@@ -55,6 +55,9 @@
     <ClCompile Include="..\Classes\CharacterAnimation.cpp">
       <Filter>Animation</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\UILayer.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
@@ -111,6 +114,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\CharacterAnimation.h">
       <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\UILayer.h">
+      <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

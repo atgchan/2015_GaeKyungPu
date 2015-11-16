@@ -39,6 +39,11 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // FPS 셋팅
     director->setAnimationInterval(1.0 / 60);
 
+	//resourcefile load!
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("UI/ui_image.plist");
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Character/unit_blue.plist");
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Character/unit_red.plist");
+
     // 첫 scene 실행
 	auto mainScene = MainScene::CreateScene();
 	director->runWithScene(mainScene);

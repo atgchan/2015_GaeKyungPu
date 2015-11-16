@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "GameScene.h"
 #include "GameSceneManager.h"
+#include "UILayer.h"
 
 Scene* GameScene::CreateScene()
 {
@@ -22,18 +23,27 @@ bool GameScene::init()
 	gmInstance->InitializeGame();
 	//게임 내 모든 node들을 추가.아래와 같이 호출하면 된다.
 	this->addChild(gmInstance->getNodes());
+
 //초기화 block 끝
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	auto toggleButton = Label::createWithTTF("toggleTurn", "fonts/Marker Felt.ttf", 24);
+	Label* toggleButton = Label::createWithTTF("Toggle Turn", "fonts/upheavtt.ttf", 50);
 	auto menu_toggle = MenuItemLabel::create(toggleButton, CC_CALLBACK_1(GameSceneManager::ToggleTurn, gmInstance));
 	menu_toggle->setPosition(Vec2(visibleSize.width * 4 / 5, visibleSize.height * 1 / 5));
 
 	auto mainMenu = Menu::create(menu_toggle, NULL);
 	mainMenu->setPosition(Vec2::ZERO);
 	this->addChild(mainMenu);
+
+	Label* turnIndicator = Label::createWithTTF("NOW : ", "fonts/upheavtt.ttf", 40);
+	turnIndicator->setPosition(50, visibleSize.height - 50);
+
+	UILayer* layerUI = UILayer::create();
+	layerUI->setName("ui_layer");
+
+	this->addChild(layerUI);
 
 //	Mouse Event
 	auto clickListener = EventListenerMouse::create();

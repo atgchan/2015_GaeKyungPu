@@ -47,7 +47,7 @@ bool MainScene::init()
 	auto mainMenu = Menu::create(menu_play, menu_setting, menu_exit, closeItem, NULL);
 	mainMenu->setPosition(Vec2::ZERO);
 
-	auto cursor = Sprite::create("UI/cursor.png");
+	Sprite* cursor = Sprite::createWithSpriteFrameName("cursor.png");
 	
 	cursor->setPosition(Vec2(visibleSize.width / 2 - 100, visibleSize.height / 2));
 	cursor->setName("cursor");
