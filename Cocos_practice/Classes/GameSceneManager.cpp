@@ -81,7 +81,8 @@ bool GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
 			if (getCurrentPlayerData()->getFood() >= foodToConsume)
 			{
 				int spriteNum = draftTile->CheckNearTileAndReturnItsDirection(clickedTile);
-				SpawnCharacterOnTile(clickedTile, spriteNum,foodToConsume);
+				SpawnCharacterOnTile(draftTile, spriteNum, foodToConsume);
+				draftTile->getCharacterOnThisTile()->MovoToTile(clickedTile);
 				draftTile = nullptr;
 				draftMode = false;
 				return true;
@@ -127,7 +128,7 @@ void GameSceneManager::MoveCharacterByClick(Self_Tile* clickedTile)
 					characterToMove->MovoToTile(clickedTile);
 				}
 			}
-			if (clickedTile->getCharacterOnThisTile()->GetOwnerPlayer() != currentPlayer)
+			else if (clickedTile->getCharacterOnThisTile()->GetOwnerPlayer() != currentPlayer)
 				_BMInstance->BattleBetween(characterToMove, clickedTile->getCharacterOnThisTile());
 		}
 		

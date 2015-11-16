@@ -22,12 +22,19 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 	while (_CurrentAttackFormation.size() && _CurrentDefenseFormation.size())
 	{
 		std::list<Character*> *winner = nullptr, *loser = nullptr;
-		winner = IsAttackerWin(_CurrentAttackFormation.front(), _CurrentDefenseFormation.front()) ? &_CurrentAttackFormation : &_CurrentDefenseFormation;
+
+		if (IsAttackerWin(_CurrentAttackFormation.front(), _CurrentDefenseFormation.front()))
+			winner = &_CurrentAttackFormation;
+		else
+			&_CurrentDefenseFormation;
+
 		loser = (winner == &_CurrentAttackFormation) ? &_CurrentDefenseFormation : &_CurrentAttackFormation;
 		
 		Character* pIter = nullptr;
 		loser->front()->setVisible(false);
-		DirectionKind tempDirection = DIRECTION_ERR, prevDirection = DIRECTION_ERR;
+		DirectionKind tempDirection = DIRECTION_ERR;
+		DirectionKind prevDirection = loser->front()->getCurrentDirection();
+
 		for (auto iter = ++(loser->begin()); iter != loser->end();++iter)
 		{
 			pIter = *iter;
@@ -50,7 +57,7 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 
 		characterToMove->MovoToTile(characterToMove->getCurrentTile()->GetNearTile(characterToMove->getCurrentDirection()));
 
-		DirectionKind tempDirection = DIRECTION_ERR, prevDirection = DIRECTION_ERR;
+		DirectionKind tempDirection = DIRECTION_ERR, prevDirection = characterToMove->getCurrentDirection();
 		for (auto iter = ++(finalWinnerForm.begin()); iter != finalWinnerForm.end(); ++iter)
 		{
 			pIter = *iter;
@@ -67,7 +74,7 @@ bool BattleManager::IsAttackerWin(Character* attacker, Character* defender)
 	DiceDice dice;
 	int attackerDice = 0;
 	int defenderDice = 0;
-
+	
 	while (true)
 	{
 		attackerDice = dice.RollDiceBetween(attacker->_AttackPower, 1);
