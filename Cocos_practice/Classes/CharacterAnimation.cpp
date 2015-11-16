@@ -9,15 +9,16 @@ Animation* CharacterAnimation::CreateAnimationDefault(PlayerInfo cPInfo, int spr
 	std::string frameName = "spear_";
 	Animation* animation = Animation::create();
 	animation->setDelayPerUnit(0.1f);
-	frameName += "R_";
-
+	
 	if (cPInfo == PLAYER_RED)
 	{
-		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Character/unit.plist", "Character/unit_red.png");
+		frameName += "R_";
+		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Character/unit_red.plist");
 	}
-	else if (PLAYER_BLUE)
+	else if (cPInfo == PLAYER_BLUE)
 	{
-		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Character/unit.plist", "Character/unit_blue.png");
+		frameName += "B_";
+		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Character/unit_blue.plist");
 	}
 
 	std::string direction = GetDirectionName(spriteNum);
@@ -48,15 +49,16 @@ Animation* CharacterAnimation::CreateAnimationMove(PlayerInfo cPInfo, int sprite
 	std::string frameName = "spear_";
 	Animation* animation = Animation::create();
 	animation->setDelayPerUnit(0.1f);
-	frameName += "R_";
-
+	
 	if (cPInfo == PLAYER_RED)
 	{
-		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Character/unit.plist", "Character/unit_red.png");
+		frameName += "R_";
+		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Character/unit_r.plist");
 	}
-	if (PLAYER_BLUE)
+	else if (cPInfo == PLAYER_BLUE)
 	{
-		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Character/unit.plist", "Character/unit_blue.png");
+		frameName += "B_";
+		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Character/unit_b.plist");
 	}
 
 	std::string direction = GetDirectionName(spriteNum);
@@ -81,15 +83,16 @@ Animation* CharacterAnimation::CreateAnimationAttack(PlayerInfo cPInfo, int spri
 	std::string frameName = "spear_";
 	Animation* animation = Animation::create();
 	animation->setDelayPerUnit(0.3f);
-	frameName += "R_";
-
+	
 	if (cPInfo == PLAYER_RED)
 	{
-		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Character/unit.plist", "Character/unit_red.png");
+		frameName += "R_";
+		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Character/unit_r.plist");
 	}
-	if (PLAYER_BLUE)
+	else if (cPInfo == PLAYER_BLUE)
 	{
-		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Character/unit.plist", "Character/unit_blue.png");
+		frameName += "B_";
+		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Character/unit_b.plist");
 	}
 
 	std::string direction = GetDirectionName(spriteNum);
@@ -112,15 +115,16 @@ Animation* CharacterAnimation::CreateAnimationBeHit(PlayerInfo cPInfo, int sprit
 	std::string frameName = "spear_";
 	Animation* animation = Animation::create();
 	animation->setDelayPerUnit(0.1f);
-	frameName += "R_";
-
+	
 	if (cPInfo == PLAYER_RED)
 	{
-		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Character/unit.plist", "Character/unit_red.png");
+		frameName += "R_";
+		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Character/unit_r.plist");
 	}
-	if (PLAYER_BLUE)
+	else if (cPInfo == PLAYER_BLUE)
 	{
-		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Character/unit.plist", "Character/unit_blue.png");
+		frameName += "B_";
+		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Character/unit_b.plist");
 	}
 
 	std::string direction = GetDirectionName(spriteNum);
@@ -138,6 +142,22 @@ Animation* CharacterAnimation::CreateAnimationBeHit(PlayerInfo cPInfo, int sprit
 
 	animation->setLoops(5);
 	return animation;
+}
+
+std::string LoadPlist(PlayerInfo cPInfo, std::string frameName)
+{
+	if (cPInfo == PLAYER_RED)
+	{
+		frameName += "R_";
+		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Character/unit_r.plist");
+	}
+	else if (cPInfo == PLAYER_BLUE)
+	{
+		frameName += "B_";
+		SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Character/unit_b.plist");
+	}
+
+	return frameName;
 }
 
 std::string CharacterAnimation::GetDirectionName(int spriteNum)

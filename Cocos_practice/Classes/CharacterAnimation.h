@@ -11,4 +11,5 @@ public:
 
 private:
 	static std::string CharacterAnimation::GetDirectionName(int spriteNum);
+	static std::string LoadPlist(PlayerInfo cPInfo, std::string frameName);
 };
