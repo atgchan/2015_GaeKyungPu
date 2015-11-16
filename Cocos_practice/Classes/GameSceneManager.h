@@ -106,8 +106,6 @@ private:
 	PlayerInfo	_RurrentPlayer = PLAYER_RED;
 	Phase*		_CurrentPhase = nullptr;
 
-	///# 멤버 변수 초기화도 통일되게 선언과 동시에 하든가 생성자에서 하든가.. 코딩 컨벤션으로 정할 것.
-
 	bool		_DraftMode = false;
 
 	void		SpawnCharacterOnTile(Self_Tile* tile, int spriteNum, int spendFood=1);

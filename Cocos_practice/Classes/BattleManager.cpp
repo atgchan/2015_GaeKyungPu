@@ -137,7 +137,7 @@ void BattleManager::SearchGraphAndOverwriteAttackFormation(std::list<Character*>
 	for (int i = DIRECTION_DOWN_LEFT; i <= DIRECTION_UP_LEFT; ++i)
 	{
 		//i방향으로 인접한 캐릭터
-		auto compareNode = currentNode->GetNearCharacter(static_cast<DirectionKind>(i));
+		Character* compareNode = currentNode->GetNearCharacter(static_cast<DirectionKind>(i));
 
 		
 		if (compareNode != nullptr)
