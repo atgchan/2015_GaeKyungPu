@@ -23,6 +23,7 @@ public:
 	
 	void	SetDefenseFormation(Character* defender);
 	
+	///# 지난 시간에도 이야기했듯이 컬렉션을 통째로 복사로 리턴하지 말 것.
 	std::list<Character*>	GetCurrentAttackFormation(){ return _CurrentAttackFormation; }
 	std::list<Character*>	GetCurrentDeffenseFormation(){ return _CurrentDefenseFormation; }
 

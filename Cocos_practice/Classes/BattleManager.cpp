@@ -17,16 +17,16 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 	SetAttackFormation(attacker);
 	SetDefenseFormation(defender);
 
-	PlayerInfo playerAttacker = attacker->GetOwnerPlayer(), playerDefender = defender->GetOwnerPlayer();
+	PlayerInfo playerAttacker = attacker->GetOwnerPlayer(), playerDefender = defender->GetOwnerPlayer(); ///# , 연산은 최대한 쓰지마라.. 
 
 	while (_CurrentAttackFormation.size() && _CurrentDefenseFormation.size())
 	{
-		std::list<Character*> *winner = nullptr, *loser = nullptr;
+		std::list<Character*> *winner = nullptr, *loser = nullptr; ///# 마찬가지
 
 		if (IsAttackerWin(_CurrentAttackFormation.front(), _CurrentDefenseFormation.front()))
 			winner = &_CurrentAttackFormation;
 		else
-			&_CurrentDefenseFormation;
+			&_CurrentDefenseFormation; ///# 이건 뭐냐?
 
 		loser = (winner == &_CurrentAttackFormation) ? &_CurrentDefenseFormation : &_CurrentAttackFormation;
 		//WaitForAnimation(TTAnimation::Animation_Batlle(winner, loser);

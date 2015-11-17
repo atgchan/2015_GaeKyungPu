@@ -25,5 +25,5 @@ private:
 	TileMap();
 	TileMap(const TileMap& other);
 	TileMap& operator=(TileMap& other);
-	static TileMap* inst;
+	static TileMap* inst; ///# 코딩 컨벤션
 };

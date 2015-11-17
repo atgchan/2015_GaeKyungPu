@@ -83,7 +83,8 @@ bool GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
 	if (_DraftMode == true)
 	{
 		//클릭한 타일이 배럭 주변이고 이미 위치한 유닛이 없으면
-		if ((_DraftTile->CheckNearTileAndReturnItsDirection(clickedTile) != IT_IS_NOT_NEAR_TILE) && (clickedTile->getCharacterOnThisTile() == nullptr))
+		if ((_DraftTile->CheckNearTileAndReturnItsDirection(clickedTile) != IT_IS_NOT_NEAR_TILE)  ///# 리턴값 종류랑 IS_IT거시기랑 같냠? 위험한 비교..
+			&& (clickedTile->getCharacterOnThisTile() == nullptr))
 		{
 			foodToConsume = (clickedTile->getTypeOfTile() == TILE_FOREST) ? 2 : 1;
 			if (getCurrentPlayerData()->getFood() >= foodToConsume)
@@ -264,7 +265,7 @@ void GameSceneManager::ChangePlayer()
 		_CurrentPlayer = (PlayerInfo)((_CurrentPlayer + 1) % 2);
 	}
 	else
-	{	Director::getInstance()->end();	}
+	{	Director::getInstance()->end();	} ///# 코딩 컨벤션
 }
 
 void GameSceneManager::ScheduleCallback(float delta)
@@ -337,8 +338,8 @@ GameSceneManager::GameSceneManager()
 
 GameSceneManager::~GameSceneManager()
 {
-	delete(_BMInstance);
+	delete(_BMInstance); ///# 괄호는 갑자기 왜 ㅎㅎ
 	delete _Dice;
 	delete[] _Phases;
-	return;
+	return; ///# ?
 }

@@ -6,6 +6,7 @@
 
 Animation* CharacterAnimation::CreateAnimationDefault(PlayerInfo cPInfo, int spriteNum)
 {
+	///# 아래와 같이 실행시간 중에 스트링을 조작하고 파일을 읽어오는거는 부하가 크다. 처음 프로그램 로딩할때 한꺼번에 처리해놓고 쓰는것이 정석.
 	std::string frameName = "spear_";
 	Animation* animation = Animation::create();
 	animation->setDelayPerUnit(0.1f);

@@ -30,7 +30,7 @@ Self_Tile* Self_Tile::create(TileKind type)
 {
 	Self_Tile* sprite = new Self_Tile();
 
-	if (sprite && (sprite->initWithFile(_DictionaryForFilenames[type])))
+	if (sprite && (sprite->initWithFile(_DictionaryForFilenames[type]))) ///# new 한 다음에는 널체크 할 필요 없다. 메모리 할당 못하면 걍 exception이 뜨기 때문
 	{
 		sprite->autorelease();
 		sprite->setTypeOfTile(type);
@@ -82,7 +82,7 @@ DirectionKind Self_Tile::CheckNearTileAndReturnItsDirection(Self_Tile* tile)
 	for (int i = 0; i < 6; ++i)
 	{
 		if (_NearTile[i] == tile)
-			return static_cast<DirectionKind>(i);
+			return static_cast<DirectionKind>(i); ///# int를 특정 Enum으로 강제 캐스팅 하는 방법을 쓰기 전에 피할 수 없는가? _NearTile의 최대 크기를 Enum의 max로 세팅하면 될 것 같은데?
 	}
 	return DIRECTION_ERR;
 }

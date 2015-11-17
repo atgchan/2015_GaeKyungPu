@@ -100,6 +100,8 @@ private:
 	~GameSceneManager();
 
 	static GameSceneManager *inst;
+
+	///# 아래 포인터 변수들 반드시 생성자에서 초기화 할것.
 	TileMap*	_TileMap;
 	PlayerData*	_PlayerData[NUM_OF_PLAYER];
 	Node*		_Nodes;

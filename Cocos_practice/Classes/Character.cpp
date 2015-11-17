@@ -16,7 +16,7 @@ Character* Character::create(PlayerInfo cPInfo, int spriteNum)
 {
 	Character* character = new Character(cPInfo, spriteNum);
 
-	if (!character)
+	if (!character) ///# 마찬가지필요없는 체크
 	{
 		CC_SAFE_DELETE(character);
 		return nullptr;
