@@ -2,6 +2,7 @@
 #include "BattleManager.h"
 #include "GameSceneManager.h"
 #include "DiceDice.h"
+#include "AnimationManager.h"
 
 BattleManager::BattleManager()
 {
@@ -69,6 +70,7 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 			prevDirection = tempDirection;
 		}
 	}
+	AnimationManager::getInstance()->PlayHistory();
 }
 
 bool BattleManager::IsAttackerWin(Character* attacker, Character* defender)

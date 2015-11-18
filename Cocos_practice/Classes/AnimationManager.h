@@ -3,13 +3,27 @@
 
 class HistoryEvent;
 
+/*
+class Character;
+
+typedef struct HistoryEvent{
+	EventType									_EventType;
+} HistoryEvent;
+
+typedef struct BattleEvent :HistoryEvent{
+	EventType									_EventType = HISTORY_EVENT_BATTLE;
+	std::shared_ptr<Character*>					winner = nullptr;
+	std::shared_ptr<Character*>					loser =	nullptr;
+} BattleEvent;
+*/
+
 class AnimationManager
 {
 public:
-	static std::shared_ptr<AnimationManager*>	getInsatnce();
-
-	
-
+	static AnimationManager* getInstance();
+	bool										ThereIsMoreHistory();
+	void										PlayHistory();
+	void										AddHistory(std::shared_ptr<HistoryEvent> historyEvent);
 
 private:
 	AnimationManager();
@@ -17,9 +31,10 @@ private:
 
 	static	void								Destruct();
 
-	static std::shared_ptr<AnimationManager*>	_Instance;
-	
-	//기록하고자 하는 액션을 담는 큐
-	std::queue<HistoryEvent>			_HistoryQueue;
+	static AnimationManager*					_Instance;
 
+	//기록하고자 하는 액션을 담는 큐
+	std::list<std::shared_ptr<HistoryEvent>>					*_HistoryQueue;
+
+	unsigned									_HistoryCount = 0;
 };

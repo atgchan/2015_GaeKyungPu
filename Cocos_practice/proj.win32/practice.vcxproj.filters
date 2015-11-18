@@ -58,6 +58,21 @@
     <ClCompile Include="..\Classes\UILayer.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\AnimationManager.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\HistoryEvent.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\HistoryEventBattle.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\HistoryEventMoveCharacter.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\HistoryEventKillCharacter.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
@@ -117,6 +132,21 @@
     </ClInclude>
     <ClInclude Include="..\Classes\UILayer.h">
       <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AnimationManager.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\HistoryEvent.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\HistoryEventBattle.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\HistoryEventMoveCharacter.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\HistoryEventKillCharacter.h">
+      <Filter>Animation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
