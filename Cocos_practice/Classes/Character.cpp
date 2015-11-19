@@ -4,6 +4,8 @@
 #include "Character.h"
 #include "TileMap.h"
 #include "GameSceneManager.h"
+#include "AnimationManager.h"
+#include "HistoryEventMoveCharacter.h"
 
 Character::Character(PlayerInfo cPInfo, int spriteNum)
 {
@@ -60,30 +62,14 @@ void Character::RotateToDirection(RotateDirection rotateDirection)
 
 void Character::MovoToTile(Self_Tile* dest)
 {
-	Animation* animationMove = CharacterAnimation::CreateAnimationMove(GetOwnerPlayer(), getCurrentDirection());
-	Animation* animationDefault = CharacterAnimation::CreateAnimationDefault(GetOwnerPlayer(), getCurrentDirection());
-
-	ActionInterval* actionMove = Animate::create(animationMove);
-
-	ActionInterval* moveTo = MoveTo::create(1, Vec2(dest->getPositionX() + 80, dest->getPositionY() + 60));
-	ActionInterval* actionDefault = Animate::create(animationDefault);
-
-	auto able = CallFunc::create(CC_CALLBACK_0(GameSceneManager::setInputMode, GM, true));
-	auto dissable = CallFunc::create(CC_CALLBACK_0(GameSceneManager::setInputMode,GM, false));
-
-	FiniteTimeAction* seq = Spawn::create(actionMove, moveTo, NULL);
-	FiniteTimeAction* seq1 = Sequence::create(dissable, seq, able, actionDefault, NULL);
-
-	init();
-	stopAllActions();
-	setAnchorPoint(Vec2(0.5f, 0.13f));
-
-	getCurrentTile()->setCharacterOnThisTile(nullptr);
+	this->getCurrentTile()->setCharacterOnThisTile(nullptr);
 	dest->setCharacterOnThisTile(this);
-	setCurrentTile(dest);
-	this->setZOrder(dest->getZOrder() + 100);
+	this->setCurrentTile(dest);
 
-	runAction(seq1);
+	std::shared_ptr<Character>	sThis(this);
+	std::shared_ptr<Self_Tile>	sDest(dest);
+
+	AnimationManager::getInstance()->AddHistory(HistoryEventMoveCharacter::Create(sThis, sDest));
 }
 
 void Character::CharacterBeHit()

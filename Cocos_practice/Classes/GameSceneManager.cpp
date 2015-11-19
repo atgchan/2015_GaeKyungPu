@@ -10,6 +10,8 @@
 #include "DebugUI.h"
 #include "BattleManager.h"
 #include "DiceDice.h"
+#include "AnimationManager.h"
+#include "HistoryEventKillCharacter.h"
 
 //USING_NS_CC;
 #define COCOS2D_DEBUG 1
@@ -93,9 +95,9 @@ bool GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
 				_DraftTile->getCharacterOnThisTile()->MovoToTile(clickedTile);
 				_DraftTile = nullptr;
 				_DraftMode = false;
+				AnimationManager::getInstance()->PlayHistory();
 				return true;
 			}
-			
 		}
 		else
 		{
@@ -147,6 +149,7 @@ void GameSceneManager::MoveCharacterByClick(Self_Tile* clickedTile)
 						_BMInstance->BattleBetween(_CharacterToMove, clickedTile->getCharacterOnThisTile());
 					}				
 				}
+				AnimationManager::getInstance()->PlayHistory();
 			}
 		}
 		
@@ -271,6 +274,7 @@ void GameSceneManager::ScheduleCallback(float delta)
 {
 	_CurrentPhase->Tick();
 	ChangePhase(_CurrentPhase->_NextPhase);
+		
 }
 
 void GameSceneManager::GiveTileToPlayer(Self_Tile* targetTile, PlayerInfo pInfo)
@@ -282,8 +286,10 @@ void GameSceneManager::KillCharacter(Character* target)
 {
 	std::list<Character*>* CharacterList = getPlayerDataByPlayerInfo(target->GetOwnerPlayer())->getCharacterList();
 	target->getCurrentTile()->setCharacterOnThisTile(nullptr);
-	TileMap::getInstance()->KillCharacter(target);
 	CharacterList->remove(target);
+
+	std::shared_ptr<Character> sTarget(target);
+	AnimationManager::getInstance()->AddHistory(HistoryEventKillCharacter::Create(sTarget));
 }
 
 void GameSceneManager::ChangePhase(PhaseInfo nextPhase)
