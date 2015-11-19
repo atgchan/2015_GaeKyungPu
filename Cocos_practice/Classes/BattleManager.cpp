@@ -162,3 +162,5 @@ bool BattleManager::isCharFacingMe(Character* me, Character* other)
 	else
 		return false;
 }
+
+

@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "definition.h"
 #include "Character.h"
-#include <array>
 #include "CharacterAnimation.h"
 
 Animation* CharacterAnimation::CreateAnimationDefault(PlayerInfo cPInfo, int spriteNum)
@@ -136,6 +135,15 @@ Animation* CharacterAnimation::CreateAnimationBeHit(PlayerInfo cPInfo, int sprit
 	return animation;
 }
 
+void CharacterAnimation::getAnimationDefault(Character* targetCharacter)
+{
+
+	Animation* animationDefault = CharacterAnimation::CreateAnimationDefault(targetCharacter->GetOwnerPlayer(), targetCharacter->getCurrentDirection());
+
+	ActionInterval* actionDefault = Animate::create(animationDefault);
+	targetCharacter->runAction(actionDefault);
+}
+
 std::string LoadPlist(PlayerInfo cPInfo, std::string frameName)
 {
 	if (cPInfo == PLAYER_RED)
@@ -180,3 +188,5 @@ std::string CharacterAnimation::GetDirectionName(int spriteNum)
 
 	return direction;
 }
+
+

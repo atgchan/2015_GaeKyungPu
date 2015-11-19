@@ -42,3 +42,4 @@ private:
 	CC_SYNTHESIZE(Self_Tile*, CurrentTile, CurrentTile);
 	CC_SYNTHESIZE(PlayerInfo, CurrentPlayerInfo, CurrentPlayerInfo);
 };
+

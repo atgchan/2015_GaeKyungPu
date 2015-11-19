@@ -32,3 +32,4 @@ private:
 	std::list<Character*>	_CurrentAttackFormation;
 	std::list<Character*>	_CurrentDefenseFormation;
 };
+

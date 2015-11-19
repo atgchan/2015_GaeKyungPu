@@ -124,3 +124,4 @@ Character::~Character()
 {
 	stopAllActions();
 }
+

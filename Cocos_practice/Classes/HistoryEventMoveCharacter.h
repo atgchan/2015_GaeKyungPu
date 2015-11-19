@@ -19,3 +19,5 @@ private:
 	std::shared_ptr<Self_Tile>		_TargetTile = nullptr;
 };
 
+
+

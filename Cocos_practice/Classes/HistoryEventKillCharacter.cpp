@@ -18,7 +18,7 @@ std::shared_ptr<HistoryEventKillCharacter> HistoryEventKillCharacter::Create(std
 	return newInst;
 }
 
-HistoryEventKillCharacter::~HistoryEventKillCharacter()
+HistoryEventKillCharacter::~HistoryEventKillCharacter()	
 {
 }
 
@@ -29,7 +29,10 @@ void HistoryEventKillCharacter::Run()
 	
 
 	FiniteTimeAction* seq = Sequence::create(removeCall,nextCall, NULL);
-
-	_CharacterToKill->runAction(seq);
+	seq->startWithTarget(AnimationManager::getInstance()->getNode());
+	//_CharacterToKill->runAction(seq);
+	//AnimationManager::getInstance()->getNode()->runAction(seq);
 
 }
+
+

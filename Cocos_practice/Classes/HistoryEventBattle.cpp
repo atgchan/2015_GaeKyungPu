@@ -22,3 +22,5 @@ void HistoryEventBattle::Run()
 {
 
 }
+
+

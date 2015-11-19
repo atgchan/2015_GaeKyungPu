@@ -8,6 +8,7 @@ AnimationManager* AnimationManager::_Instance = nullptr;
 AnimationManager::AnimationManager()
 {
 	_HistoryQueue = new std::list<std::shared_ptr<HistoryEvent>>;
+	_NodeForPlayingEvent = Node::create();
 }
 
 
@@ -26,8 +27,13 @@ void AnimationManager::PlayHistory()
 	}
 	else
 	{
+		if (_HistoryCount == 0)
+			_IteratorHistory = _HistoryQueue->begin();
+		else
+			++_IteratorHistory;
 		GM->setInputMode(false);
-		_HistoryQueue->back().get()->Run();
+		_IteratorHistory->get()->Run();
+		//_HistoryQueue->back().get()->Run();
 		++_HistoryCount;
 	}
 }
@@ -53,3 +59,4 @@ bool AnimationManager::ThereIsMoreHistory()
 		return false;
 	return true;
 }
+

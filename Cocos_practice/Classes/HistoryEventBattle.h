@@ -15,3 +15,4 @@ private:
 	std::shared_ptr<Character*>	_Winner;
 	std::shared_ptr<Character*>	_Loser;
 };
+

@@ -26,19 +26,18 @@ HistoryEventMoveCharacter::~HistoryEventMoveCharacter()
 void HistoryEventMoveCharacter::Run()
 {
 	Animation* animationMove = CharacterAnimation::CreateAnimationMove(_CharacterToMove->GetOwnerPlayer(), _CharacterToMove->getCurrentDirection());
-	Animation* animationDefault = CharacterAnimation::CreateAnimationDefault(_CharacterToMove->GetOwnerPlayer(), _CharacterToMove->getCurrentDirection());
 
 	ActionInterval* actionMove = Animate::create(animationMove);
 
 	ActionInterval* moveTo = MoveTo::create(1, Vec2(_TargetTile->getPositionX() + 80, _TargetTile->getPositionY() + 60));
-	ActionInterval* actionDefault = Animate::create(animationDefault);
 
 	
 	auto nextCall = CallFunc::create(CC_CALLBACK_0(AnimationManager::PlayHistory, AnimationManager::getInstance()));
+	auto defaultCall = CallFunc::create(CC_CALLBACK_0(CharacterAnimation::getAnimationDefault,_CharacterToMove.get()));
 	
 
 	FiniteTimeAction* seq = Spawn::create(actionMove, moveTo, NULL);
-	FiniteTimeAction* seq1 = Sequence::create(seq, nextCall,actionDefault, NULL);
+	FiniteTimeAction* seq1 = Sequence::create(seq,defaultCall, nextCall, NULL);
 
 	_CharacterToMove->init();
 	_CharacterToMove->stopAllActions();
@@ -47,3 +46,4 @@ void HistoryEventMoveCharacter::Run()
 	_CharacterToMove->runAction(seq1);
 
 }
+

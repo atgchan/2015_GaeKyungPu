@@ -348,3 +348,4 @@ GameSceneManager::~GameSceneManager()
 	delete[] _Phases;
 	return;
 }
+

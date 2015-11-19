@@ -24,7 +24,7 @@ public:
 	bool										ThereIsMoreHistory();
 	void										PlayHistory();
 	void										AddHistory(std::shared_ptr<HistoryEvent> historyEvent);
-
+	Node*										getNode(){ return _NodeForPlayingEvent; };
 private:
 	AnimationManager();
 	~AnimationManager();
@@ -35,6 +35,10 @@ private:
 
 	//기록하고자 하는 액션을 담는 큐
 	std::list<std::shared_ptr<HistoryEvent>>					*_HistoryQueue;
+	
+	std::list<std::shared_ptr<HistoryEvent>>::iterator			_IteratorHistory;
+	unsigned													_HistoryCount = 0;
 
-	unsigned									_HistoryCount = 0;
+	Node*														_NodeForPlayingEvent = nullptr;
 };
+
