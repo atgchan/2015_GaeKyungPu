@@ -3,7 +3,7 @@
 #include "CharacterAnimation.h"
 #include "Character.h"
 #include "GameSceneManager.h"
-#include "AnimationManager.h"
+#include "EventManager.h"
 
 HistoryEventMoveCharacter::HistoryEventMoveCharacter()
 {

@@ -4,8 +4,9 @@
 #include "Character.h"
 #include "TileMap.h"
 #include "GameSceneManager.h"
-#include "AnimationManager.h"
+#include "EventManager.h"
 #include "HistoryEventMoveCharacter.h"
+#include "HistoryEventRotateCharacter.h"
 
 Character::Character(PlayerInfo cPInfo, int spriteNum)
 {
@@ -41,21 +42,29 @@ bool Character::IsOnTile(TileKind tileTypeToCheck)
 
 void Character::RotateToDirection(RotateDirection rotateDirection)
 {
-	int chracterDirection = getCurrentDirection();
+	std::shared_ptr<Character>	sThis(this);
+
+	DirectionKind characterDirection = getCurrentDirection();
 
 	if (rotateDirection == ROTATE_LEFT)
-		chracterDirection = (chracterDirection + 1) % 6;
+		characterDirection = static_cast<DirectionKind>( (characterDirection + 1) % 6 );
 
 	if (rotateDirection == ROTATE_RIGHT)
-		chracterDirection = (chracterDirection + 5) % 6;
+		characterDirection = static_cast<DirectionKind>( (characterDirection + 5) % 6 );
 
-	Animation* animationDefault = CharacterAnimation::CreateAnimationDefault(getCurrentPlayerInfo(), chracterDirection);
-	init();
-	stopAllActions();
-	setAnchorPoint(Vec2(0.5f, 0.13f));
-	runAction(Animate::create(animationDefault));
+	EventManager::getInstance()->AddHistory(HistoryEventRotateCharacter::Create(sThis, characterDirection));
 
-	setCurrentDirection(DirectionKind(chracterDirection));
+	setCurrentDirection(DirectionKind(characterDirection));
+
+	return;
+}
+
+void Character::RotateToDirection(DirectionKind targetDirection)
+{
+	std::shared_ptr<Character>	sThis(this);
+	EventManager::getInstance()->AddHistory(HistoryEventRotateCharacter::Create(sThis, targetDirection));
+
+	setCurrentDirection(DirectionKind(targetDirection));
 
 	return;
 }
@@ -69,7 +78,7 @@ void Character::MovoToTile(Self_Tile* dest)
 	std::shared_ptr<Character>	sThis(this);
 	std::shared_ptr<Self_Tile>	sDest(dest);
 
-	AnimationManager::getInstance()->AddHistory(HistoryEventMoveCharacter::Create(sThis, sDest));
+	EventManager::getInstance()->AddHistory(HistoryEventMoveCharacter::Create(sThis, sDest));
 }
 
 void Character::CharacterBeHit()

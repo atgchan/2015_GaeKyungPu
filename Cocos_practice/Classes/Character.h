@@ -17,6 +17,7 @@ public:
 	@args	돌릴 방향(RotateDirection enum이다.), 돌릴 character의 포인터
 	*/
 	void RotateToDirection(RotateDirection);
+	void RotateToDirection(DirectionKind);
 
 	/**
 	@brief	타일 카인드를 하나 받아와서 현재 캐릭터가 올라와있는 타일과 동일한 종류인지 검사하고 bool을 리턴한다.

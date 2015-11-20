@@ -10,7 +10,7 @@
 #include "DebugUI.h"
 #include "BattleManager.h"
 #include "DiceDice.h"
-#include "AnimationManager.h"
+#include "EventManager.h"
 #include "HistoryEventKillCharacter.h"
 
 //USING_NS_CC;
@@ -272,7 +272,7 @@ void GameSceneManager::ChangePlayer()
 
 void GameSceneManager::ScheduleCallback(float delta)
 {
-	AnimationManager::getInstance()->ScheduleCallback();
+	EventManager::getInstance()->ScheduleCallback();
 	_CurrentPhase->Tick();
 	ChangePhase(_CurrentPhase->_NextPhase);
 }
@@ -289,7 +289,7 @@ void GameSceneManager::KillCharacter(Character* target)
 	CharacterList->remove(target);
 
 	std::shared_ptr<Character> sTarget(target);
-	AnimationManager::getInstance()->AddHistory(HistoryEventKillCharacter::Create(sTarget));
+	EventManager::getInstance()->AddHistory(HistoryEventKillCharacter::Create(sTarget));
 }
 
 void GameSceneManager::ChangePhase(PhaseInfo nextPhase)

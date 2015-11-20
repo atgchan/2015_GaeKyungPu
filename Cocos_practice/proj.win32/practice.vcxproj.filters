@@ -58,9 +58,6 @@
     <ClCompile Include="..\Classes\UILayer.cpp">
       <Filter>UI</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\AnimationManager.cpp">
-      <Filter>Animation</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\HistoryEvent.cpp">
       <Filter>Animation</Filter>
     </ClCompile>
@@ -71,6 +68,12 @@
       <Filter>Animation</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\HistoryEventKillCharacter.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\HistoryEventRotateCharacter.cpp">
+      <Filter>Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\EventManager.cpp">
       <Filter>Animation</Filter>
     </ClCompile>
   </ItemGroup>
@@ -133,9 +136,6 @@
     <ClInclude Include="..\Classes\UILayer.h">
       <Filter>UI</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\AnimationManager.h">
-      <Filter>Animation</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\HistoryEvent.h">
       <Filter>Animation</Filter>
     </ClInclude>
@@ -146,6 +146,12 @@
       <Filter>Animation</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\HistoryEventKillCharacter.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\HistoryEventRotateCharacter.h">
+      <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\EventManager.h">
       <Filter>Animation</Filter>
     </ClInclude>
   </ItemGroup>

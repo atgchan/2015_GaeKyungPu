@@ -2,7 +2,7 @@
 #include "BattleManager.h"
 #include "GameSceneManager.h"
 #include "DiceDice.h"
-#include "AnimationManager.h"
+#include "EventManager.h"
 
 BattleManager::BattleManager()
 {
@@ -46,7 +46,7 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 			pIter = *iter;
 			pIter->MovoToTile(pIter->getCurrentTile()->getNearTile(pIter->getCurrentDirection()));
 			tempDirection = pIter->getCurrentDirection();
-			pIter->setCurrentDirection(prevDirection);
+			pIter->RotateToDirection(prevDirection);
 			prevDirection = tempDirection;
 			if (loser == &_CurrentDefenseFormation)
 				break;
@@ -71,7 +71,7 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 			pIter = *iter;
 			pIter->MovoToTile(pIter->getCurrentTile()->getNearTile(pIter->getCurrentDirection()));
 			tempDirection = pIter->getCurrentDirection();
-			pIter->setCurrentDirection(prevDirection);
+			pIter->RotateToDirection(prevDirection);
 			prevDirection = tempDirection;
 		}
 	}
