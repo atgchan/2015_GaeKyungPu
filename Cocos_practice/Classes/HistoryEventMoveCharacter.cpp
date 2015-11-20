@@ -32,18 +32,30 @@ void HistoryEventMoveCharacter::Run()
 	ActionInterval* moveTo = MoveTo::create(1, Vec2(_TargetTile->getPositionX() + 80, _TargetTile->getPositionY() + 60));
 
 	
-	auto nextCall = CallFunc::create(CC_CALLBACK_0(AnimationManager::PlayHistory, AnimationManager::getInstance()));
-	auto defaultCall = CallFunc::create(CC_CALLBACK_0(CharacterAnimation::getAnimationDefault,_CharacterToMove.get()));
-	
+	//auto nextCall = CallFunc::create(CC_CALLBACK_0(/*AnimationManager::PlayHistory, AnimationManager::getInstance()*/HistoryEventMoveCharacter::setDone,this,true));
+	//auto defaultCall = CallFunc::create(CC_CALLBACK_0(CharacterAnimation::setAnimationDefault,_CharacterToMove.get()));
+	Animation* animationDefault = CharacterAnimation::CreateAnimationDefault(_CharacterToMove->GetOwnerPlayer(), _CharacterToMove->getCurrentDirection());
 
-	FiniteTimeAction* seq = Spawn::create(actionMove, moveTo, NULL);
-	FiniteTimeAction* seq1 = Sequence::create(seq,defaultCall, nextCall, NULL);
+	ActionInterval* actionDefault = Animate::create(animationDefault);
+
+	FiniteTimeAction* seq = Spawn::create(actionMove, moveTo, nullptr);
+	FiniteTimeAction* seq1 = Sequence::create(seq,/*defaultCall*/actionDefault, /*nextCall,*/ nullptr);
 
 	_CharacterToMove->init();
 	_CharacterToMove->stopAllActions();
 	_CharacterToMove->setAnchorPoint(Vec2(0.5f, 0.13f));
 	_CharacterToMove->setZOrder(_TargetTile->getZOrder() + 100);
 	_CharacterToMove->runAction(seq1);
+	_CharacterToMove->setAnimState(ANIM_MOVE);
+}
 
+bool HistoryEventMoveCharacter::IsDone()
+{
+	/*if (_CharacterToMove->getAnimState() == ANIM_DEFAULT)
+		return true;*/
+
+	if (_CharacterToMove->getPositionX() == _TargetTile->getPositionX() + 80 && _CharacterToMove->getPositionY() == _TargetTile->getPositionY() + 60)
+		return true;
+	return false;
 }
 

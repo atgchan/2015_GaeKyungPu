@@ -23,4 +23,8 @@ void HistoryEventBattle::Run()
 
 }
 
+bool HistoryEventBattle::IsDone()
+{
+	return false;
+}
 

@@ -18,6 +18,12 @@ enum PhaseInfo{
 	PHASE_ERR
 };
 
+enum AnimationState{
+	ANIM_DEFAULT,
+	ANIM_MOVE,
+	ANIM_ERR = -1
+};
+
 enum PlayerInfo{
 	PLAYER_RED,
 	PLAYER_BLUE,

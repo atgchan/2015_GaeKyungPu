@@ -30,13 +30,13 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 			&_CurrentDefenseFormation;
 
 		loser = (winner == &_CurrentAttackFormation) ? &_CurrentDefenseFormation : &_CurrentAttackFormation;
-		//WaitForAnimation(TTAnimation::Animation_Batlle(winner, loser);
 		
 		
 		Character* pIter = nullptr;
-		loser->front()->setVisible(false);
+		//loser->front()->setVisible(false);
 		DirectionKind tempDirection = DIRECTION_ERR;
 		DirectionKind prevDirection = loser->front()->getCurrentDirection();
+		GM->KillCharacter(loser->front());
 
 		for (auto iter = ++(loser->begin()); iter != loser->end();++iter)
 		{
@@ -46,7 +46,7 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 			pIter->setCurrentDirection(prevDirection);
 			prevDirection = tempDirection;
 		}
-		GM->KillCharacter(loser->front());
+		//GM->KillCharacter(loser->front());
 		loser->pop_front();
 	}
 
@@ -70,11 +70,11 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 			prevDirection = tempDirection;
 		}
 	}
-	AnimationManager::getInstance()->PlayHistory();
+	//AnimationManager::getInstance()->PlayHistory();
 }
 
 bool BattleManager::IsAttackerWin(Character* attacker, Character* defender)
-{
+{/*
 	DiceDice dice;
 	int attackerDice = 0;
 	int defenderDice = 0;
@@ -89,7 +89,8 @@ bool BattleManager::IsAttackerWin(Character* attacker, Character* defender)
 		if (attackerDice == defenderDice)
 			continue;
 		return (attackerDice > defenderDice) ? true : false;
-	}
+	}*/
+	return true;
 }
 
 void BattleManager::SetAttackFormation(Character* attacker)

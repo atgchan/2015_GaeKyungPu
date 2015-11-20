@@ -16,4 +16,8 @@ void HistoryEvent::Run()
 
 }
 
+bool HistoryEvent::IsDone()
+{
+	return false;
+}
 

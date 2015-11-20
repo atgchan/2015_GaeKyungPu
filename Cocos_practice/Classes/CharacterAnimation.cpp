@@ -135,13 +135,14 @@ Animation* CharacterAnimation::CreateAnimationBeHit(PlayerInfo cPInfo, int sprit
 	return animation;
 }
 
-void CharacterAnimation::getAnimationDefault(Character* targetCharacter)
+void CharacterAnimation::setAnimationDefault(Character* targetCharacter)
 {
 
 	Animation* animationDefault = CharacterAnimation::CreateAnimationDefault(targetCharacter->GetOwnerPlayer(), targetCharacter->getCurrentDirection());
 
 	ActionInterval* actionDefault = Animate::create(animationDefault);
 	targetCharacter->runAction(actionDefault);
+	targetCharacter->setAnimState(ANIM_DEFAULT);
 }
 
 std::string LoadPlist(PlayerInfo cPInfo, std::string frameName)

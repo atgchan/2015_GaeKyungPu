@@ -14,6 +14,7 @@ public:
 	static std::shared_ptr<HistoryEventMoveCharacter> Create(std::shared_ptr<Character> characterToMove, std::shared_ptr<Self_Tile> TargetTile);
 	~HistoryEventMoveCharacter();
 	void							Run();
+	bool							IsDone();
 private:
 	std::shared_ptr<Character>		_CharacterToMove = nullptr;
 	std::shared_ptr<Self_Tile>		_TargetTile = nullptr;

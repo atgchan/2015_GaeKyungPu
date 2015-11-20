@@ -95,7 +95,7 @@ bool GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
 				_DraftTile->getCharacterOnThisTile()->MovoToTile(clickedTile);
 				_DraftTile = nullptr;
 				_DraftMode = false;
-				AnimationManager::getInstance()->PlayHistory();
+				//AnimationManager::getInstance()->PlayHistory();
 				return true;
 			}
 		}
@@ -149,7 +149,7 @@ void GameSceneManager::MoveCharacterByClick(Self_Tile* clickedTile)
 						_BMInstance->BattleBetween(_CharacterToMove, clickedTile->getCharacterOnThisTile());
 					}				
 				}
-				AnimationManager::getInstance()->PlayHistory();
+				//AnimationManager::getInstance()->PlayHistory();
 			}
 		}
 		
@@ -272,9 +272,9 @@ void GameSceneManager::ChangePlayer()
 
 void GameSceneManager::ScheduleCallback(float delta)
 {
+	AnimationManager::getInstance()->ScheduleCallback();
 	_CurrentPhase->Tick();
 	ChangePhase(_CurrentPhase->_NextPhase);
-		
 }
 
 void GameSceneManager::GiveTileToPlayer(Self_Tile* targetTile, PlayerInfo pInfo)

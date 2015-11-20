@@ -25,6 +25,7 @@ public:
 	void										PlayHistory();
 	void										AddHistory(std::shared_ptr<HistoryEvent> historyEvent);
 	Node*										getNode(){ return _NodeForPlayingEvent; };
+	void										ScheduleCallback();
 private:
 	AnimationManager();
 	~AnimationManager();
@@ -40,5 +41,6 @@ private:
 	unsigned													_HistoryCount = 0;
 
 	Node*														_NodeForPlayingEvent = nullptr;
+
 };
 
