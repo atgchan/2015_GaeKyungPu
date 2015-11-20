@@ -38,13 +38,18 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 		DirectionKind prevDirection = loser->front()->getCurrentDirection();
 		GM->KillCharacter(loser->front());
 
-		for (auto iter = ++(loser->begin()); iter != loser->end();++iter)
+		auto iter = loser->begin();
+		++iter;
+		
+		for (; iter != loser->end();++iter)
 		{
 			pIter = *iter;
 			pIter->MovoToTile(pIter->getCurrentTile()->getNearTile(pIter->getCurrentDirection()));
 			tempDirection = pIter->getCurrentDirection();
 			pIter->setCurrentDirection(prevDirection);
 			prevDirection = tempDirection;
+			if (loser == &_CurrentDefenseFormation)
+				break;
 		}
 		//GM->KillCharacter(loser->front());
 		loser->pop_front();
@@ -74,7 +79,7 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 }
 
 bool BattleManager::IsAttackerWin(Character* attacker, Character* defender)
-{/*
+{
 	DiceDice dice;
 	int attackerDice = 0;
 	int defenderDice = 0;
@@ -89,8 +94,7 @@ bool BattleManager::IsAttackerWin(Character* attacker, Character* defender)
 		if (attackerDice == defenderDice)
 			continue;
 		return (attackerDice > defenderDice) ? true : false;
-	}*/
-	return true;
+	}
 }
 
 void BattleManager::SetAttackFormation(Character* attacker)
