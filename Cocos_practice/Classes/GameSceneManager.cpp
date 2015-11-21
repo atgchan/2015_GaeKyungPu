@@ -12,6 +12,7 @@
 #include "DiceDice.h"
 #include "EventManager.h"
 #include "HistoryEventKillCharacter.h"
+#include "ResultLayer.h"
 
 //USING_NS_CC;
 #define COCOS2D_DEBUG 1
@@ -36,8 +37,14 @@ void GameSceneManager::InitializeGame()
 	{
 		_PlayerData[i] = new PlayerData();
 		_PlayerData[i]->setFood(0);
+		_PlayerData[i]->_PlayerBarrackNum = 1;
 	}
-	
+
+	for (int i = 0; i < NUM_OF_PLAYER; ++i)
+	{
+		_PlayerData[i]->_OpponentPlayer = _PlayerData[(i + 1) % NUM_OF_PLAYER];
+	}
+
 	_Phases[PHASE_READY] = nullptr;
 	_Phases[PHASE_HARVEST] = new Phase_Harvest();
 	_Phases[PHASE_OCCUPY] = new Phase_Occupy();
@@ -54,10 +61,13 @@ void GameSceneManager::InitializeGame()
 
 void GameSceneManager::EndGame()
 {
+	Director::getInstance()->pause();
+	ResultLayer* result = ResultLayer::create();
+	AddChild(result);
 
-	_TileMap->Terminate();
+	/*_TileMap->Terminate();
 	delete(_Dice);
-	delete(this);
+	delete(this);*/
 }
 
 Self_Tile* GameSceneManager::getTileFromMouseEvent(const cocos2d::EventMouse *event)
@@ -312,6 +322,12 @@ void GameSceneManager::ToggleTurn(Object* pSender)
 {
 	if (_CurrentPhaseInfo != PHASE_ACTION)
 		return;
+	//
+	//if ((getCurrentPlayerData()->_OpponentPlayer)->_PlayerBarrackNum <= 0)
+	//{
+	//	EndGame();
+	//	return;
+	//}
 	ChangePhase(PHASE_PASTEUR);
 }
 

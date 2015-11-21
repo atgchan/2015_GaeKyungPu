@@ -76,6 +76,9 @@
     <ClCompile Include="..\Classes\EventManager.cpp">
       <Filter>Animation</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\ResultLayer.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
@@ -153,6 +156,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\EventManager.h">
       <Filter>Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ResultLayer.h">
+      <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -9,6 +9,7 @@ public:
 	PlayerData();
 	~PlayerData();
 
+	int		_PlayerBarrackNum;
 	int		getFood();
 	void	setFood(int _food);
 	void	AddFood(int num);
@@ -20,6 +21,8 @@ public:
 	PlayerData* _OpponentPlayer;
 
 	static PlayerData* create();
+
+
 private:
 	int		_Food;
 	std::list<Character*> _CharacterList;

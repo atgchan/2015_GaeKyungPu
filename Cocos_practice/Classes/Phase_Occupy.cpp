@@ -18,9 +18,25 @@ void Phase_Occupy::Tick()
 	{
 		if (iter->getCurrentTile()->getOwnerPlayer() != gm->getCurrentPlayer())
 		{
-			gm->GiveTileToPlayer(iter->getCurrentTile(), gm->getCurrentPlayer());
 			if (iter->getCurrentTile()->getTypeOfTile() == TILE_VILLAGE)
+			{
 				iter->getCurrentTile()->ChangeTile(TILE_BARRACK);
+			}
+			if (iter->getCurrentTile()->getTypeOfTile() == TILE_BARRACK || iter->getCurrentTile()->getTypeOfTile() == TILE_HEADQUARTER)
+			{
+				iter->getCurrentTile()->ChangeTile(TILE_BARRACK);
+				gm->getCurrentPlayerData()->_PlayerBarrackNum++;
+
+				PlayerInfo opponent = iter->getCurrentTile()->getOwnerPlayer();
+				gm->getPlayerDataByPlayerInfo(opponent)->_PlayerBarrackNum--;
+			}
+
+			PlayerInfo opponent = iter->getCurrentTile()->getOwnerPlayer();
+			if (gm->getPlayerDataByPlayerInfo(opponent)->_PlayerBarrackNum <= 0)
+			{
+				gm->EndGame();
+			}
+			gm->GiveTileToPlayer(iter->getCurrentTile(), gm->getCurrentPlayer());
 		}
 	}
 	_NextPhase = PHASE_VOLCANO;
