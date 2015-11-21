@@ -22,16 +22,24 @@ std::shared_ptr<HistoryEventRotateCharacter> HistoryEventRotateCharacter::Create
 
 void HistoryEventRotateCharacter::Run()
 {
-	DirectionKind chracterDirection = _CharacterToRotate->getCurrentDirection();
+	//DirectionKind characterDirection = _CharacterToRotate->getCurrentDirection();
 
-	Animation* animationDefault = CharacterAnimation::CreateAnimationDefault(_CharacterToRotate->getCurrentPlayerInfo(), chracterDirection);
+	Animation* animationDefault = CharacterAnimation::CreateAnimationDefault(_CharacterToRotate->getCurrentPlayerInfo(), _DirectionToRotate /*characterDirection*/);
 	_CharacterToRotate->init();
 	_CharacterToRotate->stopAllActions();
 	_CharacterToRotate->setAnchorPoint(Vec2(0.5f, 0.13f));
+
+	//auto nextCall = CallFunc::create(CC_CALLBACK_0(Character::setCurrentDirectionToShow, _CharacterToRotate, _CharacterToRotate->getCurrentDirection()));
+
+	//auto seq = Sequence::create(Animate::create(animationDefault), nextCall, nullptr);
 	_CharacterToRotate->runAction(Animate::create(animationDefault));
+	_CharacterToRotate->setCurrentDirectionToShow(_DirectionToRotate);
+	//_CharacterToRotate->setCurrentDirectionToShow(_CharacterToRotate->getCurrentDirection());
 }
 
 bool HistoryEventRotateCharacter::IsDone()
 {
-	return true;
+	//if (_CharacterToRotate->getCurrentDirectionToShow() == _CharacterToRotate->getCurrentDirection())
+		return true;
+	//return false;
 }

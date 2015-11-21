@@ -33,16 +33,22 @@ public:
 	
 	const PlayerInfo	GetOwnerPlayer();
 	Character*			GetNearCharacter(DirectionKind direction);
-
+	void				InitializeDirection(DirectionKind direction);
+	DirectionKind		getCurrentDirectionToShow();
+	void				setCurrentDirectionToShow(DirectionKind direction);
+	DirectionKind		getCurrentDirection();
+	void				setCurrentDirection(DirectionKind direction);
 	~Character();
 private:
 	Character(PlayerInfo cPInfo, int spriteNum);
 
 	PlayerInfo		_OwnerPlayer = PLAYER_ERR;
-	CC_SYNTHESIZE(DirectionKind, CurrentDirection, CurrentDirection);
+	DirectionKind	_CurrentDirection = DIRECTION_ERR;
+	DirectionKind	_CurrentDirectionToShow = DIRECTION_ERR;
 	CC_SYNTHESIZE(Self_Tile*, CurrentTile, CurrentTile);
 	CC_SYNTHESIZE(PlayerInfo, CurrentPlayerInfo, CurrentPlayerInfo);
 	CC_SYNTHESIZE(AnimationState, AnimState, AnimState);
+	
 
 };
 

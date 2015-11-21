@@ -4,6 +4,7 @@
 #include "Character.h"
 #include "GameSceneManager.h"
 #include "EventManager.h"
+#include "SimpleAudioEngine.h"
 
 HistoryEventMoveCharacter::HistoryEventMoveCharacter()
 {
@@ -25,21 +26,21 @@ HistoryEventMoveCharacter::~HistoryEventMoveCharacter()
 
 void HistoryEventMoveCharacter::Run()
 {
-	Animation* animationMove = CharacterAnimation::CreateAnimationMove(_CharacterToMove->GetOwnerPlayer(), _CharacterToMove->getCurrentDirection());
+	Animation* animationMove = CharacterAnimation::CreateAnimationMove(_CharacterToMove->GetOwnerPlayer(), _CharacterToMove->getCurrentDirectionToShow());
 
 	ActionInterval* actionMove = Animate::create(animationMove);
 
 	ActionInterval* moveTo = MoveTo::create(1, Vec2(_TargetTile->getPositionX() + 80, _TargetTile->getPositionY() + 60));
 
 	
-	//auto nextCall = CallFunc::create(CC_CALLBACK_0(/*AnimationManager::PlayHistory, AnimationManager::getInstance()*/HistoryEventMoveCharacter::setDone,this,true));
+	auto nextCall = CallFunc::create(CC_CALLBACK_0(Character::setCurrentDirectionToShow,_CharacterToMove,_CharacterToMove->getCurrentDirection()));
 	//auto defaultCall = CallFunc::create(CC_CALLBACK_0(CharacterAnimation::setAnimationDefault,_CharacterToMove.get()));
 	Animation* animationDefault = CharacterAnimation::CreateAnimationDefault(_CharacterToMove->GetOwnerPlayer(), _CharacterToMove->getCurrentDirection());
 
 	ActionInterval* actionDefault = Animate::create(animationDefault);
 
 	FiniteTimeAction* seq = Spawn::create(actionMove, moveTo, nullptr);
-	FiniteTimeAction* seq1 = Sequence::create(seq,/*defaultCall*/actionDefault, /*nextCall,*/ nullptr);
+	FiniteTimeAction* seq1 = Sequence::create(seq,/*defaultCall*/actionDefault, nextCall, nullptr);
 
 	_CharacterToMove->init();
 	_CharacterToMove->stopAllActions();
@@ -47,6 +48,7 @@ void HistoryEventMoveCharacter::Run()
 	_CharacterToMove->setZOrder(_TargetTile->getZOrder() + 100);
 	_CharacterToMove->runAction(seq1);
 	_CharacterToMove->setAnimState(ANIM_MOVE);
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Sound/Jump_03.wav");
 }
 
 bool HistoryEventMoveCharacter::IsDone()

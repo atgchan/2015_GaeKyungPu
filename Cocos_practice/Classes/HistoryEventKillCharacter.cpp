@@ -4,7 +4,7 @@
 #include "Character.h"
 #include "GameSceneManager.h"
 #include "EventManager.h"
-
+#include "SimpleAudioEngine.h"
 HistoryEventKillCharacter::HistoryEventKillCharacter()
 {
 }
@@ -38,6 +38,7 @@ void HistoryEventKillCharacter::Run()
 	TileMap::getInstance()->removeChild(_CharacterToKill.get());
 	//AnimationManager::getInstance()->PlayHistory();
 	_Done = true;
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("Sound/Hit_03.wav");
 }
 
 bool HistoryEventKillCharacter::IsDone()

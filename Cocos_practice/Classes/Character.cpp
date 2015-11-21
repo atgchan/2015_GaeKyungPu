@@ -13,6 +13,7 @@ Character::Character(PlayerInfo cPInfo, int spriteNum)
 	autorelease();
 	setCurrentPlayerInfo(cPInfo);
 	setCurrentDirection((DirectionKind)spriteNum);
+	setCurrentDirectionToShow((DirectionKind)spriteNum);
 }
 
 Character* Character::create(PlayerInfo cPInfo, int spriteNum)
@@ -134,3 +135,28 @@ Character::~Character()
 	stopAllActions();
 }
 
+void Character::InitializeDirection(DirectionKind direction)
+{
+	this->_CurrentDirection = direction;
+	this->_CurrentDirectionToShow = direction;
+}
+
+DirectionKind Character::getCurrentDirectionToShow()
+{
+	return _CurrentDirectionToShow;
+}
+
+void Character::setCurrentDirectionToShow(DirectionKind direction)
+{
+	_CurrentDirectionToShow = direction;
+}
+
+DirectionKind Character::getCurrentDirection()
+{
+	return _CurrentDirection;
+}
+
+void Character::setCurrentDirection(DirectionKind direction)
+{
+	_CurrentDirection = direction;
+}
