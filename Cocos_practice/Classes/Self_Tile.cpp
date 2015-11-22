@@ -40,7 +40,6 @@ Self_Tile* Self_Tile::create(TileKind type)
 	}
 	CC_SAFE_DELETE(sprite);
 	return nullptr;
-
 }
 
 void Self_Tile::setOwnerPlayer(PlayerInfo pInfo)
@@ -71,13 +70,17 @@ void Self_Tile::setCharacterOnThisTile(Character* character)
 	this->_CharacterOnThisTile = character;
 }
 
-//void Self_Tile::setPositionInt(int _xPos, int _yPos)
-//{
-//	xPos = _xPos;
-//	yPos = _yPos;
-//}
+bool Self_Tile::CheckNearTile(Self_Tile* tile)
+{
+	for (int i = 0; i < 6; ++i)
+	{
+		if (_NearTile[i] == tile)
+			return true;
+	}
+	return false;
+}
 
-DirectionKind Self_Tile::CheckNearTileAndReturnItsDirection(Self_Tile* tile)
+DirectionKind Self_Tile::ReturnNearTileDirection(Self_Tile* tile)
 {
 	for (int i = 0; i < 6; ++i)
 	{
@@ -95,4 +98,14 @@ void Self_Tile::setNearTile(int num, Self_Tile* tile)
 Self_Tile* Self_Tile::getNearTile(DirectionKind direction)
 {
 	return _NearTile[direction];
+}
+
+PlayerInfo Self_Tile::getOwnerPlayer()
+{
+	return _OwnerPlayer; 
+}
+
+bool Self_Tile::IsTile()
+{
+	return true; 
 }

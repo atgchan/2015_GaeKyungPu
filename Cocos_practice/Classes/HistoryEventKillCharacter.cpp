@@ -5,10 +5,10 @@
 #include "GameSceneManager.h"
 #include "EventManager.h"
 #include "SimpleAudioEngine.h"
+
 HistoryEventKillCharacter::HistoryEventKillCharacter()
 {
 }
-
 
 std::shared_ptr<HistoryEventKillCharacter> HistoryEventKillCharacter::Create(std::shared_ptr<Character> characterToKill)
 {

@@ -145,7 +145,7 @@ void CharacterAnimation::setAnimationDefault(Character* targetCharacter)
 	targetCharacter->setAnimState(ANIM_DEFAULT);
 }
 
-std::string LoadPlist(PlayerInfo cPInfo, std::string frameName)
+std::string CharacterAnimation::LoadPlist(PlayerInfo cPInfo, std::string frameName)
 {
 	if (cPInfo == PLAYER_RED)
 	{

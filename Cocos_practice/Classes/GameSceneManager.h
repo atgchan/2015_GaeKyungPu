@@ -39,14 +39,7 @@ public:
 	/*
 	@brief		GameMaster에게서 요청할 어떠한 기능이라도 getInstance()를 통해 pointer를 얻어 요청합니다.
 	*/
-	static GameSceneManager* getInstance()
-	{
-		if (inst == nullptr)
-		{
-			inst = new GameSceneManager();
-		}
-		return inst;
-	}
+	static GameSceneManager* getInstance();
 	/*
 	@brief		GameMaster가 포함하고 있는 모든 node를 하나의 트리로 묶어 포인터로 반환합니다.
 	*/
@@ -56,10 +49,10 @@ public:
 	PlayerInfo	getCurrentPlayer();
 
 	void		ChangePlayer();
-	bool		getIsVolcanoActivated(){	return _IsVolcanoActivated;	}
-	int			getProgressVolcano(){ return _ProgressVolcano; }
-	void		setProgressVolcano(int progress){ _ProgressVolcano = progress; }
-	bool		getIsMouseLocked(){ return _IsMouseLocked; }
+	bool		getIsVolcanoActivated();
+	int			getProgressVolcano();
+	void		setProgressVolcano(int progress);
+	bool		getIsMouseLocked();
 
 	void		ScheduleCallback(float delta);
 
@@ -82,7 +75,7 @@ public:
 	void		ChangeRichToLava(Self_Tile* target);
 	void		GiveTileToPlayer(Self_Tile* targetTile, PlayerInfo pInfo);
 	void		KillCharacter(Character* target);
-	void		setVolcanoActivated(bool activated){ _IsVolcanoActivated = activated; };
+	void		setVolcanoActivated(bool activated);
 
 	Self_Tile*	getTileFromMouseEvent(const cocos2d::EventMouse *event);
 
@@ -92,14 +85,14 @@ public:
 
 	bool		_ReadyToMove = false;
 	Character*	_CharacterToMove = nullptr;
-	void		setInputMode(bool mode){ _IsInputAble = mode; }
+	void		setInputMode(bool mode);
 
 private:
 	BattleManager*	_BMInstance;
 	GameSceneManager();
 	~GameSceneManager();
 
-	static GameSceneManager *inst;
+	static GameSceneManager *_Inst;
 	TileMap*	_TileMap;
 	PlayerData*	_PlayerData[NUM_OF_PLAYER];
 	Node*		_Nodes;
@@ -109,9 +102,7 @@ private:
 	Phase*		_CurrentPhase = nullptr;
 
 	bool		_DraftMode = false;
-
 	void		SpawnCharacterOnTile(Self_Tile* tile, int spriteNum, int spendFood=1);
-
 	int			_ProgressVolcano = 0;
 
 	/*타일만 별도로 저장할 배열을 만든다..*/
@@ -126,9 +117,7 @@ private:
 
 	Phase*		_Phases[7];
 	Self_Tile*	_DraftTile;
-
-	DiceDice* _Dice;
+	DiceDice*	_Dice;
 
 	void		ChangePhase(PhaseInfo);
-
 };

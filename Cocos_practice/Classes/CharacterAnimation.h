@@ -11,8 +11,9 @@ public:
 	static Animation*	CreateAnimationAttack(PlayerInfo cPInfo, int spriteNum);
 	static Animation*	CreateAnimationBeHit(PlayerInfo cPInfo, int spriteNum);
 	static void			setAnimationDefault(Character* targetCharacter);
+
 private:
-	static std::string	CharacterAnimation::GetDirectionName(int spriteNum);
+	static std::string	GetDirectionName(int spriteNum);
 	static std::string	LoadPlist(PlayerInfo cPInfo, std::string frameName);
 };
 

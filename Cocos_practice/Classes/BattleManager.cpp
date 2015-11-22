@@ -8,7 +8,6 @@ BattleManager::BattleManager()
 {
 }
 
-
 BattleManager::~BattleManager()
 {
 }
@@ -27,7 +26,7 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 		if (IsAttackerWin(_CurrentAttackFormation.front(), _CurrentDefenseFormation.front()))
 			winner = &_CurrentAttackFormation;
 		else
-			&_CurrentDefenseFormation;
+			winner = &_CurrentDefenseFormation;
 
 		loser = (winner == &_CurrentAttackFormation) ? &_CurrentDefenseFormation : &_CurrentAttackFormation;
 		
@@ -115,7 +114,7 @@ void BattleManager::SetDefenseFormation(Character* defender)
 	for (int i = DIRECTION_DOWN_LEFT; i <= DIRECTION_UP_LEFT; i++)
 	{
 		nearby = defender->GetNearCharacter((DirectionKind)i);
-		if (nearby != nullptr && isCharFacingMe(defender, nearby) && nearby->GetOwnerPlayer() == defender->GetOwnerPlayer())
+		if (nearby != nullptr && IsCharFacingMe(defender, nearby) && nearby->GetOwnerPlayer() == defender->GetOwnerPlayer())
 		{
 			_CurrentDefenseFormation.push_back(nearby);
 		}
@@ -158,7 +157,7 @@ void BattleManager::SearchGraphAndOverwriteAttackFormation(std::list<Character*>
 	}
 }
 
-bool BattleManager::isCharFacingMe(Character* me, Character* other)
+bool BattleManager::IsCharFacingMe(Character* me, Character* other)
 {
 	if (other->GetNearCharacter(other->getCurrentDirection()) == me)
 	{

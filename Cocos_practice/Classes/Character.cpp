@@ -20,12 +20,6 @@ Character* Character::create(PlayerInfo cPInfo, int spriteNum)
 {
 	Character* character = new Character(cPInfo, spriteNum);
 
-	if (!character)
-	{
-		CC_SAFE_DELETE(character);
-		return nullptr;
-	}
-
 	Animation* animationDefault = CharacterAnimation::CreateAnimationDefault(cPInfo, spriteNum);
 	character->init();
 	character->runAction(Animate::create(animationDefault));

@@ -21,3 +21,9 @@ bool HistoryEvent::IsDone()
 	return false;
 }
 
+void HistoryEvent::setDone(bool isDone)
+{
+	_Done = isDone; 
+}
+
+

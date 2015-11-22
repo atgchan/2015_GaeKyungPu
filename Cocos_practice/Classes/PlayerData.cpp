@@ -2,12 +2,6 @@
 #include <list>
 #include "PlayerData.h"
 
-PlayerData* PlayerData::create()
-{
-	PlayerData* pData = new PlayerData(); 
-	return pData;
-}
-
 PlayerData::PlayerData()
 {
 }

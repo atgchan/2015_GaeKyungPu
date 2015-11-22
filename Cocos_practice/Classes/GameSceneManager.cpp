@@ -17,7 +17,16 @@
 //USING_NS_CC;
 #define COCOS2D_DEBUG 1
 
-GameSceneManager* GameSceneManager::inst = NULL;
+GameSceneManager* GameSceneManager::_Inst = nullptr;
+
+GameSceneManager* GameSceneManager::getInstance()
+{
+	if (_Inst == nullptr)
+	{
+		_Inst = new GameSceneManager();
+	}
+	return _Inst;
+}
 
 void GameSceneManager::ChangeRichToLava(Self_Tile* target)
 {
@@ -64,10 +73,6 @@ void GameSceneManager::EndGame()
 	Director::getInstance()->pause();
 	ResultLayer* result = ResultLayer::create();
 	AddChild(result);
-
-	/*_TileMap->Terminate();
-	delete(_Dice);
-	delete(this);*/
 }
 
 Self_Tile* GameSceneManager::getTileFromMouseEvent(const cocos2d::EventMouse *event)
@@ -95,12 +100,12 @@ bool GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
 	if (_DraftMode == true)
 	{
 		//클릭한 타일이 배럭 주변이고 이미 위치한 유닛이 없으면
-		if ((_DraftTile->CheckNearTileAndReturnItsDirection(clickedTile) != IT_IS_NOT_NEAR_TILE) && (clickedTile->getCharacterOnThisTile() == nullptr))
+		if (_DraftTile->CheckNearTile(clickedTile) && (clickedTile->getCharacterOnThisTile() == nullptr))
 		{
 			foodToConsume = (clickedTile->getTypeOfTile() == TILE_FOREST) ? 2 : 1;
 			if (getCurrentPlayerData()->getFood() >= foodToConsume)
 			{
-				int spriteNum = _DraftTile->CheckNearTileAndReturnItsDirection(clickedTile);
+				int spriteNum = _DraftTile->ReturnNearTileDirection(clickedTile);
 				SpawnCharacterOnTile(_DraftTile, spriteNum, foodToConsume);
 				_DraftTile->getCharacterOnThisTile()->MovoToTile(clickedTile);
 				_DraftTile = nullptr;
@@ -140,7 +145,7 @@ void GameSceneManager::MoveCharacterByClick(Self_Tile* clickedTile)
 		//클릭한 타일이 옮길 유닛 주변이고 
 		if (!(clickedTile->getTypeOfTile() == TILE_LAVA || clickedTile->getTypeOfTile() == TILE_VOCANO || clickedTile->getTypeOfTile() == TILE_NULL || clickedTile->getTypeOfTile() == TILE_LAKE))
 		{
-			if ((_CharacterToMove->getCurrentTile()->CheckNearTileAndReturnItsDirection(clickedTile) == _CharacterToMove->getCurrentDirection()))
+			if ((_CharacterToMove->getCurrentTile()->ReturnNearTileDirection(clickedTile) == _CharacterToMove->getCurrentDirection()))
 			{
 
 				if (clickedTile->getCharacterOnThisTile() == nullptr)//위에 아무 유닛도 없으면
@@ -277,7 +282,7 @@ void GameSceneManager::ChangePlayer()
 		_CurrentPlayer = (PlayerInfo)((_CurrentPlayer + 1) % 2);
 	}
 	else
-	{	Director::getInstance()->end();	}
+		Director::getInstance()->end();
 }
 
 void GameSceneManager::ScheduleCallback(float delta)
@@ -352,16 +357,45 @@ Self_Tile* GameSceneManager::getExistingTileWithMousePoint(Vec2 vec)
 	return nullptr;
 }
 
+bool GameSceneManager::getIsVolcanoActivated()
+{
+	return _IsVolcanoActivated; 
+}
+
+int GameSceneManager::getProgressVolcano()
+{
+	return _ProgressVolcano; 
+}
+
+void GameSceneManager::setProgressVolcano(int progress)
+{
+	_ProgressVolcano = progress; 
+}
+
+bool GameSceneManager::getIsMouseLocked()
+{
+	return _IsMouseLocked; 
+}
+
+void GameSceneManager::setVolcanoActivated(bool activated)
+{ 
+	_IsVolcanoActivated = activated; 
+}
+
+void GameSceneManager::setInputMode(bool mode)
+{
+	_IsInputAble = mode;
+}
+
 GameSceneManager::GameSceneManager()
 {
-	return;
 }
 
 GameSceneManager::~GameSceneManager()
 {
-	delete(_BMInstance);
+	delete _BMInstance;
 	delete _Dice;
 	delete[] _Phases;
-	return;
+	_TileMap->Terminate();
 }
 

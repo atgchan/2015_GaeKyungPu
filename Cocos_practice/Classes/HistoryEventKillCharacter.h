@@ -6,15 +6,16 @@
 class Character;
 class Self_Tile;
 
-class HistoryEventKillCharacter :
-	public HistoryEvent
+class HistoryEventKillCharacter : public HistoryEvent
 {
 public:
 	HistoryEventKillCharacter();
-	static std::shared_ptr<HistoryEventKillCharacter> Create(std::shared_ptr<Character> characterToKill);
 	~HistoryEventKillCharacter();
-	void							Run();
-	bool							IsDone();
+	static std::shared_ptr<HistoryEventKillCharacter> Create(std::shared_ptr<Character> characterToKill);
+
+	void	Run();
+	bool	IsDone();
+
 private:
 	std::shared_ptr<Character>		_CharacterToKill = nullptr;
 };

@@ -108,7 +108,7 @@ void TileMap::KillCharacter(Character* target)
 
 void TileMap::Terminate()
 {
-	delete(this);
+	delete this;
 }
 
 TileMap::TileMap()

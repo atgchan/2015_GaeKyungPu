@@ -10,13 +10,12 @@ EventManager::EventManager()
 	_HistoryQueue = new std::list<std::shared_ptr<HistoryEvent>>;
 	_NodeForPlayingEvent = Node::create();
 	GM->AddChild(_NodeForPlayingEvent);
-
 }
 
 
 EventManager::~EventManager()
 {
-	delete(_HistoryQueue);
+	delete _HistoryQueue;
 }
 
 

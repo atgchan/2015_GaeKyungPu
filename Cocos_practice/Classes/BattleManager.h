@@ -23,10 +23,8 @@ public:
 	
 	void	SetDefenseFormation(Character* defender);
 	
-	std::list<Character*>	GetCurrentAttackFormation(){ return _CurrentAttackFormation; }
-	std::list<Character*>	GetCurrentDeffenseFormation(){ return _CurrentDefenseFormation; }
+	bool	IsCharFacingMe(Character* me, Character* other);
 
-	bool	isCharFacingMe(Character* me, Character* other);
 private:
 	void SearchGraphAndOverwriteAttackFormation(std::list<Character*> checkedNode, Character* currentNode, int currentDepth, int maxDepth);
 	std::list<Character*>	_CurrentAttackFormation;
