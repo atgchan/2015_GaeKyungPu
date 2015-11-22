@@ -27,7 +27,7 @@ void Phase_Occupy::Tick()
 				iter->getCurrentTile()->ChangeTile(TILE_BARRACK);
 				gm->getCurrentPlayerData()->_PlayerBarrackNum++;
 
-				PlayerInfo opponent = iter->getCurrentTile()->getOwnerPlayer();
+				PlayerInfo opponent = GM->getCurrentPlayer() == PLAYER_RED ? PLAYER_BLUE : PLAYER_RED;
 				gm->getPlayerDataByPlayerInfo(opponent)->_PlayerBarrackNum--;
 			}
 
