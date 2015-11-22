@@ -24,7 +24,8 @@ void HistoryEventRotateCharacter::Run()
 {
 	//DirectionKind characterDirection = _CharacterToRotate->getCurrentDirection();
 
-	Animation* animationDefault = CharacterAnimation::CreateAnimationDefault(_CharacterToRotate->getCurrentPlayerInfo(), _DirectionToRotate /*characterDirection*/);
+	//Animation* animationDefault = CharacterAnimation::CreateAnimationDefault(_CharacterToRotate->getCurrentPlayerInfo(), _DirectionToRotate /*characterDirection*/);
+	Animation* animationDefault = CharacterAnimation::getInstance()->getAnimationDefault(_CharacterToRotate->getCurrentPlayerInfo(), _DirectionToRotate /*characterDirection*/);
 	_CharacterToRotate->init();
 	_CharacterToRotate->stopAllActions();
 	_CharacterToRotate->setAnchorPoint(Vec2(0.5f, 0.13f));

@@ -4,15 +4,15 @@
 
 TileMap* TileMap::getInstance()
 {
-	if (inst == nullptr)
+	if (_Inst == nullptr)
 	{
-		inst = new TileMap();
-		inst->setName("TileMap");
+		_Inst = new TileMap();
+		_Inst->setName("TileMap");
 	}
-	return inst;
+	return _Inst;
 }
 
-TileMap* TileMap::inst = NULL;
+TileMap* TileMap::_Inst = nullptr;
 
 std::array<std::array<TileKind, MAP_MAX_WIDTH>, MAP_MAX_HEIGHT> TileMap::_NewMapData =
 { {
@@ -75,7 +75,7 @@ bool TileMap::create()
 			Rect rect = CCRectMake(positionX+45, positionY+30, _TileSet[i][j]->getContentSize().width-70, _TileSet[i][j]->getContentSize().height-30);
 			_TileSet[i][j]->setPosition(positionX, positionY);
 
-			inst->addChild(_TileSet[i][j]);
+			_Inst->addChild(_TileSet[i][j]);
 			GameSceneManager::getInstance()->PushTileToList(rect, _TileSet[i][j]);
 		}
 	}

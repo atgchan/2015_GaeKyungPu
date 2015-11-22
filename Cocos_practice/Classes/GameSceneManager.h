@@ -102,7 +102,7 @@ private:
 	Phase*		_CurrentPhase = nullptr;
 
 	bool		_DraftMode = false;
-	void		SpawnCharacterOnTile(Self_Tile* tile, int spriteNum, int spendFood=1);
+	void		SpawnCharacterOnTile(Self_Tile* tile, DirectionKind spriteNum, int spendFood = 1);
 	int			_ProgressVolcano = 0;
 
 	/*타일만 별도로 저장할 배열을 만든다..*/

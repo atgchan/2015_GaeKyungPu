@@ -13,6 +13,7 @@
 #include "EventManager.h"
 #include "HistoryEventKillCharacter.h"
 #include "ResultLayer.h"
+#include "CharacterAnimation.h"
 
 //USING_NS_CC;
 #define COCOS2D_DEBUG 1
@@ -23,6 +24,7 @@ GameSceneManager* GameSceneManager::getInstance()
 {
 	if (_Inst == nullptr)
 	{
+		CharacterAnimation::getInstance()->Init();
 		_Inst = new GameSceneManager();
 	}
 	return _Inst;
@@ -105,8 +107,8 @@ bool GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
 			foodToConsume = (clickedTile->getTypeOfTile() == TILE_FOREST) ? 2 : 1;
 			if (getCurrentPlayerData()->getFood() >= foodToConsume)
 			{
-				int spriteNum = _DraftTile->ReturnNearTileDirection(clickedTile);
-				SpawnCharacterOnTile(_DraftTile, spriteNum, foodToConsume);
+				DirectionKind direction = _DraftTile->ReturnNearTileDirection(clickedTile);
+				SpawnCharacterOnTile(_DraftTile, direction, foodToConsume);
 				_DraftTile->getCharacterOnThisTile()->MovoToTile(clickedTile);
 				_DraftTile = nullptr;
 				_DraftMode = false;
@@ -185,7 +187,7 @@ void GameSceneManager::MoveCharacterByClick(Self_Tile* clickedTile)
 	}
 }
 
-void GameSceneManager::SpawnCharacterOnTile(Self_Tile* tile, int spriteNum, int spendFood/*=1*/)
+void GameSceneManager::SpawnCharacterOnTile(Self_Tile* tile, DirectionKind spriteNum, int spendFood/*=1*/)
 {
 	Character* unit = Character::create(getCurrentPlayer(), spriteNum);
 	unit->SetOwnerPlayer(_CurrentPlayer);

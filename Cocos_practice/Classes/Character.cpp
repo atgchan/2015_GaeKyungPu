@@ -16,11 +16,11 @@ Character::Character(PlayerInfo cPInfo, int spriteNum)
 	setCurrentDirectionToShow((DirectionKind)spriteNum);
 }
 
-Character* Character::create(PlayerInfo cPInfo, int spriteNum)
+Character* Character::create(PlayerInfo cPInfo, DirectionKind spriteNum)
 {
 	Character* character = new Character(cPInfo, spriteNum);
 
-	Animation* animationDefault = CharacterAnimation::CreateAnimationDefault(cPInfo, spriteNum);
+	Animation* animationDefault = CharacterAnimation::getInstance()->getAnimationDefault(cPInfo, spriteNum);
 	character->init();
 	character->runAction(Animate::create(animationDefault));
 
@@ -78,8 +78,8 @@ void Character::MovoToTile(Self_Tile* dest)
 
 void Character::CharacterBeHit()
 {
-	Animation* animationBeHit = CharacterAnimation::CreateAnimationBeHit(GetOwnerPlayer(), 2);
-	Animation* animationDefault = CharacterAnimation::CreateAnimationDefault(GetOwnerPlayer(), getCurrentDirection());
+	Animation* animationBeHit = CharacterAnimation::getInstance()->getAnimationBeHit(GetOwnerPlayer(), getCurrentDirection());
+	Animation* animationDefault = CharacterAnimation::getInstance()->getAnimationDefault(GetOwnerPlayer(), getCurrentDirection());
 
 	ActionInterval* actionBeHit = Animate::create(animationBeHit);
 	ActionInterval* actionDefault = Animate::create(animationDefault);
@@ -94,8 +94,8 @@ void Character::CharacterBeHit()
 
 void Character::CharacterAttack()
 {
-	Animation* animationAttack = CharacterAnimation::CreateAnimationAttack(GetOwnerPlayer(), 2);
-	Animation* animationDefault = CharacterAnimation::CreateAnimationDefault(GetOwnerPlayer(), getCurrentDirection());
+	Animation* animationAttack = CharacterAnimation::getInstance()->getAnimationAttack(GetOwnerPlayer(), getCurrentDirection());
+	Animation* animationDefault = CharacterAnimation::getInstance()->getAnimationDefault(GetOwnerPlayer(), getCurrentDirection());
 
 	ActionInterval* actionAttack = Animate::create(animationAttack);
 	ActionInterval* actionDefault = Animate::create(animationDefault);
