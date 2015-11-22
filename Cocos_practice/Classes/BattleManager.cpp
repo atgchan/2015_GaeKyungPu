@@ -41,7 +41,7 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 		auto iter = loser->begin();
 		++iter;
 		
-		for (; iter != loser->end();++iter)
+		for (; iter != loser->end(); ++iter)
 		{
 			pIter = *iter;
 			pIter->MovoToTile(pIter->getCurrentTile()->getNearTile(pIter->getCurrentDirection()));

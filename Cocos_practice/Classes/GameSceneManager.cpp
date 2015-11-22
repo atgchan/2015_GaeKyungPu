@@ -233,7 +233,7 @@ void GameSceneManager::MouseDownDispatcher(cocos2d::EventMouse *event)
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	float xPos = event->getCursorX();
 	float yPos = event->getCursorY() + visibleSize.height;
-	auto children = TileMap::getInstance()->getChildren();
+	Vector<cocos2d::Node*> children = TileMap::getInstance()->getChildren();
 
 	Self_Tile* clickedTile = getTileFromMouseEvent(event);
 	switch (event->getMouseButton())
@@ -342,7 +342,7 @@ void GameSceneManager::PushTileToList(Rect rect, Self_Tile* tile)
 
 Self_Tile* GameSceneManager::getExistingTileWithMousePoint(Vec2 vec)
 {
-	for (auto iter : _TileList)
+	for (TILEARRAYSET iter : _TileList)
 	{
 		if (iter.rect.containsPoint(vec))
 		{

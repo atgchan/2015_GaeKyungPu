@@ -33,7 +33,7 @@ void HistoryEventMoveCharacter::Run()
 	ActionInterval* moveTo = MoveTo::create(1, Vec2(_TargetTile->getPositionX() + 80, _TargetTile->getPositionY() + 60));
 
 	
-	auto nextCall = CallFunc::create(CC_CALLBACK_0(Character::setCurrentDirectionToShow,_CharacterToMove,_CharacterToMove->getCurrentDirection()));
+	cocos2d::CallFunc* nextCall = CallFunc::create(CC_CALLBACK_0(Character::setCurrentDirectionToShow,_CharacterToMove,_CharacterToMove->getCurrentDirection()));
 	//auto defaultCall = CallFunc::create(CC_CALLBACK_0(CharacterAnimation::setAnimationDefault,_CharacterToMove.get()));
 	Animation* animationDefault = CharacterAnimation::CreateAnimationDefault(_CharacterToMove->GetOwnerPlayer(), _CharacterToMove->getCurrentDirection());
 

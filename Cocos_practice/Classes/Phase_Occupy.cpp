@@ -32,7 +32,7 @@ void Phase_Occupy::Tick()
 			}
 
 			PlayerInfo opponent = iter->getCurrentTile()->getOwnerPlayer();
-			if (gm->getPlayerDataByPlayerInfo(opponent)->_PlayerBarrackNum <= 0)
+			if ((opponent == PLAYER_BLUE || opponent == PLAYER_RED) && gm->getPlayerDataByPlayerInfo(opponent)->_PlayerBarrackNum <= 0)
 			{
 				gm->EndGame();
 			}

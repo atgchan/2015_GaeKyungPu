@@ -5,8 +5,8 @@
 
 Scene* GameScene::CreateScene()
 {
-	auto scene = Scene::create();
-	auto layer = GameScene::create();
+	Scene* scene = Scene::create();
+	GameScene* layer = GameScene::create();
 	scene->addChild(layer);
 
 	return scene;
@@ -30,10 +30,10 @@ bool GameScene::init()
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	Label* toggleButton = Label::createWithTTF("Toggle Turn", "fonts/upheavtt.ttf", 50);
-	auto menu_toggle = MenuItemLabel::create(toggleButton, CC_CALLBACK_1(GameSceneManager::ToggleTurn, gmInstance));
+	MenuItemLabel* menu_toggle = MenuItemLabel::create(toggleButton, CC_CALLBACK_1(GameSceneManager::ToggleTurn, gmInstance));
 	menu_toggle->setPosition(Vec2(visibleSize.width * 4 / 5, visibleSize.height * 1 / 5));
 
-	auto mainMenu = Menu::create(menu_toggle, NULL);
+	Menu* mainMenu = Menu::create(menu_toggle, NULL);
 	mainMenu->setPosition(Vec2::ZERO);
 	this->addChild(mainMenu);
 
@@ -46,12 +46,12 @@ bool GameScene::init()
 	this->addChild(layerUI);
 
 //	Mouse Event
-	auto clickListener = EventListenerMouse::create();
+	EventListenerMouse* clickListener = EventListenerMouse::create();
 	clickListener->onMouseDown = CC_CALLBACK_1(GameSceneManager::MouseDownDispatcher, gmInstance);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(clickListener, this);
 
 //	Keyboard Event
-	auto keylistener = EventListenerKeyboard::create();
+	EventListenerKeyboard* keylistener = EventListenerKeyboard::create();
 	keylistener->onKeyReleased = CC_CALLBACK_2(GameSceneManager::KeyReleasedDispatcher, gmInstance);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(keylistener, this);
 

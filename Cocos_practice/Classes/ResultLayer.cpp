@@ -34,7 +34,7 @@ bool ResultLayer::init()
 	float height = PopUpLayer->getContentSize().height;
 
 	cocos2d::Label* label_title = Label::createWithTTF("End", "fonts/Marker Felt.ttf", 50);
-	label_title->setPosition(Vec2(100, height - 20));
+	label_title->setPosition(Vec2(width/2, height - 20));
 
 	PopUpLayer->addChild(label_title);
 	this->addChild(PopUpLayer);
@@ -44,11 +44,11 @@ bool ResultLayer::init()
 
 const void ResultLayer::SetValue(PlayerData* pData1, PlayerData* pData2) const
 {
-	int pData1Food = pData1->getFood();
+	/*int pData1Food = pData1->getFood();
 	int pData2Food = pData2->getFood();
 
-	auto p1Food = Label::createWithTTF(std::to_string(pData1Food), "fonts/Marker Felt.ttf", 20);
-	auto p2Food = Label::createWithTTF(std::to_string(pData2Food), "fonts/Marker Felt.ttf", 20);
+	Label* p1Food = Label::createWithTTF(std::to_string(pData1Food), "fonts/Marker Felt.ttf", 20);
+	Label* p2Food = Label::createWithTTF(std::to_string(pData2Food), "fonts/Marker Felt.ttf", 20);
 
 	float width = PopUpLayer->getContentSize().width;
 	float height = PopUpLayer->getContentSize().height;
@@ -57,5 +57,5 @@ const void ResultLayer::SetValue(PlayerData* pData1, PlayerData* pData2) const
 	p2Food->setPosition(Vec2(100 + width / 2, height - 120));
 
 	PopUpLayer->addChild(p1Food);
-	PopUpLayer->addChild(p2Food);
+	PopUpLayer->addChild(p2Food);*/
 }
