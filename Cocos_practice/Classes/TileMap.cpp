@@ -79,7 +79,6 @@ bool TileMap::create()
 			GameSceneManager::getInstance()->PushTileToList(rect, _TileSet[i][j]);
 		}
 	}
-
 //	다음 함수에서 모든 타일을 순회하여 tile마다 nearTile을 저장한다.
 	SetTotalNearTile();
 

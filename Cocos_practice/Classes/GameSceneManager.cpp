@@ -64,6 +64,8 @@ void GameSceneManager::InitializeGame()
 	_Phases[PHASE_PASTEUR] = new Phase_Pasteur();
 	_Phases[PHASE_ERR] = nullptr;
 
+	
+
 	_CurrentPlayer = PLAYER_RED;
 	_CurrentPhase = _Phases[PHASE_HARVEST];
 
@@ -75,13 +77,6 @@ void GameSceneManager::EndGame()
 	Director::getInstance()->pause();
 	ResultLayer* result = ResultLayer::create();
 	AddChild(result);
-	delete _Phases[PHASE_READY];
-	delete _Phases[PHASE_HARVEST];
-	delete _Phases[PHASE_OCCUPY];
-	delete _Phases[PHASE_VOLCANO];
-	delete _Phases[PHASE_ACTION];
-	delete _Phases[PHASE_PASTEUR];
-	delete _Phases[PHASE_ERR];
 }
 
 Self_Tile* GameSceneManager::getTileFromMouseEvent(const cocos2d::EventMouse *event)
@@ -409,6 +404,13 @@ GameSceneManager::~GameSceneManager()
 	delete _BMInstance;
 	delete _Dice;
 	delete[] _Phases;
+	delete _Phases[PHASE_READY];
+	delete _Phases[PHASE_HARVEST];
+	delete _Phases[PHASE_OCCUPY];
+	delete _Phases[PHASE_VOLCANO];
+	delete _Phases[PHASE_ACTION];
+	delete _Phases[PHASE_PASTEUR];
+	delete _Phases[PHASE_ERR];
 	_TileMap->Terminate();
 }
 
