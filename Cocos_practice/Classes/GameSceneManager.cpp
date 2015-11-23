@@ -75,6 +75,13 @@ void GameSceneManager::EndGame()
 	Director::getInstance()->pause();
 	ResultLayer* result = ResultLayer::create();
 	AddChild(result);
+	delete _Phases[PHASE_READY];
+	delete _Phases[PHASE_HARVEST];
+	delete _Phases[PHASE_OCCUPY];
+	delete _Phases[PHASE_VOLCANO];
+	delete _Phases[PHASE_ACTION];
+	delete _Phases[PHASE_PASTEUR];
+	delete _Phases[PHASE_ERR];
 }
 
 Self_Tile* GameSceneManager::getTileFromMouseEvent(const cocos2d::EventMouse *event)
@@ -164,12 +171,12 @@ void GameSceneManager::MoveCharacterByClick(Self_Tile* clickedTile)
 					{
 						getCurrentPlayerData()->AddFood(foodToComsume * -1);
 						_BMInstance->BattleBetween(_CharacterToMove, clickedTile->getCharacterOnThisTile());
-					}				
+					}
 				}
 				//AnimationManager::getInstance()->PlayHistory();
 			}
 		}
-		
+
 		_CharacterToMove = nullptr;
 		_ReadyToMove = false;
 		return;
@@ -196,7 +203,7 @@ void GameSceneManager::SpawnCharacterOnTile(Self_Tile* tile, DirectionKind sprit
 	TileMap::getInstance()->setCharacterOnTile(unit, tile);
 	_PlayerData[getCurrentPlayer()]->AddCharacter(unit);
 	unit->setCurrentTile(tile);
-	
+
 	getCurrentPlayerData()->AddFood(-1 * spendFood);
 }
 
@@ -223,7 +230,7 @@ void GameSceneManager::KeyReleasedDispatcher(EventKeyboard::KeyCode keyCode, coc
 			break;
 		}
 	}
-		break;
+	break;
 
 	default:
 		break;
@@ -247,7 +254,7 @@ void GameSceneManager::MouseDownDispatcher(cocos2d::EventMouse *event)
 	{
 	case MOUSE_BUTTON_LEFT:
 		if (clickedTile == nullptr) { break; }
-		if(!DraftNewCharacterByClick(clickedTile))
+		if (!DraftNewCharacterByClick(clickedTile))
 			MoveCharacterByClick(clickedTile);
 		break;
 
@@ -362,27 +369,27 @@ Self_Tile* GameSceneManager::getExistingTileWithMousePoint(Vec2 vec)
 
 bool GameSceneManager::getIsVolcanoActivated()
 {
-	return _IsVolcanoActivated; 
+	return _IsVolcanoActivated;
 }
 
 int GameSceneManager::getProgressVolcano()
 {
-	return _ProgressVolcano; 
+	return _ProgressVolcano;
 }
 
 void GameSceneManager::setProgressVolcano(int progress)
 {
-	_ProgressVolcano = progress; 
+	_ProgressVolcano = progress;
 }
 
 bool GameSceneManager::getIsMouseLocked()
 {
-	return _IsMouseLocked; 
+	return _IsMouseLocked;
 }
 
 void GameSceneManager::setVolcanoActivated(bool activated)
-{ 
-	_IsVolcanoActivated = activated; 
+{
+	_IsVolcanoActivated = activated;
 }
 
 void GameSceneManager::setInputMode(bool mode)
