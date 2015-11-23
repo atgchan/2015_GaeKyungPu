@@ -103,7 +103,7 @@ private:
 
 	bool		_DraftMode = false;
 	void		SpawnCharacterOnTile(Self_Tile* tile, DirectionKind spriteNum, int spendFood = 1);
-	int			_ProgressVolcano = 0;
+	int			_ProgressVolcano = -1;
 
 	/*타일만 별도로 저장할 배열을 만든다..*/
 	std::vector<TILEARRAYSET> _TileList;
