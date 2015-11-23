@@ -130,7 +130,7 @@ bool isHave(std::list<Character*> *checkedNode, Character* node)
 	}
 	return false;
 }
-void BattleManager::SearchGraphAndOverwriteAttackFormation(std::list<Character*> checkedNode, Character* currentNode, int currentDepth, int maxDepth)
+int BattleManager::SearchGraphAndOverwriteAttackFormation(std::list<Character*> checkedNode, Character* currentNode, int currentDepth, int maxDepth)
 {
 	
 	checkedNode.push_back(currentNode);
@@ -153,8 +153,10 @@ void BattleManager::SearchGraphAndOverwriteAttackFormation(std::list<Character*>
 			if (compareNode->GetNearCharacter(compareNode->getCurrentDirection()) == currentNode && compareNode->GetOwnerPlayer() == currentNode->GetOwnerPlayer())
 				//이미 탐색했던 node가 아니면
 				if (!isHave(&checkedNode, compareNode))
-					SearchGraphAndOverwriteAttackFormation(checkedNode, compareNode, currentDepth + 1, maxDepth);
+					maxDepth = SearchGraphAndOverwriteAttackFormation(checkedNode, compareNode, currentDepth + 1, maxDepth);
 	}
+
+	return maxDepth;
 }
 
 bool BattleManager::IsCharFacingMe(Character* me, Character* other)
