@@ -23,14 +23,16 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 	attacker->setAttackPower(flankBonus + attacker->getAttackPower());
 	defender->RotateToDirection((DirectionKind)((attacker->getCurrentDirection() + 3) % 6));
 
-	PlayerInfo playerAttacker = attacker->GetOwnerPlayer(), playerDefender = defender->GetOwnerPlayer();
+	PlayerInfo playerAttacker = attacker->GetOwnerPlayer();
+	PlayerInfo playerDefender = defender->GetOwnerPlayer();
 
 	while (_CurrentAttackFormation.size() && _CurrentDefenseFormation.size())
 	{
 		GiveForestBonus(_CurrentAttackFormation.front());
 		GiveForestBonus(_CurrentDefenseFormation.back());
 
-		std::list<Character*> *winner = nullptr, *loser = nullptr;
+		std::list<Character*> *winner = nullptr;
+		std::list<Character*> *loser = nullptr;
 
 		if (IsAttackerWin(_CurrentAttackFormation.front(), _CurrentDefenseFormation.front()))
 			winner = &_CurrentAttackFormation;
