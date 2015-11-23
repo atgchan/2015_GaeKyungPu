@@ -7,7 +7,7 @@ class UILayer : public cocos2d::LayerColor
 public:
 	bool init();
 	static cocos2d::Scene* scene();
-	const void SetValue(PlayerData* playerData1, PlayerData* playerData2) const;
+	const void SetFoodValue(PlayerData* playerData1, PlayerData* playerData2) const;
 
 	CREATE_FUNC(UILayer);
 

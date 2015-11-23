@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Phase_Occupy.h"
+#include "UILayer.h"
 
 Phase_Occupy::Phase_Occupy()
 {

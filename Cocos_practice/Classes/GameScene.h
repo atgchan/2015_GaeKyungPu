@@ -14,6 +14,7 @@ public:
 	void ScheduleCallback(float delta);
 	//해당 클래스를 생성할 때 new 명령어가 아닌 코코스2d-x에서 제공하는 create()메소드를 사용할 수 있게 해주는 전역 메소드(매크로?)
 	CREATE_FUNC(GameScene);
-	bool		_GameIsEnd = true;
 
+	bool	_GameIsEnd = true;
+	void	RefreshFood();
 };

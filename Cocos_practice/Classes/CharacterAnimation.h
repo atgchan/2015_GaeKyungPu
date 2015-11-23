@@ -22,7 +22,7 @@ private:
 
 	static CharacterAnimation* _Inst;
 
-	std::array<Animation*, 48>* _AnimationArray;
+	std::array<Animation*, 48> _AnimationArray;
 
 	Animation*	CreateAnimationDefault(PlayerInfo cPInfo, DirectionKind dir);
 	Animation*	CreateAnimationMove(PlayerInfo cPInfo, DirectionKind dir);

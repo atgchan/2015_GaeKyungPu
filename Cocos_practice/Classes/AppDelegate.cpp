@@ -38,7 +38,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // FPS on/off
     director->setDisplayStats(true);
     // FPS ¼ÂÆÃ
-    director->setAnimationInterval(1.0 / 60);
+    director->setAnimationInterval(1.0f / 60);
 
 	//resourcefile load!
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("UI/ui_image.plist");

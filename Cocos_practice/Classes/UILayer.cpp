@@ -26,7 +26,7 @@ bool UILayer::init()
 	BackLayer->setAnchorPoint(Vec2(0, 0));
 	BackLayer->setPosition(50, visibleSize.height - 100);
 
-	SetValue(GM->getPlayerDataByPlayerInfo(PLAYER_RED), GM->getPlayerDataByPlayerInfo(PLAYER_BLUE));
+	SetFoodValue(GM->getPlayerDataByPlayerInfo(PLAYER_RED), GM->getPlayerDataByPlayerInfo(PLAYER_BLUE));
 
 	this->addChild(BackLayer);
 	
@@ -35,13 +35,15 @@ bool UILayer::init()
 	return true;
 }
 
-const void UILayer::SetValue(PlayerData* pData1, PlayerData* pData2) const
+const void UILayer::SetFoodValue(PlayerData* pData1, PlayerData* pData2) const
 {
 	int pData1Food = pData1->getFood();
 	int pData2Food = pData2->getFood();
 
-	auto p1Food = Label::createWithTTF(std::to_string(pData1Food), "fonts/upheavtt.ttf", 30);
-	auto p2Food = Label::createWithTTF(std::to_string(pData2Food), "fonts/upheavtt.ttf", 30);
+	BackLayer->removeAllChildren();
+
+	auto p1Food = Label::createWithTTF(std::to_string(pData1Food), "fonts/upheavtt.ttf", 50);
+	auto p2Food = Label::createWithTTF(std::to_string(pData2Food), "fonts/upheavtt.ttf", 50);
 
 	float width = BackLayer->getContentSize().width;
 	float height = BackLayer->getContentSize().height;

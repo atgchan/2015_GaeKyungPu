@@ -291,6 +291,7 @@ void GameSceneManager::ScheduleCallback(float delta)
 {
 	EventManager::getInstance()->ScheduleCallback();
 	_CurrentPhase->Tick();
+
 	ChangePhase(_CurrentPhase->_NextPhase);
 }
 

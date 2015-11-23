@@ -7,41 +7,48 @@ CharacterAnimation* CharacterAnimation::_Inst = nullptr;
 
 void CharacterAnimation::Init()
 {
-	_AnimationArray = new std::array<Animation*, 48>;
 	for (int i = 0; i < NUM_OF_PLAYER; ++i)
 	{
 		for (int j = 0; j < 6; ++j)
 		{	
-			(*_AnimationArray)[i*24 + j*4] = CreateAnimationDefault(PlayerInfo(i), DirectionKind(j));
-			(*_AnimationArray)[i * 24 + j * 4 + 1] = CreateAnimationMove(PlayerInfo(i), DirectionKind(j));
-			(*_AnimationArray)[i * 24 + j * 4 + 2] = CreateAnimationAttack(PlayerInfo(i), DirectionKind(j));
-			(*_AnimationArray)[i * 24 + j * 4 + 3] = CreateAnimationBeHit(PlayerInfo(i), DirectionKind(j));
+			_AnimationArray[i * 24 + j * 4] = CreateAnimationDefault(PlayerInfo(i), DirectionKind(j));
+			_AnimationArray[i * 24 + j * 4 + 1] = CreateAnimationMove(PlayerInfo(i), DirectionKind(j));
+			_AnimationArray[i * 24 + j * 4 + 2] = CreateAnimationAttack(PlayerInfo(i), DirectionKind(j));
+			_AnimationArray[i * 24 + j * 4 + 3] = CreateAnimationBeHit(PlayerInfo(i), DirectionKind(j));
 		}
 	}
 }
 
+//으씨 이거는 임시...
+//왜 array에 저장된 값을 불러올 수 없는가?!
 Animation* CharacterAnimation::getAnimationDefault(PlayerInfo cPInfo, DirectionKind dir)
 {
+	Animation* test = CreateAnimationDefault(cPInfo, dir);
 	int index = static_cast<int>(cPInfo)* 24 + static_cast<int>(dir)* 4;
-	return (*_AnimationArray)[index];
+
+	//return _AnimationArray[index];
+	return test;
 }
 
 Animation* CharacterAnimation::getAnimationMove(PlayerInfo cPInfo, DirectionKind dir)
 {
+	Animation* test = CreateAnimationMove(cPInfo, dir);
 	int index = static_cast<int>(cPInfo)* 24 + static_cast<int>(dir)* 4 +1;
-	return _AnimationArray->at(index);
+	
+	//return _AnimationArray[index];
+	return test;
 }
 
 Animation*  CharacterAnimation::getAnimationAttack(PlayerInfo cPInfo, DirectionKind dir)
 {
 	int index = static_cast<int>(cPInfo)* 24 + static_cast<int>(dir)* 4+2;
-	return _AnimationArray->at(index);
+	return _AnimationArray[index];
 }
 
 Animation* CharacterAnimation::getAnimationBeHit(PlayerInfo cPInfo, DirectionKind dir)
 {
 	int index = static_cast<int>(cPInfo)* 24 + static_cast<int>(dir)* 4 +3;
-	return _AnimationArray->at(index);
+	return _AnimationArray[index];
 }
 
 CharacterAnimation* CharacterAnimation::getInstance()

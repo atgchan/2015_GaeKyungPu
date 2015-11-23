@@ -33,29 +33,35 @@ bool GameScene::init()
 	MenuItemLabel* menu_toggle = MenuItemLabel::create(toggleButton, CC_CALLBACK_1(GameSceneManager::ToggleTurn, gmInstance));
 	menu_toggle->setPosition(Vec2(visibleSize.width * 4 / 5, visibleSize.height * 1 / 5));
 
-	Menu* mainMenu = Menu::create(menu_toggle, NULL);
-	mainMenu->setPosition(Vec2::ZERO);
-	this->addChild(mainMenu);
 
+	/*
 	Label* turnIndicator = Label::createWithTTF("NOW : ", "fonts/upheavtt.ttf", 40);
 	turnIndicator->setPosition(50, visibleSize.height - 50);
+	*/
+
+	Menu* mainMenu = Menu::create(menu_toggle, NULL);
+	mainMenu->setPosition(Vec2::ZERO);	
 
 	UILayer* layerUI = UILayer::create();
 	layerUI->setName("ui_layer");
 
+	this->addChild(mainMenu);
 	this->addChild(layerUI);
 
 //	Mouse Event
 	EventListenerMouse* clickListener = EventListenerMouse::create();
 	clickListener->onMouseDown = CC_CALLBACK_1(GameSceneManager::MouseDownDispatcher, gmInstance);
+	EventListenerMouse* clickListener1 = EventListenerMouse::create();
+	clickListener1->onMouseDown = CC_CALLBACK_0(GameScene::RefreshFood, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(clickListener, this);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(clickListener1, this);
 
 //	Keyboard Event
 	EventListenerKeyboard* keylistener = EventListenerKeyboard::create();
 	keylistener->onKeyReleased = CC_CALLBACK_2(GameSceneManager::KeyReleasedDispatcher, gmInstance);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(keylistener, this);
 
-	//tick을 넘겨본다.
+//	tick을 넘겨본다.
 	this->schedule(schedule_selector(GameScene::ScheduleCallback));
 	return true;
 }
@@ -65,4 +71,9 @@ void GameScene::ScheduleCallback(float delta)
 	if (_GameIsEnd)
 		GameSceneManager::getInstance()->EndGame();
 	GameSceneManager::getInstance()->ScheduleCallback(delta);
+}
+
+void GameScene::RefreshFood()
+{
+	((UILayer*)getChildByName("ui_layer"))->SetFoodValue(GM->getPlayerDataByPlayerInfo(PLAYER_RED), GM->getPlayerDataByPlayerInfo(PLAYER_BLUE));
 }
