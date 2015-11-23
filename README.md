@@ -1,7 +1,7 @@
 # TESTuDO
 
 ##update note
-v0.0.8 - 수정중
+v0.0.8 - [다운로드](http://me2.do/FIvMeVL7 "다운로드")
 
 * 기본 조작법
     + 병사 생성 - 배럭 클릭 후 주변 타일 클릭(forest로의 생성과 이동은 식량 2 소모)
