@@ -2,7 +2,7 @@
 USING_NS_CC;
 
 #define GM GameSceneManager::getInstance()
-enum { MAX_TILEKIND  = 10};
+enum { MAX_TILEKIND  = 11};
 enum {IT_IS_NOT_NEAR_TILE = -1};
 enum { NUM_OF_PLAYER = 2 };
 enum { MAP_MAX_HEIGHT = 11, MAP_MAX_WIDTH = 10 };
@@ -40,7 +40,8 @@ enum TileKind {
 	TILE_RICH,
 	TILE_LAKE,
 	TILE_VOCANO,
-	TILE_LAVA
+	TILE_LAVA,
+	TILE_RICH_SIDE
 };
 enum DirectionKind
 {

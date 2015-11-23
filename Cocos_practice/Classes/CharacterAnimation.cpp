@@ -245,5 +245,3 @@ std::string CharacterAnimation::GetDirectionName(int spriteNum)
 
 	return direction;
 }
-
-

@@ -25,7 +25,6 @@ void Phase_Occupy::Tick()
 			}
 			if (iter->getCurrentTile()->getTypeOfTile() == TILE_BARRACK || iter->getCurrentTile()->getTypeOfTile() == TILE_HEADQUARTER)
 			{
-				iter->getCurrentTile()->ChangeTile(TILE_BARRACK);
 				gm->getCurrentPlayerData()->_PlayerBarrackNum++;
 
 				PlayerInfo opponent = GM->getCurrentPlayer() == PLAYER_RED ? PLAYER_BLUE : PLAYER_RED;
@@ -33,7 +32,7 @@ void Phase_Occupy::Tick()
 			}
 
 			PlayerInfo opponent = iter->getCurrentTile()->getOwnerPlayer();
-			if ((opponent == PLAYER_BLUE || opponent == PLAYER_RED) && gm->getPlayerDataByPlayerInfo(opponent)->_PlayerBarrackNum <= 0)
+			if (iter->getCurrentTile()->getTypeOfTile() == TILE_HEADQUARTER)
 			{
 				gm->EndGame();
 			}

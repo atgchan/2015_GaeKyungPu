@@ -35,7 +35,6 @@ void EventManager::PlayHistory()
 		GM->setInputMode(false);
 		++_HistoryCount;
 		_IteratorHistory->get()->Run();
-		//_HistoryQueue->back().get()->Run();
 	}
 }
 

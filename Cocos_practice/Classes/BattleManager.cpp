@@ -16,12 +16,23 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 {
 	SetAttackFormation(attacker);
 	SetDefenseFormation(defender);
+	bool firstTime = true;
 
-	PlayerInfo playerAttacker = attacker->GetOwnerPlayer(), playerDefender = defender->GetOwnerPlayer();
+	int flankBonus = std::abs(std::abs((attacker->getCurrentDirection() - defender->getCurrentDirection())) - 3);
+	
+	attacker->setAttackPower(flankBonus + attacker->getAttackPower());
+	defender->RotateToDirection((DirectionKind)((attacker->getCurrentDirection() + 3) % 6));
+
+	PlayerInfo playerAttacker = attacker->GetOwnerPlayer();
+	PlayerInfo playerDefender = defender->GetOwnerPlayer();
 
 	while (_CurrentAttackFormation.size() && _CurrentDefenseFormation.size())
 	{
-		std::list<Character*> *winner = nullptr, *loser = nullptr;
+		GiveForestBonus(_CurrentAttackFormation.front());
+		GiveForestBonus(_CurrentDefenseFormation.back());
+
+		std::list<Character*> *winner = nullptr;
+		std::list<Character*> *loser = nullptr;
 
 		if (IsAttackerWin(_CurrentAttackFormation.front(), _CurrentDefenseFormation.front()))
 			winner = &_CurrentAttackFormation;
@@ -30,9 +41,9 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 
 		loser = (winner == &_CurrentAttackFormation) ? &_CurrentDefenseFormation : &_CurrentAttackFormation;
 		
-		
+		if (firstTime)
+			attacker->setAttackPower(2);
 		Character* pIter = nullptr;
-		//loser->front()->setVisible(false);
 		DirectionKind tempDirection = DIRECTION_ERR;
 		DirectionKind prevDirection = loser->front()->getCurrentDirection();
 		GM->KillCharacter(loser->front());
@@ -50,7 +61,6 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 			if (loser == &_CurrentDefenseFormation)
 				break;
 		}
-		//GM->KillCharacter(loser->front());
 		loser->pop_front();
 	}
 
@@ -87,8 +97,8 @@ bool BattleManager::IsAttackerWin(Character* attacker, Character* defender)
 	{
 		attackerDice = dice.RollDiceBetween(attacker->_AttackPower, 1);
 		dice.DisplayDiceOnScreen(attacker->_AttackPower, 1);
-		defenderDice = dice.RollDiceBetween(defender->_DefensePower, 1);
-		dice.DisplayDiceOnScreen(defender->_DefensePower, 1);
+		defenderDice = dice.RollDiceBetween(defender->_AttackPower, 1);
+		dice.DisplayDiceOnScreen(defender->_AttackPower, 1);
 
 		if (attackerDice == defenderDice)
 			continue;
@@ -130,7 +140,7 @@ bool isHave(std::list<Character*> *checkedNode, Character* node)
 	}
 	return false;
 }
-void BattleManager::SearchGraphAndOverwriteAttackFormation(std::list<Character*> checkedNode, Character* currentNode, int currentDepth, int maxDepth)
+int BattleManager::SearchGraphAndOverwriteAttackFormation(std::list<Character*> checkedNode, Character* currentNode, int currentDepth, int maxDepth)
 {
 	
 	checkedNode.push_back(currentNode);
@@ -153,8 +163,16 @@ void BattleManager::SearchGraphAndOverwriteAttackFormation(std::list<Character*>
 			if (compareNode->GetNearCharacter(compareNode->getCurrentDirection()) == currentNode && compareNode->GetOwnerPlayer() == currentNode->GetOwnerPlayer())
 				//이미 탐색했던 node가 아니면
 				if (!isHave(&checkedNode, compareNode))
-					SearchGraphAndOverwriteAttackFormation(checkedNode, compareNode, currentDepth + 1, maxDepth);
+					maxDepth = SearchGraphAndOverwriteAttackFormation(checkedNode, compareNode, currentDepth + 1, maxDepth);
 	}
+
+	return maxDepth;
+}
+
+void BattleManager::GiveForestBonus(Character* target)
+{
+	if (target->getCurrentTile()->getTypeOfTile() == TILE_FOREST)
+		target->setAttackPower(target->getAttackPower() + 1);
 }
 
 bool BattleManager::IsCharFacingMe(Character* me, Character* other)
