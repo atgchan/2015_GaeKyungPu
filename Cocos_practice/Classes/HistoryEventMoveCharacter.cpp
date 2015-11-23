@@ -55,4 +55,3 @@ bool HistoryEventMoveCharacter::IsDone()
 		return true;
 	return false;
 }
-

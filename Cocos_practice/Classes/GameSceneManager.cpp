@@ -33,7 +33,10 @@ GameSceneManager* GameSceneManager::getInstance()
 void GameSceneManager::ChangeRichToLava(Self_Tile* target)
 {
 	target->ChangeTile(TILE_LAVA);
-	KillCharacter(target->getCharacterOnThisTile());
+	if (target->getCharacterOnThisTile() != nullptr)
+	{
+		KillCharacter(target->getCharacterOnThisTile());
+	}
 }
 
 void GameSceneManager::InitializeGame()

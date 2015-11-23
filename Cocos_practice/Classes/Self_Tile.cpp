@@ -2,7 +2,7 @@
 #include "definition.h"
 #include "Self_Tile.h";
 
-std::string Self_Tile::_DictionaryForFilenames[10] = 
+std::string Self_Tile::_DictionaryForFilenames[MAX_TILEKIND] = 
 {
 	"Map/tile_null.png",
 	"Map/tile_plain.png",
@@ -13,7 +13,8 @@ std::string Self_Tile::_DictionaryForFilenames[10] =
 	"Map/tile_rich.png",
 	"Map/tile_lake.png",
 	"Map/tile_volcano.png",
-	"Map/tile_volcano.png"
+	"Map/tile_volcano.png",
+	"Map/tile_rich.png"
 };
 
 Self_Tile::Self_Tile() 
