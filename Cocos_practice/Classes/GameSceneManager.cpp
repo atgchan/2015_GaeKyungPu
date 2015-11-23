@@ -109,25 +109,28 @@ bool GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
 	if (_DraftMode == true)
 	{
 		//클릭한 타일이 배럭 주변이고 이미 위치한 유닛이 없으면
-		if (_DraftTile->CheckNearTile(clickedTile) && (clickedTile->getCharacterOnThisTile() == nullptr))
+		if (!(clickedTile->getTypeOfTile() == TILE_LAVA || clickedTile->getTypeOfTile() == TILE_VOCANO || clickedTile->getTypeOfTile() == TILE_NULL || clickedTile->getTypeOfTile() == TILE_LAKE))
 		{
-			foodToConsume = (clickedTile->getTypeOfTile() == TILE_FOREST) ? 2 : 1;
-			if (getCurrentPlayerData()->getFood() >= foodToConsume)
+			if (_DraftTile->CheckNearTile(clickedTile) && (clickedTile->getCharacterOnThisTile() == nullptr))
 			{
-				DirectionKind direction = _DraftTile->ReturnNearTileDirection(clickedTile);
-				SpawnCharacterOnTile(_DraftTile, direction, foodToConsume);
-				_DraftTile->getCharacterOnThisTile()->MovoToTile(clickedTile);
+				foodToConsume = (clickedTile->getTypeOfTile() == TILE_FOREST) ? 2 : 1;
+				if (getCurrentPlayerData()->getFood() >= foodToConsume)
+				{
+					DirectionKind direction = _DraftTile->ReturnNearTileDirection(clickedTile);
+					SpawnCharacterOnTile(_DraftTile, direction, foodToConsume);
+					_DraftTile->getCharacterOnThisTile()->MovoToTile(clickedTile);
+					_DraftTile = nullptr;
+					_DraftMode = false;
+					//AnimationManager::getInstance()->PlayHistory();
+					return true;
+				}
+			}
+			else
+			{
 				_DraftTile = nullptr;
 				_DraftMode = false;
-				//AnimationManager::getInstance()->PlayHistory();
-				return true;
+				return false;
 			}
-		}
-		else
-		{
-			_DraftTile = nullptr;
-			_DraftMode = false;
-			return false;
 		}
 	}
 	else//if (_DraftMode == false)
