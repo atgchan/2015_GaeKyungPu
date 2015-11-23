@@ -154,3 +154,13 @@ void Character::setCurrentDirection(DirectionKind direction)
 {
 	_CurrentDirection = direction;
 }
+
+int Character::getAttackPower()
+{
+	return _AttackPower;
+}
+
+void Character::setAttackPower(int attackPower)
+{
+	_AttackPower = attackPower;
+}
