@@ -51,10 +51,7 @@ bool GameScene::init()
 //	Mouse Event
 	EventListenerMouse* clickListener = EventListenerMouse::create();
 	clickListener->onMouseDown = CC_CALLBACK_1(GameSceneManager::MouseDownDispatcher, gmInstance);
-	EventListenerMouse* clickListener1 = EventListenerMouse::create();
-	clickListener1->onMouseDown = CC_CALLBACK_0(GameScene::RefreshFood, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(clickListener, this);
-	_eventDispatcher->addEventListenerWithSceneGraphPriority(clickListener1, this);
 
 //	Keyboard Event
 	EventListenerKeyboard* keylistener = EventListenerKeyboard::create();
@@ -68,6 +65,7 @@ bool GameScene::init()
 
 void GameScene::ScheduleCallback(float delta)
 {
+	RefreshFood();
 	if (_GameIsEnd)
 		GameSceneManager::getInstance()->EndGame();
 	GameSceneManager::getInstance()->ScheduleCallback(delta);
