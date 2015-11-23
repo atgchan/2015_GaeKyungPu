@@ -28,7 +28,6 @@ public:
 	void	CharacterAttack();
 
 	int		_AttackPower = 2;
-	int		_DefensePower = 2;
 	void	SetOwnerPlayer(PlayerInfo pInfo);
 	
 	const PlayerInfo	GetOwnerPlayer();
@@ -38,6 +37,8 @@ public:
 	void				setCurrentDirectionToShow(DirectionKind direction);
 	DirectionKind		getCurrentDirection();
 	void				setCurrentDirection(DirectionKind direction);
+	int					getAttackPower();
+	void				setAttackPower(int);
 	~Character();
 private:
 	Character(PlayerInfo cPInfo, int spriteNum);

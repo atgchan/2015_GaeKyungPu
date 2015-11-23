@@ -67,6 +67,8 @@ void GameSceneManager::InitializeGame()
 	_Phases[PHASE_PASTEUR] = new Phase_Pasteur();
 	_Phases[PHASE_ERR] = nullptr;
 
+	
+
 	_CurrentPlayer = PLAYER_RED;
 	_CurrentPhase = _Phases[PHASE_HARVEST];
 
@@ -105,25 +107,28 @@ bool GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
 	if (_DraftMode == true)
 	{
 		//클릭한 타일이 배럭 주변이고 이미 위치한 유닛이 없으면
-		if (_DraftTile->CheckNearTile(clickedTile) && (clickedTile->getCharacterOnThisTile() == nullptr))
+		if (!(clickedTile->getTypeOfTile() == TILE_LAVA || clickedTile->getTypeOfTile() == TILE_VOCANO || clickedTile->getTypeOfTile() == TILE_NULL || clickedTile->getTypeOfTile() == TILE_LAKE))
 		{
-			foodToConsume = (clickedTile->getTypeOfTile() == TILE_FOREST) ? 2 : 1;
-			if (getCurrentPlayerData()->getFood() >= foodToConsume)
+			if (_DraftTile->CheckNearTile(clickedTile) && (clickedTile->getCharacterOnThisTile() == nullptr))
 			{
-				DirectionKind direction = _DraftTile->ReturnNearTileDirection(clickedTile);
-				SpawnCharacterOnTile(_DraftTile, direction, foodToConsume);
-				_DraftTile->getCharacterOnThisTile()->MovoToTile(clickedTile);
+				foodToConsume = (clickedTile->getTypeOfTile() == TILE_FOREST) ? 2 : 1;
+				if (getCurrentPlayerData()->getFood() >= foodToConsume)
+				{
+					DirectionKind direction = _DraftTile->ReturnNearTileDirection(clickedTile);
+					SpawnCharacterOnTile(_DraftTile, direction, foodToConsume);
+					_DraftTile->getCharacterOnThisTile()->MovoToTile(clickedTile);
+					_DraftTile = nullptr;
+					_DraftMode = false;
+					//AnimationManager::getInstance()->PlayHistory();
+					return true;
+				}
+			}
+			else
+			{
 				_DraftTile = nullptr;
 				_DraftMode = false;
-				//AnimationManager::getInstance()->PlayHistory();
-				return true;
+				return false;
 			}
-		}
-		else
-		{
-			_DraftTile = nullptr;
-			_DraftMode = false;
-			return false;
 		}
 	}
 	else//if (_DraftMode == false)
@@ -167,12 +172,12 @@ void GameSceneManager::MoveCharacterByClick(Self_Tile* clickedTile)
 					{
 						getCurrentPlayerData()->AddFood(foodToComsume * -1);
 						_BMInstance->BattleBetween(_CharacterToMove, clickedTile->getCharacterOnThisTile());
-					}				
+					}
 				}
 				//AnimationManager::getInstance()->PlayHistory();
 			}
 		}
-		
+
 		_CharacterToMove = nullptr;
 		_ReadyToMove = false;
 		return;
@@ -199,7 +204,7 @@ void GameSceneManager::SpawnCharacterOnTile(Self_Tile* tile, DirectionKind sprit
 	TileMap::getInstance()->setCharacterOnTile(unit, tile);
 	_PlayerData[getCurrentPlayer()]->AddCharacter(unit);
 	unit->setCurrentTile(tile);
-	
+
 	getCurrentPlayerData()->AddFood(-1 * spendFood);
 }
 
@@ -226,7 +231,7 @@ void GameSceneManager::KeyReleasedDispatcher(EventKeyboard::KeyCode keyCode, coc
 			break;
 		}
 	}
-		break;
+	break;
 
 	default:
 		break;
@@ -250,7 +255,7 @@ void GameSceneManager::MouseDownDispatcher(cocos2d::EventMouse *event)
 	{
 	case MOUSE_BUTTON_LEFT:
 		if (clickedTile == nullptr) { break; }
-		if(!DraftNewCharacterByClick(clickedTile))
+		if (!DraftNewCharacterByClick(clickedTile))
 			MoveCharacterByClick(clickedTile);
 		break;
 
@@ -365,27 +370,27 @@ Self_Tile* GameSceneManager::getExistingTileWithMousePoint(Vec2 vec)
 
 bool GameSceneManager::getIsVolcanoActivated()
 {
-	return _IsVolcanoActivated; 
+	return _IsVolcanoActivated;
 }
 
 int GameSceneManager::getProgressVolcano()
 {
-	return _ProgressVolcano; 
+	return _ProgressVolcano;
 }
 
 void GameSceneManager::setProgressVolcano(int progress)
 {
-	_ProgressVolcano = progress; 
+	_ProgressVolcano = progress;
 }
 
 bool GameSceneManager::getIsMouseLocked()
 {
-	return _IsMouseLocked; 
+	return _IsMouseLocked;
 }
 
 void GameSceneManager::setVolcanoActivated(bool activated)
-{ 
-	_IsVolcanoActivated = activated; 
+{
+	_IsVolcanoActivated = activated;
 }
 
 void GameSceneManager::setInputMode(bool mode)
@@ -402,6 +407,13 @@ GameSceneManager::~GameSceneManager()
 	delete _BMInstance;
 	delete _Dice;
 	delete[] _Phases;
+	delete _Phases[PHASE_READY];
+	delete _Phases[PHASE_HARVEST];
+	delete _Phases[PHASE_OCCUPY];
+	delete _Phases[PHASE_VOLCANO];
+	delete _Phases[PHASE_ACTION];
+	delete _Phases[PHASE_PASTEUR];
+	delete _Phases[PHASE_ERR];
 	_TileMap->Terminate();
 }
 
