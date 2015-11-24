@@ -43,13 +43,16 @@ void Phase_Volcano::Tick()
 		if (randNum == 1)//5분의 1 확률로 이벤트 발생
 		{
 			GM->setVolcanoActivated(true);
-			GM->setProgressVolcano(1);
-			CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Sound/lava-01.wav");
+			GM->setProgressVolcano(0);
 		}
 	}
 
 	switch (GM->getProgressVolcano())
 	{
+	case 0:
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Sound/lava-01.wav");
+		GM->setProgressVolcano(1);
+		break;
 	case 1:
 		CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Sound/lava-01.wav");
 		ChangeRichToLava(1);
@@ -71,7 +74,7 @@ void Phase_Volcano::Tick()
 		break;
 	case 5:
 		GM->setVolcanoActivated(false);
-		GM->setProgressVolcano(0);
+		GM->setProgressVolcano(-1);
 		ChangePlanesToRich();
 		_VolcanoTileListIter = _VolcanoTileList.begin();
 		break;
