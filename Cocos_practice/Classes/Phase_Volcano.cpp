@@ -91,15 +91,18 @@ void Phase_Volcano::ChangeRichToLava(int repeat)
 	for (int i = 0; i < repeat; i++)
 	{
 		GM->ChangeRichToLava(static_cast<Self_Tile*>(*_VolcanoTileListIter));
-		_VolcanoTileListIter++;
+		_VolcanoTileListIter++; ///# 이렇게 하면 성능이 구리다.. 왜? 어떻게 고쳐야 할까?
 	}
 }
 
 void Phase_Volcano::ChangeAllLavaToPlane()
 {
-	for (cocos2d::Node* iter : _VolcanoTileList)
+	///# 아래처럼 이터래이터를 직접 사용해서 순회를 해볼 것.
+	for (Vector<cocos2d::Node*>::iterator iter = _VolcanoTileList.begin(); iter != _VolcanoTileList.end(); ++iter)
+	//for (cocos2d::Node* iter : _VolcanoTileList)
 	{
-		static_cast<Self_Tile*>(iter)->ChangeTile(TILE_PLAIN);
+		//static_cast<Self_Tile*>(iter)->ChangeTile(TILE_PLAIN);
+		dynamic_cast<Self_Tile*>(*iter)->ChangeTile(TILE_PLAIN);
 	}
 }
 

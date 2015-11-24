@@ -73,5 +73,5 @@ void GameScene::ScheduleCallback(float delta)
 
 void GameScene::RefreshFood()
 {
-	((UILayer*)getChildByName("ui_layer"))->SetFoodValue(GM->getPlayerDataByPlayerInfo(PLAYER_RED), GM->getPlayerDataByPlayerInfo(PLAYER_BLUE));
+	(dynamic_cast<UILayer*>(getChildByName("ui_layer")))->SetFoodValue(GM->getPlayerDataByPlayerInfo(PLAYER_RED), GM->getPlayerDataByPlayerInfo(PLAYER_BLUE));
 }

@@ -31,7 +31,7 @@ Self_Tile* Self_Tile::create(TileKind type)
 {
 	Self_Tile* sprite = new Self_Tile();
 
-	if (sprite && (sprite->initWithFile(_DictionaryForFilenames[type])))
+	if ( sprite->initWithFile(_DictionaryForFilenames[type]) )
 	{
 		sprite->autorelease();
 		sprite->setTypeOfTile(type);

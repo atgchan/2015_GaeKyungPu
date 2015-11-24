@@ -248,7 +248,6 @@ void GameSceneManager::MouseDownDispatcher(cocos2d::EventMouse *event)
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	float xPos = event->getCursorX();
 	float yPos = event->getCursorY() + visibleSize.height;
-	Vector<cocos2d::Node*> children = TileMap::getInstance()->getChildren();
 
 	Self_Tile* clickedTile = getTileFromMouseEvent(event);
 	switch (event->getMouseButton())
@@ -288,9 +287,7 @@ PlayerData* GameSceneManager::getCurrentPlayerData()
 void GameSceneManager::ChangePlayer()
 {
 	if (_CurrentPlayer == PLAYER_RED || _CurrentPlayer == PLAYER_BLUE)
-	{
 		_CurrentPlayer = (PlayerInfo)((_CurrentPlayer + 1) % 2);
-	}
 	else
 		Director::getInstance()->end();
 }
@@ -314,7 +311,8 @@ void GameSceneManager::KillCharacter(Character* target)
 	target->getCurrentTile()->setCharacterOnThisTile(nullptr);
 	CharacterList->remove(target);
 
-	std::shared_ptr<Character> sTarget(target);
+	std::shared_ptr<Character> sTarget(target); ///# shared_ptr을 잘못 사용하는 경우 
+	///shared_ptr은 new하는 시점에 포인터를 담아와야 한다. (make_shared를 사용하는 시점)
 	EventManager::getInstance()->AddHistory(HistoryEventKillCharacter::Create(sTarget));
 }
 
@@ -347,7 +345,7 @@ void GameSceneManager::ToggleTurn(Object* pSender)
 	ChangePhase(PHASE_PASTEUR);
 }
 
-void GameSceneManager::PushTileToList(Rect rect, Self_Tile* tile)
+void GameSceneManager::PushTileToList(const Rect& rect, Self_Tile* tile)
 {
 	TILEARRAYSET tileSet;
 	tileSet.tile = tile;
@@ -358,7 +356,7 @@ void GameSceneManager::PushTileToList(Rect rect, Self_Tile* tile)
 
 Self_Tile* GameSceneManager::getExistingTileWithMousePoint(Vec2 vec)
 {
-	for (TILEARRAYSET iter : _TileList)
+	for (TILEARRAYSET iter : _TileList) ///# iterator를 직접 사용해서 루프를 돌아봐라. 
 	{
 		if (iter.rect.containsPoint(vec))
 		{
@@ -406,14 +404,9 @@ GameSceneManager::~GameSceneManager()
 {
 	delete _BMInstance;
 	delete _Dice;
+
+	
 	delete[] _Phases;
-	delete _Phases[PHASE_READY];
-	delete _Phases[PHASE_HARVEST];
-	delete _Phases[PHASE_OCCUPY];
-	delete _Phases[PHASE_VOLCANO];
-	delete _Phases[PHASE_ACTION];
-	delete _Phases[PHASE_PASTEUR];
-	delete _Phases[PHASE_ERR];
 	_TileMap->Terminate();
 }
 

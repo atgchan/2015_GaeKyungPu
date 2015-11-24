@@ -32,6 +32,7 @@ void EventManager::PlayHistory()
 			_IteratorHistory = _HistoryQueue->begin();
 		else
 			++_IteratorHistory;
+
 		GM->setInputMode(false);
 		++_HistoryCount;
 		_IteratorHistory->get()->Run();

@@ -178,9 +178,8 @@ void BattleManager::GiveForestBonus(Character* target)
 bool BattleManager::IsCharFacingMe(Character* me, Character* other)
 {
 	if (other->GetNearCharacter(other->getCurrentDirection()) == me)
-	{
 		return true;
-	}
 	else
 		return false;
+		
 }
