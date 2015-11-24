@@ -21,6 +21,8 @@ bool MainScene::init()
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
+	///# 문자 리터럴은 따로 모아 놓을 것
+
 	auto label_title = Label::createWithTTF("Testudo", "fonts/Marker Felt.ttf", 40);
 	label_title->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 100));
 
@@ -28,6 +30,8 @@ bool MainScene::init()
 	auto label_setting = Label::createWithTTF("Setting", "fonts/Marker Felt.ttf", 24);
 	auto label_exit = Label::createWithTTF("Exit", "fonts/Marker Felt.ttf", 24);
 
+	///# 이쯤에서 CC_CALLBACK 계열의 동작 원리를 공부해볼 것...
+	/// C++을 사용함에 있어서 처음보는 종류의 매크로나 템플릿은 끝까지 파고 들어 원리를 파악해보는 습관을 들이는 것이 좋다.
 	auto closeItem = MenuItemImage::create("CloseNormal.png", "CloseSelected.png", CC_CALLBACK_1(MainScene::MenuCloseCallback, this));
 	closeItem->setPosition(
 			Vec2(

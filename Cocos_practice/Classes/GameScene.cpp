@@ -73,5 +73,6 @@ void GameScene::ScheduleCallback(float delta)
 
 void GameScene::RefreshFood()
 {
+	///# C 스타일의 캐스팅을 쓰지 말고 C++ 스타일의 캐스팅을 써라. dynamic_cast 같은거..
 	((UILayer*)getChildByName("ui_layer"))->SetFoodValue(GM->getPlayerDataByPlayerInfo(PLAYER_RED), GM->getPlayerDataByPlayerInfo(PLAYER_BLUE));
 }

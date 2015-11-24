@@ -33,7 +33,7 @@ bool ResultLayer::init()
 	float width = PopUpLayer->getContentSize().width;
 	float height = PopUpLayer->getContentSize().height;
 
-	cocos2d::Label* label_title = Label::createWithTTF("End", "fonts/Marker Felt.ttf", 50);
+	cocos2d::Label* label_title = Label::createWithTTF("End", "fonts/Marker Felt.ttf", 50); ///# 이런 문자 리터럴은 한군데 모아 놓을것.. 이게 다 기술 부채가 됨
 	label_title->setPosition(Vec2(width/2, height - 20));
 
 	PopUpLayer->addChild(label_title);
