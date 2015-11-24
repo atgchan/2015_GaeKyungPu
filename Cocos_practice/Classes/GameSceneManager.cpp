@@ -248,7 +248,6 @@ void GameSceneManager::MouseDownDispatcher(cocos2d::EventMouse *event)
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	float xPos = event->getCursorX();
 	float yPos = event->getCursorY() + visibleSize.height;
-	///# 괜히?  Vector<cocos2d::Node*> children = TileMap::getInstance()->getChildren();
 
 	Self_Tile* clickedTile = getTileFromMouseEvent(event);
 	switch (event->getMouseButton())
@@ -288,13 +287,9 @@ PlayerData* GameSceneManager::getCurrentPlayerData()
 void GameSceneManager::ChangePlayer()
 {
 	if (_CurrentPlayer == PLAYER_RED || _CurrentPlayer == PLAYER_BLUE)
-	{
 		_CurrentPlayer = (PlayerInfo)((_CurrentPlayer + 1) % 2);
-	}
 	else
-	{ ///# 코딩 컨벤션
 		Director::getInstance()->end();
-	}
 }
 
 void GameSceneManager::ScheduleCallback(float delta)
@@ -350,7 +345,7 @@ void GameSceneManager::ToggleTurn(Object* pSender)
 	ChangePhase(PHASE_PASTEUR);
 }
 
-void GameSceneManager::PushTileToList(const Rect& rect, Self_Tile* tile) ///# read-only로 쓰이는 인자에 대해서는 항상 const & 습관을
+void GameSceneManager::PushTileToList(const Rect& rect, Self_Tile* tile)
 {
 	TILEARRAYSET tileSet;
 	tileSet.tile = tile;
@@ -411,15 +406,7 @@ GameSceneManager::~GameSceneManager()
 	delete _Dice;
 
 	
-	delete[] _Phases; ///# ??? 뭐지??
-
-	delete _Phases[PHASE_READY];
-	delete _Phases[PHASE_HARVEST];
-	delete _Phases[PHASE_OCCUPY];
-	delete _Phases[PHASE_VOLCANO];
-	delete _Phases[PHASE_ACTION];
-	delete _Phases[PHASE_PASTEUR];
-	delete _Phases[PHASE_ERR];
+	delete[] _Phases;
 	_TileMap->Terminate();
 }
 
