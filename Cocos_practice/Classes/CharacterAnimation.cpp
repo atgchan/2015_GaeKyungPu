@@ -11,44 +11,36 @@ void CharacterAnimation::Init()
 	{
 		for (int j = 0; j < 6; ++j)
 		{	
-			_AnimationArray[i * 24 + j * 4] = CreateAnimationDefault(PlayerInfo(i), DirectionKind(j));
-			_AnimationArray[i * 24 + j * 4 + 1] = CreateAnimationMove(PlayerInfo(i), DirectionKind(j));
-			_AnimationArray[i * 24 + j * 4 + 2] = CreateAnimationAttack(PlayerInfo(i), DirectionKind(j));
-			_AnimationArray[i * 24 + j * 4 + 3] = CreateAnimationBeHit(PlayerInfo(i), DirectionKind(j));
+			_AnimationArray.pushBack(CreateAnimationDefault(PlayerInfo(i), DirectionKind(j)));
+			_AnimationArray.pushBack(CreateAnimationMove(PlayerInfo(i), DirectionKind(j)));
+			_AnimationArray.pushBack(CreateAnimationAttack(PlayerInfo(i), DirectionKind(j)));
+			_AnimationArray.pushBack(CreateAnimationBeHit(PlayerInfo(i), DirectionKind(j)));
 		}
 	}
 }
 
-//으씨 이거는 임시...
-//왜 array에 저장된 값을 불러올 수 없는가?!
 Animation* CharacterAnimation::getAnimationDefault(PlayerInfo cPInfo, DirectionKind dir)
 {
-	Animation* test = CreateAnimationDefault(cPInfo, dir);
 	int index = static_cast<int>(cPInfo)* 24 + static_cast<int>(dir)* 4;
-
-	//return _AnimationArray[index];
-	return test;
+	return _AnimationArray.at(index);
 }
 
 Animation* CharacterAnimation::getAnimationMove(PlayerInfo cPInfo, DirectionKind dir)
 {
-	Animation* test = CreateAnimationMove(cPInfo, dir);
-	int index = static_cast<int>(cPInfo)* 24 + static_cast<int>(dir)* 4 +1;
-	
-	//return _AnimationArray[index];
-	return test;
+	int index = static_cast<int>(cPInfo)* 24 + static_cast<int>(dir)* 4 +1;	
+	return _AnimationArray.at(index);
 }
 
 Animation*  CharacterAnimation::getAnimationAttack(PlayerInfo cPInfo, DirectionKind dir)
 {
 	int index = static_cast<int>(cPInfo)* 24 + static_cast<int>(dir)* 4+2;
-	return _AnimationArray[index];
+	return _AnimationArray.at(index);
 }
 
 Animation* CharacterAnimation::getAnimationBeHit(PlayerInfo cPInfo, DirectionKind dir)
 {
 	int index = static_cast<int>(cPInfo)* 24 + static_cast<int>(dir)* 4 +3;
-	return _AnimationArray[index];
+	return _AnimationArray.at(index);
 }
 
 CharacterAnimation* CharacterAnimation::getInstance()
