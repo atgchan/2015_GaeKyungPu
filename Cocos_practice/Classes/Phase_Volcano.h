@@ -16,5 +16,8 @@ private:
 	void ChangeRichToLava(int repeat);
 	void ChangeAllLavaToPlane();
 	void ChangePlanesToRich();
+	std::random_device _RandomDevice;
+
+	std::mt19937 _Gen;
 };
 

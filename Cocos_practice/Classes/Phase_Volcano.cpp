@@ -19,12 +19,11 @@ Phase_Volcano::Phase_Volcano()
 		}
 	}
 
-	//생성한 리스트를 랜덤으로 섞는다.
-	std::random_device rd;
-	std::mt19937 g(rd());
-	std::shuffle(_VolcanoTileList.begin(), _VolcanoTileList.end(), g);
-
-	//화산으로 변화를 시작할 타일을 가르킨다.
+	_Gen = std::mt19937(_RandomDevice());
+	std::srand(std::time(0));
+	
+	//std::random_shuffle(_VolcanoTileList.begin(), _VolcanoTileList.end());
+	//화산으로 변화를 시작할 타일을 가리킨다.
 	_VolcanoTileListIter = _VolcanoTileList.begin();
 }
 
@@ -38,12 +37,12 @@ void Phase_Volcano::Tick()
 	if (false == GM->getIsVolcanoActivated())
 	{
 		int randNum;
-		std::srand(std::time(0));
 		randNum = std::rand() % 5;
 		if (randNum == 1)//5분의 1 확률로 이벤트 발생
 		{
 			GM->setVolcanoActivated(true);
 			GM->setProgressVolcano(0);
+			std::shuffle(_VolcanoTileList.begin(), _VolcanoTileList.end(), _Gen);
 		}
 	}
 

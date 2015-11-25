@@ -5,6 +5,7 @@
 
 DiceDice::DiceDice()
 {
+	srand(time(nullptr));
 }
 
 DiceDice::~DiceDice()
@@ -14,7 +15,8 @@ DiceDice::~DiceDice()
 //static으로 쓰고싶다...
 int DiceDice::RollDiceBetween(int start, int end)
 {
-	int result = rand() % (start - end + 1) + end;
+	static int result;// = rand() % (start - end + 1) + end;
+	result = rand() % (start - end + 1) + end;
 	//int result = cocos2d::RandomHelper::random_int(start, end);
 	//이거 쓰면 에러난다 왜지?
 	return result;
