@@ -33,12 +33,6 @@ bool GameScene::init()
 	MenuItemLabel* menu_toggle = MenuItemLabel::create(toggleButton, CC_CALLBACK_1(GameSceneManager::ToggleTurn, gmInstance));
 	menu_toggle->setPosition(Vec2(visibleSize.width * 4 / 5, visibleSize.height * 1 / 5));
 
-
-	/*
-	Label* turnIndicator = Label::createWithTTF("NOW : ", "fonts/upheavtt.ttf", 40);
-	turnIndicator->setPosition(50, visibleSize.height - 50);
-	*/
-
 	Menu* mainMenu = Menu::create(menu_toggle, NULL);
 	mainMenu->setPosition(Vec2::ZERO);	
 
