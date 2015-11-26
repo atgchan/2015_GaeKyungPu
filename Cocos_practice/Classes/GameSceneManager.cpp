@@ -41,6 +41,10 @@ void GameSceneManager::ChangeRichToLava(Self_Tile* target)
 
 void GameSceneManager::InitializeGame()
 {
+	//Sprite* bgImage = Sprite::createWithSpriteFrameName("bg_image.png");
+	//if (bgImage)
+	//	this->AddChild(bgImage);
+
 	_BMInstance = new BattleManager();
 	_Nodes = Node::create();
 	this->_Nodes->setName("MasterNode");
@@ -253,9 +257,15 @@ void GameSceneManager::MouseDownDispatcher(cocos2d::EventMouse *event)
 	switch (event->getMouseButton())
 	{
 	case MOUSE_BUTTON_LEFT:
-		if (clickedTile == nullptr) { break; }
+		if (clickedTile == nullptr)
+			break;
+
 		if (!DraftNewCharacterByClick(clickedTile))
+		{
+			SelectCharacter(clickedTile->getCharacterOnThisTile());
 			MoveCharacterByClick(clickedTile);
+		}
+
 		break;
 
 	case MOUSE_BUTTON_RIGHT:
@@ -336,12 +346,7 @@ void GameSceneManager::ToggleTurn(Object* pSender)
 {
 	if (_CurrentPhaseInfo != PHASE_ACTION)
 		return;
-	//
-	//if ((getCurrentPlayerData()->_OpponentPlayer)->_PlayerBarrackNum <= 0)
-	//{
-	//	EndGame();
-	//	return;
-	//}
+
 	ChangePhase(PHASE_PASTEUR);
 }
 
@@ -410,3 +415,25 @@ GameSceneManager::~GameSceneManager()
 	_TileMap->Terminate();
 }
 
+//юс╫ц
+void GameSceneManager::SelectCharacter(Character* character)
+{
+	if (this->_Nodes->getChildByName("indicator"))
+	{
+		this->_Nodes->removeChildByName("indicator");
+	}
+
+	if (character)
+	{
+		float posX = character->getPositionX();
+		float posY = character->getPositionY();
+
+		Sprite* indicator = Sprite::createWithSpriteFrameName("indicator.png");
+		indicator->setName("indicator");
+		indicator->setZOrder(11);
+		indicator->setAnchorPoint(Vec2(0, 0));
+		indicator->setPosition(posX-25, posY + 100);
+
+		this->_Nodes->addChild(indicator);
+	}
+}

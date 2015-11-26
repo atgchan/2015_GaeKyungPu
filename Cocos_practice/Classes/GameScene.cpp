@@ -26,20 +26,10 @@ bool GameScene::init()
 
 //초기화 block 끝
 
-	Size visibleSize = Director::getInstance()->getVisibleSize();
-	Vec2 origin = Director::getInstance()->getVisibleOrigin();
-
-	Label* toggleButton = Label::createWithTTF("Toggle Turn", "fonts/upheavtt.ttf", 50);
-	MenuItemLabel* menu_toggle = MenuItemLabel::create(toggleButton, CC_CALLBACK_1(GameSceneManager::ToggleTurn, gmInstance));
-	menu_toggle->setPosition(Vec2(visibleSize.width * 4 / 5, visibleSize.height * 1 / 5));
-
-	Menu* mainMenu = Menu::create(menu_toggle, NULL);
-	mainMenu->setPosition(Vec2::ZERO);	
-
+//	UI 추가
 	UILayer* layerUI = UILayer::create();
 	layerUI->setName("ui_layer");
 
-	this->addChild(mainMenu);
 	this->addChild(layerUI);
 
 //	Mouse Event

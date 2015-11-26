@@ -20,18 +20,29 @@ bool UILayer::init()
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
+	
+	SetUIBar();
 
 	//backLayerÃß°¡
 	BackLayer = LayerColor::create(ccc4(0, 0, 0, 0), 300, 50);
+	BackLayer->setZOrder(10);
 	BackLayer->setAnchorPoint(Vec2(0, 0));
-	BackLayer->setPosition(50, visibleSize.height - 100);
+	BackLayer->setPosition(50, visibleSize.height - 70);
 
 	SetFoodValue(GM->getPlayerDataByPlayerInfo(PLAYER_RED), GM->getPlayerDataByPlayerInfo(PLAYER_BLUE));
 
 	this->addChild(BackLayer);
 	
-	SetUIBar();
+	Sprite* turnButton = Sprite::createWithSpriteFrameName("toogle_turn.png");
 
+	MenuItemSprite* toggleTurn = MenuItemSprite::create(turnButton, turnButton);
+	MenuItemLabel* menu_toggle = MenuItemLabel::create(toggleTurn, CC_CALLBACK_1(GameSceneManager::ToggleTurn, GameSceneManager::getInstance()));
+	menu_toggle->setPosition(Vec2(visibleSize.width * 1/2, visibleSize.height -50));
+
+	Menu* mainMenu = Menu::create(menu_toggle, NULL);
+	mainMenu->setPosition(Vec2::ZERO);
+	this->addChild(mainMenu);
+	
 	return true;
 }
 
@@ -48,29 +59,37 @@ const void UILayer::SetFoodValue(PlayerData* pData1, PlayerData* pData2) const
 	float width = BackLayer->getContentSize().width;
 	float height = BackLayer->getContentSize().height;
 
-	p1Food->setPosition(Vec2(100, height - 20));
-	p2Food->setPosition(Vec2(100 + width / 2, height - 20));
+	p1Food->setPosition(Vec2(100, height - 10));
+	p2Food->setPosition(Vec2(100 + width / 2, height - 10));
 
 	BackLayer->addChild(p1Food);
 	BackLayer->addChild(p2Food);
 }
-
 
 void UILayer::SetUIBar()
 {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	Sprite* spriteBarArray[4];
-	for (int i = 0; i < 4; ++i)
+	Sprite* spriteBarArray[3];
+	Sprite* spritecornerArray[4];
+	for (int i = 0; i < 3; ++i)
 	{
 		spriteBarArray[i] = Sprite::createWithSpriteFrameName("bar.png");
 		spriteBarArray[i]->setAnchorPoint(Vec2(0, 0));
 		this->addChild(spriteBarArray[i]);
 	}
 
+	for (int i = 0; i < 4; ++i)
+	{
+		spritecornerArray[i] = Sprite::createWithSpriteFrameName("point.png");
+		spritecornerArray[i]->setAnchorPoint(Vec2(0, 0));
+		this->addChild(spritecornerArray[i]);
+	}
+
 	Sprite* grain = Sprite::createWithSpriteFrameName("grain.png");
-	grain->setPosition(50, visibleSize.height - 50);
+	grain->setPosition(50, visibleSize.height - 30);
+	grain->setZOrder(11);
 	this->addChild(grain);
 
 	spriteBarArray[0]->setPosition(0, 0);
@@ -78,9 +97,37 @@ void UILayer::SetUIBar()
 	spriteBarArray[1]->setRotation(90);
 	spriteBarArray[1]->setPosition(0, visibleSize.height);
 
-	spriteBarArray[2]->setRotation(180);
-	spriteBarArray[2]->setPosition(visibleSize.width, visibleSize.height);
+	spriteBarArray[2]->setRotation(270);
+	spriteBarArray[2]->setPosition(visibleSize.width, 0);
 
-	spriteBarArray[3]->setRotation(270);
-	spriteBarArray[3]->setPosition(visibleSize.width, 0);
+	spritecornerArray[0]->setPosition(0, 0);
+	spritecornerArray[1]->setPosition(visibleSize.width-30, 0);
+	spritecornerArray[2]->setPosition(0, visibleSize.height-30);
+	spritecornerArray[3]->setPosition(visibleSize.width-30, visibleSize.height - 30);
+
+	Sprite* UIBar = Sprite::createWithSpriteFrameName("ui_bar.png");
+	UIBar->setAnchorPoint(Vec2(0, 0));
+	UIBar->setPosition(0, visibleSize.height-70);
+	this->addChild(UIBar);
+}
+
+void UILayer::SelectCharacter(Character* character)
+{
+	if (this->getChildByName("indicator"))
+	{
+		this->removeChildByName("indicator");
+	}
+
+	if (character)
+	{
+		float posX = character->getPositionX();
+		float posY = character->getPositionY();
+
+		Sprite* indicator = Sprite::createWithSpriteFrameName("indicator.png");
+		indicator->setName("indicator");
+		indicator->setAnchorPoint(Vec2(25, 0));
+		indicator->setPosition(posX, posY + 120);
+
+		this->addChild(indicator);
+	}
 }

@@ -120,4 +120,5 @@ private:
 	DiceDice*	_Dice;
 
 	void		ChangePhase(PhaseInfo);
+	void		SelectCharacter(Character* character);
 };

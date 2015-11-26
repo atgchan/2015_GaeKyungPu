@@ -52,7 +52,7 @@ bool TileMap::create()
 
 				if (i == 0)
 				{ 
-					positionY = 550;
+					positionY = 450;
 				}
 				else
 				{
