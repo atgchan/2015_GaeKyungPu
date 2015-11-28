@@ -61,9 +61,6 @@
     <ClCompile Include="..\Classes\HistoryEvent.cpp">
       <Filter>Animation</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\HistoryEventBattle.cpp">
-      <Filter>Animation</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\HistoryEventMoveCharacter.cpp">
       <Filter>Animation</Filter>
     </ClCompile>
@@ -78,6 +75,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\ResultLayer.cpp">
       <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\HistoryEventAttack.cpp">
+      <Filter>Animation</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -142,9 +142,6 @@
     <ClInclude Include="..\Classes\HistoryEvent.h">
       <Filter>Animation</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\HistoryEventBattle.h">
-      <Filter>Animation</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\HistoryEventMoveCharacter.h">
       <Filter>Animation</Filter>
     </ClInclude>
@@ -159,6 +156,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\ResultLayer.h">
       <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\HistoryEventAttack.h">
+      <Filter>Animation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

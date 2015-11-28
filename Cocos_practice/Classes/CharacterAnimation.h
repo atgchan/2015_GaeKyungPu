@@ -13,6 +13,7 @@ public:
 	Animation*	getAnimationMove(PlayerInfo cPInfo, DirectionKind dir);
 	Animation*	getAnimationAttack(PlayerInfo cPInfo, DirectionKind dir);
 	Animation*	getAnimationBeHit(PlayerInfo cPInfo, DirectionKind dir);
+	
 
 	void		setAnimationDefault(Character* targetCharacter);
 

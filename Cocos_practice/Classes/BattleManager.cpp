@@ -3,6 +3,7 @@
 #include "GameSceneManager.h"
 #include "DiceDice.h"
 #include "EventManager.h"
+#include "HistoryEventAttack.h"
 
 BattleManager::BattleManager()
 {
@@ -38,6 +39,10 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 			winner = &_CurrentAttackFormation;
 		else
 			winner = &_CurrentDefenseFormation;
+
+		std::shared_ptr<Character> testShared(_CurrentAttackFormation.front());
+		std::shared_ptr<Character> testShareddef(_CurrentDefenseFormation.front());
+		EventManager::getInstance()->AddHistory(HistoryEventAttack::Create(testShared,testShareddef));
 
 		loser = (winner == &_CurrentAttackFormation) ? &_CurrentDefenseFormation : &_CurrentAttackFormation;
 		
