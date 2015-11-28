@@ -18,5 +18,8 @@ public:
 private:
 	std::shared_ptr<Character>	_Attacker;
 	std::shared_ptr<Character>	_Defender;
+	int							_CurrentX;
+	int							_CurrentY;
+	bool						_FirstTime = true;
 };
 
