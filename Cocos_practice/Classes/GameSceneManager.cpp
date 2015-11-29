@@ -273,6 +273,7 @@ void GameSceneManager::MouseDownDispatcher(cocos2d::EventMouse *event)
 		{
 			std::shared_ptr<Character> target = clickedTile->getCharacterOnThisTile();
 			target->RotateToDirection(ROTATE_RIGHT);
+			target->ShowMovableTile();
 			break;
 		}
 
@@ -281,6 +282,7 @@ void GameSceneManager::MouseDownDispatcher(cocos2d::EventMouse *event)
 		{
 			std::shared_ptr<Character> target = clickedTile->getCharacterOnThisTile();
 			target->RotateToDirection(ROTATE_LEFT);
+			target->ShowMovableTile();
 			break;
 		}
 
@@ -418,10 +420,10 @@ GameSceneManager::~GameSceneManager()
 void GameSceneManager::SelectCharacter(std::shared_ptr<Character> character)
 {
 	if (this->_Nodes->getChildByName("indicator"))
-	{
 		this->_Nodes->removeChildByName("indicator");
+	
+	if (TileMap::getInstance()->getChildByName("move"))
 		TileMap::getInstance()->removeChildByName("move");
-	}
 
 	if (character)
 	{
@@ -434,21 +436,7 @@ void GameSceneManager::SelectCharacter(std::shared_ptr<Character> character)
 		indicator->setAnchorPoint(Vec2(0, 0));
 		indicator->setPosition(posX-25, posY + 100);
 
-
-		Sprite* tileMove = Sprite::create();
-		tileMove->initWithFile("Map/tile_move.png");
-		tileMove->setAnchorPoint(cocos2d::Vec2(0, 0));
-		tileMove->setZOrder(5);
-
-		DirectionKind dir = character->getCurrentDirection();
-		float tilePosX = character->getCurrentTile()->getNearTile(dir)->getPositionX();
-		float tilePosY = character->getCurrentTile()->getNearTile(dir)->getPositionY();
-
-		tileMove->setPosition(tilePosX, tilePosY);
-		tileMove->setName("move");
-
-		tileMove->setZOrder(character->getCurrentTile()->getNearTile(dir)->getZOrder());
-		TileMap::getInstance()->addChild(tileMove);
+		character->ShowMovableTile();
 
 		this->_Nodes->addChild(indicator);
 	}

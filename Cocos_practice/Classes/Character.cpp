@@ -106,6 +106,30 @@ void Character::CharacterAttack()
 	runAction(seq);
 }
 
+void Character::ShowMovableTile()
+{
+	if (TileMap::getInstance()->getChildByName("move"))
+		TileMap::getInstance()->removeChildByName("move");
+
+	Sprite* tileMove = Sprite::create();
+	tileMove->initWithFile("Map/tile_move.png");
+	tileMove->setAnchorPoint(cocos2d::Vec2(0, 0));
+
+	DirectionKind dir = this->getCurrentDirection();
+	std::shared_ptr<Self_Tile> tile = this->getCurrentTile()->getNearTile(dir);
+	if (tile->getTypeOfTile() == TILE_NULL)
+		return;
+
+	float tilePosX = this->getCurrentTile()->getNearTile(dir)->getPositionX();
+	float tilePosY = this->getCurrentTile()->getNearTile(dir)->getPositionY();
+
+	tileMove->setPosition(tilePosX, tilePosY);
+	tileMove->setName("move");
+
+	tileMove->setZOrder(this->getCurrentTile()->getNearTile(dir)->getZOrder());
+	TileMap::getInstance()->addChild(tileMove);
+}
+
 std::shared_ptr<Character> Character::GetNearCharacter(DirectionKind direction)
 {
 	return this->getCurrentTile()->getNearTile(direction)->getCharacterOnThisTile();

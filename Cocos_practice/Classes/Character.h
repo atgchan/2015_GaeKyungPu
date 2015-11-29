@@ -30,6 +30,7 @@ public:
 	int		_AttackPower = 2;
 	void	SetOwnerPlayer(PlayerInfo pInfo);
 	
+	void	ShowMovableTile();
 	const PlayerInfo	GetOwnerPlayer();
 	std::shared_ptr<Character> GetNearCharacter(DirectionKind direction);
 	void				InitializeDirection(DirectionKind direction);
