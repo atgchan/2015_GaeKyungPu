@@ -39,7 +39,6 @@ bool Character::IsOnTile(TileKind tileTypeToCheck)
 
 void Character::RotateToDirection(RotateDirection rotateDirection)
 {
-	std::shared_ptr<Character>	sThis(this); ///# 잘못된 사용. shared_ptr은 생성시에 메모리 할당이 되어야 한다. 즉 아래로 shared_ptr은 전부 잘못 사용됨.
 
 	DirectionKind characterDirection = getCurrentDirection();
 
@@ -49,7 +48,7 @@ void Character::RotateToDirection(RotateDirection rotateDirection)
 	if (rotateDirection == ROTATE_RIGHT)
 		characterDirection = static_cast<DirectionKind>( (characterDirection + 5) % 6 );
 
-	EventManager::getInstance()->AddHistory(HistoryEventRotateCharacter::Create(sThis, characterDirection));
+	EventManager::getInstance()->AddHistory(HistoryEventRotateCharacter::Create(_ThisShared, characterDirection));
 
 	setCurrentDirection(DirectionKind(characterDirection));
 
@@ -58,8 +57,7 @@ void Character::RotateToDirection(RotateDirection rotateDirection)
 
 void Character::RotateToDirection(DirectionKind targetDirection)
 {
-	std::shared_ptr<Character>	sThis(this);
-	EventManager::getInstance()->AddHistory(HistoryEventRotateCharacter::Create(sThis, targetDirection));
+	EventManager::getInstance()->AddHistory(HistoryEventRotateCharacter::Create(_ThisShared, targetDirection));
 
 	setCurrentDirection(DirectionKind(targetDirection));
 

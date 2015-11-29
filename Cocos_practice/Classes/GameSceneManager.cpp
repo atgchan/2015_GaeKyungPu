@@ -321,9 +321,8 @@ void GameSceneManager::KillCharacter(std::shared_ptr<Character> target)
 	target->getCurrentTile()->setCharacterOnThisTile(nullptr);
 	CharacterList->remove(target);
 
-	std::shared_ptr<Character> sTarget(target); ///# shared_ptr을 잘못 사용하는 경우 
 	///shared_ptr은 new하는 시점에 포인터를 담아와야 한다. (make_shared를 사용하는 시점)
-	EventManager::getInstance()->AddHistory(HistoryEventKillCharacter::Create(sTarget));
+	EventManager::getInstance()->AddHistory(HistoryEventKillCharacter::Create(target));
 }
 
 void GameSceneManager::ChangePhase(PhaseInfo nextPhase)

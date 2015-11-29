@@ -6,9 +6,6 @@ class Character;
 class PlayerData
 {
 public:
-	///# 생성 소멸자의 경우 아무것도 내용이 없으면 선언조차 하지 말 것.
-	PlayerData();
-	~PlayerData();
 
 	int		_PlayerBarrackNum;
 	int		getFood();

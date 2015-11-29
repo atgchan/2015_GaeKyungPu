@@ -42,7 +42,7 @@ bool ResultLayer::init()
 	return true;
 }
 
-const void ResultLayer::SetValue(PlayerData* pData1, PlayerData* pData2) const
+void ResultLayer::SetValue(PlayerData* pData1, PlayerData* pData2)
 {
 	/*int pData1Food = pData1->getFood();
 	int pData2Food = pData2->getFood();
