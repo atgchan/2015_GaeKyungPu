@@ -113,6 +113,7 @@ void Character::ShowMovableTile()
 
 	Sprite* tileMove = Sprite::create();
 	tileMove->initWithFile("Map/tile_move.png");
+	tileMove->setOpacity(96);
 	tileMove->setAnchorPoint(cocos2d::Vec2(0, 0));
 
 	DirectionKind dir = this->getCurrentDirection();

@@ -4,14 +4,7 @@
 #include "DiceDice.h"
 #include "EventManager.h"
 #include "HistoryEventAttack.h"
-
-BattleManager::BattleManager()
-{
-}
-
-BattleManager::~BattleManager()
-{
-}
+#include "DiceDice.h"
 
 void BattleManager::BattleBetween(std::shared_ptr<Character> attacker, std::shared_ptr<Character> defender)
 {
@@ -92,16 +85,13 @@ void BattleManager::BattleBetween(std::shared_ptr<Character> attacker, std::shar
 
 bool BattleManager::IsAttackerWin(std::shared_ptr<Character> attacker, std::shared_ptr<Character> defender)
 {
-	DiceDice dice;
 	int attackerDice = 0;
 	int defenderDice = 0;
 	
 	while (true)
 	{
-		attackerDice = dice.RollDiceBetween(attacker->_AttackPower, 1);
-		dice.DisplayDiceOnScreen(attacker->_AttackPower, 1);
-		defenderDice = dice.RollDiceBetween(defender->_AttackPower, 1);
-		dice.DisplayDiceOnScreen(defender->_AttackPower, 1);
+		attackerDice = DiceDice::getInstance()->RollDiceBetween(1, attacker->_AttackPower);
+		defenderDice = DiceDice::getInstance()->RollDiceBetween(1, defender->_AttackPower);
 
 		if (attackerDice == defenderDice)
 			continue;
