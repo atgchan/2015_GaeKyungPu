@@ -50,9 +50,23 @@ bool GameScene::init()
 void GameScene::ScheduleCallback(float delta)
 {
 	RefreshFood();
+	RefreshAttackPower();
+
 	if (_GameIsEnd)
 		GameSceneManager::getInstance()->EndGame();
 	GameSceneManager::getInstance()->ScheduleCallback(delta);
+}
+
+void GameScene::RefreshAttackPower()
+{
+	for (int i = 0; i < 2; i++)
+	{
+		std::list<std::shared_ptr<Character>>* list = GM->getPlayerDataByPlayerInfo(PlayerInfo(i))->getCharacterList();
+		for (std::shared_ptr<Character> iter : *list)
+		{
+			iter->UpdateAttackPowerSprite();
+		}
+	}
 }
 
 void GameScene::RefreshFood()

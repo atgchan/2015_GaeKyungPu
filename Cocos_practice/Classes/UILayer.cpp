@@ -52,7 +52,6 @@ const void UILayer::SetFoodValue(PlayerData* pData1, PlayerData* pData2) const
 	int pData2Food = pData2->getFood();
 
 	BackLayer->removeAllChildren();
-
 	auto p1Food = Label::createWithTTF(std::to_string(pData1Food), "fonts/upheavtt.ttf", 50);
 	auto p2Food = Label::createWithTTF(std::to_string(pData2Food), "fonts/upheavtt.ttf", 50);
 

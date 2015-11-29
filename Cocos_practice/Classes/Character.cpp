@@ -14,6 +14,7 @@ Character::Character(PlayerInfo cPInfo, DirectionKind spriteNum)
 	setCurrentPlayerInfo(cPInfo);
 	setCurrentDirection(spriteNum);
 	setCurrentDirectionToShow(spriteNum);
+	InitAttackPowerSprite();
 }
 
 std::shared_ptr<Character> Character::create(PlayerInfo cPInfo, DirectionKind spriteNum)
@@ -162,4 +163,65 @@ int Character::getAttackPower()
 void Character::setAttackPower(int attackPower)
 {
 	_AttackPower = attackPower;
+}
+
+void Character::InitAttackPowerSprite()
+{
+	_AttackPowerLabel = Label::createWithTTF(std::to_string(_AttackPowerToDisplay), "fonts/upheavtt.ttf", 20);
+	float posX = this->getPositionX();
+	float posY = this->getPositionY();
+
+	_AttackPowerLabel->setName("attackPower");
+	_AttackPowerLabel->setAnchorPoint(Vec2(0, 0));
+	_AttackPowerLabel->setPosition(posX + 25, posY + 80);
+
+	this->addChild(_AttackPowerLabel);
+}
+
+void Character::UpdateAttackPowerSprite()
+{
+	int directionBonus = 0;
+	std::shared_ptr<Character> charUpFront = GetNearCharacter(_CurrentDirectionToShow);
+	if (charUpFront != nullptr && charUpFront->GetOwnerPlayer() != _OwnerPlayer)
+	{
+		directionBonus = CalculateDiffBetweenDirections(_CurrentDirectionToShow, charUpFront->getCurrentDirectionToShow());
+	}
+	if (CurrentTile->getTypeOfTile() == TILE_FOREST)
+	{
+		directionBonus++;
+	}
+
+	_AttackPowerLabel->setString(std::to_string(_AttackPowerToDisplay + directionBonus));
+}
+
+void Character::setAttackPowerToDisplay(int ap)
+{
+	_AttackPowerToDisplay = ap;
+}
+
+int Character::getAttackPowerToDisplay()
+{
+	return _AttackPowerToDisplay;
+}
+
+int Character::CalculateDiffBetweenDirections(DirectionKind dir1, DirectionKind dir2)
+{
+	int diff = dir1 - dir2;
+
+	diff = std::abs(diff);
+
+	if (diff == 3)
+		return 0;
+	
+	if (diff == 2 || diff == 4)
+		return 1;
+
+	if (diff == 1 || diff == 5)
+		return 2;	
+
+	if (diff == 0)
+		return 3;
+
+	else
+		return -100000;
 }

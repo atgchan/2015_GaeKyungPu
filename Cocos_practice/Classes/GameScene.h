@@ -17,4 +17,5 @@ public:
 
 	bool	_GameIsEnd = true;
 	void	RefreshFood();
+	void	RefreshAttackPower();
 };

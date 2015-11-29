@@ -39,6 +39,12 @@ public:
 	void				setCurrentDirection(DirectionKind direction);
 	int					getAttackPower();
 	void				setAttackPower(int);
+
+	void	setAttackPowerToDisplay(int);
+	int		getAttackPowerToDisplay();
+	void	InitAttackPowerSprite();
+	void	UpdateAttackPowerSprite();
+	int		CalculateDiffBetweenDirections(DirectionKind dir1, DirectionKind dir2);
 	~Character();
 private:
 	Character(PlayerInfo cPInfo, DirectionKind spriteNum);
@@ -51,5 +57,7 @@ private:
 	CC_SYNTHESIZE(AnimationState, AnimState, AnimState);
 	std::shared_ptr<Character>			_ThisShared;
 
+	int		_AttackPowerToDisplay = 2;
+	cocos2d::Label* _AttackPowerLabel;
 };
 
