@@ -109,6 +109,10 @@ void Character::CharacterAttack()
 	runAction(seq);
 }
 
+
+
+
+
 Character* Character::GetNearCharacter(DirectionKind direction)
 {
 	return this->getCurrentTile()->getNearTile(direction)->getCharacterOnThisTile();
