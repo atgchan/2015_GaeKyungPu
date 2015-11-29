@@ -10,8 +10,8 @@ public:
 
 private:
 	///# 아래는 타일 리스트인데 왜 Node*인지?
-	Vector<cocos2d::Node*> _VolcanoTileList;
-	Vector<cocos2d::Node*>::iterator _VolcanoTileListIter;
+	std::vector<std::shared_ptr<Self_Tile>> _VolcanoTileList;
+	std::vector<std::shared_ptr<Self_Tile>>::iterator _VolcanoTileListIter;
 
 	void ChangeRichToLava(int repeat);
 	void ChangeAllLavaToPlane();

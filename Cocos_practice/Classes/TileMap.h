@@ -9,21 +9,24 @@ USING_NS_CC;
 class TileMap : public Layer
 {
 public:
-	static TileMap* getInstance();
+	static	TileMap* getInstance();
 	bool	create();
-	void	setCharacterOnTile(Character* character, Self_Tile* tile, bool moveMode = false);
-	void	KillCharacter(Character* target);
+	void	setCharacterOnTile(std::shared_ptr<Character> character, std::shared_ptr<Self_Tile> tile, bool moveMode = false);
+	void	KillCharacter(std::shared_ptr<Character> target);
 
 	void	Terminate();
 
+	std::vector<std::shared_ptr<Self_Tile>> getRichTiles();
 private:
 
 	static std::array<std::array<TileKind, MAP_MAX_WIDTH>, MAP_MAX_HEIGHT> _NewMapData;
-	std::array<std::array<Self_Tile*, MAP_MAX_WIDTH>, MAP_MAX_HEIGHT> _TileSet;
+	std::array<std::array<std::shared_ptr<Self_Tile>, MAP_MAX_WIDTH>, MAP_MAX_HEIGHT> _TileSet;
 	void SetTotalNearTile();
 
 	TileMap();
 	TileMap(const TileMap& other);
 	TileMap& operator=(TileMap& other);
 	static TileMap* _Inst;
+
+	std::vector<std::shared_ptr<Self_Tile>> _RichTiles;
 };

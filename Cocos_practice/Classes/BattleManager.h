@@ -10,25 +10,25 @@ public:
 	~BattleManager();
 	
 	
-	void	BattleBetween(Character* attacker, Character* defender);
+	void	BattleBetween(std::shared_ptr<Character> attacker, std::shared_ptr<Character> defender);
 	/**
 		@brief	병사 두명을 싸움을 붙이고 승자를 반환합니다.
 	*/
-	bool	IsAttackerWin(Character* attacker, Character* defender);
+	bool	IsAttackerWin(std::shared_ptr<Character> attacker, std::shared_ptr<Character> defender);
 
 	/**
 		@brief	attacker를 기점으로 하는 공격 대형을 설정합니다.
 	*/
-	void	SetAttackFormation(Character* attacker);
+	void	SetAttackFormation(std::shared_ptr<Character> attacker);
 	
-	void	SetDefenseFormation(Character* defender);
+	void	SetDefenseFormation(std::shared_ptr<Character> defender);
 	
-	bool	IsCharFacingMe(Character* me, Character* other);
+	bool	IsCharFacingMe(std::shared_ptr<Character> me, std::shared_ptr<Character> other);
 
 private:
-	int SearchGraphAndOverwriteAttackFormation(std::list<Character*> checkedNode, Character* currentNode, int currentDepth, int maxDepth);
-	std::list<Character*>	_CurrentAttackFormation;
-	std::list<Character*>	_CurrentDefenseFormation;
-	void					GiveForestBonus(Character*);
+	int SearchGraphAndOverwriteAttackFormation(std::list<std::shared_ptr<Character>> checkedNode, std::shared_ptr<Character> currentNode, int currentDepth, int maxDepth);
+	std::list<std::shared_ptr<Character>>	_CurrentAttackFormation;
+	std::list<std::shared_ptr<Character>>	_CurrentDefenseFormation;
+	void									GiveForestBonus(std::shared_ptr<Character>);
 };
 

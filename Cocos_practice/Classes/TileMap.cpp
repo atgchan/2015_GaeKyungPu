@@ -38,7 +38,8 @@ bool TileMap::create()
 			float positionX;
 			float positionY;
 			_TileSet[i][j] = Self_Tile::create(_NewMapData[i][j]);
-
+			if (_TileSet[i][j].get()->getTypeOfTile() == TILE_RICH)
+				_RichTiles.push_back(_TileSet[i][j]);
 			if (j == 0)
 			{
 				if (((i-1) % 2) == 0)
@@ -69,13 +70,13 @@ bool TileMap::create()
 				positionX = _TileSet[i][j - 1]->getPositionX() + 126;
 				positionY = _TileSet[i][j - 1]->getPositionY() + 27;
 			}
-			_TileSet[i][j]->setZOrder(-1 * positionY);
+			_TileSet[i][j].get()->setZOrder(-1 * positionY);
 
 			//클릭이 유효한 범위를 나타내는 네모 박스를 만들어서 같이 전달한다.(클릭 체크용)
 			Rect rect = CCRectMake(positionX+45, positionY+30, _TileSet[i][j]->getContentSize().width-70, _TileSet[i][j]->getContentSize().height-30);
 			_TileSet[i][j]->setPosition(positionX, positionY);
 
-			_Inst->addChild(_TileSet[i][j]);
+			_Inst->addChild(_TileSet[i][j].get());
 			GameSceneManager::getInstance()->PushTileToList(rect, _TileSet[i][j]);
 		}
 	}
@@ -88,7 +89,7 @@ bool TileMap::create()
 	return true;
 }
 
-void TileMap::setCharacterOnTile(Character* character, Self_Tile* tile, bool moveMode /*= false*/)
+void TileMap::setCharacterOnTile(std::shared_ptr<Character> character, std::shared_ptr<Self_Tile> tile, bool moveMode /*= false*/)
 {
 	tile->setCharacterOnThisTile(character);
 	float xPos = tile->getPositionX();
@@ -97,17 +98,22 @@ void TileMap::setCharacterOnTile(Character* character, Self_Tile* tile, bool mov
 	character->setPosition(xPos +80, yPos +60);
 	character->setZOrder(tile->getZOrder()+100);
 	if(!moveMode)
-		addChild(character);
+		addChild(character.get());
 }
 
-void TileMap::KillCharacter(Character* target)
+void TileMap::KillCharacter(std::shared_ptr<Character> target)
 {
-	this->removeChild(target);
+	this->removeChild(target.get());
 }
 
 void TileMap::Terminate()
 {
 	delete this;
+}
+
+std::vector<std::shared_ptr<Self_Tile>> TileMap::getRichTiles()
+{
+	return _RichTiles;
 }
 
 TileMap::TileMap()
