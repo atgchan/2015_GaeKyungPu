@@ -19,11 +19,6 @@ Phase_Volcano::Phase_Volcano()
 	_VolcanoTileListIter = _VolcanoTileList.begin();
 }
 
-
-Phase_Volcano::~Phase_Volcano()
-{
-}
-
 void Phase_Volcano::Tick()
 {
 	if (false == GM->getIsVolcanoActivated())

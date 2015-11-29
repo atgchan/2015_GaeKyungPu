@@ -125,7 +125,7 @@ Animation* CharacterAnimation::CreateAnimationAttack(PlayerInfo cPInfo, Directio
 {
 	std::string frameName = "spear_";
 	Animation* animation = Animation::create();
-	animation->setDelayPerUnit(0.5f);
+	animation->setDelayPerUnit(0.3f);
 	
 	if (cPInfo == PLAYER_RED)
 	{

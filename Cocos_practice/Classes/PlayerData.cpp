@@ -2,14 +2,6 @@
 #include <list>
 #include "PlayerData.h"
 
-PlayerData::PlayerData()
-{
-}
-
-PlayerData::~PlayerData()
-{
-}
-
 int	 PlayerData::getFood()
 {
 	return _Food;

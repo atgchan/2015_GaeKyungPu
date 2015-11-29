@@ -2,29 +2,24 @@
 #include "DiceDice.h"
 #include "TileMap.h"
 
+DiceDice* DiceDice::_Inst = nullptr;
 
 DiceDice::DiceDice()
 {
 	srand(time(nullptr));
 }
 
-DiceDice::~DiceDice()
-{
-}
-
-//static으로 쓰고싶다...
 int DiceDice::RollDiceBetween(int start, int end)
 {
-	static int result;// = rand() % (start - end + 1) + end;
-	result = rand() % (start - end + 1) + end;
+	int result = static_cast<int>(CCRANDOM_0_1() * end) + start;
 	//int result = cocos2d::RandomHelper::random_int(start, end);
 	//이거 쓰면 에러난다 왜지?
+	DisplayDiceOnScreen(result);
 	return result;
 }
 
-void DiceDice::DisplayDiceOnScreen(int min, int max)
+void DiceDice::DisplayDiceOnScreen(int num)
 {
-	int num = RollDiceBetween(min, max);
 	cocos2d::Label* numToDisplay = cocos2d::Label::createWithTTF(std::to_string(num), "fonts/Marker Felt.ttf", 20);
 	//numToDisplay->enableOutline(Color4B::WHITE, 1);
 
@@ -44,4 +39,11 @@ void DiceDice::DisplayDiceOnScreen(int min, int max)
 void DiceDice::RemoveDiceFromScreen(cocos2d::Label* numToDisplay)
 {
 	TileMap::getInstance()->removeChild(numToDisplay);
+}
+
+DiceDice* DiceDice::getInstance()
+{
+	if (!_Inst)
+		_Inst = new DiceDice();
+	return _Inst;
 }

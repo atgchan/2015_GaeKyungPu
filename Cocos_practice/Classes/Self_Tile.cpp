@@ -14,7 +14,8 @@ std::string Self_Tile::_DictionaryForFilenames[MAX_TILEKIND] =
 	"Map/tile_lake.png",
 	"Map/tile_volcano.png",
 	"Map/tile_volcano.png",
-	"Map/tile_rich.png"
+	"Map/tile_rich.png",
+	"Map/tile_move.png"
 };
 
 Self_Tile::Self_Tile() 

@@ -3,9 +3,12 @@ class DiceDice
 {
 public:
 	DiceDice();
-	~DiceDice();
 	int		RollDiceBetween(int min, int max);
-	void	DisplayDiceOnScreen(int min, int max);
+	void DisplayDiceOnScreen(int num);
 	void	RemoveDiceFromScreen(cocos2d::Label* numToDisplay);
-};
+	static DiceDice* getInstance();
 
+
+private:
+	static DiceDice*	_Inst;
+};

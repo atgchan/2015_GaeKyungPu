@@ -6,9 +6,6 @@ class Character;
 class BattleManager
 {
 public:
-	BattleManager();
-	~BattleManager();
-	
 	
 	void	BattleBetween(std::shared_ptr<Character> attacker, std::shared_ptr<Character> defender);
 	/**

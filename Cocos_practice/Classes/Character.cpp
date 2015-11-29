@@ -40,7 +40,6 @@ bool Character::IsOnTile(TileKind tileTypeToCheck)
 
 void Character::RotateToDirection(RotateDirection rotateDirection)
 {
-	std::shared_ptr<Character>	sThis(this); ///# 잘못된 사용. shared_ptr은 생성시에 메모리 할당이 되어야 한다. 즉 아래로 shared_ptr은 전부 잘못 사용됨.
 
 	DirectionKind characterDirection = getCurrentDirection();
 
@@ -50,7 +49,7 @@ void Character::RotateToDirection(RotateDirection rotateDirection)
 	if (rotateDirection == ROTATE_RIGHT)
 		characterDirection = static_cast<DirectionKind>( (characterDirection + 5) % 6 );
 
-	EventManager::getInstance()->AddHistory(HistoryEventRotateCharacter::Create(sThis, characterDirection));
+	EventManager::getInstance()->AddHistory(HistoryEventRotateCharacter::Create(_ThisShared, characterDirection));
 
 	setCurrentDirection(DirectionKind(characterDirection));
 
@@ -59,8 +58,7 @@ void Character::RotateToDirection(RotateDirection rotateDirection)
 
 void Character::RotateToDirection(DirectionKind targetDirection)
 {
-	std::shared_ptr<Character>	sThis(this);
-	EventManager::getInstance()->AddHistory(HistoryEventRotateCharacter::Create(sThis, targetDirection));
+	EventManager::getInstance()->AddHistory(HistoryEventRotateCharacter::Create(_ThisShared, targetDirection));
 
 	setCurrentDirection(DirectionKind(targetDirection));
 
@@ -107,6 +105,31 @@ void Character::CharacterAttack()
 	setAnchorPoint(Vec2(0.5f, 0.13f));
 
 	runAction(seq);
+}
+
+void Character::ShowMovableTile()
+{
+	if (TileMap::getInstance()->getChildByName("move"))
+		TileMap::getInstance()->removeChildByName("move");
+
+	Sprite* tileMove = Sprite::create();
+	tileMove->initWithFile("Map/tile_move.png");
+	tileMove->setOpacity(96);
+	tileMove->setAnchorPoint(cocos2d::Vec2(0, 0));
+
+	DirectionKind dir = this->getCurrentDirection();
+	std::shared_ptr<Self_Tile> tile = this->getCurrentTile()->getNearTile(dir);
+	if (tile->getTypeOfTile() == TILE_NULL)
+		return;
+
+	float tilePosX = this->getCurrentTile()->getNearTile(dir)->getPositionX();
+	float tilePosY = this->getCurrentTile()->getNearTile(dir)->getPositionY();
+
+	tileMove->setPosition(tilePosX, tilePosY);
+	tileMove->setName("move");
+
+	tileMove->setZOrder(this->getCurrentTile()->getNearTile(dir)->getZOrder());
+	TileMap::getInstance()->addChild(tileMove);
 }
 
 std::shared_ptr<Character> Character::GetNearCharacter(DirectionKind direction)
