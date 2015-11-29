@@ -111,7 +111,7 @@ void UILayer::SetUIBar()
 	this->addChild(UIBar);
 }
 
-void UILayer::SelectCharacter(Character* character)
+void UILayer::SelectCharacter(std::shared_ptr<Character> character)
 {
 	if (this->getChildByName("indicator"))
 	{

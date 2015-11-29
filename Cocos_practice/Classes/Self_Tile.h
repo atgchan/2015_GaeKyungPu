@@ -7,7 +7,7 @@ class Self_Tile : public cocos2d::Sprite
 {
 
 public:
-	static Self_Tile* create(TileKind type);
+	static std::shared_ptr<Self_Tile> create(TileKind type);
 
 	/*
 	@brief		매개변수로 주어진 타일이 인근에 위치한 타일인 경우, 해당 타일의 상대 숫자를 반환한다
@@ -15,17 +15,17 @@ public:
 				해당 숫자는 sprite 생성시, 초기 sprite의 기준이 된다.
 	@warning	인근에 해당 타일이 없는 경우 -1을 반환한다.
 	*/
-	bool CheckNearTile(Self_Tile* tile);
+	bool CheckNearTile(std::shared_ptr<Self_Tile> tile);
 	bool IsTile();
 	void ChangeTile(TileKind type);
 	void setOwnerPlayer(PlayerInfo pInfo);
-	void setCharacterOnThisTile(Character* character);
-	void setNearTile(int num, Self_Tile* tile);
+	void setCharacterOnThisTile(std::shared_ptr<Character> character);
+	void setNearTile(int num, std::shared_ptr<Self_Tile> tile);
 
-	DirectionKind	ReturnNearTileDirection(Self_Tile* tile);	
-	Self_Tile*		getNearTile(DirectionKind direction);
+	DirectionKind ReturnNearTileDirection(std::shared_ptr<Self_Tile> tile);	
+	std::shared_ptr<Self_Tile>		getNearTile(DirectionKind direction);
 	PlayerInfo		getOwnerPlayer();
-	Character*		getCharacterOnThisTile();
+	std::shared_ptr<Character> getCharacterOnThisTile();
 
 	CC_SYNTHESIZE(TileKind, _typeOfTile, TypeOfTile);
 
@@ -38,6 +38,6 @@ private:
 
 	//타일의 소유주
 	PlayerInfo _OwnerPlayer;
-	Character* _CharacterOnThisTile = nullptr;
-	Self_Tile* _NearTile[6];
+	std::shared_ptr<Character> _CharacterOnThisTile = nullptr;
+	std::shared_ptr<Self_Tile> _NearTile[6];
 };

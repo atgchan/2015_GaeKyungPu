@@ -183,7 +183,7 @@ Animation* CharacterAnimation::CreateAnimationBeHit(PlayerInfo cPInfo, Direction
 	return animation;
 }
 
-void CharacterAnimation::setAnimationDefault(Character* targetCharacter)
+void CharacterAnimation::setAnimationDefault(std::shared_ptr<Character> targetCharacter)
 {
 
 	Animation* animationDefault = CharacterAnimation::CreateAnimationDefault(targetCharacter->GetOwnerPlayer(), targetCharacter->getCurrentDirection());

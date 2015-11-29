@@ -10,26 +10,13 @@
 
 Phase_Volcano::Phase_Volcano()
 {
-	//리치 타일만 모아놓은 리스트를 생성한다.
-	for (cocos2d::Node* iter : TileMap::getInstance()->getChildren())
-	{
-		if (static_cast<Self_Tile*>(iter)->getTypeOfTile() == TILE_RICH)
-		{
-			_VolcanoTileList.pushBack(iter);
-		}
-	}
-
+	_VolcanoTileList = TileMap::getInstance()->getRichTiles();
 	_Gen = std::mt19937(_RandomDevice());
 	std::srand(std::time(0));
 	
 	//std::random_shuffle(_VolcanoTileList.begin(), _VolcanoTileList.end());
 	//화산으로 변화를 시작할 타일을 가리킨다.
 	_VolcanoTileListIter = _VolcanoTileList.begin();
-}
-
-
-Phase_Volcano::~Phase_Volcano()
-{
 }
 
 void Phase_Volcano::Tick()
@@ -89,26 +76,23 @@ void Phase_Volcano::ChangeRichToLava(int repeat)
 {
 	for (int i = 0; i < repeat; i++)
 	{
-		GM->ChangeRichToLava(static_cast<Self_Tile*>(*_VolcanoTileListIter));
-		_VolcanoTileListIter++; ///# 이렇게 하면 성능이 구리다.. 왜? 어떻게 고쳐야 할까?
+		GM->ChangeRichToLava(*_VolcanoTileListIter);
+		++_VolcanoTileListIter;
 	}
 }
 
 void Phase_Volcano::ChangeAllLavaToPlane()
 {
-	///# 아래처럼 이터래이터를 직접 사용해서 순회를 해볼 것.
-	for (Vector<cocos2d::Node*>::iterator iter = _VolcanoTileList.begin(); iter != _VolcanoTileList.end(); ++iter)
-	//for (cocos2d::Node* iter : _VolcanoTileList)
+	for (Vector<std::shared_ptr<Self_Tile>>::iterator iter = _VolcanoTileList.begin(); iter != _VolcanoTileList.end(); ++iter)
 	{
-		//static_cast<Self_Tile*>(iter)->ChangeTile(TILE_PLAIN);
-		dynamic_cast<Self_Tile*>(*iter)->ChangeTile(TILE_PLAIN);
+		static_cast<std::shared_ptr<Self_Tile>>(*iter)->ChangeTile(TILE_PLAIN);
 	}
 }
 
 void Phase_Volcano::ChangePlanesToRich()
 {
-	for (cocos2d::Node* iter : _VolcanoTileList)
+	for (std::shared_ptr<Self_Tile> iter : _VolcanoTileList)
 	{
-		static_cast<Self_Tile*>(iter)->ChangeTile(TILE_RICH);
+		iter->ChangeTile(TILE_RICH);
 	}
 }

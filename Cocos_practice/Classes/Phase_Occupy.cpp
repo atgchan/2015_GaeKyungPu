@@ -14,8 +14,8 @@ Phase_Occupy::~Phase_Occupy()
 void Phase_Occupy::Tick()
 {
 	GameSceneManager* gm = GM;
-	std::list<Character*>* CharacterList = gm->getCurrentPlayerData()->getCharacterList();
-	for (Character* iter : *CharacterList)
+	std::list<std::shared_ptr<Character>>* CharacterList = gm->getCurrentPlayerData()->getCharacterList();
+	for (std::shared_ptr<Character> iter : *CharacterList)
 	{
 		if (iter->getCurrentTile()->getOwnerPlayer() != gm->getCurrentPlayer())
 		{

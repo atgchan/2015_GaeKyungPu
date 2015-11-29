@@ -8,21 +8,23 @@
 #include "HistoryEventMoveCharacter.h"
 #include "HistoryEventRotateCharacter.h"
 
-Character::Character(PlayerInfo cPInfo, int spriteNum)
+Character::Character(PlayerInfo cPInfo, DirectionKind spriteNum)
 {
 	autorelease();
 	setCurrentPlayerInfo(cPInfo);
-	setCurrentDirection((DirectionKind)spriteNum);
-	setCurrentDirectionToShow((DirectionKind)spriteNum);
+	setCurrentDirection(spriteNum);
+	setCurrentDirectionToShow(spriteNum);
 }
 
-Character* Character::create(PlayerInfo cPInfo, DirectionKind spriteNum)
+std::shared_ptr<Character> Character::create(PlayerInfo cPInfo, DirectionKind spriteNum)
 {
-	Character* character = new Character(cPInfo, spriteNum);
-
+	std::shared_ptr<Character> character(new Character(cPInfo, spriteNum));
+	
 	Animation* animationDefault = CharacterAnimation::getInstance()->getAnimationDefault(cPInfo, spriteNum);
 	character->init();
 	character->runAction(Animate::create(animationDefault));
+
+	character->_ThisShared = character;
 
 	return character;
 }
@@ -37,7 +39,6 @@ bool Character::IsOnTile(TileKind tileTypeToCheck)
 
 void Character::RotateToDirection(RotateDirection rotateDirection)
 {
-	std::shared_ptr<Character>	sThis(this); ///# 잘못된 사용. shared_ptr은 생성시에 메모리 할당이 되어야 한다. 즉 아래로 shared_ptr은 전부 잘못 사용됨.
 
 	DirectionKind characterDirection = getCurrentDirection();
 
@@ -47,7 +48,7 @@ void Character::RotateToDirection(RotateDirection rotateDirection)
 	if (rotateDirection == ROTATE_RIGHT)
 		characterDirection = static_cast<DirectionKind>( (characterDirection + 5) % 6 );
 
-	EventManager::getInstance()->AddHistory(HistoryEventRotateCharacter::Create(sThis, characterDirection));
+	EventManager::getInstance()->AddHistory(HistoryEventRotateCharacter::Create(_ThisShared, characterDirection));
 
 	setCurrentDirection(DirectionKind(characterDirection));
 
@@ -56,24 +57,20 @@ void Character::RotateToDirection(RotateDirection rotateDirection)
 
 void Character::RotateToDirection(DirectionKind targetDirection)
 {
-	std::shared_ptr<Character>	sThis(this);
-	EventManager::getInstance()->AddHistory(HistoryEventRotateCharacter::Create(sThis, targetDirection));
+	EventManager::getInstance()->AddHistory(HistoryEventRotateCharacter::Create(_ThisShared, targetDirection));
 
 	setCurrentDirection(DirectionKind(targetDirection));
 
 	return;
 }
 
-void Character::MovoToTile(Self_Tile* dest)
+void Character::MovoToTile(std::shared_ptr<Self_Tile> dest)
 {
 	this->getCurrentTile()->setCharacterOnThisTile(nullptr);
-	dest->setCharacterOnThisTile(this);
+	dest->setCharacterOnThisTile(_ThisShared);
 	this->setCurrentTile(dest);
 
-	std::shared_ptr<Character>	sThis(this);
-	std::shared_ptr<Self_Tile>	sDest(dest);
-
-	EventManager::getInstance()->AddHistory(HistoryEventMoveCharacter::Create(sThis, sDest));
+	EventManager::getInstance()->AddHistory(HistoryEventMoveCharacter::Create(_ThisShared, dest));
 }
 
 void Character::CharacterBeHit()
@@ -109,11 +106,7 @@ void Character::CharacterAttack()
 	runAction(seq);
 }
 
-
-
-
-
-Character* Character::GetNearCharacter(DirectionKind direction)
+std::shared_ptr<Character> Character::GetNearCharacter(DirectionKind direction)
 {
 	return this->getCurrentTile()->getNearTile(direction)->getCharacterOnThisTile();
 }
