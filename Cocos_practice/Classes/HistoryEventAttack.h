@@ -21,5 +21,6 @@ private:
 	int							_CurrentX;
 	int							_CurrentY;
 	bool						_FirstTime = true;
+	void						PlaySwordSound();
 };
 

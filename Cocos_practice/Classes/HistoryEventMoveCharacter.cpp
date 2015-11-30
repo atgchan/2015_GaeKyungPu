@@ -45,7 +45,7 @@ void HistoryEventMoveCharacter::Run()
 	_CharacterToMove->setZOrder(_TargetTile->getZOrder() + 100);
 	_CharacterToMove->runAction(seq1);
 	_CharacterToMove->setAnimState(ANIM_MOVE);
-	CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Sound/Jump_03.wav");
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("Sound/Jump_03.wav");
 }
 
 bool HistoryEventMoveCharacter::IsDone()

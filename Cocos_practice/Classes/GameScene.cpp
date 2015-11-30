@@ -2,6 +2,7 @@
 #include "GameScene.h"
 #include "GameSceneManager.h"
 #include "UILayer.h"
+#include "SimpleAudioEngine.h"
 
 Scene* GameScene::CreateScene()
 {
@@ -16,6 +17,15 @@ bool GameScene::init()
 {
 	if (!Layer::init()) return false;
 	_GameIsEnd = false;
+
+
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+	CCSprite * background = CCSprite::create("Background/Total_War_Rome_2_Roman_Soldier_Sword_warrior_warriors_fantasy_battle_1920x1080.jpg");
+	background->setScaleX((visibleSize.width / background->getContentSize().width) * 1);
+	background->setScaleY((visibleSize.height / background->getContentSize().height) * 1);
+	background->setAnchorPoint(Point(0, 0));
+	this->addChild(background);
+
 //이하 초기화 block은 상용구처럼 쓰이는 것이므로 바뀔 여지 x
 	//GameMaster의 인스턴스 저장. GameScene 안에서 계속 쓰인다.
 	GameSceneManager* gmInstance = GameSceneManager::getInstance();
@@ -44,6 +54,9 @@ bool GameScene::init()
 
 //	tick을 넘겨본다.
 	this->schedule(schedule_selector(GameScene::ScheduleCallback));
+
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Sound/battle.mp3",true);
+
 	return true;
 }
 
