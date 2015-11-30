@@ -2,6 +2,7 @@
 #include "HistoryEventAttack.h"
 #include "Character.h"
 #include "CharacterAnimation.h"
+#include "SimpleAudioEngine.h"
 
 HistoryEventAttack::HistoryEventAttack()
 {
@@ -20,6 +21,12 @@ std::shared_ptr<HistoryEventAttack> HistoryEventAttack::Create(std::shared_ptr<C
 	return newInst;
 }
 
+
+void HistoryEventAttack::PlaySwordSound()
+{
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("Sound/swords.wav");
+}
+
 void HistoryEventAttack::Run()
 {
 	_CurrentX = _Attacker->getPositionX();
@@ -32,8 +39,10 @@ void HistoryEventAttack::Run()
 
 	ActionInterval* actionDefault = Animate::create(animationDefault);
 
-
-	FiniteTimeAction* seq = Spawn::create(actionAttack, moveTo, nullptr);
+	cocos2d::CallFunc* soundCall = CallFunc::create(CC_CALLBACK_0(HistoryEventAttack::PlaySwordSound, this));
+	
+	FiniteTimeAction* seqSound = Sequence::create(DelayTime::create(0.5), soundCall,nullptr);
+	FiniteTimeAction* seq = Spawn::create(actionAttack, moveTo,seqSound, nullptr);
 	FiniteTimeAction* seq1 = Sequence::create(seq, recover,actionDefault, nullptr);
 
 	_Attacker->stopAllActions();

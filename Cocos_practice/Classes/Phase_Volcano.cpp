@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <iterator>
 #include "SimpleAudioEngine.h"
+#include "DiceDice.h"
 
 Phase_Volcano::Phase_Volcano()
 {
@@ -24,7 +25,7 @@ void Phase_Volcano::Tick()
 	if (false == GM->getIsVolcanoActivated())
 	{
 		int randNum;
-		randNum = std::rand() % 5;
+		randNum = DiceDice::getInstance()->RollDiceBetween(1, 5);
 		if (randNum == 1)//5분의 1 확률로 이벤트 발생
 		{
 			GM->setVolcanoActivated(true);
@@ -36,21 +37,21 @@ void Phase_Volcano::Tick()
 	switch (GM->getProgressVolcano())
 	{
 	case 0:
-		CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Sound/lava-01.wav");
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("Sound/lava-01.wav");
 		GM->setProgressVolcano(1);
 		break;
 	case 1:
-		CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Sound/lava-01.wav");
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("Sound/lava-01.wav");
 		ChangeRichToLava(1);
 		GM->setProgressVolcano(2);
 		break;
 	case 2:
-		CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Sound/lava-01.wav");
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("Sound/lava-01.wav");
 		ChangeRichToLava(2);
 		GM->setProgressVolcano(3);
 		break;
 	case 3:
-		CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Sound/lava-01.wav");
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("Sound/lava-01.wav");
 		ChangeRichToLava(3);
 		GM->setProgressVolcano(4);
 		break;

@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "GameScene.h"
 #include "MainScene.h"
+#include "SimpleAudioEngine.h"
 
 Scene* MainScene::CreateScene()
 {
@@ -18,8 +19,15 @@ bool MainScene::init()
 		return false;
 	}
 
+
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
+
+	CCSprite * background = CCSprite::create("Background/volcano.jpg");
+	background->setScaleX((visibleSize.width / background->getContentSize().width) * 1);
+	background->setScaleY((visibleSize.height / background->getContentSize().height) * 1);
+	background->setAnchorPoint(Point(0,0));
+	this->addChild(background);
 
 	///# 문자 리터럴은 따로 모아 놓을 것
 
@@ -63,6 +71,9 @@ bool MainScene::init()
 	keyListener->onKeyPressed = CC_CALLBACK_2(MainScene::OnKeyPressed, this);
 	keyListener->onKeyReleased = CC_CALLBACK_2(MainScene::OnKeyReleased, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(keyListener, this);
+
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Sound/22-forever-credits-.mp3",true);
+
 
 	return true;
 }
