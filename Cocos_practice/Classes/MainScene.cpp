@@ -23,7 +23,7 @@ bool MainScene::init()
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	CCSprite * background = CCSprite::create("Background/volcano.jpg");
+	CCSprite * background = CCSprite::create("Background/Total_War_Rome_2_Roman_Soldier_Sword_warrior_warriors_fantasy_battle_1920x1080.jpg");
 	background->setScaleX((visibleSize.width / background->getContentSize().width) * 1);
 	background->setScaleY((visibleSize.height / background->getContentSize().height) * 1);
 	background->setAnchorPoint(Point(0,0));
