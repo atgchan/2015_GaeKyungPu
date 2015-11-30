@@ -1,7 +1,7 @@
 # TESTuDO
 ##update note
 
-v0.0.9 - [다운로드]( "다운로드")
+v0.0.9 - [다운로드](http://me2.do/xHqaB2sj "다운로드")
 ![image](http://ref.comgal.info/data/cgref_4/1448898153/%EC%9D%B4%EB%AF%B8%EC%A7%80_3.png)
 
 * 기본 조작법
