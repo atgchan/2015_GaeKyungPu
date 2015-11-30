@@ -56,7 +56,7 @@ private:
 	CC_SYNTHESIZE(std::shared_ptr<Self_Tile>, CurrentTile, CurrentTile);
 	CC_SYNTHESIZE(PlayerInfo, CurrentPlayerInfo, CurrentPlayerInfo);
 	CC_SYNTHESIZE(AnimationState, AnimState, AnimState);
-	std::shared_ptr<Character>			_ThisShared;
+	std::weak_ptr<Character>			_ThisShared;
 
 	int		_AttackPowerToDisplay = 2;
 	cocos2d::Label* _AttackPowerLabel;

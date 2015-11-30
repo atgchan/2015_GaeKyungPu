@@ -26,6 +26,7 @@ std::shared_ptr<Character> Character::create(PlayerInfo cPInfo, DirectionKind sp
 	character->runAction(Animate::create(animationDefault));
 
 	character->_ThisShared = character;
+	
 
 	return character;
 }
@@ -49,7 +50,7 @@ void Character::RotateToDirection(RotateDirection rotateDirection)
 	if (rotateDirection == ROTATE_RIGHT)
 		characterDirection = static_cast<DirectionKind>( (characterDirection + 5) % 6 );
 
-	EventManager::getInstance()->AddHistory(HistoryEventRotateCharacter::Create(_ThisShared, characterDirection));
+	EventManager::getInstance()->AddHistory(HistoryEventRotateCharacter::Create(_ThisShared.lock(), characterDirection));
 
 	setCurrentDirection(DirectionKind(characterDirection));
 
@@ -58,7 +59,7 @@ void Character::RotateToDirection(RotateDirection rotateDirection)
 
 void Character::RotateToDirection(DirectionKind targetDirection)
 {
-	EventManager::getInstance()->AddHistory(HistoryEventRotateCharacter::Create(_ThisShared, targetDirection));
+	EventManager::getInstance()->AddHistory(HistoryEventRotateCharacter::Create(_ThisShared.lock(), targetDirection));
 
 	setCurrentDirection(DirectionKind(targetDirection));
 
@@ -68,10 +69,10 @@ void Character::RotateToDirection(DirectionKind targetDirection)
 void Character::MovoToTile(std::shared_ptr<Self_Tile> dest)
 {
 	this->getCurrentTile()->setCharacterOnThisTile(nullptr);
-	dest->setCharacterOnThisTile(_ThisShared);
+	dest->setCharacterOnThisTile(_ThisShared.lock());
 	this->setCurrentTile(dest);
 
-	EventManager::getInstance()->AddHistory(HistoryEventMoveCharacter::Create(_ThisShared, dest));
+	EventManager::getInstance()->AddHistory(HistoryEventMoveCharacter::Create(_ThisShared.lock(), dest));
 }
 
 void Character::CharacterBeHit()
