@@ -115,6 +115,9 @@ void Character::ShowMovableTile()
 
 	DirectionKind dir = this->getCurrentDirection();
 	std::shared_ptr<Self_Tile> tile = this->getCurrentTile()->getNearTile(dir);
+	if (GM->getPlayerDataByPlayerInfo(this->_OwnerPlayer)->getFood() < 1)
+		return;
+	
 	if (tile->getTypeOfTile() == TILE_NULL || tile->getTypeOfTile() == TILE_LAVA || tile->getTypeOfTile() == TILE_VOCANO || tile->getTypeOfTile() == TILE_LAKE)
 		return;
 	
