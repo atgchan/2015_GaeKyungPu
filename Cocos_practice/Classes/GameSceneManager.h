@@ -120,5 +120,9 @@ private:
 	DiceDice*	_Dice;
 
 	void		ChangePhase(PhaseInfo);
+	void		ShowSpawnableTile(std::shared_ptr<Self_Tile> tile);
+	void		Unselect();
+
 	void		SelectCharacter(std::shared_ptr<Character> character);
+	void		SelectBarrack(std::shared_ptr<Self_Tile> tile);
 };

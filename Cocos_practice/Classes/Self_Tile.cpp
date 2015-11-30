@@ -2,20 +2,20 @@
 #include "definition.h"
 #include "Self_Tile.h";
 
-std::string Self_Tile::_DictionaryForFilenames[MAX_TILEKIND] = 
+std::string Self_Tile::_DictionaryForFilenames[MAX_TILEKIND] =
 {
-	"Map/tile_null.png",
-	"Map/tile_plain.png",
-	"Map/tile_forest.png",
-	"Map/tile_village.png",
-	"Map/tile_barrack.png",
-	"Map/tile_barrack.png",
-	"Map/tile_rich.png",
-	"Map/tile_lake.png",
-	"Map/tile_volcano.png",
-	"Map/tile_volcano.png",
-	"Map/tile_rich.png",
-	"Map/tile_move.png"
+	"tile_null.png",
+	"tile_plain.png",
+	"tile_forest.png",
+	"tile_village.png",
+	"tile_barrack.png",
+	"tile_barrack.png",
+	"tile_rich.png",
+	"tile_lake.png",
+	"tile_volcano.png",
+	"tile_volcano.png",
+	"tile_rich.png",
+	"tile_move.png"
 };
 
 Self_Tile::Self_Tile() 
@@ -32,7 +32,7 @@ std::shared_ptr<Self_Tile> Self_Tile::create(TileKind type)
 {
 	std::shared_ptr<Self_Tile> sprite = std::make_shared<Self_Tile>();
 
-	if ( sprite->initWithFile(_DictionaryForFilenames[type]) )
+	if (sprite->initWithSpriteFrameName(_DictionaryForFilenames[type]))
 	{
 		sprite->autorelease();
 		sprite->setTypeOfTile(type);
@@ -53,7 +53,7 @@ void Self_Tile::setOwnerPlayer(PlayerInfo pInfo)
 
 void Self_Tile::ChangeTile(TileKind type)
 {
-	this->initWithFile(_DictionaryForFilenames[type]);
+	this->initWithSpriteFrameName(_DictionaryForFilenames[type]);
 	this->setTypeOfTile(type);
 	this->setAnchorPoint(cocos2d::Vec2(0, 0));
 }

@@ -109,24 +109,23 @@ void Character::CharacterAttack()
 
 void Character::ShowMovableTile()
 {
-	if (TileMap::getInstance()->getChildByName("move"))
-		TileMap::getInstance()->removeChildByName("move");
-
-	Sprite* tileMove = Sprite::create();
-	tileMove->initWithFile("Map/tile_move.png");
+	Sprite* tileMove = Sprite::createWithSpriteFrameName("tile_move.png");
 	tileMove->setOpacity(96);
 	tileMove->setAnchorPoint(cocos2d::Vec2(0, 0));
 
 	DirectionKind dir = this->getCurrentDirection();
 	std::shared_ptr<Self_Tile> tile = this->getCurrentTile()->getNearTile(dir);
-	if (tile->getTypeOfTile() == TILE_NULL)
+	if (tile->getTypeOfTile() == TILE_NULL || tile->getTypeOfTile() == TILE_LAVA || tile->getTypeOfTile() == TILE_VOCANO || tile->getTypeOfTile() == TILE_LAKE)
+		return;
+	
+	if (tile->getTypeOfTile() == TILE_FOREST && GM->getPlayerDataByPlayerInfo(this->_OwnerPlayer)->getFood() < 2)
 		return;
 
 	float tilePosX = this->getCurrentTile()->getNearTile(dir)->getPositionX();
 	float tilePosY = this->getCurrentTile()->getNearTile(dir)->getPositionY();
 
 	tileMove->setPosition(tilePosX, tilePosY);
-	tileMove->setName("move");
+	tileMove->setName("moveable");
 
 	tileMove->setZOrder(this->getCurrentTile()->getNearTile(dir)->getZOrder());
 	TileMap::getInstance()->addChild(tileMove);

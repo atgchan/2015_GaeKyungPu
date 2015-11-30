@@ -110,6 +110,7 @@ bool GameSceneManager::DraftNewCharacterByClick(std::shared_ptr<Self_Tile> click
 	int foodToConsume = 0;
 	if (_DraftMode == true)
 	{
+
 		//클릭한 타일이 배럭 주변이고 이미 위치한 유닛이 없으면
 		if (!(clickedTile->getTypeOfTile() == TILE_LAVA || clickedTile->getTypeOfTile() == TILE_VOCANO || clickedTile->getTypeOfTile() == TILE_NULL || clickedTile->getTypeOfTile() == TILE_LAKE))
 		{
@@ -139,8 +140,11 @@ bool GameSceneManager::DraftNewCharacterByClick(std::shared_ptr<Self_Tile> click
 	{
 		if ((clickedTile->getOwnerPlayer() == _CurrentPlayer) && (clickedTile->getTypeOfTile() == TILE_BARRACK || clickedTile->getTypeOfTile() == TILE_HEADQUARTER) && (clickedTile->getCharacterOnThisTile() == nullptr))
 		{
+			SelectBarrack(clickedTile);
 			_DraftTile = clickedTile;
 			_DraftMode = true;
+			ShowSpawnableTile(clickedTile);
+
 			return false;
 		}
 	}
@@ -249,6 +253,7 @@ void GameSceneManager::MouseDownDispatcher(cocos2d::EventMouse *event)
 	if (_IsInputAble == false)
 		return;
 
+	Unselect();
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	float xPos = event->getCursorX();
 	float yPos = event->getCursorY() + visibleSize.height;
@@ -273,7 +278,7 @@ void GameSceneManager::MouseDownDispatcher(cocos2d::EventMouse *event)
 		{
 			std::shared_ptr<Character> target = clickedTile->getCharacterOnThisTile();
 			target->RotateToDirection(ROTATE_RIGHT);
-			target->ShowMovableTile();
+			clickedTile->getCharacterOnThisTile()->ShowMovableTile();
 			break;
 		}
 
@@ -282,7 +287,7 @@ void GameSceneManager::MouseDownDispatcher(cocos2d::EventMouse *event)
 		{
 			std::shared_ptr<Character> target = clickedTile->getCharacterOnThisTile();
 			target->RotateToDirection(ROTATE_LEFT);
-			target->ShowMovableTile();
+			clickedTile->getCharacterOnThisTile()->ShowMovableTile();
 			break;
 		}
 
@@ -362,11 +367,11 @@ void GameSceneManager::PushTileToList(const Rect& rect, std::shared_ptr<Self_Til
 
 std::shared_ptr<Self_Tile> GameSceneManager::getExistingTileWithMousePoint(Vec2 vec)
 {
-	for (TILEARRAYSET iter : _TileList) ///# iterator를 직접 사용해서 루프를 돌아봐라. 
+	for (auto iter = _TileList.begin(); iter != _TileList.end();++iter)
 	{
-		if (iter.rect.containsPoint(vec))
+		if (iter->rect.containsPoint(vec))
 		{
-			return iter.tile;
+			return iter->tile;
 		}
 	}
 	return nullptr;
@@ -416,15 +421,8 @@ GameSceneManager::~GameSceneManager()
 	_TileMap->Terminate();
 }
 
-//임시
 void GameSceneManager::SelectCharacter(std::shared_ptr<Character> character)
 {
-	if (this->_Nodes->getChildByName("indicator"))
-		this->_Nodes->removeChildByName("indicator");
-	
-	if (TileMap::getInstance()->getChildByName("move"))
-		TileMap::getInstance()->removeChildByName("move");
-
 	if (character)
 	{
 		float posX = character->getPositionX();
@@ -440,4 +438,64 @@ void GameSceneManager::SelectCharacter(std::shared_ptr<Character> character)
 
 		this->_Nodes->addChild(indicator);
 	}
+}
+
+void GameSceneManager::SelectBarrack(std::shared_ptr<Self_Tile> tile)
+{
+	if (tile)
+	{
+		float posX = tile->getPositionX();
+		float posY = tile->getPositionY();
+		
+		Sprite* indicator = Sprite::createWithSpriteFrameName("indicator.png");
+		indicator->setName("indicator");
+		indicator->setZOrder(11);
+		indicator->setAnchorPoint(Vec2(0, 0));
+		indicator->setPosition(posX + 60, posY + 110);
+
+		ShowSpawnableTile(tile);
+
+		this->_Nodes->addChild(indicator);
+	}
+}
+
+void GameSceneManager::ShowSpawnableTile(std::shared_ptr<Self_Tile> tile)
+{
+	for (int i = 0; i < 6; ++i)
+	{
+		DirectionKind dir = static_cast<DirectionKind>(i);
+		std::shared_ptr<Self_Tile> nearTile = tile->getNearTile(dir);
+
+		if (nearTile->getTypeOfTile() == TILE_NULL || nearTile->getTypeOfTile() == TILE_LAVA || nearTile->getTypeOfTile() == TILE_VOCANO || nearTile->getTypeOfTile() == TILE_LAKE)
+			continue;
+
+		if ((nearTile->getTypeOfTile() == TILE_FOREST) && (getCurrentPlayerData()->getFood() < 2))
+			continue;
+
+		Sprite* tileMove = Sprite::createWithSpriteFrameName("tile_move.png");
+		tileMove->setOpacity(96);
+		tileMove->setAnchorPoint(cocos2d::Vec2(0, 0));
+		
+		float tilePosX = nearTile->getPositionX();
+		float tilePosY = nearTile->getPositionY();
+
+		tileMove->setPosition(tilePosX, tilePosY);
+		tileMove->setName("spwanable");
+
+		tileMove->setZOrder(nearTile->getZOrder());
+		TileMap::getInstance()->addChild(tileMove);
+	}
+}
+
+void GameSceneManager::Unselect()
+{
+	while (TileMap::getInstance()->getChildByName("moveable"))
+		TileMap::getInstance()->removeChildByName("moveable");
+
+	while (TileMap::getInstance()->getChildByName("spwanable"))
+		TileMap::getInstance()->removeChildByName("spwanable");
+
+	while (this->_Nodes->getChildByName("indicator"))
+		this->_Nodes->removeChildByName("indicator");
+
 }
