@@ -25,8 +25,6 @@ std::shared_ptr<Character> Character::create(PlayerInfo cPInfo, DirectionKind sp
 	character->init();
 	character->runAction(Animate::create(animationDefault));
 
-	character->_ThisShared = character;
-	
 
 	return character;
 }
@@ -50,7 +48,7 @@ void Character::RotateToDirection(RotateDirection rotateDirection)
 	if (rotateDirection == ROTATE_RIGHT)
 		characterDirection = static_cast<DirectionKind>( (characterDirection + 5) % 6 );
 
-	EventManager::getInstance()->AddHistory(HistoryEventRotateCharacter::Create(_ThisShared.lock(), characterDirection));
+	EventManager::getInstance()->AddHistory(HistoryEventRotateCharacter::Create(this->shared_from_this(), characterDirection));
 
 	setCurrentDirection(DirectionKind(characterDirection));
 
@@ -59,7 +57,7 @@ void Character::RotateToDirection(RotateDirection rotateDirection)
 
 void Character::RotateToDirection(DirectionKind targetDirection)
 {
-	EventManager::getInstance()->AddHistory(HistoryEventRotateCharacter::Create(_ThisShared.lock(), targetDirection));
+	EventManager::getInstance()->AddHistory(HistoryEventRotateCharacter::Create(this->shared_from_this(), targetDirection));
 
 	setCurrentDirection(DirectionKind(targetDirection));
 
@@ -69,10 +67,10 @@ void Character::RotateToDirection(DirectionKind targetDirection)
 void Character::MovoToTile(std::shared_ptr<Self_Tile> dest)
 {
 	this->getCurrentTile()->setCharacterOnThisTile(nullptr);
-	dest->setCharacterOnThisTile(_ThisShared.lock());
+	dest->setCharacterOnThisTile(this->shared_from_this());
 	this->setCurrentTile(dest);
 
-	EventManager::getInstance()->AddHistory(HistoryEventMoveCharacter::Create(_ThisShared.lock(), dest));
+	EventManager::getInstance()->AddHistory(HistoryEventMoveCharacter::Create(this->shared_from_this(), dest));
 }
 
 void Character::CharacterBeHit()
@@ -126,8 +124,9 @@ void Character::ShowMovableTile()
 		return;
 
 	///# 팁을 하나 알려주자면 아래처럼 반복되는 코드는 this->getCurrentTile()->getNearTile(dir)를 포인터로 받아서 재활용하면 성능 향상에 도움이 된다.
-	float tilePosX = this->getCurrentTile()->getNearTile(dir)->getPositionX();
-	float tilePosY = this->getCurrentTile()->getNearTile(dir)->getPositionY();
+	std::shared_ptr<Self_Tile>	tmpTile = this->getCurrentTile()->getNearTile(dir);
+	float tilePosX = tmpTile->getPositionX();
+	float tilePosY = tmpTile->getPositionY();
 
 	tileMove->setPosition(tilePosX, tilePosY);
 	tileMove->setName("moveable");
