@@ -49,7 +49,7 @@ void BattleManager::BattleBetween(std::shared_ptr<Character> attacker, std::shar
 		
 		for (; iter != loser->end(); ++iter)
 		{
-			pIter = *iter;
+			pIter = *iter; ///# 이걸 왜 임시 변수에 대입하지? 그럴필요가 없는데
 			pIter->MovoToTile(pIter->getCurrentTile()->getNearTile(pIter->getCurrentDirection()));
 			tempDirection = pIter->getCurrentDirection();
 			pIter->RotateToDirection(prevDirection);
@@ -110,13 +110,14 @@ void BattleManager::SetAttackFormation(std::shared_ptr<Character> attacker)
 
 void BattleManager::SetDefenseFormation(std::shared_ptr<Character> defender)
 {
-	std::shared_ptr<Character> nearby = nullptr;
+	std::shared_ptr<Character> nearby = nullptr; ///# 이게 밖에 선언되어 있을 이유가 없다.
 	_CurrentDefenseFormation.clear();
 
 	_CurrentDefenseFormation.push_back(defender);
 	for (int i = DIRECTION_DOWN_LEFT; i <= DIRECTION_UP_LEFT; i++)
 	{
 		nearby = defender->GetNearCharacter((DirectionKind)i);
+		///# shared_ptr은 isnull() 같은거로 널 체크.
 		if (nearby != nullptr && IsCharFacingMe(defender, nearby) && nearby->GetOwnerPlayer() == defender->GetOwnerPlayer())
 		{
 			_CurrentDefenseFormation.push_back(nearby);

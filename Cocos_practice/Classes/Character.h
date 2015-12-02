@@ -56,7 +56,7 @@ private:
 	CC_SYNTHESIZE(std::shared_ptr<Self_Tile>, CurrentTile, CurrentTile);
 	CC_SYNTHESIZE(PlayerInfo, CurrentPlayerInfo, CurrentPlayerInfo);
 	CC_SYNTHESIZE(AnimationState, AnimState, AnimState);
-	std::weak_ptr<Character>			_ThisShared;
+	std::weak_ptr<Character>			_ThisShared; ///# this를 shared하려면 이렇게 하면 안되고 enable_shared_from_this()를 사용해야 한다. 따로 공부하고 제대로 사용할 것
 
 	int		_AttackPowerToDisplay = 2;
 	cocos2d::Label* _AttackPowerLabel;

@@ -125,6 +125,7 @@ void Character::ShowMovableTile()
 	if (tile->getTypeOfTile() == TILE_FOREST && GM->getPlayerDataByPlayerInfo(this->_OwnerPlayer)->getFood() < 2)
 		return;
 
+	///# 팁을 하나 알려주자면 아래처럼 반복되는 코드는 this->getCurrentTile()->getNearTile(dir)를 포인터로 받아서 재활용하면 성능 향상에 도움이 된다.
 	float tilePosX = this->getCurrentTile()->getNearTile(dir)->getPositionX();
 	float tilePosY = this->getCurrentTile()->getNearTile(dir)->getPositionY();
 

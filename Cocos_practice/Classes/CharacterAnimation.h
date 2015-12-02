@@ -15,7 +15,7 @@ public:
 	Animation*	getAnimationBeHit(PlayerInfo cPInfo, DirectionKind dir);
 	
 
-	void		setAnimationDefault(std::shared_ptr<Character> targetCharacter);
+	//void		setAnimationDefault(std::shared_ptr<Character> targetCharacter);
 
 private:
 	CharacterAnimation() {};
