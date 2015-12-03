@@ -72,7 +72,7 @@ void GameScene::ScheduleCallback(float delta)
 
 void GameScene::RefreshAttackPower()
 {
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < NUM_OF_PLAYER; i++)
 	{
 		std::list<std::shared_ptr<Character>>* list = GM->getPlayerDataByPlayerInfo(PlayerInfo(i))->getCharacterList();
 		for (std::shared_ptr<Character> iter : *list)

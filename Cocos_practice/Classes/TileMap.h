@@ -17,8 +17,8 @@ public:
 	void	Terminate();
 
 	std::vector<Self_Tile*> getRichTiles();
-private:
 
+private:
 	static std::array<std::array<TileKind, MAP_MAX_WIDTH>, MAP_MAX_HEIGHT> _NewMapData;
 	std::array<std::array<Self_Tile*, MAP_MAX_WIDTH>, MAP_MAX_HEIGHT> _TileSet;
 	void SetTotalNearTile();

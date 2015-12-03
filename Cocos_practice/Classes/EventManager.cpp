@@ -17,31 +17,10 @@ EventManager::~EventManager()
 	delete _HistoryQueue;
 }
 
-void EventManager::PlayHistory()
-{
-
-	if (_HistoryQueue->size() == _HistoryCount)
-	{
-		GM->setInputMode(true);
-	}
-	else
-	{
-		if (_HistoryCount == 0)
-			_IteratorHistory = _HistoryQueue->begin();
-		else
-			++_IteratorHistory;
-
-		GM->setInputMode(false);
-		++_HistoryCount;
-		_IteratorHistory->get()->Run();
-	}
-}
-
 void EventManager::AddHistory(std::shared_ptr<HistoryEvent> historyEvent)
 {
 	_HistoryQueue->push_back(historyEvent);
 }
-
 
 void EventManager::ScheduleCallback()
 {
@@ -88,4 +67,3 @@ bool EventManager::ThereIsMoreHistory()
 		return false;
 	return true;
 }
-

@@ -120,8 +120,3 @@ PlayerInfo Self_Tile::getOwnerPlayer()
 {
 	return _OwnerPlayer; 
 }
-
-bool Self_Tile::IsTile()
-{
-	return true; 
-}

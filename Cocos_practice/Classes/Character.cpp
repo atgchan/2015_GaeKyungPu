@@ -25,7 +25,6 @@ std::shared_ptr<Character> Character::create(PlayerInfo cPInfo, DirectionKind sp
 	character->init();
 	character->runAction(Animate::create(animationDefault));
 
-
 	return character;
 }
 
@@ -33,8 +32,7 @@ bool Character::IsOnTile(TileKind tileTypeToCheck)
 {
 	if (this->getCurrentTile()->getTypeOfTile() == tileTypeToCheck)
 		return true;
-	else
-		return false;
+	return false;
 }
 
 void Character::RotateToDirection(RotateDirection rotateDirection)
@@ -115,23 +113,17 @@ void Character::ShowMovableTile()
 
 	DirectionKind dir = this->getCurrentDirection();
 	Self_Tile* tile = this->getCurrentTile()->getNearTile(dir);
-	if (GM->getPlayerDataByPlayerInfo(this->_OwnerPlayer)->getFood() < 1)
+
+	if (GM->getPlayerDataByPlayerInfo(_OwnerPlayer)->getFood() < tile->getFoodToConsume())
 		return;
-	
-	if (tile->getTypeOfTile() == TILE_NULL || tile->getTypeOfTile() == TILE_LAVA || tile->getTypeOfTile() == TILE_VOCANO || tile->getTypeOfTile() == TILE_LAKE)
-		return;
-	
-	if (tile->getTypeOfTile() == TILE_FOREST && GM->getPlayerDataByPlayerInfo(this->_OwnerPlayer)->getFood() < 2)
+	if (!tile->isMovable())
 		return;
 
-	///# 팁을 하나 알려주자면 아래처럼 반복되는 코드는 this->getCurrentTile()->getNearTile(dir)를 포인터로 받아서 재활용하면 성능 향상에 도움이 된다.
-	Self_Tile*	tmpTile = this->getCurrentTile()->getNearTile(dir);
-	float tilePosX = tmpTile->getPositionX();
-	float tilePosY = tmpTile->getPositionY();
+	float tilePosX = tile->getPositionX();
+	float tilePosY = tile->getPositionY();
 
 	tileMove->setPosition(tilePosX, tilePosY);
 	tileMove->setName("moveable");
-
 	tileMove->setZOrder(this->getCurrentTile()->getNearTile(dir)->getZOrder());
 	TileMap::getInstance()->addChild(tileMove);
 }
@@ -209,15 +201,13 @@ void Character::UpdateAttackPowerSprite()
 {
 	int directionBonus = 0;
 	std::shared_ptr<Character> charUpFront = GetNearCharacter(_CurrentDirectionToShow);
+	
 	if (charUpFront != nullptr && charUpFront->GetOwnerPlayer() != _OwnerPlayer)
-	{
 		directionBonus = CalculateDiffBetweenDirections(_CurrentDirectionToShow, charUpFront->getCurrentDirectionToShow());
-	}
+	
 	if (CurrentTile->getTypeOfTile() == TILE_FOREST)
-	{
 		directionBonus++;
-	}
-
+	
 	_AttackPowerLabel->setString(std::to_string(_AttackPowerToDisplay + directionBonus));
 }
 
@@ -249,6 +239,5 @@ int Character::CalculateDiffBetweenDirections(DirectionKind dir1, DirectionKind 
 	if (diff == 0)
 		return 3;
 
-	else
-		return -100000;
+	return -100000;
 }

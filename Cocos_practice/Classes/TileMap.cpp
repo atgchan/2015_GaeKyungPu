@@ -37,9 +37,12 @@ bool TileMap::create()
 		{
 			float positionX;
 			float positionY;
+
 			_TileSet[i][j] = Self_Tile::create(_NewMapData[i][j]);
+
 			if (_TileSet[i][j]->getTypeOfTile() == TILE_RICH)
 				_RichTiles.push_back(_TileSet[i][j]);
+
 			if (j == 0)
 			{
 				if (((i-1) % 2) == 0)
@@ -71,12 +74,11 @@ bool TileMap::create()
 				positionY = _TileSet[i][j - 1]->getPositionY() + 27;
 			}
 			_TileSet[i][j]->setZOrder(-1 * positionY);
+			_TileSet[i][j]->setPosition(positionX, positionY);
+			_Inst->addChild(_TileSet[i][j]);
 
 			//클릭이 유효한 범위를 나타내는 네모 박스를 만들어서 같이 전달한다.(클릭 체크용)
 			Rect rect = CCRectMake(positionX+45, positionY+30, _TileSet[i][j]->getContentSize().width-70, _TileSet[i][j]->getContentSize().height-30);
-			_TileSet[i][j]->setPosition(positionX, positionY);
-
-			_Inst->addChild(_TileSet[i][j]);
 			GameSceneManager::getInstance()->PushTileToList(rect, _TileSet[i][j]);
 		}
 	}

@@ -44,18 +44,5 @@ bool ResultLayer::init()
 
 void ResultLayer::SetValue(PlayerData* pData1, PlayerData* pData2)
 {
-	/*int pData1Food = pData1->getFood();
-	int pData2Food = pData2->getFood();
 
-	Label* p1Food = Label::createWithTTF(std::to_string(pData1Food), "fonts/Marker Felt.ttf", 20);
-	Label* p2Food = Label::createWithTTF(std::to_string(pData2Food), "fonts/Marker Felt.ttf", 20);
-
-	float width = PopUpLayer->getContentSize().width;
-	float height = PopUpLayer->getContentSize().height;
-
-	p1Food->setPosition(Vec2(100, height - 120));
-	p2Food->setPosition(Vec2(100 + width / 2, height - 120));
-
-	PopUpLayer->addChild(p1Food);
-	PopUpLayer->addChild(p2Food);*/
 }

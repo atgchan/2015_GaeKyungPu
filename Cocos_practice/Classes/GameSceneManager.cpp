@@ -300,9 +300,8 @@ void GameSceneManager::GiveTileToPlayer(Self_Tile* targetTile, PlayerInfo pInfo)
 
 void GameSceneManager::KillCharacter(std::shared_ptr<Character> target)
 {
-	std::list<std::shared_ptr<Character>>* CharacterList = getPlayerDataByPlayerInfo(target->GetOwnerPlayer())->getCharacterList();
 	target->getCurrentTile()->setCharacterOnThisTile(nullptr);
-	CharacterList->remove(target);
+	getPlayerDataByPlayerInfo(target->GetOwnerPlayer())->RemoveCharacter(target);
 
 	EventManager::getInstance()->AddHistory(HistoryEventKillCharacter::Create(target));
 }

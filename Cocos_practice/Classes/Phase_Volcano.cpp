@@ -15,7 +15,6 @@ Phase_Volcano::Phase_Volcano()
 	_Gen = std::mt19937(_RandomDevice());
 	std::srand(std::time(0));
 	
-	//std::random_shuffle(_VolcanoTileList.begin(), _VolcanoTileList.end());
 	//용암으로 변화를 시작할 타일을 가리킨다.
 	_VolcanoTileListIter = _VolcanoTileList.begin();
 }

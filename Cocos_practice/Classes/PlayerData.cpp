@@ -5,12 +5,10 @@
 PlayerData::PlayerData(int food, int barrackNum)
 	:_Food(food), _PlayerBarrackNum(barrackNum)
 {
-
 }
 
 PlayerData::~PlayerData()
 {
-
 }
 
 int	 PlayerData::getFood()

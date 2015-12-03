@@ -16,8 +16,6 @@ public:
 	std::list<std::shared_ptr<Character>>* getCharacterList();
 	void	AddCharacter(std::shared_ptr<Character> character);
 	void	RemoveCharacter(std::shared_ptr<Character> character);
-	
-	//PlayerData* _OpponentPlayer;
 
 private:
 	int		_Food;

@@ -8,6 +8,8 @@ class Self_Tile : public cocos2d::Sprite
 
 public:
 	Self_Tile(TileKind type);
+	~Self_Tile();
+
 	static Self_Tile* create(TileKind type);
 
 	/*
@@ -17,7 +19,6 @@ public:
 	@warning	인근에 해당 타일이 없는 경우 -1을 반환한다.
 	*/
 	bool CheckNearTile(Self_Tile* tile);
-	bool IsTile();
 	void ChangeTile(TileKind type);
 	void setOwnerPlayer(PlayerInfo pInfo);
 	void setCharacterOnThisTile(std::shared_ptr<Character> character);
@@ -25,7 +26,6 @@ public:
 	
 	bool isMovable();
 	bool isSpawnable();
-
 	int	 getFoodToConsume();
 	
 	DirectionKind	getNearTileDirection(Self_Tile* tile);	
@@ -35,16 +35,14 @@ public:
 
 	CC_SYNTHESIZE(TileKind, _typeOfTile, TypeOfTile);
 
-	Self_Tile();
-	~Self_Tile();
 
 private:
 	//타일 종류에 따른 스프라이트 파일명을 저장해둘 배열
 	static std::string _DictionaryForFilenames[MAX_TILEKIND];
 
-	//타일의 소유주
-	PlayerInfo _OwnerPlayer;
+	int			_FoodToConsume = 1;
+	PlayerInfo	_OwnerPlayer;
+	Self_Tile*	_NearTile[6];
+
 	std::shared_ptr<Character> _CharacterOnThisTile = nullptr;
-	Self_Tile* _NearTile[6];
-	int	 _FoodToConsume = 1;
 };

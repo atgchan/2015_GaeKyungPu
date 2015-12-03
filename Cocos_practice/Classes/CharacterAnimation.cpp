@@ -9,7 +9,7 @@ void CharacterAnimation::Init()
 {
 	for (int i = 0; i < NUM_OF_PLAYER; ++i)
 	{
-		for (int j = 0; j < 6; ++j) ///# 6대신 상수를 사용
+		for (int j = 0; j < MAX_DIRECTION; ++j)
 		{	
 			_AnimationArray.pushBack(CreateAnimationDefault(PlayerInfo(i), DirectionKind(j)));
 			_AnimationArray.pushBack(CreateAnimationMove(PlayerInfo(i), DirectionKind(j)));
@@ -182,17 +182,7 @@ Animation* CharacterAnimation::CreateAnimationBeHit(PlayerInfo cPInfo, Direction
 	animation->setLoops(5);
 	return animation;
 }
-/* ///# 안쓰는 코드는 일부러 놔두지는 말고
-void CharacterAnimation::setAnimationDefault(std::shared_ptr<Character> targetCharacter)
-{
 
-	Animation* animationDefault = CharacterAnimation::CreateAnimationDefault(targetCharacter->GetOwnerPlayer(), targetCharacter->getCurrentDirection());
-
-	ActionInterval* actionDefault = Animate::create(animationDefault);
-	targetCharacter->runAction(actionDefault);
-	targetCharacter->setAnimState(ANIM_DEFAULT);
-}
-*/
 std::string CharacterAnimation::LoadPlist(PlayerInfo cPInfo, std::string frameName)
 {
 	if (cPInfo == PLAYER_RED)
