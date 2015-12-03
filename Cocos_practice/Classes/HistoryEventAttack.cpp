@@ -15,6 +15,7 @@ HistoryEventAttack::~HistoryEventAttack()
 
 std::shared_ptr<HistoryEventAttack> HistoryEventAttack::Create(std::shared_ptr<Character> attacker, std::shared_ptr<Character> defender)
 {
+	///# shared_ptr이 shared_ptr을 멤버로 들고 있는 구조인데, 이 경우는 반드시 순환참조가 없는지 확인해야 한다.
 	std::shared_ptr<HistoryEventAttack> newInst = std::make_shared<HistoryEventAttack>();
 	newInst->_Attacker = attacker;
 	newInst->_Defender = defender;
@@ -24,7 +25,7 @@ std::shared_ptr<HistoryEventAttack> HistoryEventAttack::Create(std::shared_ptr<C
 
 void HistoryEventAttack::PlaySwordSound()
 {
-	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("Sound/swords.wav");
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("Sound/swords.wav"); ///# 문자리터럴은 따로 모을 것
 }
 
 void HistoryEventAttack::Run()
@@ -51,6 +52,7 @@ void HistoryEventAttack::Run()
 
 bool HistoryEventAttack::IsDone()
 {
+	///# 지난 시간에도 말했는데.. float끼리 == 비교 하지 말라고.. 왜 그런지 공부도 하라고 했는디..
 	if (_Attacker->getPositionX() == _CurrentX && _Attacker->getPositionY() == _CurrentY)
 		if (_FirstTime == true)
 			_FirstTime = false;
