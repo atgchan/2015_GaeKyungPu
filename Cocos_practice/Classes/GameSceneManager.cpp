@@ -231,8 +231,6 @@ void GameSceneManager::MouseDownDispatcher(cocos2d::EventMouse *event)
 {
 	if (_CurrentPhaseInfo != PHASE_ACTION)
 		return;
-	/*if (_IsInputAble == false)
-		return;*/
 
 	Unselect();
 
@@ -331,6 +329,8 @@ void GameSceneManager::AddChild(Node* targetNode)
 
 void GameSceneManager::ToggleTurn(Object* pSender)
 {
+	if (_IsInputAble == false)
+		return;
 	if (_CurrentPhaseInfo != PHASE_ACTION)
 		return;
 
