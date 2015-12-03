@@ -146,9 +146,11 @@ void GameSceneManager::MoveCharacterByClick(Self_Tile* clickedTile)
 	{
 		bool check = true;
 
-		if (!clickedTile->isMovable() && !(_CharacterToMove->getCurrentTile()->getNearTileDirection(clickedTile) == _CharacterToMove->getCurrentDirection()))
+		if (!clickedTile->isMovable())
 			check = false;
-		
+		if (!(_CharacterToMove->getCurrentTile()->getNearTileDirection(clickedTile) == _CharacterToMove->getCurrentDirection()))
+			check = false;
+
 		if ( check && getCurrentPlayerData()->getFood() >= clickedTile->getFoodToConsume() )
 		{
 			if (clickedTile->getCharacterOnThisTile() == nullptr)
