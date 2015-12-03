@@ -231,8 +231,8 @@ void GameSceneManager::MouseDownDispatcher(cocos2d::EventMouse *event)
 {
 	if (_CurrentPhaseInfo != PHASE_ACTION)
 		return;
-	/*if (_IsInputAble == false)
-		return;*/
+	if (_IsInputAble == false)
+		return;
 
 	Unselect();
 

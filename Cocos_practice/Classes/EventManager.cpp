@@ -12,12 +12,10 @@ EventManager::EventManager()
 	GM->AddChild(_NodeForPlayingEvent);
 }
 
-
 EventManager::~EventManager()
 {
 	delete _HistoryQueue;
 }
-
 
 void EventManager::PlayHistory()
 {
