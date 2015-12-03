@@ -71,6 +71,7 @@ void Character::MovoToTile(Self_Tile* dest)
 	this->setCurrentTile(dest);
 
 	EventManager::getInstance()->AddHistory(HistoryEventMoveCharacter::Create(this->shared_from_this(), dest));
+	//GM->getPlayerDataByPlayerInfo(_OwnerPlayer)->AddFood(dest->getFoodToConsume() * -1);
 }
 
 void Character::CharacterBeHit()

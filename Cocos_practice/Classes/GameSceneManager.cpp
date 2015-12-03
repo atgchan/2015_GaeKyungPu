@@ -92,64 +92,39 @@ Self_Tile* GameSceneManager::getTileFromMouseEvent(const cocos2d::EventMouse *ev
 	for (auto iter = _TileList.begin(); iter != _TileList.end(); ++iter)
 	{
 		if (iter->rect.containsPoint(Vec2(xPos, yPos)))
-		{
 			return iter->tile;
-		}
 	}
-
-	//std::shared_ptr<Self_Tile> tile = getExistingTileWithMousePoint(Vec2(xPos, yPos));
-
-	//return tile;
 }
-//
-//std::shared_ptr<Self_Tile> GameSceneManager::getExistingTileWithMousePoint(Vec2 vec)
-//{
-//	for (auto iter = _TileList.begin(); iter != _TileList.end(); ++iter)
-//	{
-//		if (iter->rect.containsPoint(vec))
-//		{
-//			return iter->tile;
-//		}
-//	}
-//	return nullptr;
-//}
 
 bool GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
 {
 	if (clickedTile == nullptr)
 		return false;
-	int foodToConsume = 0;
+
 	if (_DraftMode == true)
 	{
+		bool result = true;
 
-		//클릭한 타일이 배럭 주변이고 이미 위치한 유닛이 없으면
-		if (!(clickedTile->getTypeOfTile() == TILE_LAVA || clickedTile->getTypeOfTile() == TILE_VOCANO || clickedTile->getTypeOfTile() == TILE_NULL || clickedTile->getTypeOfTile() == TILE_LAKE))
+//		예외의 경우는 빠져 나가자
+		if (!clickedTile->isMovable() || !_DraftTile->CheckNearTile(clickedTile) || clickedTile->getCharacterOnThisTile() != nullptr)
+			result = false;
+
+//		앞에서 false였다면 (타일이 spawn 불가능이라면) 여기는 안돌아가겠지
+		if (result && getCurrentPlayerData()->getFood() >= clickedTile->getFoodToConsume())
 		{
-			if (_DraftTile->CheckNearTile(clickedTile) && (clickedTile->getCharacterOnThisTile() == nullptr))
-			{
-				foodToConsume = (clickedTile->getTypeOfTile() == TILE_FOREST) ? 2 : 1;
-				if (getCurrentPlayerData()->getFood() >= foodToConsume)
-				{
-					DirectionKind direction = _DraftTile->ReturnNearTileDirection(clickedTile);
-					SpawnCharacterOnTile(_DraftTile, direction, foodToConsume);
-					_DraftTile->getCharacterOnThisTile()->MovoToTile(clickedTile);
-					_DraftTile = nullptr;
-					_DraftMode = false;
-					//AnimationManager::getInstance()->PlayHistory();
-					return true;
-				}
-			}
-			else
-			{
-				_DraftTile = nullptr;
-				_DraftMode = false;
-				return false;
-			}
+			DirectionKind direction = _DraftTile->getNearTileDirection(clickedTile);
+			SpawnCharacterOnTile(_DraftTile, direction, clickedTile->getFoodToConsume());
+			_DraftTile->getCharacterOnThisTile()->MovoToTile(clickedTile);
 		}
+
+		_DraftTile = nullptr;
+		_DraftMode = false;
+		return result;
 	}
+
 	else//if (_DraftMode == false)
 	{
-		if ((clickedTile->getOwnerPlayer() == _CurrentPlayer) && (clickedTile->getTypeOfTile() == TILE_BARRACK || clickedTile->getTypeOfTile() == TILE_HEADQUARTER) && (clickedTile->getCharacterOnThisTile() == nullptr))
+		if ((clickedTile->getOwnerPlayer() == _CurrentPlayer) && clickedTile->isSpawnable() && (clickedTile->getCharacterOnThisTile() == nullptr))
 		{
 			SelectBarrack(clickedTile);
 			_DraftTile = clickedTile;
@@ -166,34 +141,26 @@ void GameSceneManager::MoveCharacterByClick(Self_Tile* clickedTile)
 {
 	if (clickedTile == nullptr)
 		return;
-	int foodToComsume = 0;
 
 	if (_ReadyToMove == true)
 	{
-		foodToComsume = (clickedTile->getTypeOfTile() == TILE_FOREST) ? 2 : 1;
-		//클릭한 타일이 옮길 유닛 주변이고 
-		if (!(clickedTile->getTypeOfTile() == TILE_LAVA || clickedTile->getTypeOfTile() == TILE_VOCANO || clickedTile->getTypeOfTile() == TILE_NULL || clickedTile->getTypeOfTile() == TILE_LAKE))
-		{
-			if ((_CharacterToMove->getCurrentTile()->ReturnNearTileDirection(clickedTile) == _CharacterToMove->getCurrentDirection()))
-			{
+		bool check = true;
 
-				if (clickedTile->getCharacterOnThisTile() == nullptr)//위에 아무 유닛도 없으면
-				{
-					if (getCurrentPlayerData()->getFood() >= foodToComsume)
-					{
-						getCurrentPlayerData()->AddFood(foodToComsume * -1);
-						_CharacterToMove->MovoToTile(clickedTile);
-					}
-				}
-				else if (clickedTile->getCharacterOnThisTile()->GetOwnerPlayer() != _CurrentPlayer)
-				{
-					if (getCurrentPlayerData()->getFood() >= foodToComsume)
-					{
-						getCurrentPlayerData()->AddFood(foodToComsume * -1);
-						_BMInstance->BattleBetween(_CharacterToMove, clickedTile->getCharacterOnThisTile());
-					}
-				}
-				//AnimationManager::getInstance()->PlayHistory();
+		if (!clickedTile->isMovable() && !(_CharacterToMove->getCurrentTile()->getNearTileDirection(clickedTile) == _CharacterToMove->getCurrentDirection()))
+			check = false;
+		
+		if ( check && getCurrentPlayerData()->getFood() >= clickedTile->getFoodToConsume() )
+		{
+			if (clickedTile->getCharacterOnThisTile() == nullptr)
+			{
+				_CharacterToMove->MovoToTile(clickedTile);
+				getCurrentPlayerData()->AddFood(clickedTile->getFoodToConsume() * -1);
+			}
+
+			if (clickedTile->getCharacterOnThisTile()->GetOwnerPlayer() != _CurrentPlayer)
+			{
+				_BMInstance->BattleBetween(_CharacterToMove, clickedTile->getCharacterOnThisTile());
+				getCurrentPlayerData()->AddFood(clickedTile->getFoodToConsume() * -1);
 			}
 		}
 
@@ -201,7 +168,8 @@ void GameSceneManager::MoveCharacterByClick(Self_Tile* clickedTile)
 		_ReadyToMove = false;
 		return;
 	}
-	else
+
+	else // if(_ReadyToMove == false)
 	{
 		if (clickedTile->getCharacterOnThisTile() != nullptr)
 		{
@@ -261,10 +229,11 @@ void GameSceneManager::MouseDownDispatcher(cocos2d::EventMouse *event)
 {
 	if (_CurrentPhaseInfo != PHASE_ACTION)
 		return;
-	if (_IsInputAble == false)
-		return;
+	/*if (_IsInputAble == false)
+		return;*/
 
 	Unselect();
+
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	float xPos = event->getCursorX();
 	float yPos = event->getCursorY() + visibleSize.height;
@@ -339,7 +308,6 @@ void GameSceneManager::KillCharacter(std::shared_ptr<Character> target)
 	target->getCurrentTile()->setCharacterOnThisTile(nullptr);
 	CharacterList->remove(target);
 
-	///# shared_ptr은 new하는 시점에 포인터를 담아와야 한다. (make_shared를 사용하는 시점)
 	EventManager::getInstance()->AddHistory(HistoryEventKillCharacter::Create(target));
 }
 

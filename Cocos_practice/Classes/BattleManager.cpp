@@ -8,6 +8,9 @@
 
 void BattleManager::BattleBetween(std::shared_ptr<Character> attacker, std::shared_ptr<Character> defender)
 {
+	//이것도 슬슬 개선해보자
+	//GM->getPlayerDataByPlayerInfo(attacker->GetOwnerPlayer())->AddFood(defender->getCurrentTile()->getFoodToConsume() * -1);
+
 	SetAttackFormation(attacker);
 	SetDefenseFormation(defender);
 	bool firstTime = true;
@@ -49,11 +52,11 @@ void BattleManager::BattleBetween(std::shared_ptr<Character> attacker, std::shar
 		
 		for (; iter != loser->end(); ++iter)
 		{
-			pIter = *iter; ///# 이걸 왜 임시 변수에 대입하지? 그럴필요가 없는데
-			pIter->MovoToTile(pIter->getCurrentTile()->getNearTile(pIter->getCurrentDirection()));
-			tempDirection = pIter->getCurrentDirection();
-			pIter->RotateToDirection(prevDirection);
+			(*iter)->MovoToTile((*iter)->getCurrentTile()->getNearTile((*iter)->getCurrentDirection()));
+			tempDirection = (*iter)->getCurrentDirection();
+			(*iter)->RotateToDirection(prevDirection);
 			prevDirection = tempDirection;
+
 			if (loser == &_CurrentDefenseFormation)
 				break;
 		}

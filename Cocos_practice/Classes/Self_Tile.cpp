@@ -18,8 +18,10 @@ std::string Self_Tile::_DictionaryForFilenames[MAX_TILEKIND] =
 	"tile_move.png"
 };
 
-Self_Tile::Self_Tile() 
+Self_Tile::Self_Tile(TileKind type)
 {
+	if (type == TILE_FOREST)
+		_FoodToConsume = 2;
 }
 
 Self_Tile::~Self_Tile()
@@ -28,23 +30,21 @@ Self_Tile::~Self_Tile()
 
 Self_Tile* Self_Tile::create(TileKind type)
 {
-	//Self_Tile* sprite = std::make_shared<Self_Tile>();
-	Self_Tile* tile = new Self_Tile();
+	Self_Tile* tile = new Self_Tile(type);
 
 	tile->initWithSpriteFrameName(_DictionaryForFilenames[type]);
 	tile->autorelease();
 	tile->setTypeOfTile(type);
 	tile->setCharacterOnThisTile(nullptr);
 	tile->setAnchorPoint(cocos2d::Vec2(0, 0));
+	
 	return tile;
 }
 
 void Self_Tile::setOwnerPlayer(PlayerInfo pInfo)
 {
 	if (pInfo != PLAYER_ERR)
-	{
 		_OwnerPlayer = pInfo;
-	}
 }
 
 void Self_Tile::ChangeTile(TileKind type)
@@ -77,7 +77,7 @@ bool Self_Tile::CheckNearTile(Self_Tile* tile)
 	return false;
 }
 
-DirectionKind Self_Tile::ReturnNearTileDirection(Self_Tile* tile)
+DirectionKind Self_Tile::getNearTileDirection(Self_Tile* tile)
 {
 	for (int i = 0; i < 6; ++i)
 	{
@@ -85,6 +85,25 @@ DirectionKind Self_Tile::ReturnNearTileDirection(Self_Tile* tile)
 			return static_cast<DirectionKind>(i);
 	}
 	return DIRECTION_ERR;
+}
+
+bool Self_Tile::isMovable()
+{
+	if ( getTypeOfTile() == TILE_LAVA || getTypeOfTile() == TILE_VOCANO || getTypeOfTile() == TILE_NULL || getTypeOfTile() == TILE_LAKE)
+		return false;
+	return true;
+}
+
+bool Self_Tile::isSpawnable()
+{
+	if (getTypeOfTile() == TILE_BARRACK || getTypeOfTile() == TILE_HEADQUARTER)
+		return true;
+	return false;
+}
+
+int Self_Tile::getFoodToConsume()
+{
+	return _FoodToConsume;
 }
 
 void Self_Tile::setNearTile(int num, Self_Tile* tile)

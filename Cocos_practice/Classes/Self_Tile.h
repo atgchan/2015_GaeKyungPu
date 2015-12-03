@@ -7,6 +7,7 @@ class Self_Tile : public cocos2d::Sprite
 {
 
 public:
+	Self_Tile(TileKind type);
 	static Self_Tile* create(TileKind type);
 
 	/*
@@ -21,8 +22,13 @@ public:
 	void setOwnerPlayer(PlayerInfo pInfo);
 	void setCharacterOnThisTile(std::shared_ptr<Character> character);
 	void setNearTile(int num, Self_Tile* tile);
+	
+	bool isMovable();
+	bool isSpawnable();
 
-	DirectionKind ReturnNearTileDirection(Self_Tile* tile);	
+	int	 getFoodToConsume();
+	
+	DirectionKind	getNearTileDirection(Self_Tile* tile);	
 	Self_Tile*		getNearTile(DirectionKind direction);
 	PlayerInfo		getOwnerPlayer();
 	std::shared_ptr<Character> getCharacterOnThisTile();
@@ -40,4 +46,5 @@ private:
 	PlayerInfo _OwnerPlayer;
 	std::shared_ptr<Character> _CharacterOnThisTile = nullptr;
 	Self_Tile* _NearTile[6];
+	int	 _FoodToConsume = 1;
 };
