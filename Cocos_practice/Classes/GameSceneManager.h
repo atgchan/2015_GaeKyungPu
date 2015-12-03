@@ -87,6 +87,8 @@ public:
 	std::shared_ptr<Character>	_CharacterToMove = nullptr;
 	void		setInputMode(bool mode);
 
+	bool		getIsInputAble(){ return _IsInputAble; }
+
 private:
 	BattleManager*	_BMInstance;
 	GameSceneManager();

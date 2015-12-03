@@ -18,4 +18,6 @@ public:
 	bool	_GameIsEnd = true;
 	void	RefreshFood();
 	void	RefreshAttackPower();
+private:
+	void	MouseDownDispatcher(cocos2d::EventMouse* event);
 };

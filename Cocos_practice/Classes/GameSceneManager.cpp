@@ -252,23 +252,17 @@ void GameSceneManager::MouseDownDispatcher(cocos2d::EventMouse *event)
 			SelectCharacter(clickedTile->getCharacterOnThisTile());
 			MoveCharacterByClick(clickedTile);
 		}
-
 		break;
 
 	case MOUSE_BUTTON_RIGHT:
-		if (clickedTile != nullptr && clickedTile->getCharacterOnThisTile() != nullptr && clickedTile->getCharacterOnThisTile()->GetOwnerPlayer() == _CurrentPlayer)
-		{
-			std::shared_ptr<Character> target = clickedTile->getCharacterOnThisTile();
-			target->RotateToDirection(ROTATE_RIGHT);
-			clickedTile->getCharacterOnThisTile()->ShowMovableTile();
-			break;
-		}
-
 	case MOUSE_BUTTON_MIDDLE:
 		if (clickedTile != nullptr && clickedTile->getCharacterOnThisTile() != nullptr && clickedTile->getCharacterOnThisTile()->GetOwnerPlayer() == _CurrentPlayer)
 		{
 			std::shared_ptr<Character> target = clickedTile->getCharacterOnThisTile();
-			target->RotateToDirection(ROTATE_LEFT);
+			if (event->getMouseButton() == MOUSE_BUTTON_RIGHT)
+				target->RotateToDirection(ROTATE_RIGHT);
+			if( event->getMouseButton() == MOUSE_BUTTON_MIDDLE)
+				target->RotateToDirection(ROTATE_LEFT);
 			clickedTile->getCharacterOnThisTile()->ShowMovableTile();
 			break;
 		}
@@ -331,6 +325,8 @@ void GameSceneManager::AddChild(Node* targetNode)
 
 void GameSceneManager::ToggleTurn(Object* pSender)
 {
+	if (_IsInputAble == false)
+		return;
 	if (_CurrentPhaseInfo != PHASE_ACTION)
 		return;
 

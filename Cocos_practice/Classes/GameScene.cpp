@@ -44,7 +44,7 @@ bool GameScene::init()
 
 //	Mouse Event
 	EventListenerMouse* clickListener = EventListenerMouse::create();
-	clickListener->onMouseDown = CC_CALLBACK_1(GameSceneManager::MouseDownDispatcher, gmInstance);
+	clickListener->onMouseDown = CC_CALLBACK_1(GameScene::MouseDownDispatcher,this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(clickListener, this);
 
 //	Keyboard Event
@@ -80,6 +80,13 @@ void GameScene::RefreshAttackPower()
 			iter->UpdateAttackPowerSprite();
 		}
 	}
+}
+
+void GameScene::MouseDownDispatcher(cocos2d::EventMouse* event)
+{
+	if (GM->getIsInputAble() == false)
+		return;
+	GM->MouseDownDispatcher(event);
 }
 
 void GameScene::RefreshFood()
