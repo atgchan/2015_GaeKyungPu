@@ -8,8 +8,8 @@ public:
 	void Tick();
 
 private:
-	std::vector<std::shared_ptr<Self_Tile>> _VolcanoTileList;
-	std::vector<std::shared_ptr<Self_Tile>>::iterator _VolcanoTileListIter;
+	std::vector<Self_Tile*> _VolcanoTileList;
+	std::vector<Self_Tile*>::iterator _VolcanoTileListIter;
 
 	void ChangeRichToLava(int repeat);
 	void ChangeAllLavaToPlane();

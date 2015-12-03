@@ -64,7 +64,7 @@ void Character::RotateToDirection(DirectionKind targetDirection)
 	return;
 }
 
-void Character::MovoToTile(std::shared_ptr<Self_Tile> dest)
+void Character::MovoToTile(Self_Tile* dest)
 {
 	this->getCurrentTile()->setCharacterOnThisTile(nullptr);
 	dest->setCharacterOnThisTile(this->shared_from_this());
@@ -113,7 +113,7 @@ void Character::ShowMovableTile()
 	tileMove->setAnchorPoint(cocos2d::Vec2(0, 0));
 
 	DirectionKind dir = this->getCurrentDirection();
-	std::shared_ptr<Self_Tile> tile = this->getCurrentTile()->getNearTile(dir);
+	Self_Tile* tile = this->getCurrentTile()->getNearTile(dir);
 	if (GM->getPlayerDataByPlayerInfo(this->_OwnerPlayer)->getFood() < 1)
 		return;
 	
@@ -124,7 +124,7 @@ void Character::ShowMovableTile()
 		return;
 
 	///# 팁을 하나 알려주자면 아래처럼 반복되는 코드는 this->getCurrentTile()->getNearTile(dir)를 포인터로 받아서 재활용하면 성능 향상에 도움이 된다.
-	std::shared_ptr<Self_Tile>	tmpTile = this->getCurrentTile()->getNearTile(dir);
+	Self_Tile*	tmpTile = this->getCurrentTile()->getNearTile(dir);
 	float tilePosX = tmpTile->getPositionX();
 	float tilePosY = tmpTile->getPositionY();
 

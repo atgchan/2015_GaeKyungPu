@@ -11,7 +11,7 @@ HistoryEventMoveCharacter::HistoryEventMoveCharacter()
 }
 
 
-std::shared_ptr<HistoryEventMoveCharacter> HistoryEventMoveCharacter::Create(std::shared_ptr<Character> characterToMove, std::shared_ptr<Self_Tile> TargetTile)
+std::shared_ptr<HistoryEventMoveCharacter> HistoryEventMoveCharacter::Create(std::shared_ptr<Character> characterToMove, Self_Tile* TargetTile)
 {
 	std::shared_ptr<HistoryEventMoveCharacter> newInst = std::make_shared<HistoryEventMoveCharacter>();
 	newInst->_CharacterToMove = characterToMove;

@@ -23,7 +23,7 @@ public:
 	@brief	타일 카인드를 하나 받아와서 현재 캐릭터가 올라와있는 타일과 동일한 종류인지 검사하고 bool을 리턴한다.
 	*/
 	bool	IsOnTile(TileKind tileTypeToCheck);
-	void	MovoToTile(std::shared_ptr<Self_Tile> dest);
+	void	MovoToTile(Self_Tile* dest);
 	void	CharacterBeHit();
 	void	CharacterAttack();
 
@@ -53,7 +53,7 @@ private:
 	PlayerInfo		_OwnerPlayer = PLAYER_ERR;
 	DirectionKind	_CurrentDirection = DIRECTION_ERR;
 	DirectionKind	_CurrentDirectionToShow = DIRECTION_ERR;
-	CC_SYNTHESIZE(std::shared_ptr<Self_Tile>, CurrentTile, CurrentTile);
+	CC_SYNTHESIZE(Self_Tile*, CurrentTile, CurrentTile);
 	CC_SYNTHESIZE(PlayerInfo, CurrentPlayerInfo, CurrentPlayerInfo);
 	CC_SYNTHESIZE(AnimationState, AnimState, AnimState);
 	

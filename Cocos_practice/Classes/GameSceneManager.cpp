@@ -20,6 +20,7 @@
 
 GameSceneManager* GameSceneManager::_Inst = nullptr;
 
+
 GameSceneManager* GameSceneManager::getInstance()
 {
 	if (_Inst == nullptr)
@@ -30,37 +31,36 @@ GameSceneManager* GameSceneManager::getInstance()
 	return _Inst;
 }
 
-void GameSceneManager::ChangeRichToLava(std::shared_ptr<Self_Tile> target)
+GameSceneManager::GameSceneManager()
 {
-	target->ChangeTile(TILE_LAVA);
-	if (target->getCharacterOnThisTile() != nullptr)
+}
+
+GameSceneManager::~GameSceneManager()
+{
+	delete _BMInstance;
+	delete _Dice;
+
+	for (int i = 0; i != MAX_PHASE; ++i)
 	{
-		KillCharacter(target->getCharacterOnThisTile());
+		delete _Phases[i];
 	}
+	delete[] _Phases;
+	_TileMap->Terminate();
 }
 
 void GameSceneManager::InitializeGame()
 {
-	//Sprite* bgImage = Sprite::createWithSpriteFrameName("bg_image.png");
-	//if (bgImage)
-	//	this->AddChild(bgImage);
-
 	_BMInstance = new BattleManager();
 	_Nodes = Node::create();
-	this->_Nodes->setName("MasterNode");
+	_Dice = new DiceDice();
 	_TileMap = TileMap::getInstance();
+
 	_TileMap->create();
 	this->AddChild(_TileMap);
-	for (int i = 0; i < NUM_OF_PLAYER; ++i)
-	{
-		_PlayerData[i] = new PlayerData();
-		_PlayerData[i]->setFood(0);
-		_PlayerData[i]->_PlayerBarrackNum = 1;
-	}
 
 	for (int i = 0; i < NUM_OF_PLAYER; ++i)
 	{
-		_PlayerData[i]->_OpponentPlayer = _PlayerData[(i + 1) % NUM_OF_PLAYER];
+		_PlayerData[i] = new PlayerData(0, 1);
 	}
 
 	_Phases[PHASE_READY] = nullptr;
@@ -71,12 +71,8 @@ void GameSceneManager::InitializeGame()
 	_Phases[PHASE_PASTEUR] = new Phase_Pasteur();
 	_Phases[PHASE_ERR] = nullptr;
 
-	
-
 	_CurrentPlayer = PLAYER_RED;
-	_CurrentPhase = _Phases[PHASE_HARVEST];
-
-	_Dice = new DiceDice();
+	_CurrentPhase = _Phases[PHASE_HARVEST];	
 }
 
 void GameSceneManager::EndGame()
@@ -86,24 +82,39 @@ void GameSceneManager::EndGame()
 	AddChild(result);
 }
 
-std::shared_ptr<Self_Tile> GameSceneManager::getTileFromMouseEvent(const cocos2d::EventMouse *event)
+Self_Tile* GameSceneManager::getTileFromMouseEvent(const cocos2d::EventMouse *event)
 {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
 	float xPos = event->getCursorX();
 	float yPos = event->getCursorY() + visibleSize.height;
 
-	std::shared_ptr<Self_Tile> tile = getExistingTileWithMousePoint(Vec2(xPos, yPos));
+	for (auto iter = _TileList.begin(); iter != _TileList.end(); ++iter)
+	{
+		if (iter->rect.containsPoint(Vec2(xPos, yPos)))
+		{
+			return iter->tile;
+		}
+	}
 
-	return tile;
+	//std::shared_ptr<Self_Tile> tile = getExistingTileWithMousePoint(Vec2(xPos, yPos));
+
+	//return tile;
 }
+//
+//std::shared_ptr<Self_Tile> GameSceneManager::getExistingTileWithMousePoint(Vec2 vec)
+//{
+//	for (auto iter = _TileList.begin(); iter != _TileList.end(); ++iter)
+//	{
+//		if (iter->rect.containsPoint(vec))
+//		{
+//			return iter->tile;
+//		}
+//	}
+//	return nullptr;
+//}
 
-PlayerData* GameSceneManager::getPlayerDataByPlayerInfo(PlayerInfo player)
-{
-	return _PlayerData[player];
-}
-
-bool GameSceneManager::DraftNewCharacterByClick(std::shared_ptr<Self_Tile> clickedTile)
+bool GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
 {
 	if (clickedTile == nullptr)
 		return false;
@@ -151,7 +162,7 @@ bool GameSceneManager::DraftNewCharacterByClick(std::shared_ptr<Self_Tile> click
 	return false;
 }
 
-void GameSceneManager::MoveCharacterByClick(std::shared_ptr<Self_Tile> clickedTile)
+void GameSceneManager::MoveCharacterByClick(Self_Tile* clickedTile)
 {
 	if (clickedTile == nullptr)
 		return;
@@ -203,7 +214,7 @@ void GameSceneManager::MoveCharacterByClick(std::shared_ptr<Self_Tile> clickedTi
 	}
 }
 
-void GameSceneManager::SpawnCharacterOnTile(std::shared_ptr<Self_Tile> tile, DirectionKind spriteNum, int spendFood/*=1*/)
+void GameSceneManager::SpawnCharacterOnTile(Self_Tile* tile, DirectionKind spriteNum, int spendFood/*=1*/)
 {
 	std::shared_ptr<Character> unit = Character::create(getCurrentPlayer(), spriteNum);
 	unit->SetOwnerPlayer(_CurrentPlayer);
@@ -258,7 +269,7 @@ void GameSceneManager::MouseDownDispatcher(cocos2d::EventMouse *event)
 	float xPos = event->getCursorX();
 	float yPos = event->getCursorY() + visibleSize.height;
 
-	std::shared_ptr<Self_Tile> clickedTile = getTileFromMouseEvent(event);
+	Self_Tile* clickedTile = getTileFromMouseEvent(event);
 	switch (event->getMouseButton())
 	{
 	case MOUSE_BUTTON_LEFT:
@@ -317,7 +328,7 @@ void GameSceneManager::ScheduleCallback(float delta)
 	ChangePhase(_CurrentPhase->_NextPhase);
 }
 
-void GameSceneManager::GiveTileToPlayer(std::shared_ptr<Self_Tile> targetTile, PlayerInfo pInfo)
+void GameSceneManager::GiveTileToPlayer(Self_Tile* targetTile, PlayerInfo pInfo)
 {
 	targetTile->setOwnerPlayer(pInfo);
 }
@@ -328,7 +339,7 @@ void GameSceneManager::KillCharacter(std::shared_ptr<Character> target)
 	target->getCurrentTile()->setCharacterOnThisTile(nullptr);
 	CharacterList->remove(target);
 
-	///shared_ptr은 new하는 시점에 포인터를 담아와야 한다. (make_shared를 사용하는 시점)
+	///# shared_ptr은 new하는 시점에 포인터를 담아와야 한다. (make_shared를 사용하는 시점)
 	EventManager::getInstance()->AddHistory(HistoryEventKillCharacter::Create(target));
 }
 
@@ -356,25 +367,13 @@ void GameSceneManager::ToggleTurn(Object* pSender)
 	ChangePhase(PHASE_PASTEUR);
 }
 
-void GameSceneManager::PushTileToList(const Rect& rect, std::shared_ptr<Self_Tile> tile)
+void GameSceneManager::PushTileToList(const Rect& rect, Self_Tile* tile)
 {
 	TILEARRAYSET tileSet;
 	tileSet.tile = tile;
 	tileSet.rect = rect;
 
 	_TileList.push_back(tileSet);
-}
-
-std::shared_ptr<Self_Tile> GameSceneManager::getExistingTileWithMousePoint(Vec2 vec)
-{
-	for (auto iter = _TileList.begin(); iter != _TileList.end();++iter)
-	{
-		if (iter->rect.containsPoint(vec))
-		{
-			return iter->tile;
-		}
-	}
-	return nullptr;
 }
 
 bool GameSceneManager::getIsVolcanoActivated()
@@ -407,18 +406,9 @@ void GameSceneManager::setInputMode(bool mode)
 	_IsInputAble = mode;
 }
 
-GameSceneManager::GameSceneManager()
+PlayerData* GameSceneManager::getPlayerDataByPlayerInfo(PlayerInfo player)
 {
-}
-
-GameSceneManager::~GameSceneManager()
-{
-	delete _BMInstance;
-	delete _Dice;
-
-	
-	delete[] _Phases;
-	_TileMap->Terminate();
+	return _PlayerData[player];
 }
 
 void GameSceneManager::SelectCharacter(std::shared_ptr<Character> character)
@@ -440,7 +430,7 @@ void GameSceneManager::SelectCharacter(std::shared_ptr<Character> character)
 	}
 }
 
-void GameSceneManager::SelectBarrack(std::shared_ptr<Self_Tile> tile)
+void GameSceneManager::SelectBarrack(Self_Tile* tile)
 {
 	if (tile)
 	{
@@ -459,12 +449,12 @@ void GameSceneManager::SelectBarrack(std::shared_ptr<Self_Tile> tile)
 	}
 }
 
-void GameSceneManager::ShowSpawnableTile(std::shared_ptr<Self_Tile> tile)
+void GameSceneManager::ShowSpawnableTile(Self_Tile* tile)
 {
 	for (int i = 0; i < 6; ++i)
 	{
 		DirectionKind dir = static_cast<DirectionKind>(i);
-		std::shared_ptr<Self_Tile> nearTile = tile->getNearTile(dir);
+		Self_Tile* nearTile = tile->getNearTile(dir);
 
 		if (nearTile->getTypeOfTile() == TILE_NULL || nearTile->getTypeOfTile() == TILE_LAVA || nearTile->getTypeOfTile() == TILE_VOCANO || nearTile->getTypeOfTile() == TILE_LAKE)
 			continue;

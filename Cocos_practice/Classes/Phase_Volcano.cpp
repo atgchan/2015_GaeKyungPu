@@ -16,7 +16,7 @@ Phase_Volcano::Phase_Volcano()
 	std::srand(std::time(0));
 	
 	//std::random_shuffle(_VolcanoTileList.begin(), _VolcanoTileList.end());
-	//화산으로 변화를 시작할 타일을 가리킨다.
+	//용암으로 변화를 시작할 타일을 가리킨다.
 	_VolcanoTileListIter = _VolcanoTileList.begin();
 }
 
@@ -24,8 +24,7 @@ void Phase_Volcano::Tick()
 {
 	if (false == GM->getIsVolcanoActivated())
 	{
-		int randNum;
-		randNum = DiceDice::getInstance()->RollDiceBetween(1, 5);
+		int randNum = DiceDice::getInstance()->RollDiceBetween(1, 5);
 		if (randNum == 1)//5분의 1 확률로 이벤트 발생
 		{
 			GM->setVolcanoActivated(true);
@@ -37,28 +36,19 @@ void Phase_Volcano::Tick()
 	switch (GM->getProgressVolcano())
 	{
 	case 0:
-		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("Sound/lava-01.wav");
-		GM->setProgressVolcano(1);
-		break;
 	case 1:
-		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("Sound/lava-01.wav");
-		ChangeRichToLava(1);
-		GM->setProgressVolcano(2);
-		break;
 	case 2:
-		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("Sound/lava-01.wav");
-		ChangeRichToLava(2);
-		GM->setProgressVolcano(3);
-		break;
 	case 3:
 		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("Sound/lava-01.wav");
-		ChangeRichToLava(3);
-		GM->setProgressVolcano(4);
+		ChangeRichToLava(GM->getProgressVolcano());
+		GM->setProgressVolcano(GM->getProgressVolcano() + 1);
 		break;
+
 	case 4:
 		ChangeAllLavaToPlane();
 		GM->setProgressVolcano(5);
 		break;
+
 	case 5:
 		GM->setVolcanoActivated(false);
 		GM->setProgressVolcano(-1);
@@ -77,22 +67,25 @@ void Phase_Volcano::ChangeRichToLava(int repeat)
 {
 	for (int i = 0; i < repeat; i++)
 	{
-		GM->ChangeRichToLava(*_VolcanoTileListIter);
+		(*_VolcanoTileListIter)->ChangeTile(TILE_LAVA);
+		if ((*_VolcanoTileListIter)->getCharacterOnThisTile() != nullptr)
+			GM->KillCharacter((*_VolcanoTileListIter)->getCharacterOnThisTile());
+
 		++_VolcanoTileListIter;
 	}
 }
 
 void Phase_Volcano::ChangeAllLavaToPlane()
 {
-	for (Vector<std::shared_ptr<Self_Tile>>::iterator iter = _VolcanoTileList.begin(); iter != _VolcanoTileList.end(); ++iter)
+	for (Vector<Self_Tile*>::iterator iter = _VolcanoTileList.begin(); iter != _VolcanoTileList.end(); ++iter)
 	{
-		static_cast<std::shared_ptr<Self_Tile>>(*iter)->ChangeTile(TILE_PLAIN);
+		static_cast<Self_Tile*>(*iter)->ChangeTile(TILE_PLAIN);
 	}
 }
 
 void Phase_Volcano::ChangePlanesToRich()
 {
-	for (std::shared_ptr<Self_Tile> iter : _VolcanoTileList)
+	for (Self_Tile* iter : _VolcanoTileList)
 	{
 		iter->ChangeTile(TILE_RICH);
 	}

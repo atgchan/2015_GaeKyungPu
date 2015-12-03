@@ -2,10 +2,11 @@
 
 class Character;
 
-//멤버변수들로 데이터를 들고 있고 겟으로 받아온다
 class PlayerData
 {
 public:
+	PlayerData(int food, int barrackNum);
+	~PlayerData();
 
 	int		_PlayerBarrackNum;
 	int		getFood();
@@ -16,7 +17,7 @@ public:
 	void	AddCharacter(std::shared_ptr<Character> character);
 	void	RemoveCharacter(std::shared_ptr<Character> character);
 	
-	PlayerData* _OpponentPlayer;
+	//PlayerData* _OpponentPlayer;
 
 private:
 	int		_Food;

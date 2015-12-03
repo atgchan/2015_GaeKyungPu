@@ -11,7 +11,7 @@ class DiceDice;
 
 struct TILEARRAYSET
 {
-	std::shared_ptr<Self_Tile> tile = nullptr;
+	Self_Tile* tile = nullptr;
 	Rect rect = Rect();
 };
 //싱글톤으로 구현
@@ -64,24 +64,24 @@ public:
 	/*
 		@brief	타일의 포인터와 타일의 클릭 가능한 위치를 나타내는 사각형을 받아서 배열로 저장한다.
 	*/
-	void PushTileToList(const Rect& rect, std::shared_ptr<Self_Tile> tile);
+	void PushTileToList(const Rect& rect, Self_Tile* tile);
 
 	/*
 		@brief	타일 리스트에서 해당 좌표값의 위치에 포함되는 타일이 있는지 검사해서 있으면 타일 포인터를 반환한다.
 	*/
-	std::shared_ptr<Self_Tile> getExistingTileWithMousePoint(Vec2 vec);
+	Self_Tile* getExistingTileWithMousePoint(Vec2 vec);
 
 	void		AddChild(Node* targetNode);
-	void		ChangeRichToLava(std::shared_ptr<Self_Tile> target);
-	void		GiveTileToPlayer(std::shared_ptr<Self_Tile> targetTile, PlayerInfo pInfo);
+	void		ChangeRichToLava(Self_Tile* target);
+	void		GiveTileToPlayer(Self_Tile* targetTile, PlayerInfo pInfo);
 	void		KillCharacter(std::shared_ptr<Character> target);
 	void		setVolcanoActivated(bool activated);
 
-	std::shared_ptr<Self_Tile>	getTileFromMouseEvent(const cocos2d::EventMouse *event);
+	Self_Tile*	getTileFromMouseEvent(const cocos2d::EventMouse *event);
 
 	PlayerData*	getPlayerDataByPlayerInfo(PlayerInfo player);
-	bool		DraftNewCharacterByClick(std::shared_ptr<Self_Tile> clickedTile);
-	void		MoveCharacterByClick(std::shared_ptr<Self_Tile> clickedTile);
+	bool		DraftNewCharacterByClick(Self_Tile* clickedTile);
+	void		MoveCharacterByClick(Self_Tile* clickedTile);
 
 	bool		_ReadyToMove = false;
 	std::shared_ptr<Character>	_CharacterToMove = nullptr;
@@ -102,7 +102,7 @@ private:
 	Phase*		_CurrentPhase = nullptr;
 
 	bool		_DraftMode = false;
-	void		SpawnCharacterOnTile(std::shared_ptr<Self_Tile> tile, DirectionKind spriteNum, int spendFood = 1);
+	void		SpawnCharacterOnTile(Self_Tile* tile, DirectionKind spriteNum, int spendFood = 1);
 	int			_ProgressVolcano = -1;
 
 	/*타일만 별도로 저장할 배열을 만든다..*/
@@ -115,14 +115,14 @@ private:
 	bool		_IsDebugingActivated = false;
 	bool		_IsInputAble = true;
 
-	Phase*		_Phases[7];
-	std::shared_ptr<Self_Tile>	_DraftTile;
+	Phase*		_Phases[MAX_PHASE];
+	Self_Tile*	_DraftTile;
 	DiceDice*	_Dice;
 
 	void		ChangePhase(PhaseInfo);
-	void		ShowSpawnableTile(std::shared_ptr<Self_Tile> tile);
+	void		ShowSpawnableTile(Self_Tile* tile);
 	void		Unselect();
 
 	void		SelectCharacter(std::shared_ptr<Character> character);
-	void		SelectBarrack(std::shared_ptr<Self_Tile> tile);
+	void		SelectBarrack(Self_Tile* tile);
 };

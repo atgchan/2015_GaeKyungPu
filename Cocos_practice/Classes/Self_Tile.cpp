@@ -20,27 +20,23 @@ std::string Self_Tile::_DictionaryForFilenames[MAX_TILEKIND] =
 
 Self_Tile::Self_Tile() 
 {
-
 }
 
 Self_Tile::~Self_Tile()
 {
-
 }
 
-std::shared_ptr<Self_Tile> Self_Tile::create(TileKind type)
+Self_Tile* Self_Tile::create(TileKind type)
 {
-	std::shared_ptr<Self_Tile> sprite = std::make_shared<Self_Tile>();
+	//Self_Tile* sprite = std::make_shared<Self_Tile>();
+	Self_Tile* tile = new Self_Tile();
 
-	if (sprite->initWithSpriteFrameName(_DictionaryForFilenames[type]))
-	{
-		sprite->autorelease();
-		sprite->setTypeOfTile(type);
-		sprite->setCharacterOnThisTile(nullptr);
-		sprite->setAnchorPoint(cocos2d::Vec2(0, 0));
-		return sprite;
-	}
-	return nullptr;
+	tile->initWithSpriteFrameName(_DictionaryForFilenames[type]);
+	tile->autorelease();
+	tile->setTypeOfTile(type);
+	tile->setCharacterOnThisTile(nullptr);
+	tile->setAnchorPoint(cocos2d::Vec2(0, 0));
+	return tile;
 }
 
 void Self_Tile::setOwnerPlayer(PlayerInfo pInfo)
@@ -71,7 +67,7 @@ void Self_Tile::setCharacterOnThisTile(std::shared_ptr<Character> character)
 	this->_CharacterOnThisTile = character;
 }
 
-bool Self_Tile::CheckNearTile(std::shared_ptr<Self_Tile> tile)
+bool Self_Tile::CheckNearTile(Self_Tile* tile)
 {
 	for (int i = 0; i < 6; ++i)
 	{
@@ -81,7 +77,7 @@ bool Self_Tile::CheckNearTile(std::shared_ptr<Self_Tile> tile)
 	return false;
 }
 
-DirectionKind Self_Tile::ReturnNearTileDirection(std::shared_ptr<Self_Tile> tile)
+DirectionKind Self_Tile::ReturnNearTileDirection(Self_Tile* tile)
 {
 	for (int i = 0; i < 6; ++i)
 	{
@@ -91,12 +87,12 @@ DirectionKind Self_Tile::ReturnNearTileDirection(std::shared_ptr<Self_Tile> tile
 	return DIRECTION_ERR;
 }
 
-void Self_Tile::setNearTile(int num, std::shared_ptr<Self_Tile> tile)
+void Self_Tile::setNearTile(int num, Self_Tile* tile)
 {
 	_NearTile[num] = tile;
 }
 
-std::shared_ptr<Self_Tile> Self_Tile::getNearTile(DirectionKind direction)
+Self_Tile* Self_Tile::getNearTile(DirectionKind direction)
 {
 	return _NearTile[direction];
 }

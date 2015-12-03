@@ -3,10 +3,8 @@ USING_NS_CC;
 
 #define GM GameSceneManager::getInstance()
 enum { MAX_TILEKIND  = 12};
-enum {IT_IS_NOT_NEAR_TILE = -1};
 enum { NUM_OF_PLAYER = 2 };
 enum { MAP_MAX_HEIGHT = 11, MAP_MAX_WIDTH = 10 };
-
 
 enum PhaseInfo{
 	PHASE_READY,
@@ -15,7 +13,8 @@ enum PhaseInfo{
 	PHASE_VOLCANO,
 	PHASE_ACTION,
 	PHASE_PASTEUR,
-	PHASE_ERR
+	PHASE_ERR,
+	MAX_PHASE
 };
 
 enum AnimationState{
