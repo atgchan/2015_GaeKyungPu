@@ -28,26 +28,17 @@ std::shared_ptr<Character> Character::create(PlayerInfo cPInfo, DirectionKind sp
 	return character;
 }
 
-bool Character::IsOnTile(TileKind tileTypeToCheck)
-{
-	if (this->getCurrentTile()->getTypeOfTile() == tileTypeToCheck)
-		return true;
-	return false;
-}
-
 void Character::RotateToDirection(RotateDirection rotateDirection)
 {
-
 	DirectionKind characterDirection = getCurrentDirection();
 
 	if (rotateDirection == ROTATE_LEFT)
-		characterDirection = static_cast<DirectionKind>( (characterDirection + 1) % 6 );
+		characterDirection = static_cast<DirectionKind>((characterDirection + 1) % MAX_DIRECTION);
 
 	if (rotateDirection == ROTATE_RIGHT)
-		characterDirection = static_cast<DirectionKind>( (characterDirection + 5) % 6 );
+		characterDirection = static_cast<DirectionKind>((characterDirection + 5) % MAX_DIRECTION);
 
 	EventManager::getInstance()->AddHistory(HistoryEventRotateCharacter::Create(this->shared_from_this(), characterDirection));
-
 	setCurrentDirection(DirectionKind(characterDirection));
 
 	return;
@@ -56,7 +47,6 @@ void Character::RotateToDirection(RotateDirection rotateDirection)
 void Character::RotateToDirection(DirectionKind targetDirection)
 {
 	EventManager::getInstance()->AddHistory(HistoryEventRotateCharacter::Create(this->shared_from_this(), targetDirection));
-
 	setCurrentDirection(DirectionKind(targetDirection));
 
 	return;

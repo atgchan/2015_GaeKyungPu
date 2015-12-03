@@ -16,7 +16,7 @@ void BattleManager::BattleBetween(std::shared_ptr<Character> attacker, std::shar
 	int flankBonus = std::abs(std::abs((attacker->getCurrentDirection() - defender->getCurrentDirection())) - 3);
 	
 	attacker->setAttackPower(flankBonus + attacker->getAttackPower());
-	defender->RotateToDirection((DirectionKind)((attacker->getCurrentDirection() + 3) % 6));
+	defender->RotateToDirection((DirectionKind)((attacker->getCurrentDirection() + 3) % MAX_DIRECTION));
 
 	PlayerInfo playerAttacker = attacker->GetOwnerPlayer();
 	PlayerInfo playerDefender = defender->GetOwnerPlayer();
@@ -86,13 +86,10 @@ void BattleManager::BattleBetween(std::shared_ptr<Character> attacker, std::shar
 
 bool BattleManager::IsAttackerWin(std::shared_ptr<Character> attacker, std::shared_ptr<Character> defender)
 {
-	int attackerDice = 0;
-	int defenderDice = 0;
-	
 	while (true)
 	{
-		attackerDice = DiceDice::getInstance()->RollDiceBetween(1, attacker->_AttackPower);
-		defenderDice = DiceDice::getInstance()->RollDiceBetween(1, defender->_AttackPower);
+		int attackerDice = DiceDice::getInstance()->RollDiceBetween(1, attacker->_AttackPower);
+		int defenderDice = DiceDice::getInstance()->RollDiceBetween(1, defender->_AttackPower);
 
 		if (attackerDice == defenderDice)
 			continue;
@@ -103,7 +100,6 @@ bool BattleManager::IsAttackerWin(std::shared_ptr<Character> attacker, std::shar
 void BattleManager::SetAttackFormation(std::shared_ptr<Character> attacker)
 {
 	std::list<std::shared_ptr<Character>> tempList;
-	int max_depth = 0;
 	_CurrentAttackFormation.clear();
 	SearchGraphAndOverwriteAttackFormation(tempList, attacker, 1,0);
 }
@@ -111,17 +107,15 @@ void BattleManager::SetAttackFormation(std::shared_ptr<Character> attacker)
 void BattleManager::SetDefenseFormation(std::shared_ptr<Character> defender)
 {
 	_CurrentDefenseFormation.clear();
-
 	_CurrentDefenseFormation.push_back(defender);
-	for (int i = DIRECTION_DOWN_LEFT; i <= DIRECTION_UP_LEFT; i++)
+
+	for (int i = DIRECTION_DOWN_LEFT; i < MAX_DIRECTION; ++i)
 	{
 		std::shared_ptr<Character> nearby = defender->GetNearCharacter((DirectionKind)i);
-		///# shared_ptr은 isnull() 같은거로 널 체크.
 		
+		///# shared_ptr은 isnull() 같은거로 널 체크.
 		if (nearby == nullptr && IsCharFacingMe(defender, nearby) && nearby->GetOwnerPlayer() == defender->GetOwnerPlayer())
-		{
 			_CurrentDefenseFormation.push_back(nearby);
-		}
 	}
 }
 
@@ -146,7 +140,7 @@ int BattleManager::SearchGraphAndOverwriteAttackFormation(std::list<std::shared_
 	}
 
 	//왼쪽 아래부터 반시계방향으로 모든 방향을 순회
-	for (int i = DIRECTION_DOWN_LEFT; i <= DIRECTION_UP_LEFT; ++i)
+	for (int i = DIRECTION_DOWN_LEFT; i < MAX_DIRECTION; ++i)
 	{
 		//i방향으로 인접한 캐릭터
 		std::shared_ptr<Character> compareNode = currentNode->GetNearCharacter(static_cast<DirectionKind>(i));

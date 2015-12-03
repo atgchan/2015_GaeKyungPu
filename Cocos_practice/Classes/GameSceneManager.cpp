@@ -416,7 +416,7 @@ void GameSceneManager::SelectBarrack(Self_Tile* tile)
 
 void GameSceneManager::ShowSpawnableTile(Self_Tile* tile)
 {
-	for (int i = 0; i < 6; ++i)
+	for (int i = 0; i < MAX_DIRECTION; ++i)
 	{
 		DirectionKind dir = static_cast<DirectionKind>(i);
 		Self_Tile* nearTile = tile->getNearTile(dir);

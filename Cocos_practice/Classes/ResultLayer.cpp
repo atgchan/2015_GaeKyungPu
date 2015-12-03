@@ -13,9 +13,7 @@ cocos2d::Scene* ResultLayer::scene()
 bool ResultLayer::init()
 {
 	if (!CCLayerColor::initWithColor(ccc4(0, 0, 0, 0)))  //투명하게
-	{
 		return false;
-	}
 
 	cocos2d::Size visibleSize = Director::getInstance()->getVisibleSize();
 

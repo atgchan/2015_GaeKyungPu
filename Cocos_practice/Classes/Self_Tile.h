@@ -35,14 +35,13 @@ public:
 
 	CC_SYNTHESIZE(TileKind, _typeOfTile, TypeOfTile);
 
-
 private:
 	//타일 종류에 따른 스프라이트 파일명을 저장해둘 배열
 	static std::string _DictionaryForFilenames[MAX_TILEKIND];
 
 	int			_FoodToConsume = 1;
 	PlayerInfo	_OwnerPlayer;
-	Self_Tile*	_NearTile[6];
+	Self_Tile*	_NearTile[MAX_DIRECTION];
 
 	std::shared_ptr<Character> _CharacterOnThisTile = nullptr;
 };
