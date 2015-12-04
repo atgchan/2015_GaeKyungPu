@@ -15,7 +15,7 @@ struct TILEARRAYSET
 	Rect rect = Rect();
 };
 //½Ì±ÛÅæÀ¸·Î ±¸Çö
-class GameSceneManager
+class GameSceneManager : public cocos2d::Ref
 {
 public:
 
