@@ -40,16 +40,18 @@ void HistoryEventAttack::Run()
 
 	ActionInterval* actionDefault = Animate::create(animationDefault);
 
+	cocos2d::CallFunc* doneCall = CallFunc::create(CC_CALLBACK_0(HistoryEventAttack::SetDone, this, true));
 	cocos2d::CallFunc* soundCall = CallFunc::create(CC_CALLBACK_0(HistoryEventAttack::PlaySwordSound, this));
 	
 	FiniteTimeAction* seqSound = Sequence::create(DelayTime::create(0.5), soundCall,nullptr);
 	FiniteTimeAction* seq = Spawn::create(actionAttack, moveTo,seqSound, nullptr);
-	FiniteTimeAction* seq1 = Sequence::create(seq, recover,actionDefault, nullptr);
+	FiniteTimeAction* seq1 = Sequence::create(seq, recover,doneCall,actionDefault, nullptr);
 
 	_Attacker->stopAllActions();
 	_Attacker->runAction(seq1);
 }
 
+/*
 bool HistoryEventAttack::IsDone()
 {
 	///# 지난 시간에도 말했는데.. float끼리 == 비교 하지 말라고.. 왜 그런지 공부도 하라고 했는디..
@@ -60,3 +62,4 @@ bool HistoryEventAttack::IsDone()
 	return false;
 }
 
+*/

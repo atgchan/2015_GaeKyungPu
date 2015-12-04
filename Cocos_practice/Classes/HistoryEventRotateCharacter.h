@@ -16,6 +16,5 @@ public:
 private:
 	std::shared_ptr<Character>		_CharacterToRotate = nullptr;
 	DirectionKind	_DirectionToRotate = DIRECTION_ERR;
-	bool			_IsDone = false;
 };
 

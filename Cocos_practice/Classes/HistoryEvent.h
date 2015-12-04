@@ -9,10 +9,9 @@ public:
 	virtual ~HistoryEvent();
 	virtual void		Run();
 	virtual bool		IsDone();
-	void				setDone(bool isDone);
 
 protected:
+	void				SetDone(bool isDone);
 	bool				_IsDone = false;
+private:
 };
-
-

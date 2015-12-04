@@ -13,7 +13,7 @@ public:
 	static std::shared_ptr<HistoryEventAttack> HistoryEventAttack::Create(std::shared_ptr<Character> attacker, std::shared_ptr<Character> defender); 
 
 	void	Run();
-	bool	IsDone();
+	/*bool	IsDone();*/
 
 private:
 	std::shared_ptr<Character>	_Attacker;
@@ -22,5 +22,6 @@ private:
 	int							_CurrentY;
 	bool						_FirstTime = true;
 	void						PlaySwordSound();
+	bool						_IsDone = false;
 };
 

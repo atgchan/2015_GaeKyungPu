@@ -22,9 +22,7 @@ bool HistoryEvent::IsDone()
 	return _IsDone;
 }
 
-void HistoryEvent::setDone(bool isDone)
+void HistoryEvent::SetDone(bool isDone)
 {
 	_IsDone = isDone; 
 }
-
-

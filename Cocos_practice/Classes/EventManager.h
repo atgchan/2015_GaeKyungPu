@@ -33,4 +33,3 @@ private:
 	std::list<std::shared_ptr<HistoryEvent>>					*_HistoryQueue;
 	std::list<std::shared_ptr<HistoryEvent>>::iterator			_IteratorHistory;
 };
-

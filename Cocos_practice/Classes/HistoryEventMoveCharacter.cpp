@@ -33,12 +33,14 @@ void HistoryEventMoveCharacter::Run()
 
 	
 	cocos2d::CallFunc* nextCall = CallFunc::create(CC_CALLBACK_0(Character::setCurrentDirectionToShow,_CharacterToMove,_CharacterToMove->getCurrentDirection()));
+
+	cocos2d::CallFunc* doneCall = CallFunc::create(CC_CALLBACK_0(HistoryEventMoveCharacter::SetDone, this,true));
 	Animation* animationDefault = CharacterAnimation::getInstance()->getAnimationDefault(_CharacterToMove->GetOwnerPlayer(), _CharacterToMove->getCurrentDirectionToShow());
 
 	ActionInterval* actionDefault = Animate::create(animationDefault);
 
 	FiniteTimeAction* seq = Spawn::create(actionMove, moveTo, nullptr);
-	FiniteTimeAction* seq1 = Sequence::create(seq,/*defaultCall*/actionDefault, nextCall, nullptr);
+	FiniteTimeAction* seq1 = Sequence::create(seq,doneCall,actionDefault, nextCall, nullptr);
 
 	_CharacterToMove->stopAllActions();
 	_CharacterToMove->setAnchorPoint(Vec2(0.5f, 0.13f));
@@ -48,6 +50,7 @@ void HistoryEventMoveCharacter::Run()
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("Sound/Jump_03.wav");
 }
 
+/*
 bool HistoryEventMoveCharacter::IsDone()
 {
 	///# 아래처럼 float이나 double은 절대로 == 비교를 하면 안된다. 그 이유는? (게임프로그래밍의 정석 책에서 부동소수점 부분을 공부하고 정리할 것)
@@ -55,4 +58,4 @@ bool HistoryEventMoveCharacter::IsDone()
 	if (_CharacterToMove->getPositionX() == _TargetTile->getPositionX() + 80 && _CharacterToMove->getPositionY() == _TargetTile->getPositionY() + 60)
 		return true;
 	return false;
-}
+}*/

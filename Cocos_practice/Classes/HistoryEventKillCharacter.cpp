@@ -8,6 +8,7 @@
 
 HistoryEventKillCharacter::HistoryEventKillCharacter()
 {
+	_IsDone = false;
 }
 
 std::shared_ptr<HistoryEventKillCharacter> HistoryEventKillCharacter::Create(std::shared_ptr<Character> characterToKill)
@@ -27,7 +28,7 @@ void HistoryEventKillCharacter::Run()
 {	
 	TileMap::getInstance()->removeChild(_CharacterToKill.get());
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("Sound/Hit_03.wav");
-	_IsDone = true;
+	SetDone(true);
 }
 
 bool HistoryEventKillCharacter::IsDone()
