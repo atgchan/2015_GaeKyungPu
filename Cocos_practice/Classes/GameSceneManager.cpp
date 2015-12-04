@@ -186,7 +186,7 @@ void GameSceneManager::MoveCharacterByClick(Self_Tile* clickedTile)
 
 void GameSceneManager::SpawnCharacterOnTile(Self_Tile* tile, DirectionKind spriteNum, int spendFood/*=1*/)
 {
-	std::shared_ptr<Character> unit = Character::create(getCurrentPlayer(), spriteNum);
+	Character* unit = Character::create(getCurrentPlayer(), spriteNum);
 	unit->SetOwnerPlayer(_CurrentPlayer);
 	unit->setAnchorPoint(Vec2(0.5f, 0.13f));
 
@@ -258,7 +258,7 @@ void GameSceneManager::MouseDownDispatcher(cocos2d::EventMouse *event)
 	case MOUSE_BUTTON_MIDDLE:
 		if (clickedTile != nullptr && clickedTile->getCharacterOnThisTile() != nullptr && clickedTile->getCharacterOnThisTile()->GetOwnerPlayer() == _CurrentPlayer)
 		{
-			std::shared_ptr<Character> target = clickedTile->getCharacterOnThisTile();
+			Character* target = clickedTile->getCharacterOnThisTile();
 			if (event->getMouseButton() == MOUSE_BUTTON_RIGHT)
 				target->RotateToDirection(ROTATE_RIGHT);
 			if( event->getMouseButton() == MOUSE_BUTTON_MIDDLE)
@@ -298,7 +298,7 @@ void GameSceneManager::GiveTileToPlayer(Self_Tile* targetTile, PlayerInfo pInfo)
 	targetTile->setOwnerPlayer(pInfo);
 }
 
-void GameSceneManager::KillCharacter(std::shared_ptr<Character> target)
+void GameSceneManager::KillCharacter(Character* target)
 {
 	target->getCurrentTile()->setCharacterOnThisTile(nullptr);
 	getPlayerDataByPlayerInfo(target->GetOwnerPlayer())->RemoveCharacter(target);
@@ -376,7 +376,7 @@ PlayerData* GameSceneManager::getPlayerDataByPlayerInfo(PlayerInfo player)
 	return _PlayerData[player];
 }
 
-void GameSceneManager::SelectCharacter(std::shared_ptr<Character> character)
+void GameSceneManager::SelectCharacter(Character* character)
 {
 	if (character)
 	{

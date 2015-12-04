@@ -13,7 +13,7 @@ HistoryEventRotateCharacter::~HistoryEventRotateCharacter()
 {
 }
 
-std::shared_ptr<HistoryEventRotateCharacter> HistoryEventRotateCharacter::Create(std::shared_ptr<Character> targetCharacter, DirectionKind targetDirection)
+std::shared_ptr<HistoryEventRotateCharacter> HistoryEventRotateCharacter::Create(Character* targetCharacter, DirectionKind targetDirection)
 {
 	///# 순환참조 유의
 	std::shared_ptr<HistoryEventRotateCharacter> newInst = std::make_shared<HistoryEventRotateCharacter>();

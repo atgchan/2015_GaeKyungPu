@@ -11,7 +11,7 @@ HistoryEventKillCharacter::HistoryEventKillCharacter()
 	_IsDone = false;
 }
 
-std::shared_ptr<HistoryEventKillCharacter> HistoryEventKillCharacter::Create(std::shared_ptr<Character> characterToKill)
+std::shared_ptr<HistoryEventKillCharacter> HistoryEventKillCharacter::Create(Character* characterToKill)
 {
 	///# 마찬가지로 순환참조 유의
 	std::shared_ptr<HistoryEventKillCharacter> newInst = std::make_shared<HistoryEventKillCharacter>();
@@ -26,7 +26,7 @@ HistoryEventKillCharacter::~HistoryEventKillCharacter()
 
 void HistoryEventKillCharacter::Run()
 {	
-	TileMap::getInstance()->removeChild(_CharacterToKill.get());
+	TileMap::getInstance()->removeChild(_CharacterToKill);
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("Sound/Hit_03.wav");
 	SetDone(true);
 }

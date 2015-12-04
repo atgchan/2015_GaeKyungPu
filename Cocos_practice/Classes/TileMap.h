@@ -11,8 +11,8 @@ class TileMap : public Layer
 public:
 	static	TileMap* getInstance();
 	bool	create();
-	void	setCharacterOnTile(std::shared_ptr<Character> character, Self_Tile* tile, bool moveMode = false);
-	void	KillCharacter(std::shared_ptr<Character> target);
+	void	setCharacterOnTile(Character* character, Self_Tile* tile, bool moveMode = false);
+	void	KillCharacter(Character* target);
 
 	void	Terminate();
 

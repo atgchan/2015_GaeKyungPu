@@ -30,6 +30,7 @@ private:
 	Node*		_NodeForPlayingEvent = nullptr;
 
 	//기록하고자 하는 액션을 담는 큐
+	
 	std::list<std::shared_ptr<HistoryEvent>>					*_HistoryQueue;
 	std::list<std::shared_ptr<HistoryEvent>>::iterator			_IteratorHistory;
 };

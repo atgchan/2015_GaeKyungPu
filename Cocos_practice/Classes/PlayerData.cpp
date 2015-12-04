@@ -26,17 +26,17 @@ void PlayerData::AddFood(int num)
 	_Food += num;
 }
 
-void PlayerData::AddCharacter(std::shared_ptr<Character> character)
+void PlayerData::AddCharacter(Character* character)
 {
 	_CharacterList.push_back(character);
 }
 
-void PlayerData::RemoveCharacter(std::shared_ptr<Character> character)
+void PlayerData::RemoveCharacter(Character* character)
 {
 	_CharacterList.remove(character);
 }
 
-std::list<std::shared_ptr<Character>>* PlayerData::getCharacterList()
+std::list<Character*>* PlayerData::getCharacterList()
 {
 	return &_CharacterList;
 }

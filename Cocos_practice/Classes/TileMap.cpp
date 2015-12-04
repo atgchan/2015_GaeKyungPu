@@ -91,7 +91,7 @@ bool TileMap::create()
 	return true;
 }
 
-void TileMap::setCharacterOnTile(std::shared_ptr<Character> character, Self_Tile* tile, bool moveMode /*= false*/)
+void TileMap::setCharacterOnTile(Character* character, Self_Tile* tile, bool moveMode /*= false*/)
 {
 	tile->setCharacterOnThisTile(character);
 	float xPos = tile->getPositionX();
@@ -100,12 +100,12 @@ void TileMap::setCharacterOnTile(std::shared_ptr<Character> character, Self_Tile
 	character->setPosition(xPos +80, yPos +60);
 	character->setZOrder(tile->getZOrder()+100);
 	if(!moveMode)
-		addChild(character.get());
+		addChild(character);
 }
 
-void TileMap::KillCharacter(std::shared_ptr<Character> target)
+void TileMap::KillCharacter(Character* target)
 {
-	this->removeChild(target.get());
+	this->removeChild(target);
 }
 
 void TileMap::Terminate()

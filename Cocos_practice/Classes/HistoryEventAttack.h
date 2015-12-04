@@ -10,14 +10,14 @@ public:
 	HistoryEventAttack();
 	~HistoryEventAttack();
 
-	static std::shared_ptr<HistoryEventAttack> HistoryEventAttack::Create(std::shared_ptr<Character> attacker, std::shared_ptr<Character> defender); 
+	static std::shared_ptr<HistoryEventAttack> HistoryEventAttack::Create(Character* attacker, Character* defender); 
 
 	void	Run();
 	/*bool	IsDone();*/
 
 private:
-	std::shared_ptr<Character>	_Attacker;
-	std::shared_ptr<Character>	_Defender;
+	Character*	_Attacker;
+	Character*	_Defender;
 	int							_CurrentX;
 	int							_CurrentY;
 	bool						_FirstTime = true;

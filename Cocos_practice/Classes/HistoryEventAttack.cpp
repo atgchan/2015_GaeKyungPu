@@ -13,7 +13,7 @@ HistoryEventAttack::~HistoryEventAttack()
 {
 }
 
-std::shared_ptr<HistoryEventAttack> HistoryEventAttack::Create(std::shared_ptr<Character> attacker, std::shared_ptr<Character> defender)
+std::shared_ptr<HistoryEventAttack> HistoryEventAttack::Create(Character* attacker, Character* defender)
 {
 	///# shared_ptr이 shared_ptr을 멤버로 들고 있는 구조인데, 이 경우는 반드시 순환참조가 없는지 확인해야 한다.
 	std::shared_ptr<HistoryEventAttack> newInst = std::make_shared<HistoryEventAttack>();
