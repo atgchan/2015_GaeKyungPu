@@ -50,13 +50,3 @@ void HistoryEventMoveCharacter::Run()
 	_CharacterToMove->setAnimState(ANIM_MOVE);
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("Sound/Jump_03.wav");
 }
-
-/*
-bool HistoryEventMoveCharacter::IsDone()
-{
-	///# 아래처럼 float이나 double은 절대로 == 비교를 하면 안된다. 그 이유는? (게임프로그래밍의 정석 책에서 부동소수점 부분을 공부하고 정리할 것)
-
-	if (_CharacterToMove->getPositionX() == _TargetTile->getPositionX() + 80 && _CharacterToMove->getPositionY() == _TargetTile->getPositionY() + 60)
-		return true;
-	return false;
-}*/

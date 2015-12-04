@@ -50,16 +50,3 @@ void HistoryEventAttack::Run()
 	_Attacker->stopAllActions();
 	_Attacker->runAction(seq1);
 }
-
-/*
-bool HistoryEventAttack::IsDone()
-{
-	///# 지난 시간에도 말했는데.. float끼리 == 비교 하지 말라고.. 왜 그런지 공부도 하라고 했는디..
-	if (_Attacker->getPositionX() == _CurrentX && _Attacker->getPositionY() == _CurrentY)
-		if (_FirstTime == true)
-			_FirstTime = false;
-		else return true;
-	return false;
-}
-
-*/

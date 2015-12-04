@@ -13,7 +13,6 @@ public:
 	static std::shared_ptr<HistoryEventAttack> HistoryEventAttack::Create(Character* attacker, Character* defender); 
 
 	void	Run();
-	/*bool	IsDone();*/
 
 private:
 	Character*	_Attacker;
