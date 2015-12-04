@@ -26,11 +26,11 @@ HistoryEventKillCharacter::~HistoryEventKillCharacter()
 void HistoryEventKillCharacter::Run()
 {	
 	TileMap::getInstance()->removeChild(_CharacterToKill.get());
-	_Done = true;
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("Sound/Hit_03.wav");
+	_IsDone = true;
 }
 
 bool HistoryEventKillCharacter::IsDone()
 {
-	return true;
+	return _IsDone;
 }

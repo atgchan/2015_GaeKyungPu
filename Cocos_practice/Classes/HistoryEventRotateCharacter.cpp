@@ -28,9 +28,10 @@ void HistoryEventRotateCharacter::Run()
 	_CharacterToRotate->setAnchorPoint(Vec2(0.5f, 0.13f));
 	_CharacterToRotate->runAction(Animate::create(animationDefault));
 	_CharacterToRotate->setCurrentDirectionToShow(_DirectionToRotate);
+	_IsDone = true;
 }
 
 bool HistoryEventRotateCharacter::IsDone()
 {
-		return true;
+		return _IsDone;
 }

@@ -12,7 +12,7 @@ public:
 	void				setDone(bool isDone);
 
 protected:
-	bool				_Done = false;
+	bool				_IsDone = false;
 };
 
 

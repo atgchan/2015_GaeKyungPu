@@ -18,6 +18,7 @@ public:
 
 private:
 	std::shared_ptr<Character>		_CharacterToKill = nullptr;
+	bool							_IsDone = false;
 };
 
 
