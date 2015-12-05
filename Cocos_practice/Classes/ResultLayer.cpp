@@ -23,18 +23,13 @@ bool ResultLayer::init()
 	BackLayer->setPosition(Vec2(0, 0));
 	this->addChild(BackLayer);
 
-	//popUpLayer추가
-	PopUpLayer = LayerColor::create(ccc4(92, 92, 92, 255), visibleSize.width / 2, visibleSize.height / 2);
-	PopUpLayer->setAnchorPoint(Vec2(0, 0));
-	PopUpLayer->setPosition(Vec2((visibleSize.width - PopUpLayer->getContentSize().width) / 2, (visibleSize.height - PopUpLayer->getContentSize().height) / 2));
+	Sprite* resultPage = Sprite::createWithSpriteFrameName("end_game.png");
+	Sprite* replayButton = Sprite::createWithSpriteFrameName("replay.png");
+	Sprite* replayButtonClicked = Sprite::createWithSpriteFrameName("replay_clicked.png");
 
-	float width = PopUpLayer->getContentSize().width;
-	float height = PopUpLayer->getContentSize().height;
+	resultPage->setAnchorPoint(Vec2(400, 300));
+	//resultPage->setPosition(visibleSize.width/2, visibleSize.);
 
-	cocos2d::Label* label_title = Label::createWithTTF("End", "fonts/Marker Felt.ttf", 50); ///# 이런 문자 리터럴은 한군데 모아 놓을것.. 이게 다 기술 부채가 됨
-	label_title->setPosition(Vec2(width/2, height - 20));
-
-	PopUpLayer->addChild(label_title);
 	this->addChild(PopUpLayer);
 
 	return true;
