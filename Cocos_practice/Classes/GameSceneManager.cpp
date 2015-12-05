@@ -39,9 +39,6 @@ GameSceneManager::~GameSceneManager()
 	{
 		delete _Phases[i];
 	}
-	//delete[] _Phases;
-	//_TileMap->Terminate();
-	//_TileList.clear();
 	_Inst = nullptr;
 	_TileMap->release();
 	_Nodes->release();
@@ -408,10 +405,10 @@ void GameSceneManager::ShowSpawnableTile(Self_Tile* tile)
 		DirectionKind dir = static_cast<DirectionKind>(i);
 		Self_Tile* nearTile = tile->getNearTile(dir);
 
-		if (nearTile->getTypeOfTile() == TILE_NULL || nearTile->getTypeOfTile() == TILE_LAVA || nearTile->getTypeOfTile() == TILE_VOCANO || nearTile->getTypeOfTile() == TILE_LAKE)
+		if (!nearTile->isMovable())
 			continue;
 
-		if ((nearTile->getTypeOfTile() == TILE_FOREST) && (getCurrentPlayerData()->getFood() < 2))
+		if (getCurrentPlayerData()->getFood() < nearTile->getFoodToConsume())
 			continue;
 
 		Sprite* tileMove = Sprite::createWithSpriteFrameName("tile_move.png");
