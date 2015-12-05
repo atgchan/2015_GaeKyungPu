@@ -32,8 +32,8 @@ void HistoryEventMoveCharacter::Run()
 
 	ActionInterval* moveTo = MoveTo::create(1, Vec2(_TargetTile->getPositionX() + 80, _TargetTile->getPositionY() + 60));
 
-	
-	cocos2d::CallFunc* nextCall = CallFunc::create(CC_CALLBACK_0(Character::setCurrentDirectionToShow,_CharacterToMove,_CharacterToMove->getCurrentDirection()));
+	//검토가 필요함
+	//cocos2d::CallFunc* nextCall = CallFunc::create(CC_CALLBACK_0(Character::setCurrentDirectionToShow,_CharacterToMove,_CharacterToMove->getCurrentDirection()));
 
 	cocos2d::CallFunc* doneCall = CallFunc::create(CC_CALLBACK_0(HistoryEventMoveCharacter::SetDone, this,true));
 	Animation* animationDefault = CharacterAnimation::getInstance()->getAnimationDefault(_CharacterToMove->GetOwnerPlayer(), _CharacterToMove->getCurrentDirectionToShow());
@@ -41,7 +41,7 @@ void HistoryEventMoveCharacter::Run()
 	ActionInterval* actionDefault = Animate::create(animationDefault);
 
 	FiniteTimeAction* seq = Spawn::create(actionMove, moveTo, nullptr);
-	FiniteTimeAction* seq1 = Sequence::create(seq,doneCall,actionDefault, nextCall, nullptr);
+	FiniteTimeAction* seq1 = Sequence::create(seq,doneCall,actionDefault, /*nextCall,*/ nullptr);
 
 	_CharacterToMove->stopAllActions();
 	_CharacterToMove->setAnchorPoint(Vec2(0.5f, 0.13f));

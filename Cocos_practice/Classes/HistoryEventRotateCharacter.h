@@ -11,7 +11,7 @@ public:
 	static std::shared_ptr<HistoryEventRotateCharacter> Create(Character* targetCharacter, DirectionKind targetDirection);
 
 	void	Run();
-	bool	IsDone();
+	/*bool	IsDone();*/
 
 private:
 	Character*		_CharacterToRotate = nullptr;

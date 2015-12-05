@@ -113,8 +113,6 @@ void BattleManager::SetDefenseFormation(Character* defender)
 	{
 		Character* nearby = defender->GetNearCharacter((DirectionKind)i);
 		
-		///# shared_ptr은 isnull() 같은거로 널 체크.
-		
 			if (nearby != nullptr && IsCharFacingMe(defender, nearby) && nearby->GetOwnerPlayer() == defender->GetOwnerPlayer())
 				_CurrentDefenseFormation.push_back(nearby);
 

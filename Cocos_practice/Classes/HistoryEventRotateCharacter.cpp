@@ -31,8 +31,3 @@ void HistoryEventRotateCharacter::Run()
 	_CharacterToRotate->setCurrentDirectionToShow(_DirectionToRotate);
 	SetDone(true);
 }
-
-bool HistoryEventRotateCharacter::IsDone()
-{
-		return _IsDone;
-}
