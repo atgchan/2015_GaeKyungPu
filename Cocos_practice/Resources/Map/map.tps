@@ -198,10 +198,11 @@
             <filename>tile_rich.png</filename>
             <filename>tile_sea_withProp.png</filename>
             <filename>tile_village.png</filename>
-            <filename>tile_volcano.png</filename>
             <filename>tile_barrack.png</filename>
             <filename>tile_forest.png</filename>
             <filename>tile_lake.png</filename>
+            <filename>tile_lava.png</filename>
+            <filename>tile_volcano.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
