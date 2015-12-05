@@ -1,5 +1,8 @@
 #include "pch.h"
 #include "ResultLayer.h"
+#include "GameScene.h"
+#include "GameSceneManager.h"
+#include "MainScene.h"
 
 cocos2d::Scene* ResultLayer::scene()
 {
@@ -27,12 +30,22 @@ bool ResultLayer::init()
 	Sprite* replayButton = Sprite::createWithSpriteFrameName("replay.png");
 	Sprite* replayButtonClicked = Sprite::createWithSpriteFrameName("replay_clicked.png");
 
-	resultPage->setAnchorPoint(Vec2(400, 300));
-	//resultPage->setPosition(visibleSize.width/2, visibleSize.);
+	MenuItemSprite* replaybtn = MenuItemSprite::create(replayButton, replayButtonClicked, CC_CALLBACK_0(ResultLayer::ReturnToMenu, this));
+	replaybtn->setPosition(Vec2(visibleSize.width * 1 / 2, visibleSize.height* 2/5 ));
+	resultPage->setPosition(visibleSize.width/2, visibleSize.height/2);
 
-	this->addChild(PopUpLayer);
+	Menu* resultMenu = Menu::create(replaybtn, NULL);
+	resultMenu->setPosition(Vec2::ZERO);
+	this->addChild(resultPage);
+	this->addChild(resultMenu);
 
 	return true;
+}
+
+void ResultLayer::ReturnToMenu()
+{
+	cocos2d::Scene* mainMenu = MainScene::CreateScene();
+	Director::getInstance()->replaceScene(mainMenu);
 }
 
 void ResultLayer::SetValue(PlayerData* pData1, PlayerData* pData2)

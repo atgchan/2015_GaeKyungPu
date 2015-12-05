@@ -73,13 +73,12 @@ bool MainScene::init()
 
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Sound/22-forever-credits-.mp3",true);
 
-
 	return true;
 }
 
 void MainScene::MenuClickCallback(cocos2d::Ref* pSender)
 {
-	auto gameScene = GameScene::CreateScene();
+	cocos2d::Scene* gameScene = GameScene::CreateScene();
 	Director::getInstance()->pushScene(gameScene);
 }
 

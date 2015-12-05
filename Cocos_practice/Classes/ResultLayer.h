@@ -13,5 +13,5 @@ public:
 
 private:
 	LayerColor* BackLayer;
-	LayerColor* PopUpLayer;
+	void		ReturnToMenu();
 };

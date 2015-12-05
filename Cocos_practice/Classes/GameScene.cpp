@@ -4,6 +4,12 @@
 #include "UILayer.h"
 #include "SimpleAudioEngine.h"
 
+GameScene::~GameScene()
+{
+	GameSceneManager* gm = GameSceneManager::getInstance();
+	delete gm;
+}
+
 Scene* GameScene::CreateScene()
 {
 	Scene* scene = Scene::create();
@@ -17,7 +23,6 @@ bool GameScene::init()
 {
 	if (!Layer::init()) return false;
 	_GameIsEnd = false;
-
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	CCSprite * background = CCSprite::create("Background/ocean water.jpg");

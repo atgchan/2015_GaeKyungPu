@@ -88,11 +88,11 @@ public:
 	void		setInputMode(bool mode);
 
 	bool		getIsInputAble(){ return _IsInputAble; }
+	~GameSceneManager();
 
 private:
 	BattleManager*	_BMInstance;
 	GameSceneManager();
-	~GameSceneManager();
 
 	static GameSceneManager *_Inst;
 	TileMap*	_TileMap;

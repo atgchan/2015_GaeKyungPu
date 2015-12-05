@@ -40,11 +40,11 @@ GameSceneManager::~GameSceneManager()
 	delete _BMInstance;
 	delete _Dice;
 
-	for (int i = 0; i != MAX_PHASE; ++i)
+	for (int i = PHASE_HARVEST; i <= PHASE_PASTEUR; ++i)
 	{
 		delete _Phases[i];
 	}
-	delete[] _Phases;
+	//delete[] _Phases;
 	_TileMap->Terminate();
 }
 
@@ -204,21 +204,7 @@ void GameSceneManager::KeyReleasedDispatcher(EventKeyboard::KeyCode keyCode, coc
 
 	case EventKeyboard::KeyCode::KEY_TAB:
 	{
-		if (_IsDebugingActivated == false)
-		{
-			DebugUI* DebugingUI = DebugUI::create();
-			DebugingUI->SetValue(getPlayerDataByPlayerInfo(PLAYER_RED), getPlayerDataByPlayerInfo(PLAYER_BLUE));
-			DebugingUI->setName("debug");
-			this->AddChild(DebugingUI);
-			_IsDebugingActivated = true;
-			break;
-		}
-		else
-		{
-			this->_Nodes->removeChildByName("debug", true);
-			_IsDebugingActivated = false;
-			break;
-		}
+		getCurrentPlayerData()->AddFood(100);
 	}
 	break;
 

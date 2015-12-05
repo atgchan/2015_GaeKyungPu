@@ -5,6 +5,7 @@ USING_NS_CC;
 class GameScene : public Layer
 {
 public:
+	~GameScene();
 	//다른 화면에서 해당 화면으로 전환할 때 등에 사용되는 전역 메소드
     static Scene* CreateScene();
 
