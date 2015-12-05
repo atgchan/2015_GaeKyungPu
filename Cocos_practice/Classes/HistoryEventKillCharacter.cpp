@@ -30,8 +30,3 @@ void HistoryEventKillCharacter::Run()
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("Sound/Hit_03.wav");
 	SetDone(true);
 }
-
-bool HistoryEventKillCharacter::IsDone()
-{
-	return _IsDone;
-}

@@ -14,7 +14,6 @@ public:
 	static std::shared_ptr<HistoryEventKillCharacter> Create(Character* characterToKill);
 
 	void	Run();
-	bool	IsDone();
 
 private:
 	Character*		_CharacterToKill = nullptr;

@@ -1,6 +1,9 @@
 #include "pch.h"
 #include "Phase_Harvest.h"
 #include "UILayer.h"
+#include "EventManager.h"
+#include "HistoryEventHarvest.h"
+
 
 Phase_Harvest::Phase_Harvest()
 {
@@ -22,8 +25,10 @@ void Phase_Harvest::Tick()
 	for (auto iter : *characterList)
 	{
 		if (iter->getCurrentTile()->getTypeOfTile() == TILE_RICH || iter->getCurrentTile()->getTypeOfTile() == TILE_RICH_SIDE)
-			currentPlayerData->AddFood(1);
+		{
+			//currentPlayerData->AddFood(1);
+			EventManager::getInstance()->AddHistory(HistoryEventHarvest::Create(iter));
+		}
 	}
-
 	_NextPhase = PHASE_OCCUPY;
 }
