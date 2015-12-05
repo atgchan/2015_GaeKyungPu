@@ -292,7 +292,7 @@ void GameSceneManager::KillCharacter(Character* target)
 	target->getCurrentTile()->setCharacterOnThisTile(nullptr);
 	getPlayerDataByPlayerInfo(target->GetOwnerPlayer())->RemoveCharacter(target);
 
-	EventManager::getInstance()->AddHistory(HistoryEventKillCharacter::Create(target));
+	//EventManager::getInstance()->AddHistory(HistoryEventKillCharacter::Create(target));
 }
 
 void GameSceneManager::ChangePhase(PhaseInfo nextPhase)
