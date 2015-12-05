@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "UILayer.h"
 #include "GameSceneManager.h"
+#include "MainScene.h"
 
 cocos2d::Scene* UILayer::scene()
 {
@@ -39,11 +40,25 @@ bool UILayer::init()
 	MenuItemSprite* toggleTurn = MenuItemSprite::create(endButton, endButtonClicked, CC_CALLBACK_1(GameSceneManager::ToggleTurn, GameSceneManager::getInstance()));
 	toggleTurn->setPosition(Vec2(visibleSize.width * 1 / 2, visibleSize.height - 50));
 
-	Menu* mainMenu = Menu::create(toggleTurn, NULL);
+
+	Sprite* replayButton = Sprite::createWithSpriteFrameName("point.png");
+	MenuItemSprite* replaybtn = MenuItemSprite::create(replayButton, replayButton, CC_CALLBACK_0(UILayer::ReturnToMenu, this));
+	replaybtn->setPosition(Vec2(visibleSize.width - 100, visibleSize.height - 30));
+
+	Menu* mainMenu = Menu::create(toggleTurn, replaybtn, NULL);
 	mainMenu->setPosition(Vec2::ZERO);
+
 	this->addChild(mainMenu);
 
+
 	return true;
+}
+
+void UILayer::ReturnToMenu()
+{
+	cocos2d::Scene* mainMenu = MainScene::CreateScene();
+	Director::getInstance()->replaceScene(mainMenu);
+	Director::getInstance()->resume();
 }
 
 const void UILayer::SetFoodValue(PlayerData* pData1, PlayerData* pData2) const

@@ -14,6 +14,6 @@ public:
 private:
 	LayerColor* BackLayer;
 	LayerColor* PopUpLayer;
-	void SetUIBar();
-
+	void	SetUIBar();
+	void	ReturnToMenu();
 };

@@ -30,13 +30,19 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 		std::list<Character*> *loser = nullptr;
 
 		if (IsAttackerWin(_CurrentAttackFormation.front(), _CurrentDefenseFormation.front()))
+		{
 			winner = &_CurrentAttackFormation;
+			loser = &_CurrentDefenseFormation;
+			EventManager::getInstance()->AddHistory(HistoryEventAttack::Create(_CurrentAttackFormation.front(), _CurrentDefenseFormation.front()));
+		}
 		else
+		{
 			winner = &_CurrentDefenseFormation;
-		loser = (winner == &_CurrentAttackFormation) ? &_CurrentDefenseFormation : &_CurrentAttackFormation;
-
-		EventManager::getInstance()->AddHistory(HistoryEventAttack::Create(_CurrentAttackFormation.front(), _CurrentDefenseFormation.front()));
-
+			loser = &_CurrentAttackFormation;
+			EventManager::getInstance()->AddHistory(HistoryEventAttack::Create(_CurrentAttackFormation.front(), _CurrentDefenseFormation.front()));
+			EventManager::getInstance()->AddHistory(HistoryEventAttack::Create(_CurrentDefenseFormation.front(), _CurrentAttackFormation.front()));
+		}
+		
 		bool firstTime = true;
 
 		if (firstTime)
