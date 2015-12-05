@@ -202,6 +202,7 @@
             <filename>end_turn_clicked.png</filename>
             <filename>grain.png</filename>
             <filename>indicator.png</filename>
+            <filename>bar.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
