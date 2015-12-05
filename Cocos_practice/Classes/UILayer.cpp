@@ -17,7 +17,7 @@ bool UILayer::init()
 	{
 		return false;
 	}
-
+	this->setName("UILayer");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 	

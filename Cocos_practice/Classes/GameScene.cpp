@@ -23,6 +23,7 @@ bool GameScene::init()
 {
 	if (!Layer::init()) return false;
 	_GameIsEnd = false;
+	this->setName("GameScene");
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	CCSprite * background = CCSprite::create("Background/ocean water.jpg");
@@ -30,7 +31,7 @@ bool GameScene::init()
 	background->setScaleY((visibleSize.height / background->getContentSize().height) * 1);
 	background->setAnchorPoint(Point(0, 0));
 	this->addChild(background);
-
+	
 //이하 초기화 block은 상용구처럼 쓰이는 것이므로 바뀔 여지 x
 	//GameMaster의 인스턴스 저장. GameScene 안에서 계속 쓰인다.
 	GameSceneManager* gmInstance = GameSceneManager::getInstance();

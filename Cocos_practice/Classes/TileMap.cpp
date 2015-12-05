@@ -107,12 +107,6 @@ void TileMap::KillCharacter(Character* target)
 {
 	this->removeChild(target);
 }
-
-void TileMap::Terminate()
-{
-	delete this;
-}
-
 std::vector<Self_Tile*> TileMap::getRichTiles()
 {
 	return _RichTiles;
@@ -161,4 +155,9 @@ void TileMap::SetTotalNearTile()
 			}
 		}
 	}
+}
+
+TileMap::~TileMap()
+{
+	_Inst = nullptr;
 }

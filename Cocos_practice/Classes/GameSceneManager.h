@@ -15,7 +15,7 @@ struct TILEARRAYSET
 	Rect rect = Rect();
 };
 //½Ì±ÛÅæÀ¸·Î ±¸Çö
-class GameSceneManager : public cocos2d::Ref
+class GameSceneManager
 {
 public:
 
@@ -92,7 +92,7 @@ public:
 
 private:
 	BattleManager*	_BMInstance;
-	GameSceneManager();
+	GameSceneManager(){};
 
 	static GameSceneManager *_Inst;
 	TileMap*	_TileMap;

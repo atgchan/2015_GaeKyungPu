@@ -16,10 +16,10 @@ public:
 	
 
 	//void		setAnimationDefault(Character* targetCharacter);
-
+	static void	Terminate();
 private:
 	CharacterAnimation() {};
-	~CharacterAnimation() {};
+	~CharacterAnimation();
 
 	static CharacterAnimation* _Inst;
 

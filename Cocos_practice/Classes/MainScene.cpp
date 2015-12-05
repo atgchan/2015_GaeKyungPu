@@ -18,7 +18,7 @@ bool MainScene::init()
 	{
 		return false;
 	}
-
+	this->setName("MainScene");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 

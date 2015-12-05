@@ -9,12 +9,11 @@ USING_NS_CC;
 class TileMap : public Layer
 {
 public:
+	~TileMap();
 	static	TileMap* getInstance();
 	bool	create();
 	void	setCharacterOnTile(Character* character, Self_Tile* tile, bool moveMode = false);
 	void	KillCharacter(Character* target);
-
-	void	Terminate();
 
 	std::vector<Self_Tile*> getRichTiles();
 

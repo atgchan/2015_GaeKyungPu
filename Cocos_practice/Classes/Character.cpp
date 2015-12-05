@@ -24,7 +24,7 @@ Character* Character::create(PlayerInfo cPInfo, DirectionKind spriteNum)
 	Animation* animationDefault = CharacterAnimation::getInstance()->getAnimationDefault(cPInfo, spriteNum);
 	character->init();
 	character->runAction(Animate::create(animationDefault));
-
+	character->setName("character");
 	return character;
 }
 

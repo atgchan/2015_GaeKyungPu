@@ -17,7 +17,7 @@ bool ResultLayer::init()
 {
 	if (!CCLayerColor::initWithColor(ccc4(0, 0, 0, 0)))  //투명하게
 		return false;
-
+	this->setName("ResultLayer");
 	cocos2d::Size visibleSize = Director::getInstance()->getVisibleSize();
 
 	//backLayer추가
@@ -46,6 +46,7 @@ void ResultLayer::ReturnToMenu()
 {
 	cocos2d::Scene* mainMenu = MainScene::CreateScene();
 	Director::getInstance()->replaceScene(mainMenu);
+	Director::getInstance()->resume();
 }
 
 void ResultLayer::SetValue(PlayerData* pData1, PlayerData* pData2)

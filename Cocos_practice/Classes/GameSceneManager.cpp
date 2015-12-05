@@ -25,14 +25,9 @@ GameSceneManager* GameSceneManager::getInstance()
 {
 	if (_Inst == nullptr)
 	{
-		CharacterAnimation::getInstance()->Init();
 		_Inst = new GameSceneManager();
 	}
 	return _Inst;
-}
-
-GameSceneManager::GameSceneManager()
-{
 }
 
 GameSceneManager::~GameSceneManager()
@@ -45,11 +40,16 @@ GameSceneManager::~GameSceneManager()
 		delete _Phases[i];
 	}
 	//delete[] _Phases;
-	_TileMap->Terminate();
+	//_TileMap->Terminate();
+	//_TileList.clear();
+	_Inst = nullptr;
+	_TileMap->release();
+	_Nodes->release();
 }
 
 void GameSceneManager::InitializeGame()
 {
+	CharacterAnimation::getInstance()->Init();
 	_BMInstance = new BattleManager();
 	_Nodes = Node::create();
 	_Dice = new DiceDice();
@@ -57,7 +57,8 @@ void GameSceneManager::InitializeGame()
 
 	_TileMap->create();
 	this->AddChild(_TileMap);
-
+	this->_Nodes->retain();
+	this->_Nodes->setName("GameSceneManager");
 	for (int i = 0; i < NUM_OF_PLAYER; ++i)
 	{
 		_PlayerData[i] = new PlayerData(0, 1);

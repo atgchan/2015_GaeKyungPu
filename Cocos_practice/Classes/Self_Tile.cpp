@@ -37,7 +37,7 @@ Self_Tile* Self_Tile::create(TileKind type)
 	tile->setTypeOfTile(type);
 	tile->setCharacterOnThisTile(nullptr);
 	tile->setAnchorPoint(cocos2d::Vec2(0, 0));
-	
+	tile->setName("Tile");
 	return tile;
 }
 

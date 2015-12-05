@@ -227,3 +227,13 @@ std::string CharacterAnimation::GetDirectionName(int spriteNum)
 
 	return direction;
 }
+
+CharacterAnimation::~CharacterAnimation()
+{
+}
+
+void CharacterAnimation::Terminate()
+{
+	delete _Inst;
+	_Inst = nullptr;
+}
