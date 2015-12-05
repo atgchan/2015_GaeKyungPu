@@ -2,6 +2,7 @@
 #include "HistoryEventHarvest.h"
 #include "Character.h"
 #include "GameSceneManager.h"
+#include "SimpleAudioEngine.h"
 
 HistoryEventHarvest::HistoryEventHarvest()
 {
@@ -29,7 +30,7 @@ void HistoryEventHarvest::Run()
 	FiniteTimeAction* seq = Sequence::create(floatAction, flyAction, addCall, doneCall, delAction, nullptr);
 	grain->runAction(seq);
 	GM->getNodes()->getParent()->getChildByName("ui_layer")->addChild(grain);
-	
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("Sound/Emerge6.wav");
 }
 
 std::shared_ptr<HistoryEventHarvest> HistoryEventHarvest::Create(Character* characterHarvest)
@@ -37,5 +38,4 @@ std::shared_ptr<HistoryEventHarvest> HistoryEventHarvest::Create(Character* char
 	std::shared_ptr<HistoryEventHarvest> newInst = std::make_shared<HistoryEventHarvest>();
 	newInst->_CharacterHarvest = characterHarvest;
 	return newInst;
-
 }
