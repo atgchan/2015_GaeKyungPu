@@ -73,7 +73,7 @@ bool TileMap::create()
 				positionX = _TileSet[i][j - 1]->getPositionX() + 126;
 				positionY = _TileSet[i][j - 1]->getPositionY() + 27;
 			}
-			_TileSet[i][j]->setZOrder(-1 * positionY);
+			_TileSet[i][j]->setZOrder(-100 * positionY);
 			_TileSet[i][j]->setPosition(positionX, positionY);
 			_Inst->addChild(_TileSet[i][j]);
 
@@ -98,7 +98,6 @@ void TileMap::setCharacterOnTile(Character* character, Self_Tile* tile, bool mov
 	float yPos = tile->getPositionY();
 
 	character->setPosition(xPos +80, yPos +60);
-	character->setZOrder(tile->getZOrder()+100);
 	if(!moveMode)
 		addChild(character);
 }
