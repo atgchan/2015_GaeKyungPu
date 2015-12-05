@@ -150,20 +150,17 @@ void GameSceneManager::MoveCharacterByClick(Self_Tile* clickedTile)
 			check = false;
 		if (!(_CharacterToMove->getCurrentTile()->getNearTileDirection(clickedTile) == _CharacterToMove->getCurrentDirection()))
 			check = false;
+		if (clickedTile->getCharacterOnThisTile()->GetOwnerPlayer() == _CurrentPlayer)
+			check = false;
 
 		if ( check && getCurrentPlayerData()->getFood() >= clickedTile->getFoodToConsume() )
 		{
+			getCurrentPlayerData()->AddFood(clickedTile->getFoodToConsume() * -1);
 			if (clickedTile->getCharacterOnThisTile() == nullptr)
-			{
 				_CharacterToMove->MovoToTile(clickedTile);
-				getCurrentPlayerData()->AddFood(clickedTile->getFoodToConsume() * -1);
-			}
 
 			if (clickedTile->getCharacterOnThisTile()->GetOwnerPlayer() != _CurrentPlayer)
-			{
 				_BMInstance->BattleBetween(_CharacterToMove, clickedTile->getCharacterOnThisTile());
-				getCurrentPlayerData()->AddFood(clickedTile->getFoodToConsume() * -1);
-			}
 		}
 
 		_CharacterToMove = nullptr;

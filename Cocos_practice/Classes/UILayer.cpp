@@ -33,13 +33,14 @@ bool UILayer::init()
 
 	this->addChild(BackLayer);
 	
-	Sprite* turnButton = Sprite::createWithSpriteFrameName("toogle_turn.png");
+	Sprite* endButton = Sprite::createWithSpriteFrameName("end_turn.png");
+	Sprite* endButtonClicked = Sprite::createWithSpriteFrameName("end_turn_clicked.png");
 
-	MenuItemSprite* toggleTurn = MenuItemSprite::create(turnButton, turnButton);
-	MenuItemLabel* menu_toggle = MenuItemLabel::create(toggleTurn, CC_CALLBACK_1(GameSceneManager::ToggleTurn, GameSceneManager::getInstance()));
-	menu_toggle->setPosition(Vec2(visibleSize.width * 1/2, visibleSize.height -50));
+	MenuItemSprite* toggleTurn = MenuItemSprite::create(endButton, endButtonClicked, CC_CALLBACK_1(GameSceneManager::ToggleTurn, GameSceneManager::getInstance()));
+	MenuItemLabel* menu_toggle = MenuItemLabel::create(toggleTurn);
+	menu_toggle->setPosition(Vec2(visibleSize.width * 1 / 2, visibleSize.height - 50));
 
-	Menu* mainMenu = Menu::create(menu_toggle, NULL);
+	Menu* mainMenu = Menu::create(toggleTurn, NULL);
 	mainMenu->setPosition(Vec2::ZERO);
 	this->addChild(mainMenu);
 	
