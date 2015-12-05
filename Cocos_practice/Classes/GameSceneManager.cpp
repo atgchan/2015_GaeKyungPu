@@ -122,6 +122,9 @@ bool GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
 
 	else//if (_DraftMode == false)
 	{
+		if (_ReadyToMove)
+			return false;
+
 		if ((clickedTile->getOwnerPlayer() == _CurrentPlayer) && clickedTile->isSpawnable() && (clickedTile->getCharacterOnThisTile() == nullptr))
 		{
 			SelectBarrack(clickedTile);
