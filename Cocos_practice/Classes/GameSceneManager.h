@@ -127,4 +127,5 @@ private:
 
 	void		SelectCharacter(Character* character);
 	void		SelectBarrack(Self_Tile* tile);
+	void		TrimZorder();
 };

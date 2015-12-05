@@ -35,7 +35,8 @@ void HistoryEventMoveCharacter::Run()
 	//검토가 필요함
 	//cocos2d::CallFunc* nextCall = CallFunc::create(CC_CALLBACK_0(Character::setCurrentDirectionToShow,_CharacterToMove,_CharacterToMove->getCurrentDirection()));
 
-	cocos2d::CallFunc* doneCall = CallFunc::create(CC_CALLBACK_0(HistoryEventMoveCharacter::SetDone, this,true));
+	cocos2d::CallFunc* doneCall = CallFunc::create(CC_CALLBACK_0(HistoryEventMoveCharacter::SetDone, this, true));
+
 	Animation* animationDefault = CharacterAnimation::getInstance()->getAnimationDefault(_CharacterToMove->GetOwnerPlayer(), _CharacterToMove->getCurrentDirectionToShow());
 
 	ActionInterval* actionDefault = Animate::create(animationDefault);
@@ -45,7 +46,6 @@ void HistoryEventMoveCharacter::Run()
 
 	_CharacterToMove->stopAllActions();
 	_CharacterToMove->setAnchorPoint(Vec2(0.5f, 0.13f));
-	_CharacterToMove->setZOrder(_TargetTile->getZOrder() + 100);
 	_CharacterToMove->runAction(seq1);
 	_CharacterToMove->setAnimState(ANIM_MOVE);
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("Sound/Jump_03.wav");

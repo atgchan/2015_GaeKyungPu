@@ -278,6 +278,8 @@ void GameSceneManager::ScheduleCallback(float delta)
 	_CurrentPhase->Tick();
 
 	ChangePhase(_CurrentPhase->_NextPhase);
+
+	TrimZorder();
 }
 
 void GameSceneManager::GiveTileToPlayer(Self_Tile* targetTile, PlayerInfo pInfo)
@@ -440,4 +442,11 @@ void GameSceneManager::Unselect()
 	while (this->_Nodes->getChildByName("indicator"))
 		this->_Nodes->removeChildByName("indicator");
 
+}
+
+void GameSceneManager::TrimZorder()
+{
+	for (auto iter : TileMap::getInstance()->getChildren())
+		if (iter->getName() == "character")
+			iter->setZOrder(-100 * iter->getPositionY() + 10300);
 }
