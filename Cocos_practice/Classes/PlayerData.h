@@ -13,11 +13,11 @@ public:
 	void	setFood(int _food);
 	void	AddFood(int num);
 
-	std::list<std::shared_ptr<Character>>* getCharacterList();
-	void	AddCharacter(std::shared_ptr<Character> character);
-	void	RemoveCharacter(std::shared_ptr<Character> character);
+	std::list<Character*>* getCharacterList();
+	void	AddCharacter(Character* character);
+	void	RemoveCharacter(Character* character);
 
 private:
 	int		_Food;
-	std::list<std::shared_ptr<Character>> _CharacterList;
+	std::list<Character*> _CharacterList;
 };

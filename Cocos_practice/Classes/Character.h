@@ -2,7 +2,7 @@
 #include "Self_Tile.h"
 #include <memory>
 
-class Character : public cocos2d::Sprite,public std::enable_shared_from_this<Character>
+class Character : public cocos2d::Sprite
 {
 public:
 	/**
@@ -10,7 +10,7 @@ public:
 			Red Blue 구분은 CharacterAnimation내부에서 구분한다.
 			create은 그저 캐릭터 객체를 만들 뿐, 실제 그래픽 구현은 CharacterAnimation에서 처리
 	*/
-	static std::shared_ptr<Character> create(PlayerInfo currentPlayerInfo, DirectionKind spriteNum);
+	static Character* create(PlayerInfo currentPlayerInfo, DirectionKind spriteNum);
 
 	/**
 	@brief	방향을 받아서 해당 방향으로 스프라이트 이미지를 회전한다.
@@ -27,7 +27,7 @@ public:
 	void	SetOwnerPlayer(PlayerInfo pInfo);
 	void	ShowMovableTile();
 
-	std::shared_ptr<Character> GetNearCharacter(DirectionKind direction);
+	Character* GetNearCharacter(DirectionKind direction);
 	const PlayerInfo	GetOwnerPlayer();
 	void				InitializeDirection(DirectionKind direction);
 	DirectionKind		getCurrentDirectionToShow();

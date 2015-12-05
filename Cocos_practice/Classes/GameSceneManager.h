@@ -15,7 +15,7 @@ struct TILEARRAYSET
 	Rect rect = Rect();
 };
 //½Ì±ÛÅæÀ¸·Î ±¸Çö
-class GameSceneManager
+class GameSceneManager : public cocos2d::Ref
 {
 public:
 
@@ -74,7 +74,7 @@ public:
 	void		AddChild(Node* targetNode);
 	void		ChangeRichToLava(Self_Tile* target);
 	void		GiveTileToPlayer(Self_Tile* targetTile, PlayerInfo pInfo);
-	void		KillCharacter(std::shared_ptr<Character> target);
+	void		KillCharacter(Character* target);
 	void		setVolcanoActivated(bool activated);
 
 	Self_Tile*	getTileFromMouseEvent(const cocos2d::EventMouse *event);
@@ -84,7 +84,7 @@ public:
 	void		MoveCharacterByClick(Self_Tile* clickedTile);
 
 	bool		_ReadyToMove = false;
-	std::shared_ptr<Character>	_CharacterToMove = nullptr;
+	Character*	_CharacterToMove = nullptr;
 	void		setInputMode(bool mode);
 
 	bool		getIsInputAble(){ return _IsInputAble; }
@@ -125,6 +125,6 @@ private:
 	void		ShowSpawnableTile(Self_Tile* tile);
 	void		Unselect();
 
-	void		SelectCharacter(std::shared_ptr<Character> character);
+	void		SelectCharacter(Character* character);
 	void		SelectBarrack(Self_Tile* tile);
 };

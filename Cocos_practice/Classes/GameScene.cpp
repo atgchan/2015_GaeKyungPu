@@ -74,8 +74,8 @@ void GameScene::RefreshAttackPower()
 {
 	for (int i = 0; i < NUM_OF_PLAYER; i++)
 	{
-		std::list<std::shared_ptr<Character>>* list = GM->getPlayerDataByPlayerInfo(PlayerInfo(i))->getCharacterList();
-		for (std::shared_ptr<Character> iter : *list)
+		std::list<Character*>* list = GM->getPlayerDataByPlayerInfo(PlayerInfo(i))->getCharacterList();
+		for (Character* iter : *list)
 		{
 			iter->UpdateAttackPowerSprite();
 		}

@@ -11,13 +11,13 @@ class HistoryEventKillCharacter : public HistoryEvent
 public:
 	HistoryEventKillCharacter();
 	~HistoryEventKillCharacter();
-	static std::shared_ptr<HistoryEventKillCharacter> Create(std::shared_ptr<Character> characterToKill);
+	static std::shared_ptr<HistoryEventKillCharacter> Create(Character* characterToKill);
 
 	void	Run();
 	bool	IsDone();
 
 private:
-	std::shared_ptr<Character>		_CharacterToKill = nullptr;
+	Character*		_CharacterToKill = nullptr;
 };
 
 

@@ -17,9 +17,9 @@ Character::Character(PlayerInfo cPInfo, DirectionKind spriteNum)
 	InitAttackPowerSprite();
 }
 
-std::shared_ptr<Character> Character::create(PlayerInfo cPInfo, DirectionKind spriteNum)
+Character* Character::create(PlayerInfo cPInfo, DirectionKind spriteNum)
 {
-	std::shared_ptr<Character> character(new Character(cPInfo, spriteNum));
+	Character* character(new Character(cPInfo, spriteNum));
 	
 	Animation* animationDefault = CharacterAnimation::getInstance()->getAnimationDefault(cPInfo, spriteNum);
 	character->init();
@@ -38,7 +38,7 @@ void Character::RotateToDirection(RotateDirection rotateDirection)
 	if (rotateDirection == ROTATE_RIGHT)
 		characterDirection = static_cast<DirectionKind>((characterDirection + 5) % MAX_DIRECTION);
 
-	EventManager::getInstance()->AddHistory(HistoryEventRotateCharacter::Create(this->shared_from_this(), characterDirection));
+	EventManager::getInstance()->AddHistory(HistoryEventRotateCharacter::Create(this, characterDirection));
 	setCurrentDirection(DirectionKind(characterDirection));
 
 	return;
@@ -46,7 +46,7 @@ void Character::RotateToDirection(RotateDirection rotateDirection)
 
 void Character::RotateToDirection(DirectionKind targetDirection)
 {
-	EventManager::getInstance()->AddHistory(HistoryEventRotateCharacter::Create(this->shared_from_this(), targetDirection));
+	EventManager::getInstance()->AddHistory(HistoryEventRotateCharacter::Create(this, targetDirection));
 	setCurrentDirection(DirectionKind(targetDirection));
 
 	return;
@@ -55,10 +55,10 @@ void Character::RotateToDirection(DirectionKind targetDirection)
 void Character::MovoToTile(Self_Tile* dest)
 {
 	this->getCurrentTile()->setCharacterOnThisTile(nullptr);
-	dest->setCharacterOnThisTile(this->shared_from_this());
+	dest->setCharacterOnThisTile(this);
 	this->setCurrentTile(dest);
 
-	EventManager::getInstance()->AddHistory(HistoryEventMoveCharacter::Create(this->shared_from_this(), dest));
+	EventManager::getInstance()->AddHistory(HistoryEventMoveCharacter::Create(this, dest));
 	//GM->getPlayerDataByPlayerInfo(_OwnerPlayer)->AddFood(dest->getFoodToConsume() * -1);
 }
 
@@ -118,7 +118,7 @@ void Character::ShowMovableTile()
 	TileMap::getInstance()->addChild(tileMove);
 }
 
-std::shared_ptr<Character> Character::GetNearCharacter(DirectionKind direction)
+Character* Character::GetNearCharacter(DirectionKind direction)
 {
 	return this->getCurrentTile()->getNearTile(direction)->getCharacterOnThisTile();
 }
@@ -190,7 +190,7 @@ void Character::InitAttackPowerSprite()
 void Character::UpdateAttackPowerSprite()
 {
 	int directionBonus = 0;
-	std::shared_ptr<Character> charUpFront = GetNearCharacter(_CurrentDirectionToShow);
+	Character* charUpFront = GetNearCharacter(_CurrentDirectionToShow);
 	
 	if (charUpFront != nullptr && charUpFront->GetOwnerPlayer() != _OwnerPlayer)
 		directionBonus = CalculateDiffBetweenDirections(_CurrentDirectionToShow, charUpFront->getCurrentDirectionToShow());

@@ -5,6 +5,7 @@
 
 HistoryEventRotateCharacter::HistoryEventRotateCharacter()
 {
+	_IsDone = false;
 }
 
 
@@ -12,7 +13,7 @@ HistoryEventRotateCharacter::~HistoryEventRotateCharacter()
 {
 }
 
-std::shared_ptr<HistoryEventRotateCharacter> HistoryEventRotateCharacter::Create(std::shared_ptr<Character> targetCharacter, DirectionKind targetDirection)
+std::shared_ptr<HistoryEventRotateCharacter> HistoryEventRotateCharacter::Create(Character* targetCharacter, DirectionKind targetDirection)
 {
 	///# 순환참조 유의
 	std::shared_ptr<HistoryEventRotateCharacter> newInst = std::make_shared<HistoryEventRotateCharacter>();
@@ -28,9 +29,5 @@ void HistoryEventRotateCharacter::Run()
 	_CharacterToRotate->setAnchorPoint(Vec2(0.5f, 0.13f));
 	_CharacterToRotate->runAction(Animate::create(animationDefault));
 	_CharacterToRotate->setCurrentDirectionToShow(_DirectionToRotate);
-}
-
-bool HistoryEventRotateCharacter::IsDone()
-{
-		return true;
+	SetDone(true);
 }

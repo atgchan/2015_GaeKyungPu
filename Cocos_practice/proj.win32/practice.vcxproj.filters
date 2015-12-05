@@ -52,32 +52,35 @@
     <ClCompile Include="..\Classes\DiceDice.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\CharacterAnimation.cpp">
-      <Filter>Animation</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\UILayer.cpp">
       <Filter>UI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\HistoryEvent.cpp">
-      <Filter>Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\HistoryEventMoveCharacter.cpp">
-      <Filter>Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\HistoryEventKillCharacter.cpp">
-      <Filter>Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\HistoryEventRotateCharacter.cpp">
-      <Filter>Animation</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\EventManager.cpp">
-      <Filter>Animation</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\ResultLayer.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\EventManager.cpp">
+      <Filter>Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\HistoryEvent.cpp">
+      <Filter>Event</Filter>
+    </ClCompile>
     <ClCompile Include="..\Classes\HistoryEventAttack.cpp">
-      <Filter>Animation</Filter>
+      <Filter>Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\HistoryEventKillCharacter.cpp">
+      <Filter>Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\HistoryEventMoveCharacter.cpp">
+      <Filter>Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\HistoryEventRotateCharacter.cpp">
+      <Filter>Event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\CharacterAnimation.cpp">
+      <Filter>Character</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\HistoryEventEmpty.cpp">
+      <Filter>Event</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -133,32 +136,35 @@
     <ClInclude Include="..\Classes\DiceDice.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\CharacterAnimation.h">
-      <Filter>Animation</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\UILayer.h">
       <Filter>UI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\HistoryEvent.h">
-      <Filter>Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\HistoryEventMoveCharacter.h">
-      <Filter>Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\HistoryEventKillCharacter.h">
-      <Filter>Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\HistoryEventRotateCharacter.h">
-      <Filter>Animation</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\EventManager.h">
-      <Filter>Animation</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\ResultLayer.h">
       <Filter>UI</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\EventManager.h">
+      <Filter>Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\HistoryEvent.h">
+      <Filter>Event</Filter>
+    </ClInclude>
     <ClInclude Include="..\Classes\HistoryEventAttack.h">
-      <Filter>Animation</Filter>
+      <Filter>Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\HistoryEventKillCharacter.h">
+      <Filter>Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\HistoryEventMoveCharacter.h">
+      <Filter>Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\HistoryEventRotateCharacter.h">
+      <Filter>Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CharacterAnimation.h">
+      <Filter>Character</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\HistoryEventEmpty.h">
+      <Filter>Event</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -186,8 +192,8 @@
     <Filter Include="Game\Battle">
       <UniqueIdentifier>{50751799-4aa2-46d3-9e22-c796ddee06fa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Animation">
-      <UniqueIdentifier>{15a1d808-ccda-4278-a250-8344dc24875b}</UniqueIdentifier>
+    <Filter Include="Event">
+      <UniqueIdentifier>{edb2efaa-164a-4eec-bda5-778824b3230a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

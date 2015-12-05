@@ -54,7 +54,7 @@ void Self_Tile::ChangeTile(TileKind type)
 	this->setAnchorPoint(cocos2d::Vec2(0, 0));
 }
 
-std::shared_ptr<Character> Self_Tile::getCharacterOnThisTile()
+Character* Self_Tile::getCharacterOnThisTile()
 {
 	if (_CharacterOnThisTile)
 		return _CharacterOnThisTile;
@@ -62,7 +62,7 @@ std::shared_ptr<Character> Self_Tile::getCharacterOnThisTile()
 		return nullptr;
 }
 
-void Self_Tile::setCharacterOnThisTile(std::shared_ptr<Character> character)
+void Self_Tile::setCharacterOnThisTile(Character* character)
 {
 	this->_CharacterOnThisTile = character;
 }

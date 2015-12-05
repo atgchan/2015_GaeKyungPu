@@ -6,7 +6,7 @@
 #include "HistoryEventAttack.h"
 #include "DiceDice.h"
 
-void BattleManager::BattleBetween(std::shared_ptr<Character> attacker, std::shared_ptr<Character> defender)
+void BattleManager::BattleBetween(Character* attacker, Character* defender)
 {
 	//이것도 슬슬 개선해보자
 
@@ -26,8 +26,8 @@ void BattleManager::BattleBetween(std::shared_ptr<Character> attacker, std::shar
 		GiveForestBonus(_CurrentAttackFormation.front());
 		GiveForestBonus(_CurrentDefenseFormation.back());
 
-		std::list<std::shared_ptr<Character>> *winner = nullptr;
-		std::list<std::shared_ptr<Character>> *loser = nullptr;
+		std::list<Character*> *winner = nullptr;
+		std::list<Character*> *loser = nullptr;
 
 		if (IsAttackerWin(_CurrentAttackFormation.front(), _CurrentDefenseFormation.front()))
 			winner = &_CurrentAttackFormation;
@@ -62,13 +62,13 @@ void BattleManager::BattleBetween(std::shared_ptr<Character> attacker, std::shar
 		loser->pop_front();
 	}
 
-	std::list<std::shared_ptr<Character>> finalWinnerForm = (_CurrentAttackFormation.size()) ? _CurrentAttackFormation : _CurrentDefenseFormation;
+	std::list<Character*> finalWinnerForm = (_CurrentAttackFormation.size()) ? _CurrentAttackFormation : _CurrentDefenseFormation;
 	PlayerInfo finalWinnerPlayer = finalWinnerForm.front()->GetOwnerPlayer();
 
 	if (finalWinnerPlayer == playerAttacker)
 	{
-		std::shared_ptr<Character> pIter = nullptr;
-		std::shared_ptr<Character>characterToMove = finalWinnerForm.front();
+		Character* pIter = nullptr;
+		Character*characterToMove = finalWinnerForm.front();
 
 		characterToMove->MovoToTile(characterToMove->getCurrentTile()->getNearTile(characterToMove->getCurrentDirection()));
 
@@ -84,7 +84,7 @@ void BattleManager::BattleBetween(std::shared_ptr<Character> attacker, std::shar
 	}
 }
 
-bool BattleManager::IsAttackerWin(std::shared_ptr<Character> attacker, std::shared_ptr<Character> defender)
+bool BattleManager::IsAttackerWin(Character* attacker, Character* defender)
 {
 	while (true)
 	{
@@ -97,29 +97,30 @@ bool BattleManager::IsAttackerWin(std::shared_ptr<Character> attacker, std::shar
 	}
 }
 
-void BattleManager::SetAttackFormation(std::shared_ptr<Character> attacker)
+void BattleManager::SetAttackFormation(Character* attacker)
 {
-	std::list<std::shared_ptr<Character>> tempList;
+	std::list<Character*> tempList;
 	_CurrentAttackFormation.clear();
 	SearchGraphAndOverwriteAttackFormation(tempList, attacker, 1,0);
 }
 
-void BattleManager::SetDefenseFormation(std::shared_ptr<Character> defender)
+void BattleManager::SetDefenseFormation(Character* defender)
 {
 	_CurrentDefenseFormation.clear();
 	_CurrentDefenseFormation.push_back(defender);
 
 	for (int i = DIRECTION_DOWN_LEFT; i < MAX_DIRECTION; ++i)
 	{
-		std::shared_ptr<Character> nearby = defender->GetNearCharacter((DirectionKind)i);
+		Character* nearby = defender->GetNearCharacter((DirectionKind)i);
 		
-		///# shared_ptr은 isnull() 같은거로 널 체크.
-		if (nearby == nullptr && IsCharFacingMe(defender, nearby) && nearby->GetOwnerPlayer() == defender->GetOwnerPlayer())
-			_CurrentDefenseFormation.push_back(nearby);
+			if (nearby != nullptr && IsCharFacingMe(defender, nearby) && nearby->GetOwnerPlayer() == defender->GetOwnerPlayer())
+				_CurrentDefenseFormation.push_back(nearby);
+
+		
 	}
 }
 
-bool isHave(std::list<std::shared_ptr<Character>> *checkedNode, std::shared_ptr<Character> node)
+bool isHave(std::list<Character*> *checkedNode, Character* node)
 {
 	for (auto iter : *checkedNode)
 	{
@@ -129,7 +130,7 @@ bool isHave(std::list<std::shared_ptr<Character>> *checkedNode, std::shared_ptr<
 	return false;
 }
 
-int BattleManager::SearchGraphAndOverwriteAttackFormation(std::list<std::shared_ptr<Character>> checkedNode, std::shared_ptr<Character> currentNode, int currentDepth, int maxDepth)
+int BattleManager::SearchGraphAndOverwriteAttackFormation(std::list<Character*> checkedNode, Character* currentNode, int currentDepth, int maxDepth)
 {
 	checkedNode.push_back(currentNode);
 
@@ -143,7 +144,7 @@ int BattleManager::SearchGraphAndOverwriteAttackFormation(std::list<std::shared_
 	for (int i = DIRECTION_DOWN_LEFT; i < MAX_DIRECTION; ++i)
 	{
 		//i방향으로 인접한 캐릭터
-		std::shared_ptr<Character> compareNode = currentNode->GetNearCharacter(static_cast<DirectionKind>(i));
+		Character* compareNode = currentNode->GetNearCharacter(static_cast<DirectionKind>(i));
 
 		if (compareNode != nullptr)
 			//해당 캐릭터가 자신을 바라보고 있으면
@@ -156,13 +157,13 @@ int BattleManager::SearchGraphAndOverwriteAttackFormation(std::list<std::shared_
 	return maxDepth;
 }
 
-void BattleManager::GiveForestBonus(std::shared_ptr<Character> target)
+void BattleManager::GiveForestBonus(Character* target)
 {
 	if (target->getCurrentTile()->getTypeOfTile() == TILE_FOREST)
 		target->setAttackPower(target->getAttackPower() + 1);
 }
 
-bool BattleManager::IsCharFacingMe(std::shared_ptr<Character> me, std::shared_ptr<Character> other)
+bool BattleManager::IsCharFacingMe(Character* me, Character* other)
 {
 	if (other->GetNearCharacter(other->getCurrentDirection()) == me)
 		return true;

@@ -19,12 +19,10 @@ void HistoryEvent::Run()
 
 bool HistoryEvent::IsDone()
 {
-	return false;
+	return _IsDone;
 }
 
-void HistoryEvent::setDone(bool isDone)
+void HistoryEvent::SetDone(bool isDone)
 {
-	_Done = isDone; 
+	_IsDone = isDone; 
 }
-
-

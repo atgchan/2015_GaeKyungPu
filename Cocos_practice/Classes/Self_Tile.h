@@ -21,7 +21,7 @@ public:
 	bool CheckNearTile(Self_Tile* tile);
 	void ChangeTile(TileKind type);
 	void setOwnerPlayer(PlayerInfo pInfo);
-	void setCharacterOnThisTile(std::shared_ptr<Character> character);
+	void setCharacterOnThisTile(Character* character);
 	void setNearTile(int num, Self_Tile* tile);
 	
 	bool isMovable();
@@ -31,7 +31,7 @@ public:
 	DirectionKind	getNearTileDirection(Self_Tile* tile);	
 	Self_Tile*		getNearTile(DirectionKind direction);
 	PlayerInfo		getOwnerPlayer();
-	std::shared_ptr<Character> getCharacterOnThisTile();
+	Character* getCharacterOnThisTile();
 
 	CC_SYNTHESIZE(TileKind, _typeOfTile, TypeOfTile);
 
@@ -43,5 +43,5 @@ private:
 	PlayerInfo	_OwnerPlayer;
 	Self_Tile*	_NearTile[MAX_DIRECTION];
 
-	std::shared_ptr<Character> _CharacterOnThisTile = nullptr;
+	Character* _CharacterOnThisTile = nullptr;
 };
