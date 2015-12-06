@@ -51,7 +51,6 @@ void EventManager::ScheduleCallback()
 			++_IteratorHistory;
 			_IteratorHistory->get()->Run();
 			++_HistoryCount;
-			
 		}
 	}
 }
@@ -59,9 +58,7 @@ void EventManager::ScheduleCallback()
 EventManager* EventManager::getInstance()
 {
 	if (_Instance == nullptr)
-	{
 		_Instance = new EventManager();
-	}
 	return _Instance;
 }
 

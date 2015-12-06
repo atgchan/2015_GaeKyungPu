@@ -35,7 +35,6 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 			winner = &_CurrentAttackFormation;
 			loser = &_CurrentDefenseFormation;
 			EventManager::getInstance()->AddHistory(HistoryEventAttack::Create(_CurrentAttackFormation.front(), _CurrentDefenseFormation.front()));
-			EventManager::getInstance()->AddHistory(HistoryEventKillCharacter::Create(_CurrentDefenseFormation.front()));
 		}
 		else
 		{
@@ -43,7 +42,6 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 			loser = &_CurrentAttackFormation;
 			EventManager::getInstance()->AddHistory(HistoryEventAttack::Create(_CurrentAttackFormation.front(), _CurrentDefenseFormation.front()));
 			EventManager::getInstance()->AddHistory(HistoryEventAttack::Create(_CurrentDefenseFormation.front(), _CurrentAttackFormation.front()));
-			EventManager::getInstance()->AddHistory(HistoryEventKillCharacter::Create(_CurrentAttackFormation.front()));
 		}
 		
 		bool firstTime = true;

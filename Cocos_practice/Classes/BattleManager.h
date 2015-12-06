@@ -26,6 +26,6 @@ private:
 	int SearchGraphAndOverwriteAttackFormation(std::list<Character*> checkedNode, Character* currentNode, int currentDepth, int maxDepth);
 	std::list<Character*>	_CurrentAttackFormation;
 	std::list<Character*>	_CurrentDefenseFormation;
-	void									GiveForestBonus(Character*);
+	void					GiveForestBonus(Character*);
 };
 

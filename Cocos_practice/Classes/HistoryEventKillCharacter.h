@@ -16,8 +16,6 @@ public:
 	void	Run();
 
 private:
-	Character*		_CharacterToKill = nullptr;
+	void		RemoveCharacterToKill();
+	Character*	_CharacterToKill = nullptr;
 };
-
-
-

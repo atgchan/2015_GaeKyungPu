@@ -42,7 +42,7 @@ void HistoryEventMoveCharacter::Run()
 	ActionInterval* actionDefault = Animate::create(animationDefault);
 
 	FiniteTimeAction* seq = Spawn::create(actionMove, moveTo, nullptr);
-	FiniteTimeAction* seq1 = Sequence::create(seq,doneCall,actionDefault, /*nextCall,*/ nullptr);
+	FiniteTimeAction* seq1 = Sequence::create(seq, doneCall, actionDefault, /*nextCall,*/ nullptr);
 
 	_CharacterToMove->stopAllActions();
 	_CharacterToMove->setAnchorPoint(Vec2(0.5f, 0.13f));
