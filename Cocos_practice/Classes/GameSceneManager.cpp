@@ -125,8 +125,11 @@ bool GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
 		if (_ReadyToMove)
 			return false;
 
-		if ((clickedTile->getOwnerPlayer() == _CurrentPlayer) && clickedTile->isSpawnable() && (clickedTile->getCharacterOnThisTile() == nullptr))
+		if ((clickedTile->getOwnerPlayer() == _CurrentPlayer) && clickedTile->isSpawnable())
 		{
+			if ((clickedTile->getCharacterOnThisTile() != nullptr) && (clickedTile->getCharacterOnThisTile()->GetOwnerPlayer() == _CurrentPlayer))
+				return false;
+
 			SelectBarrack(clickedTile);
 			_DraftTile = clickedTile;
 			_DraftMode = true;
@@ -223,11 +226,8 @@ void GameSceneManager::MouseDownDispatcher(cocos2d::EventMouse *event)
 
 	Unselect();
 
-	Size visibleSize = Director::getInstance()->getVisibleSize();
-	float xPos = event->getCursorX();
-	float yPos = event->getCursorY() + visibleSize.height;
-
 	Self_Tile* clickedTile = getTileFromMouseEvent(event);
+
 	switch (event->getMouseButton())
 	{
 	case MOUSE_BUTTON_LEFT:

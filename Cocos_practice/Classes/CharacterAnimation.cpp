@@ -179,7 +179,7 @@ Animation* CharacterAnimation::CreateAnimationBeHit(PlayerInfo cPInfo, Direction
 	animation->addSpriteFrame(frameArray[0]);
 	animation->addSpriteFrame(frameArray[1]);
 
-	animation->setLoops(5);
+	animation->setLoops(3);
 	return animation;
 }
 
