@@ -20,5 +20,5 @@ private:
 	Character*	_CharacterToKill = nullptr;
 	bool		_ShowHitEffect = false;
 	Sprite*		_HitEffect = nullptr;
-	ActionInterval* _ActionHitEffect = nullptr;
+	Animate* _ActionHitEffect = nullptr;
 };

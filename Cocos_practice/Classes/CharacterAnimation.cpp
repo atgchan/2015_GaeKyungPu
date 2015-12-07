@@ -193,10 +193,19 @@ void CharacterAnimation::CreateAnimationHitEffect()
 {
 	_AnimationHitEffect = Animation::create();
 	_AnimationHitEffect->setDelayPerUnit(0.1f);
-	_AnimationHitEffect->addSpriteFrameWithFile("Effect/HitEffect/HitEffect_01.png");
-	_AnimationHitEffect->addSpriteFrameWithFile("Effect/HitEffect/HitEffect_02.png");
-	_AnimationHitEffect->addSpriteFrameWithFile("Effect/HitEffect/HitEffect_03.png");
-	_AnimationHitEffect->addSpriteFrameWithFile("Effect/HitEffect/HitEffect_04.png");
+
+
+	std::array<SpriteFrame*, 4> frameArray =
+	{
+		SpriteFrameCache::getInstance()->getSpriteFrameByName("HitEffect_01.png"),
+		SpriteFrameCache::getInstance()->getSpriteFrameByName("HitEffect_02.png"),
+		SpriteFrameCache::getInstance()->getSpriteFrameByName("HitEffect_03.png"),
+		SpriteFrameCache::getInstance()->getSpriteFrameByName("HitEffect_04.png")
+	};
+	_AnimationHitEffect->addSpriteFrame(frameArray[0]);
+	_AnimationHitEffect->addSpriteFrame(frameArray[1]);
+	_AnimationHitEffect->addSpriteFrame(frameArray[2]);
+	_AnimationHitEffect->addSpriteFrame(frameArray[3]);
 	_AnimationHitEffect->retain();
 }
 
