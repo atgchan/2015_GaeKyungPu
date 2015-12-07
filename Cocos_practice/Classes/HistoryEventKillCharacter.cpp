@@ -19,7 +19,6 @@ HistoryEventKillCharacter::~HistoryEventKillCharacter()
 
 std::shared_ptr<HistoryEventKillCharacter> HistoryEventKillCharacter::Create(Character* characterToKill, bool hitEffect /*= false*/)
 {
-	///# 마찬가지로 순환참조 유의
 	std::shared_ptr<HistoryEventKillCharacter> newInst = std::make_shared<HistoryEventKillCharacter>();
 	newInst->_CharacterToKill = characterToKill;
 	newInst->_ShowHitEffect = hitEffect;

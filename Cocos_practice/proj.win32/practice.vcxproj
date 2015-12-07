@@ -164,6 +164,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\HistoryEventHarvest.cpp" />
     <ClCompile Include="..\Classes\HistoryEventKillCharacter.cpp" />
     <ClCompile Include="..\Classes\HistoryEventMoveCharacter.cpp" />
+    <ClCompile Include="..\Classes\HistoryEventChangeTile.cpp" />
     <ClCompile Include="..\Classes\HistoryEventRotateCharacter.cpp" />
     <ClCompile Include="..\Classes\MainScene.cpp" />
     <ClCompile Include="..\Classes\pch.cpp">
@@ -199,6 +200,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\HistoryEventHarvest.h" />
     <ClInclude Include="..\Classes\HistoryEventKillCharacter.h" />
     <ClInclude Include="..\Classes\HistoryEventMoveCharacter.h" />
+    <ClInclude Include="..\Classes\HistoryEventChangeTile.h" />
     <ClInclude Include="..\Classes\HistoryEventRotateCharacter.h" />
     <ClInclude Include="..\Classes\MainScene.h" />
     <ClInclude Include="..\Classes\pch.h" />

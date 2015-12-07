@@ -85,6 +85,9 @@
     <ClCompile Include="..\Classes\HistoryEventHarvest.cpp">
       <Filter>Game\Event</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\HistoryEventChangeTile.cpp">
+      <Filter>Game\Event</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
@@ -170,6 +173,9 @@
       <Filter>Game\Event</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\HistoryEventHarvest.h">
+      <Filter>Game\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\HistoryEventChangeTile.h">
       <Filter>Game\Event</Filter>
     </ClInclude>
   </ItemGroup>

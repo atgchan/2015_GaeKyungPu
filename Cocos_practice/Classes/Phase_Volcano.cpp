@@ -8,6 +8,8 @@
 #include <iterator>
 #include "SimpleAudioEngine.h"
 #include "DiceDice.h"
+#include "EventManager.h"
+#include "HistoryEventChangeTile.h"
 
 Phase_Volcano::Phase_Volcano()
 {
@@ -66,7 +68,7 @@ void Phase_Volcano::ChangeRichToLava(int repeat)
 {
 	for (int i = 0; i < repeat; i++)
 	{
-		(*_VolcanoTileListIter)->ChangeTile(TILE_LAVA);
+		EventManager::getInstance()->AddHistory(HistoryEventChangeTile::Create(*_VolcanoTileListIter, TILE_LAVA));
 		if ((*_VolcanoTileListIter)->getCharacterOnThisTile() != nullptr)
 			GM->KillCharacter((*_VolcanoTileListIter)->getCharacterOnThisTile());
 

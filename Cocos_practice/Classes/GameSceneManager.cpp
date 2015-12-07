@@ -251,6 +251,7 @@ void GameSceneManager::MouseDownDispatcher(cocos2d::EventMouse *event)
 			if( event->getMouseButton() == MOUSE_BUTTON_MIDDLE)
 				target->RotateToDirection(ROTATE_LEFT);
 			clickedTile->getCharacterOnThisTile()->ShowMovableTile();
+			_ReadyToMove = false;
 			break;
 		}
 

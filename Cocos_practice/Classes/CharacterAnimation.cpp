@@ -192,7 +192,7 @@ Animation* CharacterAnimation::getAnimationHitEffect()
 void CharacterAnimation::CreateAnimationHitEffect()
 {
 	_AnimationHitEffect = Animation::create();
-	_AnimationHitEffect->setDelayPerUnit(0.1f);
+	_AnimationHitEffect->setDelayPerUnit(0.05f);
 
 
 	std::array<SpriteFrame*, 4> frameArray =
