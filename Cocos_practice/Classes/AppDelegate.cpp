@@ -41,6 +41,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     director->setAnimationInterval(1.0f / 60);
 
 	//resourcefile load!
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Effect/effect.plist");
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Map/map.plist");
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("UI/ui_image.plist");
 	SpriteFrameCache::getInstance()->addSpriteFramesWithFile("Character/unit_blue.plist");
