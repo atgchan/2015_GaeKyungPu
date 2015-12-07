@@ -51,7 +51,7 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 
 		DirectionKind tempDirection = DIRECTION_ERR;
 		DirectionKind prevDirection = loser->front()->getCurrentDirection();
-		GM->KillCharacter(loser->front());
+		GM->KillCharacter(loser->front(),true);
 
 		auto iter = loser->begin();
 		++iter;

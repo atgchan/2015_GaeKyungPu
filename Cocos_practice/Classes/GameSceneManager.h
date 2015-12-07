@@ -74,7 +74,7 @@ public:
 	void		AddChild(Node* targetNode);
 	void		ChangeRichToLava(Self_Tile* target);
 	void		GiveTileToPlayer(Self_Tile* targetTile, PlayerInfo pInfo);
-	void		KillCharacter(Character* target);
+	void KillCharacter(Character* target, bool showHitEffect = false);
 	void		setVolcanoActivated(bool activated);
 
 	Self_Tile*	getTileFromMouseEvent(const cocos2d::EventMouse *event);

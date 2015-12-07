@@ -10,13 +10,14 @@ void CharacterAnimation::Init()
 	for (int i = 0; i < NUM_OF_PLAYER; ++i)
 	{
 		for (int j = 0; j < MAX_DIRECTION; ++j)
-		{	
+		{
 			_AnimationArray.pushBack(CreateAnimationDefault(PlayerInfo(i), DirectionKind(j)));
 			_AnimationArray.pushBack(CreateAnimationMove(PlayerInfo(i), DirectionKind(j)));
 			_AnimationArray.pushBack(CreateAnimationAttack(PlayerInfo(i), DirectionKind(j)));
 			_AnimationArray.pushBack(CreateAnimationBeHit(PlayerInfo(i), DirectionKind(j)));
 		}
 	}
+	CreateAnimationHitEffect();
 }
 
 Animation* CharacterAnimation::getAnimationDefault(PlayerInfo cPInfo, DirectionKind dir)
@@ -27,19 +28,19 @@ Animation* CharacterAnimation::getAnimationDefault(PlayerInfo cPInfo, DirectionK
 
 Animation* CharacterAnimation::getAnimationMove(PlayerInfo cPInfo, DirectionKind dir)
 {
-	int index = static_cast<int>(cPInfo)* 24 + static_cast<int>(dir)* 4 +1;	
+	int index = static_cast<int>(cPInfo)* 24 + static_cast<int>(dir)* 4 + 1;
 	return _AnimationArray.at(index);
 }
 
 Animation*  CharacterAnimation::getAnimationAttack(PlayerInfo cPInfo, DirectionKind dir)
 {
-	int index = static_cast<int>(cPInfo)* 24 + static_cast<int>(dir)* 4+2;
+	int index = static_cast<int>(cPInfo)* 24 + static_cast<int>(dir)* 4 + 2;
 	return _AnimationArray.at(index);
 }
 
 Animation* CharacterAnimation::getAnimationBeHit(PlayerInfo cPInfo, DirectionKind dir)
 {
-	int index = static_cast<int>(cPInfo)* 24 + static_cast<int>(dir)* 4 +3;
+	int index = static_cast<int>(cPInfo)* 24 + static_cast<int>(dir)* 4 + 3;
 	return _AnimationArray.at(index);
 }
 
@@ -56,7 +57,7 @@ Animation* CharacterAnimation::CreateAnimationDefault(PlayerInfo cPInfo, Directi
 	std::string frameName = "spear_";
 	Animation* animation = Animation::create();
 	animation->setDelayPerUnit(0.1f);
-	
+
 	if (cPInfo == PLAYER_RED)
 	{
 		frameName += "R_";
@@ -94,7 +95,7 @@ Animation* CharacterAnimation::CreateAnimationMove(PlayerInfo cPInfo, DirectionK
 	std::string frameName = "spear_";
 	Animation* animation = Animation::create();
 	animation->setDelayPerUnit(0.1f);
-	
+
 	if (cPInfo == PLAYER_RED)
 	{
 		frameName += "R_";
@@ -126,7 +127,7 @@ Animation* CharacterAnimation::CreateAnimationAttack(PlayerInfo cPInfo, Directio
 	std::string frameName = "spear_";
 	Animation* animation = Animation::create();
 	animation->setDelayPerUnit(0.3f);
-	
+
 	if (cPInfo == PLAYER_RED)
 	{
 		frameName += "R_";
@@ -156,7 +157,7 @@ Animation* CharacterAnimation::CreateAnimationBeHit(PlayerInfo cPInfo, Direction
 	std::string frameName = "spear_";
 	Animation* animation = Animation::create();
 	animation->setDelayPerUnit(0.1f);
-	
+
 	if (cPInfo == PLAYER_RED)
 	{
 		frameName += "R_";
@@ -182,6 +183,23 @@ Animation* CharacterAnimation::CreateAnimationBeHit(PlayerInfo cPInfo, Direction
 	animation->setLoops(3);
 	return animation;
 }
+
+Animation* CharacterAnimation::getAnimationHitEffect()
+{
+	return _AnimationHitEffect;
+}
+
+void CharacterAnimation::CreateAnimationHitEffect()
+{
+	_AnimationHitEffect = Animation::create();
+	_AnimationHitEffect->setDelayPerUnit(0.1f);
+	_AnimationHitEffect->addSpriteFrameWithFile("Effect/HitEffect/HitEffect_01.png");
+	_AnimationHitEffect->addSpriteFrameWithFile("Effect/HitEffect/HitEffect_02.png");
+	_AnimationHitEffect->addSpriteFrameWithFile("Effect/HitEffect/HitEffect_03.png");
+	_AnimationHitEffect->addSpriteFrameWithFile("Effect/HitEffect/HitEffect_04.png");
+	_AnimationHitEffect->retain();
+}
+
 
 std::string CharacterAnimation::LoadPlist(PlayerInfo cPInfo, std::string frameName)
 {

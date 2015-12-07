@@ -287,12 +287,12 @@ void GameSceneManager::GiveTileToPlayer(Self_Tile* targetTile, PlayerInfo pInfo)
 	targetTile->setOwnerPlayer(pInfo);
 }
 
-void GameSceneManager::KillCharacter(Character* target)
+void GameSceneManager::KillCharacter(Character* target, bool showHitEffect /*= false*/)
 {
 	target->getCurrentTile()->setCharacterOnThisTile(nullptr);
 	getPlayerDataByPlayerInfo(target->GetOwnerPlayer())->RemoveCharacter(target);
 
-	EventManager::getInstance()->AddHistory(HistoryEventKillCharacter::Create(target));
+	EventManager::getInstance()->AddHistory(HistoryEventKillCharacter::Create(target,true));
 }
 
 void GameSceneManager::ChangePhase(PhaseInfo nextPhase)

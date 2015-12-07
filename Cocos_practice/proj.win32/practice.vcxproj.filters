@@ -4,7 +4,7 @@
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="..\Classes\TileMap.cpp">
-      <Filter>Map</Filter>
+      <Filter>Game\Map</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\GameScene.cpp">
       <Filter>Scene</Filter>
@@ -13,10 +13,10 @@
       <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Self_Tile.cpp">
-      <Filter>Map</Filter>
+      <Filter>Game\Map</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\Character.cpp">
-      <Filter>Character</Filter>
+      <Filter>Game\Character</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\pch.cpp" />
     <ClCompile Include="..\Classes\PlayerData.cpp">
@@ -44,7 +44,7 @@
       <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\DebugUI.cpp">
-      <Filter>UI</Filter>
+      <Filter>Game\UI</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\BattleManager.cpp">
       <Filter>Game\Battle</Filter>
@@ -53,44 +53,44 @@
       <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\UILayer.cpp">
-      <Filter>UI</Filter>
+      <Filter>Game\UI</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\ResultLayer.cpp">
-      <Filter>UI</Filter>
+      <Filter>Game\UI</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\EventManager.cpp">
-      <Filter>Event</Filter>
+      <Filter>Game\Event</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\HistoryEvent.cpp">
-      <Filter>Event</Filter>
+      <Filter>Game\Event</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\HistoryEventAttack.cpp">
-      <Filter>Event</Filter>
+      <Filter>Game\Event</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\HistoryEventKillCharacter.cpp">
-      <Filter>Event</Filter>
+      <Filter>Game\Event</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\HistoryEventMoveCharacter.cpp">
-      <Filter>Event</Filter>
+      <Filter>Game\Event</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\HistoryEventRotateCharacter.cpp">
-      <Filter>Event</Filter>
+      <Filter>Game\Event</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\CharacterAnimation.cpp">
-      <Filter>Character</Filter>
+      <Filter>Game\Character</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\HistoryEventEmpty.cpp">
-      <Filter>Event</Filter>
+      <Filter>Game\Event</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\HistoryEventHarvest.cpp">
-      <Filter>Event</Filter>
+      <Filter>Game\Event</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="..\Classes\TileMap.h">
-      <Filter>Map</Filter>
+      <Filter>Game\Map</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\GameScene.h">
       <Filter>Scene</Filter>
@@ -99,10 +99,10 @@
       <Filter>Scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Self_Tile.h">
-      <Filter>Map</Filter>
+      <Filter>Game\Map</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\Character.h">
-      <Filter>Character</Filter>
+      <Filter>Game\Character</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\pch.h" />
     <ClInclude Include="..\Classes\PlayerData.h">
@@ -131,7 +131,7 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\DebugUI.h">
-      <Filter>UI</Filter>
+      <Filter>Game\UI</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\BattleManager.h">
       <Filter>Game\Battle</Filter>
@@ -140,66 +140,69 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\UILayer.h">
-      <Filter>UI</Filter>
+      <Filter>Game\UI</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\ResultLayer.h">
-      <Filter>UI</Filter>
+      <Filter>Game\UI</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\EventManager.h">
-      <Filter>Event</Filter>
+      <Filter>Game\Event</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\HistoryEvent.h">
-      <Filter>Event</Filter>
+      <Filter>Game\Event</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\HistoryEventAttack.h">
-      <Filter>Event</Filter>
+      <Filter>Game\Event</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\HistoryEventKillCharacter.h">
-      <Filter>Event</Filter>
+      <Filter>Game\Event</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\HistoryEventMoveCharacter.h">
-      <Filter>Event</Filter>
+      <Filter>Game\Event</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\HistoryEventRotateCharacter.h">
-      <Filter>Event</Filter>
+      <Filter>Game\Event</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\CharacterAnimation.h">
-      <Filter>Character</Filter>
+      <Filter>Game\Character</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\HistoryEventEmpty.h">
-      <Filter>Event</Filter>
+      <Filter>Game\Event</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\HistoryEventHarvest.h">
-      <Filter>Event</Filter>
+      <Filter>Game\Event</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Map">
-      <UniqueIdentifier>{6f5f64b4-8379-4726-b026-add212be820c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Scene">
       <UniqueIdentifier>{d8be399a-9402-4a39-baf3-f31193311e22}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game">
       <UniqueIdentifier>{957161f6-eacf-44ce-a380-5962757f1b7f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Character">
-      <UniqueIdentifier>{e60db5f5-8049-4f19-8aae-51df390f791c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\Phase">
       <UniqueIdentifier>{563d1ab2-4001-4396-b8d4-fada9168d91a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="UI">
-      <UniqueIdentifier>{b3aad223-5c96-44bf-a366-a7512262cdda}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\Battle">
       <UniqueIdentifier>{50751799-4aa2-46d3-9e22-c796ddee06fa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Event">
+    <Filter Include="Game\Event">
       <UniqueIdentifier>{edb2efaa-164a-4eec-bda5-778824b3230a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Character">
+      <UniqueIdentifier>{e60db5f5-8049-4f19-8aae-51df390f791c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\UI">
+      <UniqueIdentifier>{b3aad223-5c96-44bf-a366-a7512262cdda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Map">
+      <UniqueIdentifier>{6f5f64b4-8379-4726-b026-add212be820c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Effect">
+      <UniqueIdentifier>{5a8fa386-0227-4578-adcd-e8fe98213419}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

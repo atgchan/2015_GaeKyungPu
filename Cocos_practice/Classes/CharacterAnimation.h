@@ -13,7 +13,7 @@ public:
 	Animation*	getAnimationMove(PlayerInfo cPInfo, DirectionKind dir);
 	Animation*	getAnimationAttack(PlayerInfo cPInfo, DirectionKind dir);
 	Animation*	getAnimationBeHit(PlayerInfo cPInfo, DirectionKind dir);
-	
+	Animation*	getAnimationHitEffect();
 
 	//void		setAnimationDefault(Character* targetCharacter);
 	static void	Terminate();
@@ -24,11 +24,12 @@ private:
 	static CharacterAnimation* _Inst;
 
 	cocos2d::Vector<Animation*> _AnimationArray;
-
 	Animation*	CreateAnimationDefault(PlayerInfo cPInfo, DirectionKind dir);
 	Animation*	CreateAnimationMove(PlayerInfo cPInfo, DirectionKind dir);
 	Animation*	CreateAnimationAttack(PlayerInfo cPInfo, DirectionKind dir);
 	Animation*	CreateAnimationBeHit(PlayerInfo cPInfo, DirectionKind dir);
+	void CreateAnimationHitEffect();
+	Animation*	_AnimationHitEffect;
 
 	std::string	GetDirectionName(int spriteNum);
 	std::string	LoadPlist(PlayerInfo cPInfo, std::string frameName);
