@@ -17,7 +17,7 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 	int flankBonus = std::abs(std::abs((attacker->getCurrentDirection() - defender->getCurrentDirection())) - 3);
 	
 	attacker->setAttackPower(flankBonus + attacker->getAttackPower());
-	defender->RotateToDirection(static_cast<DirectionKind>((attacker->getCurrentDirection() + 3) % MAX_DIRECTION)); ///# C++ 캐스팅을 쓰거나 enum에 타입을 주거나..
+	defender->RotateToDirection(static_cast<DirectionKind>((attacker->getCurrentDirection() + 3) % MAX_DIRECTION));
 
 	PlayerInfo playerAttacker = attacker->GetOwnerPlayer();
 	PlayerInfo playerDefender = defender->GetOwnerPlayer();

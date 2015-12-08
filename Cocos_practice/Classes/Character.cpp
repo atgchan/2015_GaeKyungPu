@@ -25,7 +25,7 @@ Character* Character::create(PlayerInfo cPInfo, DirectionKind spriteNum)
 	character->init();
 	character->runAction(Animate::create(animationDefault));
 	character->setName("character");
-	return character; ///# 함수 내부에서 new해서 리턴하는건데.. 자원 관리는 잘 하는건가?
+	return character;
 }
 
 void Character::RotateToDirection(RotateDirection rotateDirection)
