@@ -197,10 +197,10 @@ void CharacterAnimation::CreateAnimationHitEffect()
 
 	std::array<SpriteFrame*, 4> frameArray =
 	{
-		SpriteFrameCache::getInstance()->getSpriteFrameByName("HitEffect_01.png"),
-		SpriteFrameCache::getInstance()->getSpriteFrameByName("HitEffect_02.png"),
-		SpriteFrameCache::getInstance()->getSpriteFrameByName("HitEffect_03.png"),
-		SpriteFrameCache::getInstance()->getSpriteFrameByName("HitEffect_04.png")
+		SpriteFrameCache::getInstance()->getSpriteFrameByName(FILENAME_IMG_GAME_CHARACTER_EFFECT_HIT_01_FIRST),
+		SpriteFrameCache::getInstance()->getSpriteFrameByName(FILENAME_IMG_GAME_CHARACTER_EFFECT_HIT_01_FIRST),
+		SpriteFrameCache::getInstance()->getSpriteFrameByName(FILENAME_IMG_GAME_CHARACTER_EFFECT_HIT_01_FIRST),
+		SpriteFrameCache::getInstance()->getSpriteFrameByName(FILENAME_IMG_GAME_CHARACTER_EFFECT_HIT_04_LAST)
 	};
 	_AnimationHitEffect->addSpriteFrame(frameArray[0]);
 	_AnimationHitEffect->addSpriteFrame(frameArray[1]);

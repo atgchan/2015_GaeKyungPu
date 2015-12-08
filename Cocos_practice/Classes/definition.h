@@ -92,5 +92,9 @@ enum EventType
 
 #define FILENAME_IMG_GAME_BACKGROUND "Background/ocean water.jpg"
 #define FILENAME_IMG_GAME_CHARACTER_MOVABLE_TILE "tile_move.png"
+#define FILENAME_IMG_GAME_CHARACTER_EFFECT_HIT_01_FIRST "HitEffect_01.png"
+#define FILENAME_IMG_GAME_CHARACTER_EFFECT_HIT_02 "HitEffect_02.png"
+#define FILENAME_IMG_GAME_CHARACTER_EFFECT_HIT_03 "HitEffect_03.png"
+#define FILENAME_IMG_GAME_CHARACTER_EFFECT_HIT_04_LAST "HitEffect_04.png"
 //FONT
 #define FILENAME_FONT_MAINMENU "fonts/Marker Felt.ttf"
