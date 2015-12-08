@@ -80,7 +80,7 @@ void Phase_Volcano::ChangeAllLavaToPlane()
 {
 	for (Vector<Self_Tile*>::iterator iter = _VolcanoTileList.begin(); iter != _VolcanoTileList.end(); ++iter)
 	{
-		static_cast<Self_Tile*>(*iter)->ChangeTile(TILE_PLAIN);
+		(*iter)->ChangeTile(TILE_PLAIN);
 	}
 }
 

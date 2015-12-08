@@ -23,7 +23,7 @@ public:
 	void	CharacterBeHit();
 	void	CharacterAttack();
 
-	int		_AttackPower = 2;
+	int		_AttackPower = 2; ///# 하드코딩 상수..따로 뺄 것
 	void	SetOwnerPlayer(PlayerInfo pInfo);
 	void	ShowMovableTile();
 
@@ -55,7 +55,7 @@ private:
 	CC_SYNTHESIZE(PlayerInfo, CurrentPlayerInfo, CurrentPlayerInfo);
 	CC_SYNTHESIZE(AnimationState, AnimState, AnimState);
 	
-	int		_AttackPowerToDisplay = 2;
+	int		_AttackPowerToDisplay = 2; ///# 마찬가지
 	cocos2d::Label* _AttackPowerLabel;
 };
 
