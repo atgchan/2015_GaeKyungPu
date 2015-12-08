@@ -17,7 +17,7 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 	int flankBonus = std::abs(std::abs((attacker->getCurrentDirection() - defender->getCurrentDirection())) - 3);
 	
 	attacker->setAttackPower(flankBonus + attacker->getAttackPower());
-	defender->RotateToDirection((DirectionKind)((attacker->getCurrentDirection() + 3) % MAX_DIRECTION));
+	defender->RotateToDirection((DirectionKind)((attacker->getCurrentDirection() + 3) % MAX_DIRECTION)); ///# C++ 캐스팅을 쓰거나 enum에 타입을 주거나..
 
 	PlayerInfo playerAttacker = attacker->GetOwnerPlayer();
 	PlayerInfo playerDefender = defender->GetOwnerPlayer();
@@ -127,6 +127,7 @@ void BattleManager::SetDefenseFormation(Character* defender)
 	}
 }
 
+///# std::find 쓰면 한줄이면 되는데.. 그러면 이렇게 전역 함수로 따로 만들필요도 없고?
 bool isHave(std::list<Character*> *checkedNode, Character* node)
 {
 	for (auto iter : *checkedNode)
