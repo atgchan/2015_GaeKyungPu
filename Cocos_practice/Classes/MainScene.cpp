@@ -29,8 +29,6 @@ bool MainScene::init()
 	background->setAnchorPoint(Point(0,0));
 	this->addChild(background);
 
-	///# 문자 리터럴은 따로 모아 놓을 것
-
 	auto label_title = Label::createWithTTF("Testudo", FILENAME_FONT_MAINMENU, 40);
 	label_title->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 100));
 
