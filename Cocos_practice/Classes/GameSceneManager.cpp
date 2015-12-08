@@ -92,8 +92,7 @@ Self_Tile* GameSceneManager::getTileFromMouseEvent(const cocos2d::EventMouse *ev
 		if (iter->rect.containsPoint(Vec2(xPos, yPos)))
 			return iter->tile;
 	}
-
-	///# 여기에 도달할 경우 리턴값은?
+	return nullptr;
 }
 
 bool GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)

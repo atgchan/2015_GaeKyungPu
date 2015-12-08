@@ -11,8 +11,6 @@ public:
 	bool	ThereIsMoreHistory();
 	void	AddHistory(std::shared_ptr<HistoryEvent> historyEvent); 
 	
-	///# 지난주 코멘트가 그대로 있는디?
-
 	///# 히스토리이벤트를 전반적으로 shared_ptr형태로 쓰고 있는데, 꼭 그래야 하는 이유가 있는지?
 	///# shared_ptr을 쓰려면 다른 RAW포인터들과 섞어 쓰기 시작하면 반드시 실수하는 경우가 나온다.
 	///# 즉, 쓰려면 RAW포인터 없이 다 써야 한다. (물론 프로그램 내내 떠있어서 delete될 일 없는 포인터는 예외)

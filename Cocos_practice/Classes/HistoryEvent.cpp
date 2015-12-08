@@ -9,7 +9,6 @@ HistoryEvent::HistoryEvent()
 
 HistoryEvent::~HistoryEvent()
 {
-	///# 반드시 소멸 되는지 확인, 확인 했는가?
 }
 
 void HistoryEvent::Run()

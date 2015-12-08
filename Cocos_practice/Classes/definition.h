@@ -23,7 +23,8 @@ enum AnimationState{
 	ANIM_ERR = -1
 };
 
-enum PlayerInfo{
+enum PlayerInfo : int
+{
 	PLAYER_RED,
 	PLAYER_BLUE,
 	PLAYER_ERR = -1
@@ -43,7 +44,7 @@ enum TileKind {
 	TILE_RICH_SIDE,
 	TILE_MOVE
 };
-enum DirectionKind
+enum DirectionKind : int
 {
 	DIRECTION_DOWN_LEFT,
 	DIRECTION_DOWN,

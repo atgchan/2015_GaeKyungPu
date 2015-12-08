@@ -22,25 +22,25 @@ void CharacterAnimation::Init()
 
 Animation* CharacterAnimation::getAnimationDefault(PlayerInfo cPInfo, DirectionKind dir)
 {
-	int index = static_cast<int>(cPInfo)* 24 + static_cast<int>(dir)* 4; ///# enum을 int로 캐스팅하기보다 enum에도 타입을 줄 수 있다 (C++ 11)
+	int index = cPInfo* 24 + dir* 4;
 	return _AnimationArray.at(index);
 }
 
 Animation* CharacterAnimation::getAnimationMove(PlayerInfo cPInfo, DirectionKind dir)
 {
-	int index = static_cast<int>(cPInfo)* 24 + static_cast<int>(dir)* 4 + 1;
+	int index = cPInfo * 24 + dir * 4 + 1;
 	return _AnimationArray.at(index);
 }
 
 Animation*  CharacterAnimation::getAnimationAttack(PlayerInfo cPInfo, DirectionKind dir)
 {
-	int index = static_cast<int>(cPInfo)* 24 + static_cast<int>(dir)* 4 + 2;
+	int index = cPInfo * 24 + dir * 4 + 2;
 	return _AnimationArray.at(index);
 }
 
 Animation* CharacterAnimation::getAnimationBeHit(PlayerInfo cPInfo, DirectionKind dir)
 {
-	int index = static_cast<int>(cPInfo)* 24 + static_cast<int>(dir)* 4 + 3;
+	int index = cPInfo * 24 + dir * 4 + 3;
 	return _AnimationArray.at(index);
 }
 
