@@ -2,6 +2,7 @@
 #include "GameScene.h"
 #include "MainScene.h"
 #include "SimpleAudioEngine.h"
+#include "definition.h"
 
 Scene* MainScene::CreateScene()
 {
@@ -22,7 +23,7 @@ bool MainScene::init()
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	CCSprite * background = CCSprite::create("Background/Total_War_Rome_2_Roman_Soldier_Sword_warrior_warriors_fantasy_battle_1920x1080.jpg");
+	CCSprite * background = CCSprite::create(FILENAME_IMG_MAIN_BACKGROUND);
 	background->setScaleX((visibleSize.width / background->getContentSize().width) * 1);
 	background->setScaleY((visibleSize.height / background->getContentSize().height) * 1);
 	background->setAnchorPoint(Point(0,0));
@@ -30,20 +31,12 @@ bool MainScene::init()
 
 	///# 문자 리터럴은 따로 모아 놓을 것
 
-	auto label_title = Label::createWithTTF("Testudo", "fonts/Marker Felt.ttf", 40);
+	auto label_title = Label::createWithTTF("Testudo", FILENAME_FONT_MAINMENU, 40);
 	label_title->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 100));
 
-	auto label_play = Label::createWithTTF("Play", "fonts/Marker Felt.ttf", 24);
-	auto label_setting = Label::createWithTTF("Setting", "fonts/Marker Felt.ttf", 24);
-	auto label_exit = Label::createWithTTF("Exit", "fonts/Marker Felt.ttf", 24);
-
-	auto closeItem = MenuItemImage::create("CloseNormal.png", "CloseSelected.png", CC_CALLBACK_1(MainScene::MenuCloseCallback, this));
-	closeItem->setPosition(
-			Vec2(
-				origin.x + visibleSize.width - closeItem->getContentSize().width / 2,
-				origin.y + closeItem->getContentSize().height / 2
-			)
-		);
+	auto label_play = Label::createWithTTF("Play", FILENAME_FONT_MAINMENU, 24);
+	auto label_setting = Label::createWithTTF("Setting", FILENAME_FONT_MAINMENU, 24);
+	auto label_exit = Label::createWithTTF("Exit", FILENAME_FONT_MAINMENU, 24);
 
 	auto menu_play = MenuItemLabel::create(label_play, CC_CALLBACK_1(MainScene::MenuClickCallback, this));
 	auto menu_setting = MenuItemLabel::create(label_setting);
@@ -53,10 +46,10 @@ bool MainScene::init()
 	menu_setting->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 30));
 	menu_exit->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 60));
 
-	auto mainMenu = Menu::create(menu_play, menu_setting, menu_exit, closeItem, NULL);
+	auto mainMenu = Menu::create(menu_play, menu_setting, menu_exit, nullptr);
 	mainMenu->setPosition(Vec2::ZERO);
 
-	Sprite* cursor = Sprite::createWithSpriteFrameName("cursor.png");
+	Sprite* cursor = Sprite::createWithSpriteFrameName(FILENAME_IMG_MAIN_CURSOR);
 	
 	cursor->setPosition(Vec2(visibleSize.width / 2 - 100, visibleSize.height / 2));
 	cursor->setName("cursor");
@@ -71,7 +64,7 @@ bool MainScene::init()
 	keyListener->onKeyReleased = CC_CALLBACK_2(MainScene::OnKeyReleased, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(keyListener, this);
 
-	CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Sound/22-forever-credits-.mp3",true);
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic(FILENAME_SOUND_MAIN_BGM,true);
 
 	return true;
 }

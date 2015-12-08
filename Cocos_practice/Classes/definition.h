@@ -73,3 +73,24 @@ enum EventType
 {
 	HISTORY_EVENT_BATTLE
 };
+
+#define ATTACK_POWER_DEFAULT 2;
+
+//SOUND - ogg, mp3, wav able
+#define FILENAME_SOUND_MAIN_BGM "Sound/22-forever-credits-.mp3"
+
+#define FILENAME_SOUND_GAME_BGM "Sound/battle.mp3"
+#define FILENAME_SOUND_GAME_SWORD "Sound/swords.wav"
+#define FILENAME_SOUND_GAME_MOVE "Sound/Jump_03.wav"
+#define FILENAME_SOUND_GAME_KILL "Sound/Hit_03.wav"
+#define FILENAME_SOUND_GAME_VOLCANO "Sound/lava-01.wav"
+#define FILENAME_SOUND_GAME_HARVEST "Sound/Emerge6.wav"
+
+//IMG - png, jpeg able
+#define FILENAME_IMG_MAIN_BACKGROUND "Background/Total_War_Rome_2_Roman_Soldier_Sword_warrior_warriors_fantasy_battle_1920x1080.jpg"
+#define FILENAME_IMG_MAIN_CURSOR "cursor.png"
+
+#define FILENAME_IMG_GAME_BACKGROUND "Background/ocean water.jpg"
+#define FILENAME_IMG_GAME_CHARACTER_MOVABLE_TILE "tile_move.png"
+//FONT
+#define FILENAME_FONT_MAINMENU "fonts/Marker Felt.ttf"

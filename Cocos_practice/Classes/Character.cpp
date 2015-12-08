@@ -97,7 +97,7 @@ void Character::CharacterAttack()
 
 void Character::ShowMovableTile()
 {
-	Sprite* tileMove = Sprite::createWithSpriteFrameName("tile_move.png");
+	Sprite* tileMove = Sprite::createWithSpriteFrameName(FILENAME_IMG_GAME_CHARACTER_MOVABLE_TILE);
 	tileMove->setOpacity(96);
 	tileMove->setAnchorPoint(cocos2d::Vec2(0, 0));
 
@@ -176,6 +176,7 @@ void Character::setAttackPower(int attackPower)
 
 void Character::InitAttackPowerSprite()
 {
+	//label을 구슬 스프라이트로 바꿀 예정이므로 문자 리터럴은 건드리지 않겠습니다.
 	_AttackPowerLabel = Label::createWithTTF(std::to_string(_AttackPowerToDisplay), "fonts/upheavtt.ttf", 20);
 	float posX = this->getPositionX();
 	float posY = this->getPositionY();

@@ -10,6 +10,7 @@
 #include "DiceDice.h"
 #include "EventManager.h"
 #include "HistoryEventChangeTile.h"
+#include "definition.h"
 
 Phase_Volcano::Phase_Volcano()
 {
@@ -40,7 +41,7 @@ void Phase_Volcano::Tick()
 	case 1:
 	case 2:
 	case 3:
-		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("Sound/lava-01.wav");
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(FILENAME_SOUND_GAME_VOLCANO);
 		ChangeRichToLava(GM->getProgressVolcano());
 		GM->setProgressVolcano(GM->getProgressVolcano() + 1);
 		break;

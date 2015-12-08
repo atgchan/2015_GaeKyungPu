@@ -26,7 +26,7 @@ bool GameScene::init()
 	this->setName("GameScene");
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();
-	CCSprite * background = CCSprite::create("Background/ocean water.jpg");
+	CCSprite * background = CCSprite::create(FILENAME_IMG_GAME_BACKGROUND);
 	background->setScaleX((visibleSize.width / background->getContentSize().width) * 1);
 	background->setScaleY((visibleSize.height / background->getContentSize().height) * 1);
 	background->setAnchorPoint(Point(0, 0));
@@ -61,7 +61,7 @@ bool GameScene::init()
 //	tick을 넘겨본다.
 	this->schedule(schedule_selector(GameScene::ScheduleCallback));
 
-	CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic("Sound/battle.mp3",true);
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic(FILENAME_SOUND_GAME_BGM,true);
 
 	return true;
 }

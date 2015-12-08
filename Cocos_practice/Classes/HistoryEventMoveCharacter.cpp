@@ -48,5 +48,5 @@ void HistoryEventMoveCharacter::Run()
 	_CharacterToMove->setAnchorPoint(Vec2(0.5f, 0.13f));
 	_CharacterToMove->runAction(seq1);
 	_CharacterToMove->setAnimState(ANIM_MOVE);
-	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("Sound/Jump_03.wav");
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(FILENAME_SOUND_GAME_MOVE);
 }

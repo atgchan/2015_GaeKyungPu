@@ -24,7 +24,7 @@ std::shared_ptr<HistoryEventAttack> HistoryEventAttack::Create(Character* attack
 
 void HistoryEventAttack::PlaySwordSound()
 {
-	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("Sound/swords.wav"); ///# 문자리터럴은 따로 모을 것
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(FILENAME_SOUND_GAME_SWORD);
 }
 
 void HistoryEventAttack::Run()

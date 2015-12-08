@@ -47,7 +47,7 @@ void HistoryEventKillCharacter::Run()
 
 void HistoryEventKillCharacter::RemoveCharacterToKill()
 {
-	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("Sound/Hit_03.wav");
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(FILENAME_SOUND_GAME_KILL);
 	TileMap::getInstance()->KillCharacter(_CharacterToKill);
 	_CharacterToKill = nullptr;
 }

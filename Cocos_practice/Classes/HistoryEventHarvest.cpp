@@ -30,7 +30,7 @@ void HistoryEventHarvest::Run()
 	FiniteTimeAction* seq = Sequence::create(floatAction, flyAction, addCall, doneCall, delAction, nullptr);
 	grain->runAction(seq);
 	GM->getNodes()->getParent()->getChildByName("ui_layer")->addChild(grain);
-	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect("Sound/Emerge6.wav");
+	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(FILENAME_SOUND_GAME_HARVEST);
 }
 
 std::shared_ptr<HistoryEventHarvest> HistoryEventHarvest::Create(Character* characterHarvest)
