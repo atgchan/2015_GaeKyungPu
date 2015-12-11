@@ -85,8 +85,15 @@ bool TileMap::create()
 //	다음 함수에서 모든 타일을 순회하여 tile마다 nearTile을 저장한다.
 	SetTotalNearTile();
 
+	_TileSet[7][3]->setPositionY(_TileSet[7][3]->getPositionY() + 12);
+	_TileSet[6][3]->setPositionY(_TileSet[6][3]->getPositionY() + 12);
+	_TileSet[3][5]->setPositionY(_TileSet[3][5]->getPositionY() + 12);
+	_TileSet[4][6]->setPositionY(_TileSet[4][6]->getPositionY() + 12);
+
 	_TileSet[7][2]->setOwnerPlayer(PLAYER_RED);
+	//_TileSet[7][2]->setPositionY(_TileSet[7][2]->getPositionY() + 9);
 	_TileSet[3][6]->setOwnerPlayer(PLAYER_BLUE);
+	//_TileSet[3][6]->setPositionY(_TileSet[3][6]->getPositionY() + 9);
 
 	return true;
 }
