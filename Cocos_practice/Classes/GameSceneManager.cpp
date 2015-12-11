@@ -374,11 +374,13 @@ void GameSceneManager::SelectCharacter(Character* character)
 		float posX = character->getPositionX();
 		float posY = character->getPositionY();
 
-		Sprite* indicator = Sprite::createWithSpriteFrameName("indicator.png");
+		//Sprite* indicator = Sprite::createWithSpriteFrameName("indicator.png");
+		Sprite* indicator = CCSprite::create(FILENAME_IMG_MAIN_SELECT);
+	
 		indicator->setName("indicator");
 		indicator->setZOrder(11);
 		indicator->setAnchorPoint(Vec2(0, 0));
-		indicator->setPosition(posX-25, posY + 100);
+		indicator->setPosition(posX-5, posY + 90);
 
 		character->ShowMovableTile();
 
@@ -393,11 +395,12 @@ void GameSceneManager::SelectBarrack(Self_Tile* tile)
 		float posX = tile->getPositionX();
 		float posY = tile->getPositionY();
 		
-		Sprite* indicator = Sprite::createWithSpriteFrameName("indicator.png");
+		//Sprite* indicator = Sprite::createWithSpriteFrameName("indicator.png");
+		Sprite* indicator = CCSprite::create(FILENAME_IMG_MAIN_SELECT);
 		indicator->setName("indicator");
 		indicator->setZOrder(11);
 		indicator->setAnchorPoint(Vec2(0, 0));
-		indicator->setPosition(posX + 60, posY + 110);
+		indicator->setPosition(posX + 70, posY + 100);
 
 		ShowSpawnableTile(tile);
 

@@ -89,6 +89,7 @@ enum EventType
 //IMG - png, jpeg able
 #define FILENAME_IMG_MAIN_BACKGROUND "Background/Total_War_Rome_2_Roman_Soldier_Sword_warrior_warriors_fantasy_battle_1920x1080.jpg"
 #define FILENAME_IMG_MAIN_CURSOR "cursor.png"
+#define FILENAME_IMG_MAIN_SELECT "UI/triangle.png"
 
 #define FILENAME_IMG_GAME_BACKGROUND "Background/ocean water.jpg"
 #define FILENAME_IMG_GAME_CHARACTER_MOVABLE_TILE "tile_move.png"
