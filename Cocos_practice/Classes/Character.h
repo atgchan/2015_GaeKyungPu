@@ -56,6 +56,8 @@ private:
 	CC_SYNTHESIZE(AnimationState, AnimState, AnimState);
 	
 	int		_AttackPowerToDisplay = ATTACK_POWER_DEFAULT;
-	cocos2d::Label* _AttackPowerLabel;
+	cocos2d::Sprite* _AttackPowerBall;
+
+	void setAttackPowerBallNameFromNumber(int);
 };
 

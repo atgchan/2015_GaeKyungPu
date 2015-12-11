@@ -177,15 +177,17 @@ void Character::setAttackPower(int attackPower)
 void Character::InitAttackPowerSprite()
 {
 	//label을 구슬 스프라이트로 바꿀 예정이므로 문자 리터럴은 건드리지 않겠습니다.
-	_AttackPowerLabel = Label::createWithTTF(std::to_string(_AttackPowerToDisplay), "fonts/upheavtt.ttf", 20);
+	//_AttackPowerLabel = Label::createWithTTF(std::to_string(_AttackPowerToDisplay), "fonts/upheavtt.ttf", 20);
+	_AttackPowerBall = CCSprite::create(FILENAME_IMG_ATTACK_POWER_2); 
+
 	float posX = this->getPositionX();
 	float posY = this->getPositionY();
 
-	_AttackPowerLabel->setName("attackPower");
-	_AttackPowerLabel->setAnchorPoint(Vec2(0, 0));
-	_AttackPowerLabel->setPosition(posX + 25, posY + 80);
+	_AttackPowerBall->setName("attackPower");
+	_AttackPowerBall->setAnchorPoint(Vec2(0, 0));
+	_AttackPowerBall->setPosition(posX + 25, posY + 80);
 
-	this->addChild(_AttackPowerLabel);
+	this->addChild(_AttackPowerBall);
 }
 
 void Character::UpdateAttackPowerSprite()
@@ -199,7 +201,8 @@ void Character::UpdateAttackPowerSprite()
 	if (CurrentTile->getTypeOfTile() == TILE_FOREST)
 		directionBonus++;
 	
-	_AttackPowerLabel->setString(std::to_string(_AttackPowerToDisplay + directionBonus));
+	setAttackPowerBallNameFromNumber(_AttackPowerToDisplay + directionBonus);
+	//_AttackPowerBall->setString(std::to_string(_AttackPowerToDisplay + directionBonus));
 }
 
 void Character::setAttackPowerToDisplay(int ap)
@@ -231,4 +234,31 @@ int Character::CalculateDiffBetweenDirections(DirectionKind dir1, DirectionKind 
 		return 3;
 
 	return -100000;
+}
+
+void Character::setAttackPowerBallNameFromNumber(int power)
+{
+	switch (power)
+	{
+	case 1:
+		_AttackPowerBall->setTexture(FILENAME_IMG_ATTACK_POWER_1);
+		break;
+	case 2:
+		_AttackPowerBall->setTexture(FILENAME_IMG_ATTACK_POWER_2);
+		break;
+	case 3:
+		_AttackPowerBall->setTexture(FILENAME_IMG_ATTACK_POWER_3);
+		break;
+	case 4:
+		_AttackPowerBall->setTexture(FILENAME_IMG_ATTACK_POWER_4);
+		break;
+	case 5:
+		_AttackPowerBall->setTexture(FILENAME_IMG_ATTACK_POWER_5);
+		break;
+	case 6:
+		_AttackPowerBall->setTexture(FILENAME_IMG_ATTACK_POWER_6);
+		break;
+	default:
+		_AttackPowerBall->setTexture(FILENAME_IMG_ATTACK_POWER_2);
+	}
 }
