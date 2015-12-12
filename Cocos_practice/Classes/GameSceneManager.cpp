@@ -375,7 +375,7 @@ void GameSceneManager::SelectCharacter(Character* character)
 		float posY = character->getPositionY();
 
 		//Sprite* indicator = Sprite::createWithSpriteFrameName("indicator.png");
-		Sprite* indicator = CCSprite::create(FILENAME_IMG_MAIN_SELECT);
+		Sprite* indicator = Sprite::createWithSpriteFrameName(FILENAME_IMG_MAIN_SELECT);
 	
 		indicator->setName("indicator");
 		indicator->setZOrder(11);
@@ -396,7 +396,7 @@ void GameSceneManager::SelectBarrack(Self_Tile* tile)
 		float posY = tile->getPositionY();
 		
 		//Sprite* indicator = Sprite::createWithSpriteFrameName("indicator.png");
-		Sprite* indicator = CCSprite::create(FILENAME_IMG_MAIN_SELECT);
+		Sprite* indicator = Sprite::createWithSpriteFrameName(FILENAME_IMG_MAIN_SELECT);
 		indicator->setName("indicator");
 		indicator->setZOrder(11);
 		indicator->setAnchorPoint(Vec2(0, 0));
@@ -426,7 +426,7 @@ void GameSceneManager::ShowSpawnableTile(Self_Tile* tile)
 		tileMove->setAnchorPoint(cocos2d::Vec2(0, 0));
 		
 		float tilePosX = nearTile->getPositionX();
-		float tilePosY = nearTile->getPositionY();
+		float tilePosY = nearTile->getPositionY() + 21;
 
 		tileMove->setPosition(tilePosX, tilePosY);
 		tileMove->setName("spwanable");

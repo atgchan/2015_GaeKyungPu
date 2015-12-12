@@ -94,6 +94,8 @@ private:
 	BattleManager*	_BMInstance;
 	GameSceneManager(){};
 
+	Character* _SelectedCharacter;
+
 	static GameSceneManager *_Inst;
 	TileMap*	_TileMap;
 	PlayerData*	_PlayerData[NUM_OF_PLAYER];

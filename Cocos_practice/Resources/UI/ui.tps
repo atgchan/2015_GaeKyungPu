@@ -203,6 +203,26 @@
             <filename>grain.png</filename>
             <filename>indicator.png</filename>
             <filename>bar.png</filename>
+            <filename>turn_left_clicked.png</filename>
+            <filename>turn_left.png</filename>
+            <filename>triangle.png</filename>
+            <filename>turn_right_clicked.png</filename>
+            <filename>turn_right.png</filename>
+            <filename>grain_bar.png</filename>
+            <filename>flag_red.png</filename>
+            <filename>flag_blue.png</filename>
+            <filename>dice4.png</filename>
+            <filename>dice3.png</filename>
+            <filename>dice2.png</filename>
+            <filename>dice1.png</filename>
+            <filename>6.png</filename>
+            <filename>5.png</filename>
+            <filename>4.png</filename>
+            <filename>3.png</filename>
+            <filename>2.png</filename>
+            <filename>1.png</filename>
+            <filename>dice6.png</filename>
+            <filename>dice5.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

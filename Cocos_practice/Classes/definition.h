@@ -89,7 +89,7 @@ enum EventType
 //IMG - png, jpeg able
 #define FILENAME_IMG_MAIN_BACKGROUND "Background/Total_War_Rome_2_Roman_Soldier_Sword_warrior_warriors_fantasy_battle_1920x1080.jpg"
 #define FILENAME_IMG_MAIN_CURSOR "cursor.png"
-#define FILENAME_IMG_MAIN_SELECT "UI/triangle.png"
+#define FILENAME_IMG_MAIN_SELECT "triangle.png"
 
 #define FILENAME_IMG_GAME_BACKGROUND "Background/ocean water.jpg"
 #define FILENAME_IMG_GAME_CHARACTER_MOVABLE_TILE "tile_move.png"
@@ -98,12 +98,30 @@ enum EventType
 #define FILENAME_IMG_GAME_CHARACTER_EFFECT_HIT_03 "HitEffect_03.png"
 #define FILENAME_IMG_GAME_CHARACTER_EFFECT_HIT_04_LAST "HitEffect_04.png"
 
-#define FILENAME_IMG_ATTACK_POWER_1 "UI/1.png"
-#define FILENAME_IMG_ATTACK_POWER_2 "UI/2.png"
-#define FILENAME_IMG_ATTACK_POWER_3 "UI/3.png"
-#define FILENAME_IMG_ATTACK_POWER_4 "UI/4.png"
-#define FILENAME_IMG_ATTACK_POWER_5 "UI/5.png"
-#define FILENAME_IMG_ATTACK_POWER_6 "UI/6.png"
+#define FILENAME_IMG_ATTACK_POWER_1 "1.png"
+#define FILENAME_IMG_ATTACK_POWER_2 "2.png"
+#define FILENAME_IMG_ATTACK_POWER_3 "3.png"
+#define FILENAME_IMG_ATTACK_POWER_4 "4.png"
+#define FILENAME_IMG_ATTACK_POWER_5 "5.png"
+#define FILENAME_IMG_ATTACK_POWER_6 "6.png"
+
+//UI IMAGE
+#define FILENAME_IMG_UI_GRAIN_INDICATOR "grain_bar.png"
+#define FILENAME_IMG_UI_OPTION_BUTTON "point.png"
+#define FILENAME_IMG_UI_OUTER_ANCHOR "point.png"
+#define FILENAME_IMG_UI_OUTER_BAR "bar.png"
+#define FILENAME_IMG_UI_UPPER_BAR "ui_bar.png"
+#define FILENAME_IMG_UI_FLAG_RED "flag_red.png"
+#define FILENAME_IMG_UI_FLAG_BLUE "flag_blue.png"
+
+//UI_BUTTON
+#define FILENAME_IMG_BUTTON_ENDTURN "end_turn.png"
+#define FILENAME_IMG_BUTTON_ENDTURN_CLICKED "end_turn_clicked.png"
+#define FILENAME_IMG_BUTTON_TURN_RIGHT "turn_right.png"
+#define FILENAME_IMG_BUTTON_TURN_RIGHT_CLICKED "turn_right_clicked.png"
+#define FILENAME_IMG_BUTTON_TURN_LEFT "turn_left.png"
+#define FILENAME_IMG_BUTTON_TURN_LEFT_CLICKED "turn_left_clicked.png"
 
 //FONT
 #define FILENAME_FONT_MAINMENU "fonts/Marker Felt.ttf"
+#define FILENAME_FONT_PIXEL "fonts/upheavtt.ttf"

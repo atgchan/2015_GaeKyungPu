@@ -59,7 +59,6 @@ void Character::MovoToTile(Self_Tile* dest)
 	this->setCurrentTile(dest);
 
 	EventManager::getInstance()->AddHistory(HistoryEventMoveCharacter::Create(this, dest));
-	//GM->getPlayerDataByPlayerInfo(_OwnerPlayer)->AddFood(dest->getFoodToConsume() * -1);
 }
 
 void Character::CharacterBeHit()
@@ -110,7 +109,7 @@ void Character::ShowMovableTile()
 		return;
 
 	float tilePosX = tile->getPositionX();
-	float tilePosY = tile->getPositionY();
+	float tilePosY = tile->getPositionY() + 21;
 
 	tileMove->setPosition(tilePosX, tilePosY);
 	tileMove->setName("moveable");
@@ -176,9 +175,7 @@ void Character::setAttackPower(int attackPower)
 
 void Character::InitAttackPowerSprite()
 {
-	//label을 구슬 스프라이트로 바꿀 예정이므로 문자 리터럴은 건드리지 않겠습니다.
-	//_AttackPowerLabel = Label::createWithTTF(std::to_string(_AttackPowerToDisplay), "fonts/upheavtt.ttf", 20);
-	_AttackPowerBall = CCSprite::create(FILENAME_IMG_ATTACK_POWER_2); 
+	_AttackPowerBall = CCSprite::createWithSpriteFrameName(FILENAME_IMG_ATTACK_POWER_2); 
 
 	float posX = this->getPositionX();
 	float posY = this->getPositionY();
@@ -202,7 +199,6 @@ void Character::UpdateAttackPowerSprite()
 		directionBonus++;
 	
 	setAttackPowerBallNameFromNumber(_AttackPowerToDisplay + directionBonus);
-	//_AttackPowerBall->setString(std::to_string(_AttackPowerToDisplay + directionBonus));
 }
 
 void Character::setAttackPowerToDisplay(int ap)
@@ -241,24 +237,24 @@ void Character::setAttackPowerBallNameFromNumber(int power)
 	switch (power)
 	{
 	case 1:
-		_AttackPowerBall->setTexture(FILENAME_IMG_ATTACK_POWER_1);
+		_AttackPowerBall->setSpriteFrame(FILENAME_IMG_ATTACK_POWER_1);
 		break;
 	case 2:
-		_AttackPowerBall->setTexture(FILENAME_IMG_ATTACK_POWER_2);
+		_AttackPowerBall->setSpriteFrame(FILENAME_IMG_ATTACK_POWER_2);
 		break;
 	case 3:
-		_AttackPowerBall->setTexture(FILENAME_IMG_ATTACK_POWER_3);
+		_AttackPowerBall->setSpriteFrame(FILENAME_IMG_ATTACK_POWER_3);
 		break;
 	case 4:
-		_AttackPowerBall->setTexture(FILENAME_IMG_ATTACK_POWER_4);
+		_AttackPowerBall->setSpriteFrame(FILENAME_IMG_ATTACK_POWER_4);
 		break;
 	case 5:
-		_AttackPowerBall->setTexture(FILENAME_IMG_ATTACK_POWER_5);
+		_AttackPowerBall->setSpriteFrame(FILENAME_IMG_ATTACK_POWER_5);
 		break;
 	case 6:
-		_AttackPowerBall->setTexture(FILENAME_IMG_ATTACK_POWER_6);
+		_AttackPowerBall->setSpriteFrame(FILENAME_IMG_ATTACK_POWER_6);
 		break;
 	default:
-		_AttackPowerBall->setTexture(FILENAME_IMG_ATTACK_POWER_2);
+		_AttackPowerBall->setSpriteFrame(FILENAME_IMG_ATTACK_POWER_2);
 	}
 }
