@@ -91,7 +91,7 @@ enum EventType
 #define FILENAME_IMG_MAIN_CURSOR "cursor.png"
 #define FILENAME_IMG_MAIN_SELECT "triangle.png"
 
-#define FILENAME_IMG_GAME_BACKGROUND "Background/ocean water.jpg"
+#define FILENAME_IMG_GAME_BACKGROUND "Background/background_volcano.png"
 #define FILENAME_IMG_GAME_CHARACTER_MOVABLE_TILE "tile_move.png"
 #define FILENAME_IMG_GAME_CHARACTER_EFFECT_HIT_01_FIRST "HitEffect_01.png"
 #define FILENAME_IMG_GAME_CHARACTER_EFFECT_HIT_02 "HitEffect_02.png"
