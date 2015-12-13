@@ -40,8 +40,8 @@ bool UILayer::init()
 	MenuItemSprite* toggleTurn = MenuItemSprite::create(endButton, endButtonClicked, CC_CALLBACK_1(GameSceneManager::ToggleTurn, GameSceneManager::getInstance()));
 	toggleTurn->setPosition(Vec2(visibleSize.width * 1 / 2, visibleSize.height - 50));
 
-	Sprite* menuButton = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_OPTION_BUTTON);
-	Sprite* menuButtonClicked = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_OPTION_BUTTON_CLICKED);
+	Sprite* menuButton = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_OPTION);
+	Sprite* menuButtonClicked = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_OPTION_CLICKED);
 	MenuItemSprite* replaybtn = MenuItemSprite::create(menuButton, menuButtonClicked, CC_CALLBACK_0(UILayer::ReturnToMenu, this));
 	replaybtn->setPosition(Vec2(visibleSize.width - 100, visibleSize.height - 36));
 

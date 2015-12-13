@@ -32,11 +32,11 @@ bool OptionLayer::init()
 
 	MenuItemSprite* replaybtn = MenuItemSprite::create(replayButton, replayButtonClicked, CC_CALLBACK_0(OptionLayer::ReturnToMenu, this));
 	replaybtn->setPosition(Vec2(visibleSize.width * 1 / 2, visibleSize.height * 3/5 ));
-	resultPage->setPosition(visibleSize.width/2, visibleSize.height/2);
+	optionWindow->setPosition(visibleSize.width/2, visibleSize.height/2);
 
 	Menu* resultMenu = Menu::create(replaybtn, NULL);
 	resultMenu->setPosition(Vec2::ZERO);
-	this->addChild(resultPage);
+	this->addChild(optionWindow);
 	this->addChild(resultMenu);
 
 	return true;
