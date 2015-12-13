@@ -44,7 +44,6 @@ bool GameScene::init()
 
 //	UI Ãß°¡
 	UILayer* layerUI = UILayer::create();
-	layerUI->setName("ui_layer");
 
 	this->addChild(layerUI);
 
@@ -97,5 +96,5 @@ void GameScene::MouseDownDispatcher(cocos2d::EventMouse* event)
 
 void GameScene::RefreshFood()
 {
-	(dynamic_cast<UILayer*>(getChildByName("ui_layer")))->SetFoodValue(GM->getPlayerDataByPlayerInfo(PLAYER_RED), GM->getPlayerDataByPlayerInfo(PLAYER_BLUE));
+	(dynamic_cast<UILayer*>(getChildByName("UILayer")))->SetFoodValue(GM->getPlayerDataByPlayerInfo(PLAYER_RED), GM->getPlayerDataByPlayerInfo(PLAYER_BLUE));
 }

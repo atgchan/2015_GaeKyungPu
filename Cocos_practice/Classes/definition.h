@@ -106,14 +106,14 @@ enum EventType
 #define FILENAME_IMG_ATTACK_POWER_6 "6.png"
 
 //UI IMAGE
-#define FILENAME_IMG_UI_GRAIN_INDICATOR		"grain_bar.png"
-#define FILENAME_IMG_UI_OPTION_WINDOW		"option_window.png"
-#define FILENAME_IMG_UI_OUTER_ANCHOR		"point.png"
-#define FILENAME_IMG_UI_OUTER_BAR			"bar.png"
-#define FILENAME_IMG_UI_UPPER_BAR			"ui_bar.png"
-#define FILENAME_IMG_UI_FLAG_RED			"flag_red.png"
-#define FILENAME_IMG_UI_FLAG_BLUE			"flag_blue.png"
-#define FILENAME_IMG_UI_RESULT_WINDOW		"end_game.png"
+#define FILENAME_IMG_UI_GRAIN_INDICATOR			"grain_bar.png"
+#define FILENAME_IMG_UI_OPTION_WINDOW			"option_window.png"
+#define FILENAME_IMG_UI_OUTER_ANCHOR			"point.png"
+#define FILENAME_IMG_UI_OUTER_BAR				"bar.png"
+#define FILENAME_IMG_UI_UPPER_BAR				"ui_bar.png"
+#define FILENAME_IMG_UI_FLAG_RED				"flag_red.png"
+#define FILENAME_IMG_UI_FLAG_BLUE				"flag_blue.png"
+#define FILENAME_IMG_UI_RESULT_WINDOW			"end_game.png"
 
 //UI_BUTTON
 #define FILENAME_IMG_BUTTON_ENDTURN				"end_turn.png"
@@ -132,5 +132,5 @@ enum EventType
 #define FILENAME_IMG_BUTTON_MUTE_CLICKED		"mute_clicked.png"
 
 //FONT
-#define FILENAME_FONT_MAINMENU "fonts/Marker Felt.ttf"
-#define FILENAME_FONT_PIXEL		"fonts/upheavtt.ttf"
+#define FILENAME_FONT_MAINMENU					"fonts/Marker Felt.ttf"
+#define FILENAME_FONT_PIXEL						"fonts/upheavtt.ttf"

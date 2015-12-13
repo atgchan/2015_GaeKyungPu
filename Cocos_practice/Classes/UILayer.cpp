@@ -40,21 +40,32 @@ bool UILayer::init()
 	MenuItemSprite* toggleTurn = MenuItemSprite::create(endButton, endButtonClicked, CC_CALLBACK_1(GameSceneManager::ToggleTurn, GameSceneManager::getInstance()));
 	toggleTurn->setPosition(Vec2(visibleSize.width * 1 / 2, visibleSize.height - 50));
 
-	Sprite* menuButton = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_OPTION);
-	Sprite* menuButtonClicked = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_OPTION_CLICKED);
-	MenuItemSprite* replaybtn = MenuItemSprite::create(menuButton, menuButtonClicked, CC_CALLBACK_0(UILayer::ReturnToMenu, this));
-	replaybtn->setPosition(Vec2(visibleSize.width - 100, visibleSize.height - 36));
+	Sprite* optionButton = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_OPTION);
+	Sprite* optionButton_clicked = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_OPTION_CLICKED);
+	Sprite* optionButton2 = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_OPTION);
+	Sprite* optionButton_clicked2 = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_OPTION_CLICKED);
+	MenuItemSprite* sprOption = MenuItemSprite::create(optionButton, optionButton_clicked);
+	MenuItemSprite* sprOption_clicked = MenuItemSprite::create(optionButton_clicked2, optionButton2);
+	MenuItemToggle* optionToggle = MenuItemToggle::createWithCallback(CC_CALLBACK_1(UILayer::ShowOptionWindow, this), sprOption, sprOption_clicked, nullptr);
+	optionToggle->setPosition(Vec2(visibleSize.width - 100, visibleSize.height - 36));
+	optionToggle->setName("option_toggle");
 
-	Menu* mainMenu = Menu::create(toggleTurn, replaybtn, NULL);
-	mainMenu->setPosition(Vec2::ZERO);
-
-	this->addChild(mainMenu);
+	Menu* ingameMenu = Menu::create(toggleTurn, optionToggle, NULL);
+	ingameMenu->setPosition(Vec2::ZERO);
+	ingameMenu->setName("ingameMenu");
+	this->addChild(ingameMenu);
 
 	return true;
 }
 
-void UILayer::ReturnToMenu()
+void UILayer::ShowOptionWindow(Object *pSender)
 {
+	MenuItemToggle *item = static_cast<MenuItemToggle*>(pSender);
+	if (item->getSelectedIndex() == 0)
+	{
+		item->setSelectedIndex(1);
+		return;
+	}
 	Director::getInstance()->pause();
 	OptionLayer* option = OptionLayer::create();
 	GM->AddChild(option);

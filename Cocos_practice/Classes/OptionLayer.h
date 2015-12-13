@@ -13,6 +13,6 @@ public:
 private:
 	LayerColor* BackLayer;
 	void		ReturnToMenu();
-	void		Mute();
+	void		Mute(Object *pSender);
 	void		Resume();
 };

@@ -3,6 +3,7 @@
 #include "GameScene.h"
 #include "GameSceneManager.h"
 #include "MainScene.h"
+#include "SimpleAudioEngine.h"
 
 cocos2d::Scene* OptionLayer::scene()
 {
@@ -38,11 +39,19 @@ bool OptionLayer::init()
 	MenuItemSprite* sprGotoMain = MenuItemSprite::create(gotoMainButton, gotoMainButton_clicked, CC_CALLBACK_0(OptionLayer::ReturnToMenu, this));
 	sprGotoMain->setPosition(Vec2(visibleSize.width * 1 / 2, visibleSize.height * 2 / 5));
 
+	Sprite* muteImage = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_MUTE);
+	Sprite* muteImage_clicked = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_MUTE_CLICKED);
+	Sprite* muteImage2 = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_MUTE);
+	Sprite* muteImage_clicked2 = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_MUTE_CLICKED);
+	MenuItemSprite* sprMute = MenuItemSprite::create(muteImage, muteImage_clicked);
+	MenuItemSprite* sprMute_clicked = MenuItemSprite::create(muteImage_clicked2, muteImage2);
+	MenuItemToggle* muteToggle = MenuItemToggle::createWithCallback(CC_CALLBACK_1(OptionLayer::Mute, this), sprMute, sprMute_clicked, nullptr);
+	muteToggle->setPosition(Vec2(visibleSize.width * 1 / 2, visibleSize.height * 1 / 5 ));
 
 	optionWindow->setPosition(visibleSize.width / 2, visibleSize.height / 2);
 
 
-	Menu* optionMenu = Menu::create(sprResume,sprGotoMain, NULL);
+	Menu* optionMenu = Menu::create(sprResume,sprGotoMain,muteToggle, nullptr);
 	optionMenu->setPosition(Vec2::ZERO);
 	this->addChild(optionWindow);
 	this->addChild(optionMenu);
@@ -57,13 +66,19 @@ void OptionLayer::ReturnToMenu()
 	Director::getInstance()->resume();
 }
 
-void OptionLayer::Mute()
+void OptionLayer::Mute(Object *pSender)
 {
-
+	MenuItemToggle *item = static_cast<MenuItemToggle*>(pSender);
+	int index = item->getSelectedIndex();
+	if (index == 1)
+		CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0);
+	else
+		CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(1);
 }
 
 void OptionLayer::Resume()
 {
 	Director::getInstance()->resume();
+	static_cast<MenuItemToggle*>(GM->getNodes()->getParent()->getChildByName("UILayer")->getChildByName("ingameMenu")->getChildByName("option_toggle"))->setSelectedIndex(0);
 	this->removeFromParentAndCleanup(true);
 }
