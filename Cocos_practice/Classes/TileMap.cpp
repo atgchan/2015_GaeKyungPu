@@ -79,8 +79,12 @@ bool TileMap::create()
 
 			//클릭이 유효한 범위를 나타내는 네모 박스를 만들어서 같이 전달한다.(클릭 체크용)
 			Rect rect = CCRectMake(positionX+45, positionY+30, _TileSet[i][j]->getContentSize().width-70, _TileSet[i][j]->getContentSize().height-30);
-			GameSceneManager::getInstance()->PushTileToList(rect, _TileSet[i][j]);
 		}
+	}
+	for (int i = MAP_MAX_HEIGHT -1 ; i >= 0; --i)
+	{
+		for (int j = 0; j < MAP_MAX_WIDTH; ++j)
+			GameSceneManager::getInstance()->PushTileToList(_TileSet[i][j]);
 	}
 //	다음 함수에서 모든 타일을 순회하여 tile마다 nearTile을 저장한다.
 	SetTotalNearTile();

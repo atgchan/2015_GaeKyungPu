@@ -89,8 +89,10 @@ Self_Tile* GameSceneManager::getTileFromMouseEvent(const cocos2d::EventMouse *ev
 
 	for (auto iter = _TileList.begin(); iter != _TileList.end(); ++iter)
 	{
-		if (iter->rect.containsPoint(Vec2(xPos, yPos)))
-			return iter->tile;
+		Rect tRect = (*iter)->getBoundingBox();
+		tRect.setRect(tRect.getMinX() + 20, tRect.getMinY() + 20, tRect.size.width - 40, tRect.size.height - 40);
+		if (tRect.containsPoint(Vec2(xPos, yPos)))
+			return *iter;
 	}
 	return nullptr;
 }
@@ -323,13 +325,9 @@ void GameSceneManager::ToggleTurn(Object* pSender)
 	ChangePhase(PHASE_PASTEUR);
 }
 
-void GameSceneManager::PushTileToList(const Rect& rect, Self_Tile* tile)
+void GameSceneManager::PushTileToList(Self_Tile* tile)
 {
-	TILEARRAYSET tileSet;
-	tileSet.tile = tile;
-	tileSet.rect = rect;
-
-	_TileList.push_back(tileSet);
+	_TileList.push_back(tile);
 }
 
 bool GameSceneManager::getIsVolcanoActivated()

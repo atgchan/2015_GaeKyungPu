@@ -46,7 +46,6 @@ bool GameScene::init()
 	UILayer* layerUI = UILayer::create();
 
 	this->addChild(layerUI);
-
 //	Mouse Event
 	EventListenerMouse* clickListener = EventListenerMouse::create();
 	clickListener->onMouseDown = CC_CALLBACK_1(GameScene::MouseDownDispatcher,this);

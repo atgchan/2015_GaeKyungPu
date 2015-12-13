@@ -64,7 +64,7 @@ public:
 	/*
 		@brief	타일의 포인터와 타일의 클릭 가능한 위치를 나타내는 사각형을 받아서 배열로 저장한다.
 	*/
-	void PushTileToList(const Rect& rect, Self_Tile* tile);
+	void PushTileToList(Self_Tile* tile);
 
 	/*
 		@brief	타일 리스트에서 해당 좌표값의 위치에 포함되는 타일이 있는지 검사해서 있으면 타일 포인터를 반환한다.
@@ -110,7 +110,7 @@ private:
 	int			_ProgressVolcano = -1;
 
 	/*타일만 별도로 저장할 배열을 만든다..*/
-	std::vector<TILEARRAYSET> _TileList;
+	std::vector<Self_Tile*> _TileList;
 
 	bool		_IsMouseLocked = true;
 	bool		_IsGameInitialized = false;
