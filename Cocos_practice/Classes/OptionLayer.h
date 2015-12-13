@@ -14,5 +14,5 @@ private:
 	LayerColor* BackLayer;
 	void		ReturnToMenu();
 	void		Mute();
-	void		Restart();
+	void		Resume();
 };

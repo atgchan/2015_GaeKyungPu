@@ -27,17 +27,25 @@ bool OptionLayer::init()
 	this->addChild(BackLayer);
 
 	Sprite* optionWindow = Sprite::createWithSpriteFrameName(FILENAME_IMG_UI_OPTION_WINDOW);
-	Sprite* replayButton = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_RESUME);
-	Sprite* replayButtonClicked = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_RESUME_CLICKED);
 
-	MenuItemSprite* replaybtn = MenuItemSprite::create(replayButton, replayButtonClicked, CC_CALLBACK_0(OptionLayer::ReturnToMenu, this));
-	replaybtn->setPosition(Vec2(visibleSize.width * 1 / 2, visibleSize.height * 3/5 ));
-	optionWindow->setPosition(visibleSize.width/2, visibleSize.height/2);
+	Sprite* resumeButton = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_RESUME);
+	Sprite* resumeButton_clicked = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_RESUME_CLICKED);
+	MenuItemSprite* sprResume = MenuItemSprite::create(resumeButton, resumeButton_clicked, CC_CALLBACK_0(OptionLayer::Resume, this));
+	sprResume->setPosition(Vec2(visibleSize.width * 1 / 2, visibleSize.height * 3 / 5));
 
-	Menu* resultMenu = Menu::create(replaybtn, NULL);
-	resultMenu->setPosition(Vec2::ZERO);
+	Sprite* gotoMainButton = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_GOTO_MAIN);
+	Sprite* gotoMainButton_clicked = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_GOTO_MAIN_CLICKED);
+	MenuItemSprite* sprGotoMain = MenuItemSprite::create(gotoMainButton, gotoMainButton_clicked, CC_CALLBACK_0(OptionLayer::ReturnToMenu, this));
+	sprGotoMain->setPosition(Vec2(visibleSize.width * 1 / 2, visibleSize.height * 2 / 5));
+
+
+	optionWindow->setPosition(visibleSize.width / 2, visibleSize.height / 2);
+
+
+	Menu* optionMenu = Menu::create(sprResume,sprGotoMain, NULL);
+	optionMenu->setPosition(Vec2::ZERO);
 	this->addChild(optionWindow);
-	this->addChild(resultMenu);
+	this->addChild(optionMenu);
 
 	return true;
 }
@@ -54,7 +62,8 @@ void OptionLayer::Mute()
 
 }
 
-void OptionLayer::Restart()
+void OptionLayer::Resume()
 {
-
+	Director::getInstance()->resume();
+	this->removeFromParentAndCleanup(true);
 }
