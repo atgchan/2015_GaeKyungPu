@@ -223,6 +223,13 @@
             <filename>1.png</filename>
             <filename>dice6.png</filename>
             <filename>dice5.png</filename>
+            <filename>option_button_clicked.png</filename>
+            <filename>option_button.png</filename>
+            <filename>mute.png</filename>
+            <filename>goto_main_clicked.png</filename>
+            <filename>goto_main.png</filename>
+            <filename>mute_clicked.png</filename>
+            <filename>option_window.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

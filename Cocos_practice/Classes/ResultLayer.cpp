@@ -26,9 +26,9 @@ bool ResultLayer::init()
 	BackLayer->setPosition(Vec2(0, 0));
 	this->addChild(BackLayer);
 
-	Sprite* resultPage = Sprite::createWithSpriteFrameName("end_game.png");
-	Sprite* replayButton = Sprite::createWithSpriteFrameName("replay.png");
-	Sprite* replayButtonClicked = Sprite::createWithSpriteFrameName("replay_clicked.png");
+	Sprite* resultPage = Sprite::createWithSpriteFrameName(FILENAME_IMG_UI_RESULT_WINDOW);
+	Sprite* replayButton = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_REPLAY);
+	Sprite* replayButtonClicked = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_REPLAY_CLICKED);
 
 	MenuItemSprite* replaybtn = MenuItemSprite::create(replayButton, replayButtonClicked, CC_CALLBACK_0(ResultLayer::ReturnToMenu, this));
 	replaybtn->setPosition(Vec2(visibleSize.width * 1 / 2, visibleSize.height* 2/5 ));
