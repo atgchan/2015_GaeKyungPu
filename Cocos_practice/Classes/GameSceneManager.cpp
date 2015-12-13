@@ -449,7 +449,7 @@ void GameSceneManager::TrimZorder()
 {
 	for (auto iter : TileMap::getInstance()->getChildren())
 		if (iter->getName() == "character")
-			iter->setZOrder(-100 * iter->getPositionY() + 10300);
+			iter->setZOrder(-100 * iter->getPositionY() + 12000);
 }
 
 void GameSceneManager::SetRotateButton(Character* character)
