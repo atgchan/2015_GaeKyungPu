@@ -18,6 +18,7 @@ public:
 	*/
 	void	RotateToDirection(RotateDirection);
 	void	RotateToDirection(DirectionKind);
+	void	RotateToDirection(Ref *sender, RotateDirection rotateDirection);
 
 	void	MovoToTile(Self_Tile* dest);
 	void	CharacterBeHit();

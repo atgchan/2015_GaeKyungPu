@@ -11,7 +11,7 @@ public:
 	virtual bool		IsDone();
 
 protected:
-	void				SetDone(bool isDone);
-	bool				_IsDone = false;
-private:
+	void		SetDone(bool isDone);
+	bool		_IsDone = false;
+
 };
