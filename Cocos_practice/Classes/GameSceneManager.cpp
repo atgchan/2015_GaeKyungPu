@@ -90,7 +90,7 @@ Self_Tile* GameSceneManager::getTileFromMouseEvent(const cocos2d::EventMouse *ev
 	for (auto iter = _TileList.begin(); iter != _TileList.end(); ++iter)
 	{
 		Rect tRect = (*iter)->getBoundingBox();
-		tRect.setRect(tRect.getMinX() + 20, tRect.getMinY() + 20, tRect.size.width - 40, tRect.size.height - 40);
+		tRect.setRect(tRect.getMinX() + 20, tRect.getMinY() + 50, tRect.size.width - 40, 60);
 		if (tRect.containsPoint(Vec2(xPos, yPos)))
 			return *iter;
 	}
