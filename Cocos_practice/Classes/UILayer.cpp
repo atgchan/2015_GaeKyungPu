@@ -41,7 +41,7 @@ bool UILayer::init()
 
 	Sprite* replayButton = Sprite::createWithSpriteFrameName(FILENAME_IMG_UI_OPTION_BUTTON);
 	MenuItemSprite* replaybtn = MenuItemSprite::create(replayButton, replayButton, CC_CALLBACK_0(UILayer::ReturnToMenu, this));
-	replaybtn->setPosition(Vec2(visibleSize.width - 100, visibleSize.height - 30));
+	replaybtn->setPosition(Vec2(visibleSize.width - 100, visibleSize.height - 36));
 
 	Menu* mainMenu = Menu::create(toggleTurn, replaybtn, NULL);
 	mainMenu->setPosition(Vec2::ZERO);

@@ -124,6 +124,21 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
+            <key>option_button.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{66,65}</string>
+                <key>spriteSourceSize</key>
+                <string>{66,65}</string>
+                <key>textureRect</key>
+                <string>{{1282,521},{66,65}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
             <key>dice1.png</key>
             <dict>
                 <key>aliases</key>
