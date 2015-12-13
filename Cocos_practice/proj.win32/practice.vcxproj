@@ -167,6 +167,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\HistoryEventChangeTile.cpp" />
     <ClCompile Include="..\Classes\HistoryEventRotateCharacter.cpp" />
     <ClCompile Include="..\Classes\MainScene.cpp" />
+    <ClCompile Include="..\Classes\OptionLayer.cpp" />
     <ClCompile Include="..\Classes\pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
     </ClCompile>
@@ -203,6 +204,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\HistoryEventChangeTile.h" />
     <ClInclude Include="..\Classes\HistoryEventRotateCharacter.h" />
     <ClInclude Include="..\Classes\MainScene.h" />
+    <ClInclude Include="..\Classes\OptionLayer.h" />
     <ClInclude Include="..\Classes\pch.h" />
     <ClInclude Include="..\Classes\Phase.h" />
     <ClInclude Include="..\Classes\Phase_Action.h" />

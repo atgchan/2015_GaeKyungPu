@@ -108,6 +108,7 @@ enum EventType
 //UI IMAGE
 #define FILENAME_IMG_UI_GRAIN_INDICATOR "grain_bar.png"
 #define FILENAME_IMG_UI_OPTION_BUTTON "option_button.png"
+#define FILENAME_IMG_UI_OPTION_WINDOW "option_window.png"
 #define FILENAME_IMG_UI_OUTER_ANCHOR "point.png"
 #define FILENAME_IMG_UI_OUTER_BAR "bar.png"
 #define FILENAME_IMG_UI_UPPER_BAR "ui_bar.png"

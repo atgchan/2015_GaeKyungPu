@@ -2,6 +2,7 @@
 #include "UILayer.h"
 #include "GameSceneManager.h"
 #include "MainScene.h"
+#include "OptionLayer.h"
 
 cocos2d::Scene* UILayer::scene()
 {
@@ -53,9 +54,9 @@ bool UILayer::init()
 
 void UILayer::ReturnToMenu()
 {
-	cocos2d::Scene* mainMenu = MainScene::CreateScene();
-	Director::getInstance()->replaceScene(mainMenu);
-	Director::getInstance()->resume();
+	Director::getInstance()->pause();
+	OptionLayer* option = OptionLayer::create();
+	GM->AddChild(option);
 }
 
 const void UILayer::SetFoodValue(PlayerData* pData1, PlayerData* pData2) const

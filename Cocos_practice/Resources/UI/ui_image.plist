@@ -139,6 +139,21 @@
                 <key>textureRotated</key>
                 <true/>
             </dict>
+            <key>option_window.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{800,600}</string>
+                <key>spriteSourceSize</key>
+                <string>{800,600}</string>
+                <key>textureRect</key>
+                <string>{{2002,521},{800,600}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
             <key>dice1.png</key>
             <dict>
                 <key>aliases</key>
