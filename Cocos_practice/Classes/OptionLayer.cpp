@@ -26,9 +26,9 @@ bool OptionLayer::init()
 	BackLayer->setPosition(Vec2(0, 0));
 	this->addChild(BackLayer);
 
-	Sprite* resultPage = Sprite::createWithSpriteFrameName(FILENAME_IMG_UI_OPTION_WINDOW);
-	Sprite* replayButton = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_REPLAY);
-	Sprite* replayButtonClicked = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_REPLAY_CLICKED);
+	Sprite* optionWindow = Sprite::createWithSpriteFrameName(FILENAME_IMG_UI_OPTION_WINDOW);
+	Sprite* replayButton = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_RESUME);
+	Sprite* replayButtonClicked = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_RESUME_CLICKED);
 
 	MenuItemSprite* replaybtn = MenuItemSprite::create(replayButton, replayButtonClicked, CC_CALLBACK_0(OptionLayer::ReturnToMenu, this));
 	replaybtn->setPosition(Vec2(visibleSize.width * 1 / 2, visibleSize.height * 3/5 ));

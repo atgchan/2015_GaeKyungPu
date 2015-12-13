@@ -230,6 +230,8 @@
             <filename>goto_main.png</filename>
             <filename>mute_clicked.png</filename>
             <filename>option_window.png</filename>
+            <filename>resume_clicked.png</filename>
+            <filename>resume.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
