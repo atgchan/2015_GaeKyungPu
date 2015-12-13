@@ -49,6 +49,8 @@ bool OptionLayer::init()
 	muteToggle->setPosition(Vec2(visibleSize.width * 1 / 2, visibleSize.height * 1 / 5 ));
 
 	optionWindow->setPosition(visibleSize.width / 2, visibleSize.height / 2);
+	if (CocosDenshion::SimpleAudioEngine::sharedEngine()->isBackgroundMusicPlaying() == false)
+		muteToggle->setSelectedIndex(1);
 
 
 	Menu* optionMenu = Menu::create(sprResume,sprGotoMain,muteToggle, nullptr);
@@ -71,9 +73,9 @@ void OptionLayer::Mute(Object *pSender)
 	MenuItemToggle *item = static_cast<MenuItemToggle*>(pSender);
 	int index = item->getSelectedIndex();
 	if (index == 1)
-		CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0);
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
 	else
-		CocosDenshion::SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(1);
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic(FILENAME_SOUND_GAME_BGM, true);
 }
 
 void OptionLayer::Resume()
