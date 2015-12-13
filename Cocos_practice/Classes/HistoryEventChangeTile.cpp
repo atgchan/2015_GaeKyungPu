@@ -24,6 +24,6 @@ void HistoryEventChangeTile::Run()
 	cocos2d::CallFunc* changeCall = CallFunc::create(CC_CALLBACK_0(Self_Tile::ChangeTile,_TargetTile, _TargetType));
 	cocos2d::CallFunc* doneCall = CallFunc::create(CC_CALLBACK_0(HistoryEventChangeTile::SetDone, this, true));
 
-	FiniteTimeAction* seq = Sequence::create(changeCall, DelayTime::create(1.0f), doneCall, nullptr);
+	FiniteTimeAction* seq = Sequence::create(changeCall, DelayTime::create(0.5f), doneCall, nullptr);
 	_TargetTile->runAction(seq);
 }
