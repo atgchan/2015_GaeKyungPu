@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "definition.h"
 #include "Self_Tile.h";
+#include "Character.h"
 
 std::string Self_Tile::_DictionaryForFilenames[MAX_TILEKIND] =
 {
@@ -89,7 +90,7 @@ DirectionKind Self_Tile::getNearTileDirection(Self_Tile* tile)
 
 bool Self_Tile::isMovable()
 {
-	if ( getTypeOfTile() == TILE_LAVA || getTypeOfTile() == TILE_VOCANO || getTypeOfTile() == TILE_NULL || getTypeOfTile() == TILE_LAKE)
+	if (getTypeOfTile() == TILE_LAVA || getTypeOfTile() == TILE_VOCANO || getTypeOfTile() == TILE_NULL || getTypeOfTile() == TILE_LAKE)
 		return false;
 	return true;
 }
@@ -118,5 +119,16 @@ Self_Tile* Self_Tile::getNearTile(DirectionKind direction)
 
 PlayerInfo Self_Tile::getOwnerPlayer()
 {
-	return _OwnerPlayer; 
+	return _OwnerPlayer;
+}
+
+void Self_Tile::CaculateAttackPowerAllNearTile()
+{
+
+	for (int i = DIRECTION_DOWN_LEFT; i != DIRECTION_MAX; ++i)
+	{
+		Character* tCharacter = getNearTile(static_cast<DirectionKind>(i))->getCharacterOnThisTile();
+		if (tCharacter)
+			tCharacter->CalculateAttackPower();
+	}
 }

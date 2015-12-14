@@ -38,12 +38,13 @@ public:
 	int					getAttackPower();
 	void				setAttackPower(int);
 
-	void	setAttackPowerToDisplay(int);
-	int		getAttackPowerToDisplay();
-	void	InitAttackPowerSprite();
-	void	UpdateAttackPowerSprite();
-	int		CalculateDiffBetweenDirections(DirectionKind dir1, DirectionKind dir2);
-	void			CalculateAttackPower();
+	void				setAttackPowerToDisplay(int);
+	int					getAttackPowerToDisplay();
+	void				InitAttackPowerSprite();
+	void				UpdateAttackPowerSprite();
+	int					CalculateDiffBetweenDirections(DirectionKind dir1, DirectionKind dir2);
+	void				CalculateAttackPower();
+	void				CalculateAttackPowerAllNearTile();
 	~Character();
 
 private:

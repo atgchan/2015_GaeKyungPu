@@ -31,8 +31,8 @@ public:
 	DirectionKind	getNearTileDirection(Self_Tile* tile);	
 	Self_Tile*		getNearTile(DirectionKind direction);
 	PlayerInfo		getOwnerPlayer();
-	Character* getCharacterOnThisTile();
-
+	Character*		getCharacterOnThisTile();
+	void			CaculateAttackPowerAllNearTile();
 	CC_SYNTHESIZE(TileKind, _typeOfTile, TypeOfTile);
 
 private:

@@ -43,11 +43,7 @@ void Character::RotateToDirection(RotateDirection rotateDirection)
 	setCurrentDirection(tempDirection);
 	EventManager::getInstance()->AddHistory(HistoryEventRotateCharacter::Create(this, characterDirection));
 	setCurrentDirection(characterDirection);
-	for (int i = DIRECTION_DOWN_LEFT; i != DIRECTION_MAX; ++i)
-	{
-		if (GetNearCharacter(static_cast<DirectionKind>(i)))
-			GetNearCharacter(static_cast<DirectionKind>(i))->CalculateAttackPower();
-	}
+	CalculateAttackPowerAllNearTile();
 	return;
 }
 
@@ -61,12 +57,15 @@ void Character::RotateToDirection(DirectionKind targetDirection)
 
 void Character::MovoToTile(Self_Tile* dest)
 {
+	Self_Tile* prevTile = this->getCurrentTile();
+
 	this->getCurrentTile()->setCharacterOnThisTile(nullptr);
 	dest->setCharacterOnThisTile(this);
 	this->setCurrentTile(dest);
-	CalculateAttackPower();
-	if (this->GetNearCharacter(_CurrentDirection))
-		this->GetNearCharacter(_CurrentDirection)->CalculateAttackPower();
+
+	prevTile->CaculateAttackPowerAllNearTile();
+	dest->CaculateAttackPowerAllNearTile();
+
 	EventManager::getInstance()->AddHistory(HistoryEventMoveCharacter::Create(this, dest));
 }
 
@@ -280,4 +279,9 @@ void Character::CalculateAttackPower()
 		directionBonus++;
 	_AttackPower = ATTACK_POWER_DEFAULT + directionBonus;
 	_AttackPowerToDisplay = _AttackPower;
+}
+
+void Character::CalculateAttackPowerAllNearTile()
+{
+	this->getCurrentTile()->CaculateAttackPowerAllNearTile();
 }
