@@ -32,29 +32,22 @@ bool MainScene::init()
 	auto label_title = Label::createWithTTF("Testudo", FILENAME_FONT_MAINMENU, 40);
 	label_title->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 100));
 
-	auto label_play = Label::createWithTTF("Play", FILENAME_FONT_MAINMENU, 24);
-	auto label_setting = Label::createWithTTF("Setting", FILENAME_FONT_MAINMENU, 24);
-	auto label_exit = Label::createWithTTF("Exit", FILENAME_FONT_MAINMENU, 24);
-
-	auto menu_play = MenuItemLabel::create(label_play, CC_CALLBACK_1(MainScene::MenuClickCallback, this));
-	auto menu_setting = MenuItemLabel::create(label_setting);
-	auto menu_exit = MenuItemLabel::create(label_exit, CC_CALLBACK_1(MainScene::MenuCloseCallback, this));
-
-	menu_play->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
-	menu_setting->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 30));
-	menu_exit->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 60));
-
-	auto mainMenu = Menu::create(menu_play, menu_setting, menu_exit, nullptr);
-	mainMenu->setPosition(Vec2::ZERO);
-
-	Sprite* cursor = Sprite::createWithSpriteFrameName(FILENAME_IMG_MAIN_CURSOR);
+	Sprite* playButton = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_START);
+	Sprite* playButtonClicked = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_START_CLICKED);
+	MenuItemSprite* menu_play = MenuItemSprite::create(playButton, playButtonClicked, CC_CALLBACK_1(MainScene::MenuClickCallback, this));
 	
-	cursor->setPosition(Vec2(visibleSize.width / 2 - 100, visibleSize.height / 2));
-	cursor->setName("cursor");
+	Sprite* exitButton = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_EXIT);
+	Sprite* exitButtonClicked = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_EXIT_CLICKED);
+	MenuItemSprite* menu_exit = MenuItemSprite::create(exitButton, exitButtonClicked, CC_CALLBACK_1(MainScene::MenuCloseCallback, this));
+
+	menu_play->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 -100));
+	menu_exit->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 -200));
+
+	auto mainMenu = Menu::create(menu_play, menu_exit, nullptr);
+	mainMenu->setPosition(Vec2::ZERO);
 
 	this->addChild(label_title);
 	this->addChild(mainMenu);
-	this->addChild(cursor);
 
 //	Keyboard Event
 	auto keyListener = EventListenerKeyboard::create();

@@ -227,6 +227,10 @@ void GameSceneManager::MouseDownDispatcher(cocos2d::EventMouse *event)
 	if (_IsInputAble == false)
 		return;
 
+	/*auto asdf = event->getCurrentTarget();
+	if (asdf != _Nodes->getChildByName("rotateBtn"))
+		_Nodes->removeChildByName("rotateBtn");*/
+
 	Unselect();
 
 	Self_Tile* clickedTile = getTileFromMouseEvent(event);
@@ -469,8 +473,7 @@ void GameSceneManager::SetRotateButton(Character* character)
 	rotateRightButton->setPosition(posX - 20, posY - 20);
 	
 	Menu* rotateMenu = Menu::create(rotateLeftButton, rotateRightButton, NULL);
-//	setname하면 메뉴가 동작하지 않는다?
-	rotateMenu->setName("indicator");
+	rotateMenu->setName("rotateBtn");
 	rotateMenu->setPosition(Vec2::ZERO);
 	rotateMenu->setZOrder(15);
 
