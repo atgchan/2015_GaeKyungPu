@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "Phase_Occupy.h"
 #include "UILayer.h"
+#include "EventManager.h"
+#include "HistoryEventChangeTile.h"
 
 Phase_Occupy::Phase_Occupy()
 {
@@ -21,7 +23,7 @@ void Phase_Occupy::Tick()
 		{
 			if (iter->getCurrentTile()->getTypeOfTile() == TILE_VILLAGE)
 			{
-				iter->getCurrentTile()->ChangeTile(TILE_BARRACK);
+				EventManager::getInstance()->AddHistory(HistoryEventChangeTile::Create(iter->getCurrentTile(), TILE_BARRACK));
 			}
 			if (iter->getCurrentTile()->getTypeOfTile() == TILE_BARRACK || iter->getCurrentTile()->getTypeOfTile() == TILE_HEADQUARTER)
 			{

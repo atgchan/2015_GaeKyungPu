@@ -33,33 +33,40 @@ void Character::RotateToDirection(RotateDirection rotateDirection)
 	DirectionKind characterDirection = getCurrentDirection();
 
 	if (rotateDirection == ROTATE_LEFT)
-		characterDirection = static_cast<DirectionKind>((characterDirection + 1) % MAX_DIRECTION);
+		characterDirection = static_cast<DirectionKind>((characterDirection + 1) % DIRECTION_MAX);
 
 	if (rotateDirection == ROTATE_RIGHT)
-		characterDirection = static_cast<DirectionKind>((characterDirection + 5) % MAX_DIRECTION);
-
+		characterDirection = static_cast<DirectionKind>((characterDirection + 5) % DIRECTION_MAX);
+	DirectionKind tempDirection = _CurrentDirection;
+	setCurrentDirection(characterDirection);
+	CalculateAttackPower();
+	setCurrentDirection(tempDirection);
 	EventManager::getInstance()->AddHistory(HistoryEventRotateCharacter::Create(this, characterDirection));
-	setCurrentDirection(DirectionKind(characterDirection));
-
+	setCurrentDirection(characterDirection);
+	CalculateAttackPowerAllNearTile();
 	return;
 }
 
 void Character::RotateToDirection(DirectionKind targetDirection)
 {
+	CalculateAttackPower();
 	EventManager::getInstance()->AddHistory(HistoryEventRotateCharacter::Create(this, targetDirection));
 	setCurrentDirection(DirectionKind(targetDirection));
-
 	return;
 }
 
 void Character::MovoToTile(Self_Tile* dest)
 {
+	Self_Tile* prevTile = this->getCurrentTile();
+
 	this->getCurrentTile()->setCharacterOnThisTile(nullptr);
 	dest->setCharacterOnThisTile(this);
 	this->setCurrentTile(dest);
 
+	prevTile->CaculateAttackPowerAllNearTile();
+	dest->CaculateAttackPowerAllNearTile();
+
 	EventManager::getInstance()->AddHistory(HistoryEventMoveCharacter::Create(this, dest));
-	//GM->getPlayerDataByPlayerInfo(_OwnerPlayer)->AddFood(dest->getFoodToConsume() * -1);
 }
 
 void Character::CharacterBeHit()
@@ -110,7 +117,7 @@ void Character::ShowMovableTile()
 		return;
 
 	float tilePosX = tile->getPositionX();
-	float tilePosY = tile->getPositionY();
+	float tilePosY = tile->getPositionY() + 21;
 
 	tileMove->setPosition(tilePosX, tilePosY);
 	tileMove->setName("moveable");
@@ -179,9 +186,7 @@ void Character::setAttackPower(int attackPower)
 
 void Character::InitAttackPowerSprite()
 {
-	//label을 구슬 스프라이트로 바꿀 예정이므로 문자 리터럴은 건드리지 않겠습니다.
-	//_AttackPowerLabel = Label::createWithTTF(std::to_string(_AttackPowerToDisplay), "fonts/upheavtt.ttf", 20);
-	_AttackPowerBall = CCSprite::create(FILENAME_IMG_ATTACK_POWER_2); 
+	_AttackPowerBall = CCSprite::createWithSpriteFrameName(FILENAME_IMG_ATTACK_POWER_2); 
 
 	float posX = this->getPositionX();
 	float posY = this->getPositionY();
@@ -194,7 +199,7 @@ void Character::InitAttackPowerSprite()
 }
 
 void Character::UpdateAttackPowerSprite()
-{
+{/*
 	int directionBonus = 0;
 	Character* charUpFront = GetNearCharacter(_CurrentDirectionToShow);
 	
@@ -202,10 +207,9 @@ void Character::UpdateAttackPowerSprite()
 		directionBonus = CalculateDiffBetweenDirections(_CurrentDirectionToShow, charUpFront->getCurrentDirectionToShow());
 	
 	if (CurrentTile->getTypeOfTile() == TILE_FOREST)
-		directionBonus++;
+		directionBonus++;*/
 	
-	setAttackPowerBallNameFromNumber(_AttackPowerToDisplay + directionBonus);
-	//_AttackPowerBall->setString(std::to_string(_AttackPowerToDisplay + directionBonus));
+	setAttackPowerBallNameFromNumber(_AttackPowerToDisplay/* + directionBonus*/);
 }
 
 void Character::setAttackPowerToDisplay(int ap)
@@ -244,24 +248,43 @@ void Character::setAttackPowerBallNameFromNumber(int power)
 	switch (power)
 	{
 	case 1:
-		_AttackPowerBall->setTexture(FILENAME_IMG_ATTACK_POWER_1);
+		_AttackPowerBall->setSpriteFrame(FILENAME_IMG_ATTACK_POWER_1);
 		break;
 	case 2:
-		_AttackPowerBall->setTexture(FILENAME_IMG_ATTACK_POWER_2);
+		_AttackPowerBall->setSpriteFrame(FILENAME_IMG_ATTACK_POWER_2);
 		break;
 	case 3:
-		_AttackPowerBall->setTexture(FILENAME_IMG_ATTACK_POWER_3);
+		_AttackPowerBall->setSpriteFrame(FILENAME_IMG_ATTACK_POWER_3);
 		break;
 	case 4:
-		_AttackPowerBall->setTexture(FILENAME_IMG_ATTACK_POWER_4);
+		_AttackPowerBall->setSpriteFrame(FILENAME_IMG_ATTACK_POWER_4);
 		break;
 	case 5:
-		_AttackPowerBall->setTexture(FILENAME_IMG_ATTACK_POWER_5);
+		_AttackPowerBall->setSpriteFrame(FILENAME_IMG_ATTACK_POWER_5);
 		break;
 	case 6:
-		_AttackPowerBall->setTexture(FILENAME_IMG_ATTACK_POWER_6);
+		_AttackPowerBall->setSpriteFrame(FILENAME_IMG_ATTACK_POWER_6);
 		break;
 	default:
-		_AttackPowerBall->setTexture(FILENAME_IMG_ATTACK_POWER_2);
+		_AttackPowerBall->setSpriteFrame(FILENAME_IMG_ATTACK_POWER_2);
 	}
+}
+
+void Character::CalculateAttackPower()
+{
+	int directionBonus = 0;
+	Character* charUpFront = GetNearCharacter(_CurrentDirection);
+
+	if (charUpFront != nullptr && charUpFront->GetOwnerPlayer() != _OwnerPlayer)
+		directionBonus = CalculateDiffBetweenDirections(_CurrentDirection, charUpFront->getCurrentDirection());
+
+	if (CurrentTile->getTypeOfTile() == TILE_FOREST)
+		directionBonus++;
+	_AttackPower = ATTACK_POWER_DEFAULT + directionBonus;
+	_AttackPowerToDisplay = _AttackPower;
+}
+
+void Character::CalculateAttackPowerAllNearTile()
+{
+	this->getCurrentTile()->CaculateAttackPowerAllNearTile();
 }

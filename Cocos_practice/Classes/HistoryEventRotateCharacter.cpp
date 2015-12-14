@@ -18,6 +18,7 @@ std::shared_ptr<HistoryEventRotateCharacter> HistoryEventRotateCharacter::Create
 	std::shared_ptr<HistoryEventRotateCharacter> newInst = std::make_shared<HistoryEventRotateCharacter>();
 	newInst->_CharacterToRotate = targetCharacter;
 	newInst->_DirectionToRotate = targetDirection;
+	newInst->_AttackPowerToShow = targetCharacter->getAttackPower();
 	return newInst;
 }
 
@@ -28,5 +29,6 @@ void HistoryEventRotateCharacter::Run()
 	_CharacterToRotate->setAnchorPoint(Vec2(0.5f, 0.13f));
 	_CharacterToRotate->runAction(Animate::create(animationDefault));
 	_CharacterToRotate->setCurrentDirectionToShow(_DirectionToRotate);
+	_CharacterToRotate->setAttackPowerToDisplay(_AttackPowerToShow);
 	SetDone(true);
 }

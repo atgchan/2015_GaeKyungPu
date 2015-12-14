@@ -17,7 +17,7 @@ std::shared_ptr<HistoryEventMoveCharacter> HistoryEventMoveCharacter::Create(Cha
 	std::shared_ptr<HistoryEventMoveCharacter> newInst = std::make_shared<HistoryEventMoveCharacter>();
 	newInst->_CharacterToMove = characterToMove;
 	newInst->_TargetTile = TargetTile;
-
+	newInst->_AttackPowerToShow = characterToMove->getAttackPower();
 	return newInst;
 }
 
@@ -30,7 +30,7 @@ void HistoryEventMoveCharacter::Run()
 	Animation* animationMove = CharacterAnimation::getInstance()->getAnimationMove(_CharacterToMove->GetOwnerPlayer(), _CharacterToMove->getCurrentDirectionToShow());
 	ActionInterval* actionMove = Animate::create(animationMove);
 
-	ActionInterval* moveTo = MoveTo::create(1, Vec2(_TargetTile->getPositionX() + 80, _TargetTile->getPositionY() + 60));
+	ActionInterval* moveTo = MoveTo::create(1, Vec2(_TargetTile->getPositionX() + 80, _TargetTile->getPositionY() + 81));
 
 	//검토가 필요함
 	//cocos2d::CallFunc* nextCall = CallFunc::create(CC_CALLBACK_0(Character::setCurrentDirectionToShow,_CharacterToMove,_CharacterToMove->getCurrentDirection()));
@@ -49,4 +49,5 @@ void HistoryEventMoveCharacter::Run()
 	_CharacterToMove->runAction(seq1);
 	_CharacterToMove->setAnimState(ANIM_MOVE);
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(FILENAME_SOUND_GAME_MOVE);
+	_CharacterToMove->setAttackPowerToDisplay(_AttackPowerToShow);
 }

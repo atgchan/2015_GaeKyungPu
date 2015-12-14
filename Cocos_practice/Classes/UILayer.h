@@ -15,5 +15,5 @@ private:
 	LayerColor* BackLayer;
 	LayerColor* PopUpLayer;
 	void	SetUIBar();
-	void	ReturnToMenu();
+	void ShowOptionWindow(Object *pSender);
 };

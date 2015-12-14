@@ -14,21 +14,29 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 	SetAttackFormation(attacker);
 	SetDefenseFormation(defender);
 
-	int flankBonus = std::abs(std::abs((attacker->getCurrentDirection() - defender->getCurrentDirection())) - 3);
+	//int flankBonus = std::abs(std::abs((attacker->getCurrentDirection() - defender->getCurrentDirection())) - 3);
 	
-	attacker->setAttackPower(flankBonus + attacker->getAttackPower());
-	defender->RotateToDirection(static_cast<DirectionKind>((attacker->getCurrentDirection() + 3) % MAX_DIRECTION));
+	//attacker->setAttackPower(flankBonus + attacker->getAttackPower());
+	defender->RotateToDirection(static_cast<DirectionKind>((attacker->getCurrentDirection() + 3) % DIRECTION_MAX));
 
 	PlayerInfo playerAttacker = attacker->GetOwnerPlayer();
 	PlayerInfo playerDefender = defender->GetOwnerPlayer();
-
+	bool bFirst = true;
 	while (_CurrentAttackFormation.size() && _CurrentDefenseFormation.size())
 	{
-		GiveForestBonus(_CurrentAttackFormation.front());
-		GiveForestBonus(_CurrentDefenseFormation.back());
+		//GiveForestBonus(_CurrentAttackFormation.front());
+		//GiveForestBonus(_CurrentDefenseFormation.back());
 
 		std::list<Character*> *winner = nullptr;
 		std::list<Character*> *loser = nullptr;
+
+		if (bFirst == false)
+		{
+			_CurrentAttackFormation.front()->CalculateAttackPower();
+			_CurrentDefenseFormation.front()->CalculateAttackPower();
+		}
+		else
+			bFirst = false;
 
 		if (IsAttackerWin(_CurrentAttackFormation.front(), _CurrentDefenseFormation.front()))
 		{
@@ -38,21 +46,23 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 		}
 		else
 		{
+			_CurrentAttackFormation.front()->CalculateAttackPower();
+			_CurrentDefenseFormation.front()->CalculateAttackPower();
 			winner = &_CurrentDefenseFormation;
 			loser = &_CurrentAttackFormation;
 			EventManager::getInstance()->AddHistory(HistoryEventAttack::Create(_CurrentAttackFormation.front(), _CurrentDefenseFormation.front()));
 			EventManager::getInstance()->AddHistory(HistoryEventAttack::Create(_CurrentDefenseFormation.front(), _CurrentAttackFormation.front()));
 		}
 		
-		bool firstTime = true;
+		/*bool firstTime = true;
 
 		if (firstTime)
-			attacker->setAttackPower(2);
+			attacker->setAttackPower(2);*/
+		//attacker->CalculateAttackPower();
 
 		DirectionKind tempDirection = DIRECTION_ERR;
 		DirectionKind prevDirection = loser->front()->getCurrentDirection();
 		GM->KillCharacter(loser->front(),true);
-
 		auto iter = loser->begin();
 		++iter;
 		
@@ -116,7 +126,7 @@ void BattleManager::SetDefenseFormation(Character* defender)
 	_CurrentDefenseFormation.clear();
 	_CurrentDefenseFormation.push_back(defender);
 
-	for (int i = DIRECTION_DOWN_LEFT; i < MAX_DIRECTION; ++i)
+	for (int i = DIRECTION_DOWN_LEFT; i < DIRECTION_MAX; ++i)
 	{
 		Character* nearby = defender->GetNearCharacter((DirectionKind)i);
 		
@@ -127,29 +137,18 @@ void BattleManager::SetDefenseFormation(Character* defender)
 	}
 }
 
-///# std::find 쓰면 한줄이면 되는데.. 그러면 이렇게 전역 함수로 따로 만들필요도 없고?
-bool isHave(std::list<Character*> *checkedNode, Character* node)
+int BattleManager::SearchGraphAndOverwriteAttackFormation(std::list<Character*> checkedNodes, Character* currentNode, int currentDepth, int maxDepth)
 {
-	for (auto iter : *checkedNode)
-	{
-		if (iter == node)
-			return true;
-	}
-	return false;
-}
-
-int BattleManager::SearchGraphAndOverwriteAttackFormation(std::list<Character*> checkedNode, Character* currentNode, int currentDepth, int maxDepth)
-{
-	checkedNode.push_back(currentNode);
+	checkedNodes.push_back(currentNode);
 
 	if (maxDepth <= currentDepth)
 	{
-		this->_CurrentAttackFormation = checkedNode;
+		this->_CurrentAttackFormation = checkedNodes;
 		maxDepth = currentDepth;
 	}
 
 	//왼쪽 아래부터 반시계방향으로 모든 방향을 순회
-	for (int i = DIRECTION_DOWN_LEFT; i < MAX_DIRECTION; ++i)
+	for (int i = DIRECTION_DOWN_LEFT; i < DIRECTION_MAX; ++i)
 	{
 		//i방향으로 인접한 캐릭터
 		Character* compareNode = currentNode->GetNearCharacter(static_cast<DirectionKind>(i));
@@ -158,8 +157,8 @@ int BattleManager::SearchGraphAndOverwriteAttackFormation(std::list<Character*> 
 			//해당 캐릭터가 자신을 바라보고 있으면
 			if (compareNode->GetNearCharacter(compareNode->getCurrentDirection()) == currentNode && compareNode->GetOwnerPlayer() == currentNode->GetOwnerPlayer())
 				//이미 탐색했던 node가 아니면
-				if (!isHave(&checkedNode, compareNode))
-					maxDepth = SearchGraphAndOverwriteAttackFormation(checkedNode, compareNode, currentDepth + 1, maxDepth);
+				if (std::find(checkedNodes.begin(),checkedNodes.end(),compareNode) == checkedNodes.end())
+					maxDepth = SearchGraphAndOverwriteAttackFormation(checkedNodes, compareNode, currentDepth + 1, maxDepth);
 	}
 
 	return maxDepth;

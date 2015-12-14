@@ -31,8 +31,8 @@ public:
 	DirectionKind	getNearTileDirection(Self_Tile* tile);	
 	Self_Tile*		getNearTile(DirectionKind direction);
 	PlayerInfo		getOwnerPlayer();
-	Character* getCharacterOnThisTile();
-
+	Character*		getCharacterOnThisTile();
+	void			CaculateAttackPowerAllNearTile();
 	CC_SYNTHESIZE(TileKind, _typeOfTile, TypeOfTile);
 
 private:
@@ -41,7 +41,7 @@ private:
 
 	int			_FoodToConsume = 1;
 	PlayerInfo	_OwnerPlayer;
-	Self_Tile*	_NearTile[MAX_DIRECTION];
+	Self_Tile*	_NearTile[DIRECTION_MAX];
 
 	Character* _CharacterOnThisTile = nullptr;
 };

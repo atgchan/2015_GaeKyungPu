@@ -21,5 +21,7 @@ private:
 	int							_CurrentY;
 	bool						_FirstTime = true;
 	void						PlaySwordSound();
+	int							_AttackPowerToShow_attacker = 0;
+	int							_AttackPowerToShow_defender = 0;
 };
 

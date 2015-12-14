@@ -18,6 +18,7 @@ public:
 	*/
 	void	RotateToDirection(RotateDirection);
 	void	RotateToDirection(DirectionKind);
+	void	RotateToDirection(Ref *sender, RotateDirection rotateDirection);
 
 	void	MovoToTile(Self_Tile* dest);
 	void	CharacterBeHit();
@@ -37,11 +38,13 @@ public:
 	int					getAttackPower();
 	void				setAttackPower(int);
 
-	void	setAttackPowerToDisplay(int);
-	int		getAttackPowerToDisplay();
-	void	InitAttackPowerSprite();
-	void	UpdateAttackPowerSprite();
-	int		CalculateDiffBetweenDirections(DirectionKind dir1, DirectionKind dir2);
+	void				setAttackPowerToDisplay(int);
+	int					getAttackPowerToDisplay();
+	void				InitAttackPowerSprite();
+	void				UpdateAttackPowerSprite();
+	int					CalculateDiffBetweenDirections(DirectionKind dir1, DirectionKind dir2);
+	void				CalculateAttackPower();
+	void				CalculateAttackPowerAllNearTile();
 	~Character();
 
 private:
@@ -57,7 +60,6 @@ private:
 	
 	int		_AttackPowerToDisplay = ATTACK_POWER_DEFAULT;
 	cocos2d::Sprite* _AttackPowerBall;
-
 	void setAttackPowerBallNameFromNumber(int);
 };
 

@@ -12,9 +12,7 @@ DiceDice::DiceDice()
 int DiceDice::RollDiceBetween(int start, int end)
 {
 	int result = static_cast<int>(CCRANDOM_0_1() * end) + start;
-	//int result = cocos2d::RandomHelper::random_int(start, end);
-	//이거 쓰면 에러난다 왜지?
-	DisplayDiceOnScreen(result);
+	//DisplayDiceOnScreen(result);
 	return result;
 }
 

@@ -89,8 +89,10 @@ Self_Tile* GameSceneManager::getTileFromMouseEvent(const cocos2d::EventMouse *ev
 
 	for (auto iter = _TileList.begin(); iter != _TileList.end(); ++iter)
 	{
-		if (iter->rect.containsPoint(Vec2(xPos, yPos)))
-			return iter->tile;
+		Rect tRect = (*iter)->getBoundingBox();
+		tRect.setRect(tRect.getMinX() + 20, tRect.getMinY() + 50, tRect.size.width - 40, 60);
+		if (tRect.containsPoint(Vec2(xPos, yPos)))
+			return *iter;
 	}
 	return nullptr;
 }
@@ -323,13 +325,9 @@ void GameSceneManager::ToggleTurn(Object* pSender)
 	ChangePhase(PHASE_PASTEUR);
 }
 
-void GameSceneManager::PushTileToList(const Rect& rect, Self_Tile* tile)
+void GameSceneManager::PushTileToList(Self_Tile* tile)
 {
-	TILEARRAYSET tileSet;
-	tileSet.tile = tile;
-	tileSet.rect = rect;
-
-	_TileList.push_back(tileSet);
+	_TileList.push_back(tile);
 }
 
 bool GameSceneManager::getIsVolcanoActivated()
@@ -374,8 +372,7 @@ void GameSceneManager::SelectCharacter(Character* character)
 		float posX = character->getPositionX();
 		float posY = character->getPositionY();
 
-		//Sprite* indicator = Sprite::createWithSpriteFrameName("indicator.png");
-		Sprite* indicator = CCSprite::create(FILENAME_IMG_MAIN_SELECT);
+		Sprite* indicator = Sprite::createWithSpriteFrameName(FILENAME_IMG_MAIN_SELECT);
 	
 		indicator->setName("indicator");
 		indicator->setZOrder(11);
@@ -385,6 +382,7 @@ void GameSceneManager::SelectCharacter(Character* character)
 		character->ShowMovableTile();
 
 		this->_Nodes->addChild(indicator);
+		SetRotateButton(character);
 	}
 }
 
@@ -395,12 +393,11 @@ void GameSceneManager::SelectBarrack(Self_Tile* tile)
 		float posX = tile->getPositionX();
 		float posY = tile->getPositionY();
 		
-		//Sprite* indicator = Sprite::createWithSpriteFrameName("indicator.png");
-		Sprite* indicator = CCSprite::create(FILENAME_IMG_MAIN_SELECT);
+		Sprite* indicator = Sprite::createWithSpriteFrameName(FILENAME_IMG_MAIN_SELECT);
 		indicator->setName("indicator");
 		indicator->setZOrder(11);
 		indicator->setAnchorPoint(Vec2(0, 0));
-		indicator->setPosition(posX + 70, posY + 100);
+		indicator->setPosition(posX + 70, posY + 120);
 
 		ShowSpawnableTile(tile);
 
@@ -410,7 +407,7 @@ void GameSceneManager::SelectBarrack(Self_Tile* tile)
 
 void GameSceneManager::ShowSpawnableTile(Self_Tile* tile)
 {
-	for (int i = 0; i < MAX_DIRECTION; ++i)
+	for (int i = 0; i < DIRECTION_MAX; ++i)
 	{
 		DirectionKind dir = static_cast<DirectionKind>(i);
 		Self_Tile* nearTile = tile->getNearTile(dir);
@@ -426,7 +423,7 @@ void GameSceneManager::ShowSpawnableTile(Self_Tile* tile)
 		tileMove->setAnchorPoint(cocos2d::Vec2(0, 0));
 		
 		float tilePosX = nearTile->getPositionX();
-		float tilePosY = nearTile->getPositionY();
+		float tilePosY = nearTile->getPositionY() + 21;
 
 		tileMove->setPosition(tilePosX, tilePosY);
 		tileMove->setName("spwanable");
@@ -446,12 +443,41 @@ void GameSceneManager::Unselect()
 
 	while (this->_Nodes->getChildByName("indicator"))
 		this->_Nodes->removeChildByName("indicator");
-
 }
 
 void GameSceneManager::TrimZorder()
 {
 	for (auto iter : TileMap::getInstance()->getChildren())
 		if (iter->getName() == "character")
-			iter->setZOrder(-100 * iter->getPositionY() + 10300);
+			iter->setZOrder(-100 * iter->getPositionY() + 12000);
+}
+
+void GameSceneManager::SetRotateButton(Character* character)
+{
+	float posX = character->getPositionX();
+	float posY = character->getPositionY();
+
+	Sprite* rotateLeft = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_TURN_LEFT);
+	Sprite* rotateLeftClicked = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_TURN_LEFT_CLICKED);
+	Sprite* rotateRight = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_TURN_RIGHT);
+	Sprite* rotateRightClicked = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_TURN_RIGHT_CLICKED);
+
+	MenuItemSprite* rotateLeftButton = MenuItemSprite::create(rotateLeft, rotateLeftClicked, CC_CALLBACK_0(GameSceneManager::RotateToDirection, this, character, ROTATE_LEFT));
+	MenuItemSprite* rotateRightButton = MenuItemSprite::create(rotateRight, rotateRightClicked, CC_CALLBACK_0(GameSceneManager::RotateToDirection, this, character, ROTATE_RIGHT));
+	
+	rotateLeftButton->setPosition(posX + 30, posY - 20);
+	rotateRightButton->setPosition(posX - 20, posY - 20);
+	
+	Menu* rotateMenu = Menu::create(rotateLeftButton, rotateRightButton, NULL);
+//	setname하면 메뉴가 동작하지 않는다?
+	rotateMenu->setName("indicator");
+	rotateMenu->setPosition(Vec2::ZERO);
+	rotateMenu->setZOrder(15);
+
+	this->AddChild(rotateMenu);
+}
+
+void GameSceneManager::RotateToDirection(Character* character, RotateDirection rotateDirection)
+{
+	character->RotateToDirection(rotateDirection);
 }

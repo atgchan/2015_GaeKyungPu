@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "HistoryEventChangeTile.h"
 #include "Self_Tile.h"
+#include "SimpleAudioEngine.h"
 
 HistoryEventChangeTile::HistoryEventChangeTile()
 {
@@ -21,9 +22,15 @@ std::shared_ptr<HistoryEventChangeTile> HistoryEventChangeTile::Create(Self_Tile
 
 void HistoryEventChangeTile::Run()
 {
-	cocos2d::CallFunc* changeCall = CallFunc::create(CC_CALLBACK_0(Self_Tile::ChangeTile,_TargetTile, _TargetType));
+	cocos2d::CallFunc* changeCall = CallFunc::create(CC_CALLBACK_0(Self_Tile::ChangeTile, _TargetTile, _TargetType));
+	
 	cocos2d::CallFunc* doneCall = CallFunc::create(CC_CALLBACK_0(HistoryEventChangeTile::SetDone, this, true));
 
-	FiniteTimeAction* seq = Sequence::create(changeCall, DelayTime::create(1.0f), doneCall, nullptr);
+	FiniteTimeAction* fadeOutCall = FadeOut::create(0.5);
+	FiniteTimeAction* fadeInCall = FadeIn::create(0.5);
+	_TargetTile->setOpacity(255);
+	FiniteTimeAction* seq = Sequence::create(fadeOutCall,changeCall, fadeInCall, doneCall, nullptr);
 	_TargetTile->runAction(seq);
+	if (_TargetType == TILE_LAVA)
+		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(FILENAME_SOUND_GAME_VOLCANO);
 }
