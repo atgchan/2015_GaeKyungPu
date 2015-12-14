@@ -127,24 +127,13 @@ void BattleManager::SetDefenseFormation(Character* defender)
 	}
 }
 
-///# std::find 쓰면 한줄이면 되는데.. 그러면 이렇게 전역 함수로 따로 만들필요도 없고?
-bool isHave(std::list<Character*> *checkedNode, Character* node)
+int BattleManager::SearchGraphAndOverwriteAttackFormation(std::list<Character*> checkedNodes, Character* currentNode, int currentDepth, int maxDepth)
 {
-	for (auto iter : *checkedNode)
-	{
-		if (iter == node)
-			return true;
-	}
-	return false;
-}
-
-int BattleManager::SearchGraphAndOverwriteAttackFormation(std::list<Character*> checkedNode, Character* currentNode, int currentDepth, int maxDepth)
-{
-	checkedNode.push_back(currentNode);
+	checkedNodes.push_back(currentNode);
 
 	if (maxDepth <= currentDepth)
 	{
-		this->_CurrentAttackFormation = checkedNode;
+		this->_CurrentAttackFormation = checkedNodes;
 		maxDepth = currentDepth;
 	}
 
@@ -158,8 +147,8 @@ int BattleManager::SearchGraphAndOverwriteAttackFormation(std::list<Character*> 
 			//해당 캐릭터가 자신을 바라보고 있으면
 			if (compareNode->GetNearCharacter(compareNode->getCurrentDirection()) == currentNode && compareNode->GetOwnerPlayer() == currentNode->GetOwnerPlayer())
 				//이미 탐색했던 node가 아니면
-				if (!isHave(&checkedNode, compareNode))
-					maxDepth = SearchGraphAndOverwriteAttackFormation(checkedNode, compareNode, currentDepth + 1, maxDepth);
+				if (std::find(checkedNodes.begin(),checkedNodes.end(),compareNode) == checkedNodes.end())
+					maxDepth = SearchGraphAndOverwriteAttackFormation(checkedNodes, compareNode, currentDepth + 1, maxDepth);
 	}
 
 	return maxDepth;
