@@ -115,7 +115,7 @@ bool GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
 		{
 			DirectionKind direction = _DraftTile->getNearTileDirection(clickedTile);
 			SpawnCharacterOnTile(_DraftTile, direction, clickedTile->getFoodToConsume());
-			_DraftTile->getCharacterOnThisTile()->MovoToTile(clickedTile);
+			_DraftTile->getCharacterOnThisTile()->MovoToTile(clickedTile,false);
 		}
 
 		_DraftTile = nullptr;
@@ -165,7 +165,7 @@ void GameSceneManager::MoveCharacterByClick(Self_Tile* clickedTile)
 		{
 			if (clickedTile->getCharacterOnThisTile() == nullptr)
 			{
-				_CharacterToMove->MovoToTile(clickedTile);
+				_CharacterToMove->MovoToTile(clickedTile,false);
 				getCurrentPlayerData()->AddFood(clickedTile->getFoodToConsume() * -1);
 			}
 
