@@ -33,17 +33,21 @@ void Character::RotateToDirection(RotateDirection rotateDirection)
 	DirectionKind characterDirection = getCurrentDirection();
 
 	if (rotateDirection == ROTATE_LEFT)
-		characterDirection = static_cast<DirectionKind>((characterDirection + 1) % MAX_DIRECTION);
+		characterDirection = static_cast<DirectionKind>((characterDirection + 1) % DIRECTION_MAX);
 
 	if (rotateDirection == ROTATE_RIGHT)
-		characterDirection = static_cast<DirectionKind>((characterDirection + 5) % MAX_DIRECTION);
+		characterDirection = static_cast<DirectionKind>((characterDirection + 5) % DIRECTION_MAX);
 	DirectionKind tempDirection = _CurrentDirection;
 	setCurrentDirection(characterDirection);
 	CalculateAttackPower();
 	setCurrentDirection(tempDirection);
 	EventManager::getInstance()->AddHistory(HistoryEventRotateCharacter::Create(this, characterDirection));
 	setCurrentDirection(characterDirection);
-
+	for (int i = DIRECTION_DOWN_LEFT; i != DIRECTION_MAX; ++i)
+	{
+		if (GetNearCharacter(static_cast<DirectionKind>(i)))
+			GetNearCharacter(static_cast<DirectionKind>(i))->CalculateAttackPower();
+	}
 	return;
 }
 
@@ -267,12 +271,13 @@ void Character::setAttackPowerBallNameFromNumber(int power)
 void Character::CalculateAttackPower()
 {
 	int directionBonus = 0;
-	Character* charUpFront = GetNearCharacter(_CurrentDirectionToShow);
+	Character* charUpFront = GetNearCharacter(_CurrentDirection);
 
 	if (charUpFront != nullptr && charUpFront->GetOwnerPlayer() != _OwnerPlayer)
-		directionBonus = CalculateDiffBetweenDirections(_CurrentDirectionToShow, charUpFront->getCurrentDirectionToShow());
+		directionBonus = CalculateDiffBetweenDirections(_CurrentDirection, charUpFront->getCurrentDirection());
 
 	if (CurrentTile->getTypeOfTile() == TILE_FOREST)
 		directionBonus++;
 	_AttackPower = ATTACK_POWER_DEFAULT + directionBonus;
+	_AttackPowerToDisplay = _AttackPower;
 }

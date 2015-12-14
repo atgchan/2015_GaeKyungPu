@@ -69,7 +69,7 @@ void Self_Tile::setCharacterOnThisTile(Character* character)
 
 bool Self_Tile::CheckNearTile(Self_Tile* tile)
 {
-	for (int i = 0; i < MAX_DIRECTION; ++i)
+	for (int i = 0; i < DIRECTION_MAX; ++i)
 	{
 		if (_NearTile[i] == tile)
 			return true;
@@ -79,7 +79,7 @@ bool Self_Tile::CheckNearTile(Self_Tile* tile)
 
 DirectionKind Self_Tile::getNearTileDirection(Self_Tile* tile)
 {
-	for (int i = 0; i < MAX_DIRECTION; ++i)
+	for (int i = 0; i < DIRECTION_MAX; ++i)
 	{
 		if (_NearTile[i] == tile)
 			return static_cast<DirectionKind>(i);

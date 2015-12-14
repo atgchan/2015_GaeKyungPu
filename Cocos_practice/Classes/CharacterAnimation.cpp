@@ -9,7 +9,7 @@ void CharacterAnimation::Init()
 {
 	for (int i = 0; i < NUM_OF_PLAYER; ++i)
 	{
-		for (int j = 0; j < MAX_DIRECTION; ++j)
+		for (int j = 0; j < DIRECTION_MAX; ++j)
 		{
 			_AnimationArray.pushBack(CreateAnimationDefault(PlayerInfo(i), DirectionKind(j)));
 			_AnimationArray.pushBack(CreateAnimationMove(PlayerInfo(i), DirectionKind(j)));

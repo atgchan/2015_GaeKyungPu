@@ -41,7 +41,7 @@ private:
 
 	int			_FoodToConsume = 1;
 	PlayerInfo	_OwnerPlayer;
-	Self_Tile*	_NearTile[MAX_DIRECTION];
+	Self_Tile*	_NearTile[DIRECTION_MAX];
 
 	Character* _CharacterOnThisTile = nullptr;
 };
