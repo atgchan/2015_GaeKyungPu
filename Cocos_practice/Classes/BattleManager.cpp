@@ -17,7 +17,7 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 	//int flankBonus = std::abs(std::abs((attacker->getCurrentDirection() - defender->getCurrentDirection())) - 3);
 	
 	//attacker->setAttackPower(flankBonus + attacker->getAttackPower());
-	defender->RotateToDirection(static_cast<DirectionKind>((attacker->getCurrentDirection() + 3) % DIRECTION_MAX),false);
+	defender->RotateToDirection(static_cast<DirectionKind>((attacker->getCurrentDirection() + 3) % DIRECTION_MAX), false);
 
 	PlayerInfo playerAttacker = attacker->GetOwnerPlayer();
 	PlayerInfo playerDefender = defender->GetOwnerPlayer();
@@ -110,7 +110,8 @@ bool BattleManager::IsAttackerWin(Character* attacker, Character* defender)
 
 		if (attackerDice == defenderDice)
 			continue;
-		return (attackerDice > defenderDice) ? true : false;
+		//return (attackerDice > defenderDice) ? true : false;
+		return false;
 	}
 }
 

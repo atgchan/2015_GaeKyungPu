@@ -124,7 +124,7 @@ private:
 
 	void		SelectCharacter(Character* character);
 	void		SelectBarrack(Self_Tile* tile);
-	void		TrimZorder();
+	void		TrimZorderAndRefreshAP();
 
 	void		SetRotateButton(Character* character);
 	void		RotateToDirection(Character* character, RotateDirection rotateDirection);

@@ -205,7 +205,7 @@ void GameSceneManager::SpawnCharacterOnTile(Self_Tile* tile, DirectionKind sprit
 	TileMap::getInstance()->setCharacterOnTile(unit, tile);
 	_PlayerData[getCurrentPlayer()]->AddCharacter(unit);
 	unit->setCurrentTile(tile);
-
+	
 	getCurrentPlayerData()->AddFood(-1 * spendFood);
 }
 
@@ -269,7 +269,7 @@ void GameSceneManager::ScheduleCallback(float delta)
 
 	ChangePhase(_CurrentPhase->_NextPhase);
 
-	TrimZorder();
+	TrimZorderAndRefreshAP();
 }
 
 void GameSceneManager::GiveTileToPlayer(Self_Tile* targetTile, PlayerInfo pInfo)
@@ -437,11 +437,15 @@ void GameSceneManager::Unselect()
 	RemoveCursor();
 }
 
-void GameSceneManager::TrimZorder()
+void GameSceneManager::TrimZorderAndRefreshAP()
 {
 	for (auto iter : TileMap::getInstance()->getChildren())
 		if (iter->getName() == "character")
+		{
 			iter->setZOrder(-100 * iter->getPositionY() + 12000);
+			Character* tCharacter = static_cast<Character*>(iter);
+			tCharacter->setAttackPowerBallNameFromNumber(tCharacter->getAttackPowerToDisplay());
+		}
 }
 
 void GameSceneManager::SetRotateButton(Character* character)

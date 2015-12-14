@@ -67,23 +67,10 @@ bool GameScene::init()
 void GameScene::ScheduleCallback(float delta)
 {
 	RefreshFood();
-	RefreshAttackPower();
 
 	if (_GameIsEnd)
 		GameSceneManager::getInstance()->EndGame();
 	GameSceneManager::getInstance()->ScheduleCallback(delta);
-}
-
-void GameScene::RefreshAttackPower()
-{
-	for (int i = 0; i < NUM_OF_PLAYER; i++)
-	{
-		std::list<Character*>* list = GM->getPlayerDataByPlayerInfo(PlayerInfo(i))->getCharacterList();
-		for (Character* iter : *list)
-		{
-			iter->UpdateAttackPowerSprite();
-		}
-	}
 }
 
 void GameScene::MouseDownDispatcher(cocos2d::EventMouse* event)

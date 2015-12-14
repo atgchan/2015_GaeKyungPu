@@ -51,7 +51,7 @@ void Character::RotateToDirection(DirectionKind targetDirection, bool displayAls
 {
 	EventManager::getInstance()->AddHistory(HistoryEventRotateCharacter::Create(this, targetDirection));
 	setCurrentDirection(DirectionKind(targetDirection));
-	CalculateAttackPowerAllNearTile(displayAlso);
+	CalculateAttackPowerAllNearTile();
 	return;
 }
 
@@ -63,8 +63,9 @@ void Character::MovoToTile(Self_Tile* dest, bool battleMode /*= true*/)
 	dest->setCharacterOnThisTile(this);
 	this->setCurrentTile(dest);
 
-	prevTile->CaculateAttackPowerAllNearTile(!battleMode);
-	dest->CaculateAttackPowerAllNearTile(!battleMode);
+	this->getAttackPower();
+	prevTile->CaculateAttackPowerAllNearTile();
+	dest->CaculateAttackPowerAllNearTile();
 
 	EventManager::getInstance()->AddHistory(HistoryEventMoveCharacter::Create(this, dest));
 }
@@ -209,20 +210,6 @@ void Character::InitAttackPowerSprite()
 	this->addChild(_AttackPowerBall);
 }
 
-void Character::UpdateAttackPowerSprite()
-{/*
-	int directionBonus = 0;
-	Character* charUpFront = GetNearCharacter(_CurrentDirectionToShow);
-	
-	if (charUpFront != nullptr && charUpFront->GetOwnerPlayer() != _OwnerPlayer)
-		directionBonus = CalculateDiffBetweenDirections(_CurrentDirectionToShow, charUpFront->getCurrentDirectionToShow());
-	
-	if (CurrentTile->getTypeOfTile() == TILE_FOREST)
-		directionBonus++;*/
-	
-	setAttackPowerBallNameFromNumber(_AttackPowerToDisplay/* + directionBonus*/);
-}
-
 void Character::setAttackPowerToDisplay(int ap)
 {
 	_AttackPowerToDisplay = ap;
@@ -291,7 +278,9 @@ void Character::CalculateAttackPower(bool displayAlso /*= false*/)
 
 	if (CurrentTile->getTypeOfTile() == TILE_FOREST)
 		directionBonus++;
+
 	_AttackPower = ATTACK_POWER_DEFAULT + directionBonus;
+
 	if (displayAlso)
 		_AttackPowerToDisplay = _AttackPower;
 }
