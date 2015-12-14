@@ -353,7 +353,7 @@ PlayerData* GameSceneManager::getPlayerDataByPlayerInfo(PlayerInfo player)
 
 void GameSceneManager::SelectCharacter(Character* character)
 {
-	if (character)
+	if (character && character->GetOwnerPlayer() == _CurrentPlayer)
 	{
 		float posX = character->getPositionX();
 		float posY = character->getPositionY();
@@ -433,17 +433,7 @@ void GameSceneManager::Unselect()
 	while (this->_Nodes->getChildByName("rotateBtn"))
 		this->_Nodes->removeChildByName("rotateBtn");
 
-	for (int i = 0; i < 2; i++)
-	{
-		std::list<Character*> *list = _PlayerData[PlayerInfo(i)]->getCharacterList();
-		for (std::list<Character*>::iterator iter = list->begin(); iter != list->end(); ++iter)
-		{
-			while ((*iter)->getChildByName("cursor"))
-			{
-				(*iter)->removeChildByName("cursor");
-			}
-		}
-	}
+	RemoveCursor();
 }
 
 void GameSceneManager::TrimZorder()
@@ -482,8 +472,24 @@ void GameSceneManager::SetRotateButton(Character* character)
 
 void GameSceneManager::RotateToDirection(Character* character, RotateDirection rotateDirection)
 {
+	RemoveCursor();
 	character->RotateToDirection(rotateDirection);
 	while (TileMap::getInstance()->getChildByName("moveable"))
 		TileMap::getInstance()->removeChildByName("moveable");
 	character->ShowMovableTile();
+}
+
+void GameSceneManager::RemoveCursor()
+{
+	for (int i = 0; i < 2; i++)
+	{
+		std::list<Character*> *list = _PlayerData[PlayerInfo(i)]->getCharacterList();
+		for (std::list<Character*>::iterator iter = list->begin(); iter != list->end(); ++iter)
+		{
+			while ((*iter)->getChildByName("cursor"))
+			{
+				(*iter)->removeChildByName("cursor");
+			}
+		}
+	}
 }

@@ -128,5 +128,6 @@ private:
 
 	void		SetRotateButton(Character* character);
 	void		RotateToDirection(Character* character, RotateDirection rotateDirection);
+	void		RemoveCursor();
 
 };
