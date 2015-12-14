@@ -66,6 +66,7 @@ void UILayer::ShowOptionWindow(Object *pSender)
 		item->setSelectedIndex(1);
 		return;
 	}
+	GM->setInputMode(false);
 	Director::getInstance()->pause();
 	OptionLayer* option = OptionLayer::create();
 	GM->AddChild(option);

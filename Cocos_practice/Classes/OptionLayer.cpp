@@ -19,6 +19,7 @@ bool OptionLayer::init()
 	if (!CCLayerColor::initWithColor(ccc4(0, 0, 0, 0)))  //투명하게
 		return false;
 	this->setName("OptionLayer");
+	this->setZOrder(20);
 	cocos2d::Size visibleSize = Director::getInstance()->getVisibleSize();
 
 	//backLayer추가
@@ -83,4 +84,5 @@ void OptionLayer::Resume()
 	Director::getInstance()->resume();
 	static_cast<MenuItemToggle*>(GM->getNodes()->getParent()->getChildByName("UILayer")->getChildByName("ingameMenu")->getChildByName("option_toggle"))->setSelectedIndex(0);
 	this->removeFromParentAndCleanup(true);
+	GM->setInputMode(false);
 }
