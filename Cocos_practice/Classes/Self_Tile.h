@@ -32,7 +32,7 @@ public:
 	Self_Tile*		getNearTile(DirectionKind direction);
 	PlayerInfo		getOwnerPlayer();
 	Character*		getCharacterOnThisTile();
-	void			CaculateAttackPowerAllNearTile();
+	void CaculateAttackPowerAllNearTile(bool displayAlso = false);
 	CC_SYNTHESIZE(TileKind, _typeOfTile, TypeOfTile);
 
 private:

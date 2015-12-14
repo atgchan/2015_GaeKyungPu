@@ -122,13 +122,13 @@ PlayerInfo Self_Tile::getOwnerPlayer()
 	return _OwnerPlayer;
 }
 
-void Self_Tile::CaculateAttackPowerAllNearTile()
+void Self_Tile::CaculateAttackPowerAllNearTile(bool displayAlso /*= false*/)
 {
 
 	for (int i = DIRECTION_DOWN_LEFT; i != DIRECTION_MAX; ++i)
 	{
 		Character* tCharacter = getNearTile(static_cast<DirectionKind>(i))->getCharacterOnThisTile();
 		if (tCharacter)
-			tCharacter->CalculateAttackPower();
+			tCharacter->CalculateAttackPower(displayAlso);
 	}
 }

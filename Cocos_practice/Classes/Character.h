@@ -17,10 +17,10 @@ public:
 	@args	돌릴 방향(RotateDirection enum이다.), 돌릴 character의 포인터
 	*/
 	void	RotateToDirection(RotateDirection);
-	void	RotateToDirection(DirectionKind);
+	void	RotateToDirection(DirectionKind,bool displayAlso = false);
 	void	RotateToDirection(Ref *sender, RotateDirection rotateDirection);
 
-	void	MovoToTile(Self_Tile* dest);
+	void MovoToTile(Self_Tile* dest, bool battleMode = true);
 	void	CharacterBeHit();
 	void	CharacterAttack();
 
@@ -43,8 +43,8 @@ public:
 	void				InitAttackPowerSprite();
 	void				UpdateAttackPowerSprite();
 	int					CalculateDiffBetweenDirections(DirectionKind dir1, DirectionKind dir2);
-	void				CalculateAttackPower();
-	void				CalculateAttackPowerAllNearTile();
+	void				CalculateAttackPower(bool displayAlso = false);
+	void				CalculateAttackPowerAllNearTile(bool displayAlso = false);
 	~Character();
 
 private:

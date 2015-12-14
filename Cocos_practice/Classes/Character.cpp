@@ -39,23 +39,23 @@ void Character::RotateToDirection(RotateDirection rotateDirection)
 		characterDirection = static_cast<DirectionKind>((characterDirection + 5) % DIRECTION_MAX);
 	DirectionKind tempDirection = _CurrentDirection;
 	setCurrentDirection(characterDirection);
-	CalculateAttackPower();
+	CalculateAttackPower(true);
 	setCurrentDirection(tempDirection);
 	EventManager::getInstance()->AddHistory(HistoryEventRotateCharacter::Create(this, characterDirection));
 	setCurrentDirection(characterDirection);
-	CalculateAttackPowerAllNearTile();
+	CalculateAttackPowerAllNearTile(true);
 	return;
 }
 
-void Character::RotateToDirection(DirectionKind targetDirection)
+void Character::RotateToDirection(DirectionKind targetDirection, bool displayAlso /*= false*/)
 {
-	CalculateAttackPower();
+	CalculateAttackPower(displayAlso);
 	EventManager::getInstance()->AddHistory(HistoryEventRotateCharacter::Create(this, targetDirection));
 	setCurrentDirection(DirectionKind(targetDirection));
 	return;
 }
 
-void Character::MovoToTile(Self_Tile* dest)
+void Character::MovoToTile(Self_Tile* dest, bool battleMode /*= true*/)
 {
 	Self_Tile* prevTile = this->getCurrentTile();
 
@@ -63,8 +63,8 @@ void Character::MovoToTile(Self_Tile* dest)
 	dest->setCharacterOnThisTile(this);
 	this->setCurrentTile(dest);
 
-	prevTile->CaculateAttackPowerAllNearTile();
-	dest->CaculateAttackPowerAllNearTile();
+	prevTile->CaculateAttackPowerAllNearTile(!battleMode);
+	dest->CaculateAttackPowerAllNearTile(!battleMode);
 
 	EventManager::getInstance()->AddHistory(HistoryEventMoveCharacter::Create(this, dest));
 }
@@ -281,7 +281,7 @@ void Character::setAttackPowerBallNameFromNumber(int power)
 	}
 }
 
-void Character::CalculateAttackPower()
+void Character::CalculateAttackPower(bool displayAlso /*= false*/)
 {
 	int directionBonus = 0;
 	Character* charUpFront = GetNearCharacter(_CurrentDirection);
@@ -292,10 +292,11 @@ void Character::CalculateAttackPower()
 	if (CurrentTile->getTypeOfTile() == TILE_FOREST)
 		directionBonus++;
 	_AttackPower = ATTACK_POWER_DEFAULT + directionBonus;
-	_AttackPowerToDisplay = _AttackPower;
+	if (displayAlso)
+		_AttackPowerToDisplay = _AttackPower;
 }
 
-void Character::CalculateAttackPowerAllNearTile()
+void Character::CalculateAttackPowerAllNearTile(bool displayAlso /*= false*/)
 {
-	this->getCurrentTile()->CaculateAttackPowerAllNearTile();
+	this->getCurrentTile()->CaculateAttackPowerAllNearTile(displayAlso);
 }
