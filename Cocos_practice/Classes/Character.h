@@ -43,6 +43,7 @@ public:
 	void	InitAttackPowerSprite();
 	void	UpdateAttackPowerSprite();
 	int		CalculateDiffBetweenDirections(DirectionKind dir1, DirectionKind dir2);
+	void			CalculateAttackPower();
 	~Character();
 
 private:
@@ -58,7 +59,6 @@ private:
 	
 	int		_AttackPowerToDisplay = ATTACK_POWER_DEFAULT;
 	cocos2d::Sprite* _AttackPowerBall;
-	void			CalculateAttackPower();
 	void setAttackPowerBallNameFromNumber(int);
 };
 

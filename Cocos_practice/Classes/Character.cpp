@@ -37,10 +37,12 @@ void Character::RotateToDirection(RotateDirection rotateDirection)
 
 	if (rotateDirection == ROTATE_RIGHT)
 		characterDirection = static_cast<DirectionKind>((characterDirection + 5) % MAX_DIRECTION);
-	
+	DirectionKind tempDirection = _CurrentDirection;
+	setCurrentDirection(characterDirection);
 	CalculateAttackPower();
+	setCurrentDirection(tempDirection);
 	EventManager::getInstance()->AddHistory(HistoryEventRotateCharacter::Create(this, characterDirection));
-	setCurrentDirection(DirectionKind(characterDirection));
+	setCurrentDirection(characterDirection);
 
 	return;
 }
@@ -59,6 +61,8 @@ void Character::MovoToTile(Self_Tile* dest)
 	dest->setCharacterOnThisTile(this);
 	this->setCurrentTile(dest);
 	CalculateAttackPower();
+	if (this->GetNearCharacter(_CurrentDirection))
+		this->GetNearCharacter(_CurrentDirection)->CalculateAttackPower();
 	EventManager::getInstance()->AddHistory(HistoryEventMoveCharacter::Create(this, dest));
 }
 
