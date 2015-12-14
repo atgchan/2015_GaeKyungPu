@@ -46,6 +46,8 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 		}
 		else
 		{
+			_CurrentAttackFormation.front()->CalculateAttackPower();
+			_CurrentDefenseFormation.front()->CalculateAttackPower();
 			winner = &_CurrentDefenseFormation;
 			loser = &_CurrentAttackFormation;
 			EventManager::getInstance()->AddHistory(HistoryEventAttack::Create(_CurrentAttackFormation.front(), _CurrentDefenseFormation.front()));
