@@ -1,7 +1,7 @@
 # TESTuDO
 ##update note
 
-v0.2.0 - [다운로드(분할1)](http://ref.comgal.info/download.php?id=cgref&page=1&sn1=&divpage=202&sn=off&ss=on&sc=on&select_arrange=headnum&desc=asc&no=1331073&filenum=1 "다운로드") / [다운로드(분할2)](http://ref.comgal.info/download.php?id=cgref&page=1&sn1=&divpage=202&sn=off&ss=on&sc=on&select_arrange=headnum&desc=asc&no=1331073&filenum=2 "다운로드")
+v0.2.0 - [다운로드(분할1)](http://ref.comgal.info/data/cgref_4/v0.0.2.zip "다운로드") / [다운로드(분할2)](http://ref.comgal.info/data/cgref_4/v0.0.2.z01 "다운로드")
 ![image](http://ref.comgal.info/data/cgref_4/%EC%9D%B4%EB%AF%B8%EC%A7%80_17.png)
 
 * 기본 조작법
