@@ -125,7 +125,18 @@ void Character::ShowMovableTile()
 	TileMap::getInstance()->addChild(tileMove);
 
 	//타일 위에 캐릭터가 있으면 머리 위에 커서를 보여줌
-
+	if (tile->getCharacterOnThisTile() != nullptr)
+	{
+		if (tile->getCharacterOnThisTile()->GetOwnerPlayer() != GM->getCurrentPlayer())
+		{
+			Sprite* cursor = Sprite::createWithSpriteFrameName(FILENAME_IMG_MAIN_CURSOR);
+			cursor->setAnchorPoint(cocos2d::Vec2(0, 0));
+			cursor->setName("cursor");
+			cursor->setRotation(90.0f);
+			cursor->setPosition(cursor->getPositionX()+43, cursor->getPositionY()+167);
+			tile->getCharacterOnThisTile()->addChild(cursor);
+		}
+	}
 }
 
 Character* Character::GetNearCharacter(DirectionKind direction)

@@ -443,6 +443,18 @@ void GameSceneManager::Unselect()
 
 	while (this->_Nodes->getChildByName("indicator"))
 		this->_Nodes->removeChildByName("indicator");
+
+	for (int i = 0; i < 2; i++)
+	{
+		std::list<Character*> *list = _PlayerData[PlayerInfo(i)]->getCharacterList();
+		for (std::list<Character*>::iterator iter = list->begin(); iter != list->end(); ++iter)
+		{
+			while ((*iter)->getChildByName("cursor"))
+			{
+				(*iter)->removeChildByName("cursor");
+			}
+		}
+	}
 }
 
 void GameSceneManager::TrimZorder()
