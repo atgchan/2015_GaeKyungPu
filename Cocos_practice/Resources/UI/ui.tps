@@ -192,16 +192,13 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>point.png</filename>
             <filename>replay.png</filename>
             <filename>replay_clicked.png</filename>
             <filename>ui_bar.png</filename>
             <filename>cursor.png</filename>
-            <filename>end_game.png</filename>
             <filename>end_turn.png</filename>
             <filename>end_turn_clicked.png</filename>
             <filename>grain.png</filename>
-            <filename>indicator.png</filename>
             <filename>bar.png</filename>
             <filename>turn_left_clicked.png</filename>
             <filename>turn_left.png</filename>
@@ -232,6 +229,12 @@
             <filename>option_window.png</filename>
             <filename>resume_clicked.png</filename>
             <filename>resume.png</filename>
+            <filename>anchor_ru.png</filename>
+            <filename>anchor_ld.png</filename>
+            <filename>anchor_lu.png</filename>
+            <filename>anchor_rd.png</filename>
+            <filename>anchor.png</filename>
+            <filename>result_window.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

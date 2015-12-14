@@ -106,14 +106,20 @@ enum EventType
 #define FILENAME_IMG_ATTACK_POWER_6 "6.png"
 
 //UI IMAGE
-#define FILENAME_IMG_UI_GRAIN_INDICATOR			"grain_bar.png"
-#define FILENAME_IMG_UI_OPTION_WINDOW			"option_window.png"
-#define FILENAME_IMG_UI_OUTER_ANCHOR			"point.png"
 #define FILENAME_IMG_UI_OUTER_BAR				"bar.png"
 #define FILENAME_IMG_UI_UPPER_BAR				"ui_bar.png"
 #define FILENAME_IMG_UI_FLAG_RED				"flag_red.png"
 #define FILENAME_IMG_UI_FLAG_BLUE				"flag_blue.png"
-#define FILENAME_IMG_UI_RESULT_WINDOW			"end_game.png"
+
+#define FILENAME_IMG_UI_GRAIN_INDICATOR			"grain_bar.png"
+#define FILENAME_IMG_UI_OPTION_WINDOW			"option_window.png"
+#define FILENAME_IMG_UI_RESULT_WINDOW			"result_window.png"
+
+#define FILENAME_IMG_UI_OUTER_ANCHOR			"anchor.png"
+#define FILENAME_IMG_UI_LD_ANCHOR				"anchor_ld.png"
+#define FILENAME_IMG_UI_RD_ANCHOR				"anchor_rd.png"
+#define FILENAME_IMG_UI_LU_ANCHOR				"anchor_lu.png"
+#define FILENAME_IMG_UI_RU_ANCHOR				"anchor_ru.png"
 
 //UI_BUTTON
 #define FILENAME_IMG_BUTTON_ENDTURN				"end_turn.png"

@@ -104,16 +104,20 @@ void UILayer::SetUIBar()
 		this->addChild(spriteBarArray[i]);
 	}
 
+	spritecornerArray[0] = Sprite::createWithSpriteFrameName(FILENAME_IMG_UI_LD_ANCHOR);
+	spritecornerArray[1] = Sprite::createWithSpriteFrameName(FILENAME_IMG_UI_LU_ANCHOR);
+	spritecornerArray[2] = Sprite::createWithSpriteFrameName(FILENAME_IMG_UI_RU_ANCHOR);
+	spritecornerArray[3] = Sprite::createWithSpriteFrameName(FILENAME_IMG_UI_RD_ANCHOR);
+
 	for (int i = 0; i < 4; ++i)
 	{
-		spritecornerArray[i] = Sprite::createWithSpriteFrameName(FILENAME_IMG_UI_OUTER_ANCHOR);
 		spritecornerArray[i]->setAnchorPoint(Vec2(0, 0));
 		this->addChild(spritecornerArray[i]);
 	}
 
 	Sprite* grain = Sprite::createWithSpriteFrameName(FILENAME_IMG_UI_GRAIN_INDICATOR);
 	grain->setAnchorPoint(Vec2(0, 0));
-	grain->setPosition(90, visibleSize.height - 56);
+	grain->setPosition(90, visibleSize.height - 66);
 	grain->setZOrder(11);
 	this->addChild(grain);
 
@@ -126,6 +130,7 @@ void UILayer::SetUIBar()
 	*/
 
 	spriteBarArray[0]->setPosition(0, 0);
+	spriteBarArray[0]->setZOrder(15);
 
 	spriteBarArray[1]->setRotation(90);
 	spriteBarArray[1]->setPosition(0, visibleSize.height);
@@ -133,10 +138,10 @@ void UILayer::SetUIBar()
 	spriteBarArray[2]->setRotation(270);
 	spriteBarArray[2]->setPosition(visibleSize.width, 0);
 
-	spritecornerArray[0]->setPosition(0, 0);
-	spritecornerArray[1]->setPosition(visibleSize.width-30, 0);
-	spritecornerArray[2]->setPosition(0, visibleSize.height-30);
-	spritecornerArray[3]->setPosition(visibleSize.width-30, visibleSize.height - 30);
+	spritecornerArray[0]->setPosition(0, 15);
+	spritecornerArray[1]->setPosition(0, visibleSize.height-85);
+	spritecornerArray[2]->setPosition(visibleSize.width-45, visibleSize.height-85);
+	spritecornerArray[3]->setPosition(visibleSize.width-45, 15);
 
 	Sprite* UIBar = Sprite::createWithSpriteFrameName(FILENAME_IMG_UI_UPPER_BAR);
 	UIBar->setAnchorPoint(Vec2(0, 0));
