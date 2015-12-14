@@ -77,9 +77,7 @@ bool TileMap::create()
 			_TileSet[i][j]->setPosition(positionX, positionY);
 			_Inst->addChild(_TileSet[i][j]);
 
-			//클릭이 유효한 범위를 나타내는 네모 박스를 만들어서 같이 전달한다.(클릭 체크용)
-			Rect rect = CCRectMake(positionX+45, positionY+30, _TileSet[i][j]->getContentSize().width-70, _TileSet[i][j]->getContentSize().height-30);
-		}
+			}
 	}
 	for (int i = MAP_MAX_HEIGHT -1 ; i >= 0; --i)
 	{

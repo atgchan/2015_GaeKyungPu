@@ -9,12 +9,7 @@ class Phase;
 class BattleManager;
 class DiceDice;
 
-struct TILEARRAYSET
-{
-	Self_Tile* tile = nullptr;
-	Rect rect = Rect();
-};
-//½Ì±ÛÅæÀ¸·Î ±¸Çö
+
 class GameSceneManager
 {
 public:
