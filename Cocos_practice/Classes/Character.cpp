@@ -116,6 +116,9 @@ void Character::ShowMovableTile()
 	tileMove->setName("moveable");
 	tileMove->setZOrder(this->getCurrentTile()->getNearTile(dir)->getZOrder());
 	TileMap::getInstance()->addChild(tileMove);
+
+	//타일 위에 캐릭터가 있으면 머리 위에 커서를 보여줌
+
 }
 
 Character* Character::GetNearCharacter(DirectionKind direction)
