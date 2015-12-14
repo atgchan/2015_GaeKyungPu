@@ -53,4 +53,5 @@ void HistoryEventAttack::Run()
 	_Attacker->runAction(seq1);
 	_Attacker->setAttackPowerToDisplay(_AttackPowerToShow_attacker);
 	_Defender->setAttackPowerToDisplay(_AttackPowerToShow_defender);
+	
 }

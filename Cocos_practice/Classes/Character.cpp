@@ -49,9 +49,9 @@ void Character::RotateToDirection(RotateDirection rotateDirection)
 
 void Character::RotateToDirection(DirectionKind targetDirection, bool displayAlso /*= false*/)
 {
-	CalculateAttackPower(displayAlso);
 	EventManager::getInstance()->AddHistory(HistoryEventRotateCharacter::Create(this, targetDirection));
 	setCurrentDirection(DirectionKind(targetDirection));
+	CalculateAttackPowerAllNearTile(displayAlso);
 	return;
 }
 
