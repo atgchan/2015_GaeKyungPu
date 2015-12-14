@@ -37,7 +37,8 @@ void Character::RotateToDirection(RotateDirection rotateDirection)
 
 	if (rotateDirection == ROTATE_RIGHT)
 		characterDirection = static_cast<DirectionKind>((characterDirection + 5) % MAX_DIRECTION);
-
+	
+	CalculateAttackPower();
 	EventManager::getInstance()->AddHistory(HistoryEventRotateCharacter::Create(this, characterDirection));
 	setCurrentDirection(DirectionKind(characterDirection));
 
@@ -46,9 +47,9 @@ void Character::RotateToDirection(RotateDirection rotateDirection)
 
 void Character::RotateToDirection(DirectionKind targetDirection)
 {
+	CalculateAttackPower();
 	EventManager::getInstance()->AddHistory(HistoryEventRotateCharacter::Create(this, targetDirection));
 	setCurrentDirection(DirectionKind(targetDirection));
-
 	return;
 }
 
@@ -57,7 +58,7 @@ void Character::MovoToTile(Self_Tile* dest)
 	this->getCurrentTile()->setCharacterOnThisTile(nullptr);
 	dest->setCharacterOnThisTile(this);
 	this->setCurrentTile(dest);
-
+	CalculateAttackPower();
 	EventManager::getInstance()->AddHistory(HistoryEventMoveCharacter::Create(this, dest));
 }
 
@@ -188,7 +189,7 @@ void Character::InitAttackPowerSprite()
 }
 
 void Character::UpdateAttackPowerSprite()
-{
+{/*
 	int directionBonus = 0;
 	Character* charUpFront = GetNearCharacter(_CurrentDirectionToShow);
 	
@@ -196,9 +197,9 @@ void Character::UpdateAttackPowerSprite()
 		directionBonus = CalculateDiffBetweenDirections(_CurrentDirectionToShow, charUpFront->getCurrentDirectionToShow());
 	
 	if (CurrentTile->getTypeOfTile() == TILE_FOREST)
-		directionBonus++;
+		directionBonus++;*/
 	
-	setAttackPowerBallNameFromNumber(_AttackPowerToDisplay + directionBonus);
+	setAttackPowerBallNameFromNumber(_AttackPowerToDisplay/* + directionBonus*/);
 }
 
 void Character::setAttackPowerToDisplay(int ap)
@@ -257,4 +258,17 @@ void Character::setAttackPowerBallNameFromNumber(int power)
 	default:
 		_AttackPowerBall->setSpriteFrame(FILENAME_IMG_ATTACK_POWER_2);
 	}
+}
+
+void Character::CalculateAttackPower()
+{
+	int directionBonus = 0;
+	Character* charUpFront = GetNearCharacter(_CurrentDirectionToShow);
+
+	if (charUpFront != nullptr && charUpFront->GetOwnerPlayer() != _OwnerPlayer)
+		directionBonus = CalculateDiffBetweenDirections(_CurrentDirectionToShow, charUpFront->getCurrentDirectionToShow());
+
+	if (CurrentTile->getTypeOfTile() == TILE_FOREST)
+		directionBonus++;
+	_AttackPower = ATTACK_POWER_DEFAULT + directionBonus;
 }

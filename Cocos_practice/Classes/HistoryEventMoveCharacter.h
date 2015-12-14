@@ -18,4 +18,5 @@ public:
 private:
 	Character*		_CharacterToMove = nullptr;
 	Self_Tile*		_TargetTile = nullptr;
+	int				_AttackPowerToShow = 0;
 };

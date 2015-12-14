@@ -18,6 +18,9 @@ std::shared_ptr<HistoryEventAttack> HistoryEventAttack::Create(Character* attack
 	std::shared_ptr<HistoryEventAttack> newInst = std::make_shared<HistoryEventAttack>();
 	newInst->_Attacker = attacker;
 	newInst->_Defender = defender;
+	newInst->_AttackPowerToShow_attacker = attacker->getAttackPower();
+	newInst->_AttackPowerToShow_defender = defender->getAttackPower();
+
 	return newInst;
 }
 
@@ -48,4 +51,6 @@ void HistoryEventAttack::Run()
 
 	_Attacker->stopAllActions();
 	_Attacker->runAction(seq1);
+	_Attacker->setAttackPowerToDisplay(_AttackPowerToShow_attacker);
+	_Defender->setAttackPowerToDisplay(_AttackPowerToShow_defender);
 }

@@ -17,7 +17,7 @@ std::shared_ptr<HistoryEventMoveCharacter> HistoryEventMoveCharacter::Create(Cha
 	std::shared_ptr<HistoryEventMoveCharacter> newInst = std::make_shared<HistoryEventMoveCharacter>();
 	newInst->_CharacterToMove = characterToMove;
 	newInst->_TargetTile = TargetTile;
-
+	newInst->_AttackPowerToShow = characterToMove->getAttackPower();
 	return newInst;
 }
 
@@ -49,4 +49,5 @@ void HistoryEventMoveCharacter::Run()
 	_CharacterToMove->runAction(seq1);
 	_CharacterToMove->setAnimState(ANIM_MOVE);
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(FILENAME_SOUND_GAME_MOVE);
+	_CharacterToMove->setAttackPowerToDisplay(_AttackPowerToShow);
 }

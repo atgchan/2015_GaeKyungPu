@@ -30,6 +30,8 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 		std::list<Character*> *winner = nullptr;
 		std::list<Character*> *loser = nullptr;
 
+		_CurrentAttackFormation.front()->CalculateAttackPower();
+		_CurrentDefenseFormation.front()->CalculateAttackPower();
 		if (IsAttackerWin(_CurrentAttackFormation.front(), _CurrentDefenseFormation.front()))
 		{
 			winner = &_CurrentAttackFormation;

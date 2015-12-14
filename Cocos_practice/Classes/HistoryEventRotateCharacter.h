@@ -16,5 +16,6 @@ public:
 private:
 	Character*		_CharacterToRotate = nullptr;
 	DirectionKind	_DirectionToRotate = DIRECTION_ERR;
+	int				_AttackPowerToShow = 0;
 };
 

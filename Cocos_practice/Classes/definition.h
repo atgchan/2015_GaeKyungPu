@@ -74,7 +74,7 @@ enum EventType
 	HISTORY_EVENT_BATTLE
 };
 
-#define ATTACK_POWER_DEFAULT 2;
+#define ATTACK_POWER_DEFAULT 2
 
 //SOUND - ogg, mp3, wav able
 #define FILENAME_SOUND_MAIN_BGM		"Sound/22-forever-credits-.mp3"

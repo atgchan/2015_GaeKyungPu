@@ -58,7 +58,7 @@ private:
 	
 	int		_AttackPowerToDisplay = ATTACK_POWER_DEFAULT;
 	cocos2d::Sprite* _AttackPowerBall;
-
+	void			CalculateAttackPower();
 	void setAttackPowerBallNameFromNumber(int);
 };
 
