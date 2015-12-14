@@ -308,6 +308,7 @@ void GameSceneManager::ToggleTurn(Object* pSender)
 	if (_CurrentPhaseInfo != PHASE_ACTION)
 		return;
 
+	Unselect();
 	ChangePhase(PHASE_PASTEUR);
 }
 
