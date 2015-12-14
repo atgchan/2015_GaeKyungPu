@@ -37,7 +37,7 @@ bool OptionLayer::init()
 	Sprite* gotoMainButton = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_GOTO_MAIN);
 	Sprite* gotoMainButton_clicked = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_GOTO_MAIN_CLICKED);
 	MenuItemSprite* sprGotoMain = MenuItemSprite::create(gotoMainButton, gotoMainButton_clicked, CC_CALLBACK_0(OptionLayer::ReturnToMenu, this));
-	sprGotoMain->setPosition(Vec2(visibleSize.width * 1 / 2, visibleSize.height * 2 / 5));
+	sprGotoMain->setPosition(Vec2(visibleSize.width * 1 / 2, visibleSize.height * 3 / 5 - 120));
 
 	Sprite* muteImage = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_MUTE);
 	Sprite* muteImage_clicked = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_MUTE_CLICKED);
@@ -46,7 +46,7 @@ bool OptionLayer::init()
 	MenuItemSprite* sprMute = MenuItemSprite::create(muteImage, muteImage_clicked);
 	MenuItemSprite* sprMute_clicked = MenuItemSprite::create(muteImage_clicked2, muteImage2);
 	MenuItemToggle* muteToggle = MenuItemToggle::createWithCallback(CC_CALLBACK_1(OptionLayer::Mute, this), sprMute, sprMute_clicked, nullptr);
-	muteToggle->setPosition(Vec2(visibleSize.width * 1 / 2, visibleSize.height * 1 / 5 ));
+	muteToggle->setPosition(Vec2(visibleSize.width * 1 / 2, visibleSize.height * 3 / 5 - 240));
 
 	optionWindow->setPosition(visibleSize.width / 2, visibleSize.height / 2);
 	if (CocosDenshion::SimpleAudioEngine::sharedEngine()->isBackgroundMusicPlaying() == false)

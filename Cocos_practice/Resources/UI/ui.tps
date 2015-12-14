@@ -192,8 +192,6 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>replay.png</filename>
-            <filename>replay_clicked.png</filename>
             <filename>ui_bar.png</filename>
             <filename>cursor.png</filename>
             <filename>end_turn.png</filename>
@@ -223,8 +221,6 @@
             <filename>option_button_clicked.png</filename>
             <filename>option_button.png</filename>
             <filename>mute.png</filename>
-            <filename>goto_main_clicked.png</filename>
-            <filename>goto_main.png</filename>
             <filename>mute_clicked.png</filename>
             <filename>option_window.png</filename>
             <filename>resume_clicked.png</filename>
@@ -235,6 +231,12 @@
             <filename>anchor_rd.png</filename>
             <filename>anchor.png</filename>
             <filename>result_window.png</filename>
+            <filename>start_button_clicked.png</filename>
+            <filename>start_button.png</filename>
+            <filename>main_menu.png</filename>
+            <filename>main_menu_clicked.png</filename>
+            <filename>exit_button.png</filename>
+            <filename>exit_button_clicked.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

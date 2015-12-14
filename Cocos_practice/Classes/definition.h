@@ -88,7 +88,6 @@ enum EventType
 
 //IMG - png, jpeg able
 #define FILENAME_IMG_MAIN_BACKGROUND "Background/Total_War_Rome_2_Roman_Soldier_Sword_warrior_warriors_fantasy_battle_1920x1080.jpg"
-#define FILENAME_IMG_MAIN_CURSOR		"cursor.png"
 #define FILENAME_IMG_MAIN_SELECT		"triangle.png"
 
 #define FILENAME_IMG_GAME_BACKGROUND					"Background/background_volcano.png"
@@ -132,10 +131,15 @@ enum EventType
 #define FILENAME_IMG_BUTTON_OPTION_CLICKED		"option_button_clicked.png"
 #define FILENAME_IMG_BUTTON_RESUME				"resume.png"
 #define FILENAME_IMG_BUTTON_RESUME_CLICKED		"resume_clicked.png"
-#define FILENAME_IMG_BUTTON_GOTO_MAIN			"goto_main.png"
-#define FILENAME_IMG_BUTTON_GOTO_MAIN_CLICKED	"goto_main_clicked.png"
+#define FILENAME_IMG_BUTTON_GOTO_MAIN			"main_menu.png"
+#define FILENAME_IMG_BUTTON_GOTO_MAIN_CLICKED	"main_menu_clicked.png"
 #define FILENAME_IMG_BUTTON_MUTE				"mute.png"
 #define FILENAME_IMG_BUTTON_MUTE_CLICKED		"mute_clicked.png"
+
+#define FILENAME_IMG_BUTTON_START				"start_button.png"
+#define FILENAME_IMG_BUTTON_START_CLICKED		"start_button_clicked.png"
+#define FILENAME_IMG_BUTTON_EXIT				"exit_button.png"
+#define FILENAME_IMG_BUTTON_EXIT_CLICKED		"exit_button_clicked.png"
 
 //FONT
 #define FILENAME_FONT_MAINMENU					"fonts/Marker Felt.ttf"
