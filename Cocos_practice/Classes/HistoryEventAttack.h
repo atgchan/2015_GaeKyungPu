@@ -17,6 +17,8 @@ public:
 private:
 	Character*	_Attacker;
 	Character*	_Defender;
+	int							_AttackerPower = 0;
+	int							_DefenderPower = 0;
 	int							_CurrentX;
 	int							_CurrentY;
 	bool						_FirstTime = true;

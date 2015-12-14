@@ -17,7 +17,7 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 	//int flankBonus = std::abs(std::abs((attacker->getCurrentDirection() - defender->getCurrentDirection())) - 3);
 	
 	//attacker->setAttackPower(flankBonus + attacker->getAttackPower());
-	defender->RotateToDirection(static_cast<DirectionKind>((attacker->getCurrentDirection() + 3) % DIRECTION_MAX), false);
+	//defender->RotateToDirection(static_cast<DirectionKind>((attacker->getCurrentDirection() + 3) % DIRECTION_MAX), false);
 
 	PlayerInfo playerAttacker = attacker->GetOwnerPlayer();
 	PlayerInfo playerDefender = defender->GetOwnerPlayer();
@@ -30,19 +30,16 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 		std::list<Character*> *winner = nullptr;
 		std::list<Character*> *loser = nullptr;
 
-		/*if (bFirst == false)
-		{
-			_CurrentAttackFormation.front()->CalculateAttackPower(true);
-			_CurrentDefenseFormation.front()->CalculateAttackPower(true);
-		}
-		else
-			bFirst = false;*/
+		
+			_CurrentAttackFormation.front()->CalculateAttackPower();
+			_CurrentDefenseFormation.front()->CalculateAttackPower();
 
 		if (IsAttackerWin(_CurrentAttackFormation.front(), _CurrentDefenseFormation.front()))
 		{
 			winner = &_CurrentAttackFormation;
 			loser = &_CurrentDefenseFormation;
 			EventManager::getInstance()->AddHistory(HistoryEventAttack::Create(_CurrentAttackFormation.front(), _CurrentDefenseFormation.front()));
+			loser->front()->RotateToDirection(static_cast<DirectionKind>((attacker->getCurrentDirection() + 3) % DIRECTION_MAX), false);
 		}
 		else
 		{
@@ -52,6 +49,7 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 			loser = &_CurrentAttackFormation;
 			EventManager::getInstance()->AddHistory(HistoryEventAttack::Create(_CurrentAttackFormation.front(), _CurrentDefenseFormation.front()));
 			EventManager::getInstance()->AddHistory(HistoryEventAttack::Create(_CurrentDefenseFormation.front(), _CurrentAttackFormation.front()));
+			winner->front()->RotateToDirection(static_cast<DirectionKind>((attacker->getCurrentDirection() + 3) % DIRECTION_MAX), false);
 		}
 		
 		/*bool firstTime = true;
@@ -68,7 +66,7 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 		
 		for (; iter != loser->end(); ++iter)
 		{
-			(*iter)->MovoToTile((*iter)->getCurrentTile()->getNearTile((*iter)->getCurrentDirection()),false);
+			(*iter)->MoveToTile((*iter)->getCurrentTile()->getNearTile((*iter)->getCurrentDirection()));
 			tempDirection = (*iter)->getCurrentDirection();
 			(*iter)->RotateToDirection(prevDirection,false);
 			prevDirection = tempDirection;
@@ -87,13 +85,13 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 		Character* pIter = nullptr;
 		Character*characterToMove = finalWinnerForm.front();
 
-		characterToMove->MovoToTile(characterToMove->getCurrentTile()->getNearTile(characterToMove->getCurrentDirection()));
+		characterToMove->MoveToTile(characterToMove->getCurrentTile()->getNearTile(characterToMove->getCurrentDirection()));
 
 		DirectionKind tempDirection = DIRECTION_ERR, prevDirection = characterToMove->getCurrentDirection();
 		for (auto iter = ++(finalWinnerForm.begin()); iter != finalWinnerForm.end(); ++iter)
 		{
 			pIter = *iter;
-			pIter->MovoToTile(pIter->getCurrentTile()->getNearTile(pIter->getCurrentDirection()));
+			pIter->MoveToTile(pIter->getCurrentTile()->getNearTile(pIter->getCurrentDirection()));
 			tempDirection = pIter->getCurrentDirection();
 			pIter->RotateToDirection(prevDirection);
 			prevDirection = tempDirection;
@@ -110,8 +108,8 @@ bool BattleManager::IsAttackerWin(Character* attacker, Character* defender)
 
 		if (attackerDice == defenderDice)
 			continue;
-		//return (attackerDice > defenderDice) ? true : false;
-		return false;
+		return (attackerDice > defenderDice) ? true : false;
+		//return false;
 	}
 }
 

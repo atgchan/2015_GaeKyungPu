@@ -20,7 +20,7 @@ public:
 	void	RotateToDirection(DirectionKind,bool displayAlso = false);
 	void	RotateToDirection(Ref *sender, RotateDirection rotateDirection);
 
-	void MovoToTile(Self_Tile* dest, bool battleMode = true);
+	void MoveToTile(Self_Tile* dest, bool battleMode = true);
 	void	CharacterBeHit();
 	void	CharacterAttack();
 

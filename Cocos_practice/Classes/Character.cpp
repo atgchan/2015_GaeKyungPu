@@ -55,7 +55,7 @@ void Character::RotateToDirection(DirectionKind targetDirection, bool displayAls
 	return;
 }
 
-void Character::MovoToTile(Self_Tile* dest, bool battleMode /*= true*/)
+void Character::MoveToTile(Self_Tile* dest, bool battleMode /*= true*/)
 {
 	Self_Tile* prevTile = this->getCurrentTile();
 
@@ -63,9 +63,8 @@ void Character::MovoToTile(Self_Tile* dest, bool battleMode /*= true*/)
 	dest->setCharacterOnThisTile(this);
 	this->setCurrentTile(dest);
 
-	this->getAttackPower();
-	prevTile->CaculateAttackPowerAllNearTile();
-	dest->CaculateAttackPowerAllNearTile();
+	prevTile->CaculateAttackPowerAllNearTile(!battleMode);
+	dest->CaculateAttackPowerAllNearTile(!battleMode);
 
 	EventManager::getInstance()->AddHistory(HistoryEventMoveCharacter::Create(this, dest));
 }
