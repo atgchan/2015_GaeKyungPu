@@ -77,7 +77,7 @@ void MainScene::MenuCloseCallback(cocos2d::Ref* pSender)
 
 void MainScene::OnKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 {
-	auto target = event->getCurrentTarget()->getChildByName("cursor");
+	/*auto target = event->getCurrentTarget()->getChildByName("cursor");
 	Vec2 loc = target->getPosition();
 
 	switch (keyCode){
@@ -89,12 +89,12 @@ void MainScene::OnKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 	case EventKeyboard::KeyCode::KEY_ENTER:
 		target->setPosition(loc.x -= 15, loc.y);
 		break;
-	}
+	}*/
 }
 
 void MainScene::OnKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 {
-	auto target = event->getCurrentTarget()->getChildByName("cursor");
+	/*auto target = event->getCurrentTarget()->getChildByName("cursor");
 	Vec2 loc = target->getPosition();
 
 	switch (keyCode){
@@ -112,5 +112,5 @@ void MainScene::OnKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 	case EventKeyboard::KeyCode::KEY_S:
 		target->setPosition(loc.x, loc.y -= 30);
 		break;
-	}
+	}*/
 }
