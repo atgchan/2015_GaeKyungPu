@@ -9,6 +9,7 @@ HistoryEvent::HistoryEvent()
 
 HistoryEvent::~HistoryEvent()
 {
+	
 }
 
 void HistoryEvent::Run()
