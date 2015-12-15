@@ -16,18 +16,16 @@ public:
 	///# 즉, 쓰려면 RAW포인터 없이 다 써야 한다. (물론 프로그램 내내 떠있어서 delete될 일 없는 포인터는 예외)
 	///# 추가로 shared_ptr을 쓰게 되면 꼭 대상 클래스(HistoryEvent)의 소멸자에 브레이크 포인트를 찍고 제대로 소멸되는지 확인하기 바란다. 그게 안되면 쓸 이유가 없지 않은가?
 
-	Node*	getNode(){ return _NodeForPlayingEvent; };
 	void	ScheduleCallback();
-
+	
+	~EventManager();
 private:
 	EventManager();
-	~EventManager();
 
 	static void	Destruct();
 	static EventManager* _Instance;
 
 	unsigned	_HistoryCount = 0;
-	Node*		_NodeForPlayingEvent = nullptr;
 
 	//기록하고자 하는 액션을 담는 큐
 	

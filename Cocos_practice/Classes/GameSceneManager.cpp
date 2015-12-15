@@ -20,6 +20,10 @@
 
 GameSceneManager* GameSceneManager::_Inst = nullptr;
 
+bool GameSceneManager::getIsInputAble()
+{ 
+	return _IsInputAble; 
+}
 
 GameSceneManager* GameSceneManager::getInstance()
 {

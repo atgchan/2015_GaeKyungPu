@@ -82,7 +82,7 @@ public:
 	Character*	_CharacterToMove = nullptr;
 	void		setInputMode(bool mode);
 
-	bool		getIsInputAble(){ return _IsInputAble; }
+	bool		getIsInputAble();
 	~GameSceneManager();
 
 private:

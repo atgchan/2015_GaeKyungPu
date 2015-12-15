@@ -9,8 +9,6 @@ EventManager* EventManager::_Instance = nullptr;
 EventManager::EventManager()
 {
 	_HistoryQueue = new std::list<std::shared_ptr<HistoryEvent>>;
-	_NodeForPlayingEvent = Node::create();
-	GM->AddChild(_NodeForPlayingEvent);
 	_HistoryQueue->push_back(std::make_shared<HistoryEventEmpty>());
 	_IteratorHistory = _HistoryQueue->begin();
 }
@@ -18,6 +16,7 @@ EventManager::EventManager()
 EventManager::~EventManager()
 {
 	delete _HistoryQueue;
+	_Instance = nullptr;
 }
 
 void EventManager::AddHistory(std::shared_ptr<HistoryEvent> historyEvent)

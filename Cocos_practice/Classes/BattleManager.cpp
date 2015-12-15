@@ -14,23 +14,14 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 	SetAttackFormation(attacker);
 	SetDefenseFormation(defender);
 
-	//int flankBonus = std::abs(std::abs((attacker->getCurrentDirection() - defender->getCurrentDirection())) - 3);
-	
-	//attacker->setAttackPower(flankBonus + attacker->getAttackPower());
-	//defender->RotateToDirection(static_cast<DirectionKind>((attacker->getCurrentDirection() + 3) % DIRECTION_MAX), false);
-
 	PlayerInfo playerAttacker = attacker->GetOwnerPlayer();
 	PlayerInfo playerDefender = defender->GetOwnerPlayer();
 	bool bFirst = true;
 	while (_CurrentAttackFormation.size() && _CurrentDefenseFormation.size())
 	{
-		//GiveForestBonus(_CurrentAttackFormation.front());
-		//GiveForestBonus(_CurrentDefenseFormation.back());
-
 		std::list<Character*> *winner = nullptr;
 		std::list<Character*> *loser = nullptr;
 
-		
 			_CurrentAttackFormation.front()->CalculateAttackPower();
 			_CurrentDefenseFormation.front()->CalculateAttackPower();
 
@@ -43,8 +34,6 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 		}
 		else
 		{
-			/*_CurrentAttackFormation.front()->CalculateAttackPower(true);
-			_CurrentDefenseFormation.front()->CalculateAttackPower();*/
 			winner = &_CurrentDefenseFormation;
 			loser = &_CurrentAttackFormation;
 			EventManager::getInstance()->AddHistory(HistoryEventAttack::Create(_CurrentAttackFormation.front(), _CurrentDefenseFormation.front()));
@@ -52,12 +41,6 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 			winner->front()->RotateToDirection(static_cast<DirectionKind>((attacker->getCurrentDirection() + 3) % DIRECTION_MAX), false);
 		}
 		
-		/*bool firstTime = true;
-
-		if (firstTime)
-			attacker->setAttackPower(2);*/
-		//attacker->CalculateAttackPower();
-
 		DirectionKind tempDirection = DIRECTION_ERR;
 		DirectionKind prevDirection = loser->front()->getCurrentDirection();
 		GM->KillCharacter(loser->front(),true);
@@ -128,11 +111,8 @@ void BattleManager::SetDefenseFormation(Character* defender)
 	for (int i = DIRECTION_DOWN_LEFT; i < DIRECTION_MAX; ++i)
 	{
 		Character* nearby = defender->GetNearCharacter((DirectionKind)i);
-		
-			if (nearby != nullptr && IsCharFacingMe(defender, nearby) && nearby->GetOwnerPlayer() == defender->GetOwnerPlayer())
-				_CurrentDefenseFormation.push_back(nearby);
-
-		
+		if (nearby != nullptr && IsCharFacingMe(defender, nearby) && nearby->GetOwnerPlayer() == defender->GetOwnerPlayer())
+			_CurrentDefenseFormation.push_back(nearby);
 	}
 }
 

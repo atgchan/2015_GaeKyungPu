@@ -1,13 +1,16 @@
 #include "pch.h"
 #include "GameScene.h"
 #include "GameSceneManager.h"
+#include "EventManager.h"
 #include "UILayer.h"
 #include "SimpleAudioEngine.h"
 
 GameScene::~GameScene()
 {
 	GameSceneManager* gm = GameSceneManager::getInstance();
+	EventManager* em = EventManager::getInstance();
 	delete gm;
+	delete em;
 }
 
 Scene* GameScene::CreateScene()
@@ -75,7 +78,7 @@ void GameScene::ScheduleCallback(float delta)
 
 void GameScene::MouseDownDispatcher(cocos2d::EventMouse* event)
 {
-	if (GM->getIsInputAble() == false)
+	if (GameSceneManager::getInstance()->getIsInputAble() == false)
 		return;
 	GM->MouseDownDispatcher(event);
 }
