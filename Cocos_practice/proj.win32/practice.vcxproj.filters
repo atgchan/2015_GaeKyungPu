@@ -213,8 +213,5 @@
     <Filter Include="Game\Map">
       <UniqueIdentifier>{6f5f64b4-8379-4726-b026-add212be820c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Effect">
-      <UniqueIdentifier>{5a8fa386-0227-4578-adcd-e8fe98213419}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
 </Project>

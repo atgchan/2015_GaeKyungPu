@@ -147,7 +147,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename></filename>
+                <filename>effect.plist</filename>
             </struct>
         </map>
         <key>multiPack</key>
@@ -196,6 +196,7 @@
             <filename>HitEffect/HitEffect_02.png</filename>
             <filename>HitEffect/HitEffect_03.png</filename>
             <filename>HitEffect/HitEffect_04.png</filename>
+            <filename>smoke.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

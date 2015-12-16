@@ -11,6 +11,9 @@ private:
 	std::vector<Self_Tile*> _VolcanoTileList;
 	std::vector<Self_Tile*>::iterator _VolcanoTileListIter;
 
+	void ChangeVolcanoDisactivted();
+	void ChangeVolcanoActivted();
+
 	void ChangeRichToLava(int repeat);
 	void ChangeAllLavaToPlane();
 	void ChangePlanesToRich();
