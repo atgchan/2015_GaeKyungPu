@@ -103,7 +103,7 @@ enum EventType
 #define FILENAME_IMG_ATTACK_POWER_4 "4.png"
 #define FILENAME_IMG_ATTACK_POWER_5 "5.png"
 #define FILENAME_IMG_ATTACK_POWER_6 "6.png"
-#define FILENAME_IMG_MAIN_CURSOR "cursor.png"
+#define FILENAME_IMG_BATTLE_INDICATOR "battle.png"
 
 //UI IMAGE
 #define FILENAME_IMG_UI_OUTER_BAR				"bar.png"

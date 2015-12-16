@@ -175,6 +175,7 @@ void GameSceneManager::MoveCharacterByClick(Self_Tile* clickedTile)
 
 			if (clickedTile->getCharacterOnThisTile()->GetOwnerPlayer() != _CurrentPlayer)
 			{
+				RemoveCursor();
 				_BMInstance->BattleBetween(_CharacterToMove, clickedTile->getCharacterOnThisTile());
 				getCurrentPlayerData()->AddFood(clickedTile->getFoodToConsume() * -1);
 			}

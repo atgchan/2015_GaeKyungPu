@@ -129,12 +129,11 @@ void Character::ShowMovableTile()
 	{
 		if (tile->getCharacterOnThisTile()->GetOwnerPlayer() != GM->getCurrentPlayer())
 		{
-			Sprite* cursor = Sprite::createWithSpriteFrameName(FILENAME_IMG_MAIN_CURSOR);
-			cursor->setAnchorPoint(cocos2d::Vec2(0, 0));
-			cursor->setName("cursor");
-			cursor->setRotation(90.0f);
-			cursor->setPosition(cursor->getPositionX()+43, cursor->getPositionY()+167);
-			tile->getCharacterOnThisTile()->addChild(cursor);
+			Sprite* battle = Sprite::createWithSpriteFrameName(FILENAME_IMG_BATTLE_INDICATOR);
+			battle->setAnchorPoint(cocos2d::Vec2(0, 0));
+			battle->setName("cursor");
+			battle->setPosition(battle->getPositionX() + 43, battle->getPositionY() + 120);
+			tile->getCharacterOnThisTile()->addChild(battle);
 		}
 	}
 }
