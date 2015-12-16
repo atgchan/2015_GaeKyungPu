@@ -75,7 +75,7 @@
                 <key>spriteSourceSize</key>
                 <string>{168,90}</string>
                 <key>textureRect</key>
-                <string>{{171,153},{164,68}}</string>
+                <string>{{1,153},{164,68}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -121,21 +121,6 @@
                 <string>{168,117}</string>
                 <key>textureRect</key>
                 <string>{{673,1},{166,117}}</string>
-                <key>textureRotated</key>
-                <false/>
-            </dict>
-            <key>tile_sea_withProp.png</key>
-            <dict>
-                <key>aliases</key>
-                <array/>
-                <key>spriteOffset</key>
-                <string>{0,0}</string>
-                <key>spriteSize</key>
-                <string>{168,90}</string>
-                <key>spriteSourceSize</key>
-                <string>{168,90}</string>
-                <key>textureRect</key>
-                <string>{{1,153},{168,90}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -194,7 +179,7 @@
             <key>size</key>
             <string>{1008,248}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:8e7734c041d9a091699468333b8dac98:723db0bf03ded9b3da7c93042bfd57d5:ac44135ad7f9bbae94fd5e52745d3e3e$</string>
+            <string>$TexturePacker:SmartUpdate:5be14e607d2aff4fcd37fe61596d8094:04debc2fc3b7ecb09b079510ca287201:ac44135ad7f9bbae94fd5e52745d3e3e$</string>
             <key>textureFileName</key>
             <string>map.png</string>
         </dict>

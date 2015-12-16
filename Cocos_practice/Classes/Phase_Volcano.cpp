@@ -48,12 +48,12 @@ void Phase_Volcano::Tick()
 
 	case 4:
 		ChangeAllLavaToPlane();
+		ChangeVolcanoDisactivted();
 		GM->setProgressVolcano(5);
 		break;
 
 	case 5:
 		GM->setVolcanoActivated(false);
-		ChangeVolcanoDisactivted();
 		GM->setProgressVolcano(-1);
 		ChangePlanesToRich();
 		_VolcanoTileListIter = _VolcanoTileList.begin();
