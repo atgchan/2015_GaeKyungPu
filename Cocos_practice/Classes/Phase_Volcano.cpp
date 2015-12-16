@@ -30,6 +30,7 @@ void Phase_Volcano::Tick()
 		if (randNum == 1)//5분의 1 확률로 이벤트 발생
 		{
 			GM->setVolcanoActivated(true);
+			ChangeVolcanoActivted();
 			GM->setProgressVolcano(0);
 			std::shuffle(_VolcanoTileList.begin(), _VolcanoTileList.end(), _Gen);
 		}
@@ -52,6 +53,7 @@ void Phase_Volcano::Tick()
 
 	case 5:
 		GM->setVolcanoActivated(false);
+		ChangeVolcanoDisactivted();
 		GM->setProgressVolcano(-1);
 		ChangePlanesToRich();
 		_VolcanoTileListIter = _VolcanoTileList.begin();
@@ -89,5 +91,21 @@ void Phase_Volcano::ChangePlanesToRich()
 	for (Self_Tile* iter : _VolcanoTileList)
 	{
 		iter->ChangeTile(TILE_RICH);
+	}
+}
+
+void Phase_Volcano::ChangeVolcanoActivted()
+{
+	for (Self_Tile* iter : TileMap::getInstance()->getVolcanoTiles())
+	{
+		iter->ChangeTile(TILE_VOLCANO_ACTIVATED);
+	}
+}
+
+void Phase_Volcano::ChangeVolcanoDisactivted()
+{
+	for (Self_Tile* iter : TileMap::getInstance()->getVolcanoTiles())
+	{
+		iter->ChangeTile(TILE_VOLCANO);
 	}
 }

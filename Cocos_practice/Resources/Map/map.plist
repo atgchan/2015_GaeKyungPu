@@ -15,7 +15,7 @@
                 <key>spriteSourceSize</key>
                 <string>{168,141}</string>
                 <key>textureRect</key>
-                <string>{{337,1},{166,133}}</string>
+                <string>{{505,1},{166,133}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -30,7 +30,7 @@
                 <key>spriteSourceSize</key>
                 <string>{168,144}</string>
                 <key>textureRect</key>
-                <string>{{169,1},{166,144}}</string>
+                <string>{{337,1},{166,144}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -45,7 +45,7 @@
                 <key>spriteSourceSize</key>
                 <string>{168,111}</string>
                 <key>textureRect</key>
-                <string>{{337,136},{166,111}}</string>
+                <string>{{505,136},{166,111}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -60,7 +60,7 @@
                 <key>spriteSourceSize</key>
                 <string>{168,111}</string>
                 <key>textureRect</key>
-                <string>{{505,120},{166,111}}</string>
+                <string>{{673,120},{166,111}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -75,7 +75,7 @@
                 <key>spriteSourceSize</key>
                 <string>{168,90}</string>
                 <key>textureRect</key>
-                <string>{{171,147},{164,68}}</string>
+                <string>{{171,153},{164,68}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -90,7 +90,7 @@
                 <key>spriteSourceSize</key>
                 <string>{1,1}</string>
                 <key>textureRect</key>
-                <string>{{505,233},{3,3}}</string>
+                <string>{{337,147},{3,3}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -105,7 +105,7 @@
                 <key>spriteSourceSize</key>
                 <string>{165,111}</string>
                 <key>textureRect</key>
-                <string>{{673,120},{165,111}}</string>
+                <string>{{841,120},{165,111}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -120,7 +120,7 @@
                 <key>spriteSourceSize</key>
                 <string>{168,117}</string>
                 <key>textureRect</key>
-                <string>{{505,1},{166,117}}</string>
+                <string>{{673,1},{166,117}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -150,7 +150,7 @@
                 <key>spriteSourceSize</key>
                 <string>{168,117}</string>
                 <key>textureRect</key>
-                <string>{{673,1},{166,117}}</string>
+                <string>{{841,1},{166,117}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -169,6 +169,21 @@
                 <key>textureRotated</key>
                 <false/>
             </dict>
+            <key>tile_volcano_activated.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-1,0}</string>
+                <key>spriteSize</key>
+                <string>{166,150}</string>
+                <key>spriteSourceSize</key>
+                <string>{168,150}</string>
+                <key>textureRect</key>
+                <string>{{169,1},{166,150}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
         </dict>
         <key>metadata</key>
         <dict>
@@ -177,9 +192,9 @@
             <key>realTextureFileName</key>
             <string>map.png</string>
             <key>size</key>
-            <string>{840,248}</string>
+            <string>{1008,248}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:dc2b5c3ecaf8b8f6b308dadc53ee5c1f:a54cacb86dd6d992907c0ba281a66859:ac44135ad7f9bbae94fd5e52745d3e3e$</string>
+            <string>$TexturePacker:SmartUpdate:8e7734c041d9a091699468333b8dac98:723db0bf03ded9b3da7c93042bfd57d5:ac44135ad7f9bbae94fd5e52745d3e3e$</string>
             <key>textureFileName</key>
             <string>map.png</string>
         </dict>

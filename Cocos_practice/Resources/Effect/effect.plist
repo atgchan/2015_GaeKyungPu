@@ -15,7 +15,7 @@
                 <key>spriteSourceSize</key>
                 <string>{100,66}</string>
                 <key>textureRect</key>
-                <string>{{1,209},{46,38}}</string>
+                <string>{{81,1},{46,38}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -30,9 +30,9 @@
                 <key>spriteSourceSize</key>
                 <string>{100,66}</string>
                 <key>textureRect</key>
-                <string>{{1,159},{50,48}}</string>
+                <string>{{79,69},{50,48}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>HitEffect_03.png</key>
             <dict>
@@ -47,7 +47,7 @@
                 <key>textureRect</key>
                 <string>{{1,1},{78,66}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>HitEffect_04.png</key>
             <dict>
@@ -60,9 +60,24 @@
                 <key>spriteSourceSize</key>
                 <string>{100,66}</string>
                 <key>textureRect</key>
-                <string>{{1,81},{76,66}}</string>
+                <string>{{1,69},{76,66}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
+            </dict>
+            <key>smoke.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{0,0}</string>
+                <key>spriteSize</key>
+                <string>{20,20}</string>
+                <key>spriteSourceSize</key>
+                <string>{20,20}</string>
+                <key>textureRect</key>
+                <string>{{81,41},{20,20}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
         </dict>
         <key>metadata</key>
@@ -72,9 +87,9 @@
             <key>realTextureFileName</key>
             <string>effect.png</string>
             <key>size</key>
-            <string>{68,248}</string>
+            <string>{128,136}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:6709d6959b9d9ca83b12c175930e6fd1:c3c8c78d23da64e8a602b0585fa4a8ef:3dfbfbc8204a359f1a81f2ee84fdb371$</string>
+            <string>$TexturePacker:SmartUpdate:f492531f9f7ec2526b6ea185a7c8f40f:c23f45d14c2a58382c02cc5b4ee4d4f9:3dfbfbc8204a359f1a81f2ee84fdb371$</string>
             <key>textureFileName</key>
             <string>effect.png</string>
         </dict>

@@ -16,6 +16,7 @@ public:
 	void	KillCharacter(Character* target);
 
 	std::vector<Self_Tile*> getRichTiles();
+	std::vector<Self_Tile*> getVolcanoTiles();
 
 private:
 	static std::array<std::array<TileKind, MAP_MAX_WIDTH>, MAP_MAX_HEIGHT> _NewMapData;
@@ -28,4 +29,5 @@ private:
 	static TileMap* _Inst;
 
 	std::vector<Self_Tile*> _RichTiles;
+	std::vector<Self_Tile*> _VolcanoTiles;
 };

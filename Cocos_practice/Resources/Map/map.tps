@@ -203,6 +203,7 @@
             <filename>tile_volcano.png</filename>
             <filename>tile_plain.png</filename>
             <filename>tile_forest.png</filename>
+            <filename>tile_volcano_activated.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

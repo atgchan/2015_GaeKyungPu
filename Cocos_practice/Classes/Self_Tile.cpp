@@ -14,6 +14,7 @@ std::string Self_Tile::_DictionaryForFilenames[MAX_TILEKIND] =
 	"tile_rich.png",
 	"tile_lake.png",
 	"tile_volcano.png",
+	"tile_volcano_activated.png",
 	"tile_lava.png",
 	"tile_rich.png",
 	"tile_move.png"
@@ -90,7 +91,7 @@ DirectionKind Self_Tile::getNearTileDirection(Self_Tile* tile)
 
 bool Self_Tile::isMovable()
 {
-	if (getTypeOfTile() == TILE_LAVA || getTypeOfTile() == TILE_VOCANO || getTypeOfTile() == TILE_NULL || getTypeOfTile() == TILE_LAKE)
+	if (getTypeOfTile() == TILE_LAVA || getTypeOfTile() == TILE_VOLCANO || getTypeOfTile() == TILE_NULL || getTypeOfTile() == TILE_LAKE)
 		return false;
 	return true;
 }
