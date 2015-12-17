@@ -193,7 +193,6 @@
         <key>fileList</key>
         <array>
             <filename>ui_bar.png</filename>
-            <filename>cursor.png</filename>
             <filename>end_turn.png</filename>
             <filename>end_turn_clicked.png</filename>
             <filename>grain.png</filename>
