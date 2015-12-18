@@ -6,13 +6,16 @@ DiceDice* DiceDice::_Inst = nullptr;
 
 DiceDice::DiceDice()
 {
-	srand(time(nullptr));
+	srand((unsigned)time(nullptr));
 }
 
 int DiceDice::RollDiceBetween(int start, int end)
 {
+	/*rand_0_1();
+	
 	int result = static_cast<int>(CCRANDOM_0_1() * end) + start;
-	//DisplayDiceOnScreen(result);
+	//DisplayDiceOnScreen(result);*/
+	int result = random(start, end);
 	return result;
 }
 
