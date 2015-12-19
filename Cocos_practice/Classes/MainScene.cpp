@@ -29,9 +29,6 @@ bool MainScene::init()
 	background->setAnchorPoint(Point(0,0));
 	this->addChild(background);
 
-	auto label_title = Label::createWithTTF("Testudo", FILENAME_FONT_MAINMENU, 40);
-	label_title->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 100));
-
 	Sprite* playButton = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_START);
 	Sprite* playButtonClicked = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_START_CLICKED);
 	MenuItemSprite* menu_play = MenuItemSprite::create(playButton, playButtonClicked, CC_CALLBACK_1(MainScene::MenuClickCallback, this));
@@ -40,13 +37,12 @@ bool MainScene::init()
 	Sprite* exitButtonClicked = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_EXIT_CLICKED);
 	MenuItemSprite* menu_exit = MenuItemSprite::create(exitButton, exitButtonClicked, CC_CALLBACK_1(MainScene::MenuCloseCallback, this));
 
-	menu_play->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 -100));
+	menu_play->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 -100 + 20));
 	menu_exit->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 -200));
 
 	auto mainMenu = Menu::create(menu_play, menu_exit, nullptr);
 	mainMenu->setPosition(Vec2::ZERO);
 
-	this->addChild(label_title);
 	this->addChild(mainMenu);
 
 //	Keyboard Event

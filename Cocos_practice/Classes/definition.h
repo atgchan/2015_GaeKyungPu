@@ -88,7 +88,7 @@ enum EventType
 #define FILENAME_SOUND_GAME_HARVEST "Sound/Emerge6.wav"
 
 //IMG - png, jpeg able
-#define FILENAME_IMG_MAIN_BACKGROUND "Background/Total_War_Rome_2_Roman_Soldier_Sword_warrior_warriors_fantasy_battle_1920x1080.jpg"
+#define FILENAME_IMG_MAIN_BACKGROUND "Background/title.png"
 #define FILENAME_IMG_MAIN_SELECT		"triangle.png"
 
 #define FILENAME_IMG_GAME_BACKGROUND					"Background/background_volcano.png"
