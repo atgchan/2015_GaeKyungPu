@@ -51,9 +51,8 @@ void Self_Tile::setOwnerPlayer(PlayerInfo pInfo)
 
 void Self_Tile::ChangeTile(TileKind type)
 {
-	this->initWithSpriteFrameName(_DictionaryForFilenames[type]);
+	this->setSpriteFrame(_DictionaryForFilenames[type]);
 	this->setTypeOfTile(type);
-	this->setAnchorPoint(cocos2d::Vec2(0, 0));
 }
 
 Character* Self_Tile::getCharacterOnThisTile()
