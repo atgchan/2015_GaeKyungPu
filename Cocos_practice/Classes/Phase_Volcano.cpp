@@ -82,7 +82,7 @@ void Phase_Volcano::ChangeAllLavaToPlane()
 {
 	for (Vector<Self_Tile*>::iterator iter = _VolcanoTileList.begin(); iter != _VolcanoTileList.end(); ++iter)
 	{
-		(*iter)->ChangeTile(TILE_PLAIN);
+		EventManager::getInstance()->AddHistory(HistoryEventChangeTile::Create(*iter, TILE_PLAIN));
 	}
 }
 
@@ -90,7 +90,7 @@ void Phase_Volcano::ChangePlanesToRich()
 {
 	for (Self_Tile* iter : _VolcanoTileList)
 	{
-		iter->ChangeTile(TILE_RICH);
+		EventManager::getInstance()->AddHistory(HistoryEventChangeTile::Create(iter, TILE_RICH));
 	}
 }
 
