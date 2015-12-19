@@ -29,19 +29,17 @@ bool MainScene::init()
 	background->setAnchorPoint(Point(0,0));
 	this->addChild(background);
 
-	Sprite* playButton = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_START);
-	Sprite* playButtonClicked = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_START_CLICKED);
-	MenuItemSprite* menu_play = MenuItemSprite::create(playButton, playButtonClicked, CC_CALLBACK_1(MainScene::MenuClickCallback, this));
-	
-	Sprite* exitButton = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_EXIT);
-	Sprite* exitButtonClicked = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_EXIT_CLICKED);
-	MenuItemSprite* menu_exit = MenuItemSprite::create(exitButton, exitButtonClicked, CC_CALLBACK_1(MainScene::MenuCloseCallback, this));
+	Label* btnLabelStart = Label::createWithTTF("start ", FILENAME_FONT_MAINMENU, 80);
+	Label* btnLabelExit = Label::createWithTTF("exit ", FILENAME_FONT_MAINMENU, 80);
 
-	menu_play->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 -100 + 20));
-	menu_exit->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 -200));
+	MenuItemLabel* menu_play = MenuItemLabel::create(btnLabelStart, CC_CALLBACK_1(MainScene::MenuClickCallback, this));
+	MenuItemLabel* menu_exit = MenuItemLabel::create(btnLabelExit, CC_CALLBACK_1(MainScene::MenuCloseCallback, this));
 
 	auto mainMenu = Menu::create(menu_play, menu_exit, nullptr);
-	mainMenu->setPosition(Vec2::ZERO);
+	mainMenu->alignItemsVertically();
+	menu_play->setPositionY(menu_play->getPositionY() + 30);
+	menu_exit->setPositionY(menu_exit->getPositionY() - 30);
+	mainMenu->setPositionY(mainMenu->getPositionY() - 100);
 
 	this->addChild(mainMenu);
 

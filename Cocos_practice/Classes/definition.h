@@ -144,5 +144,5 @@ enum EventType
 #define FILENAME_IMG_BUTTON_EXIT_CLICKED		"exit_button_clicked.png"
 
 //FONT
-#define FILENAME_FONT_MAINMENU					"fonts/Marker Felt.ttf"
+#define FILENAME_FONT_MAINMENU					"fonts/pixelart.ttf"
 #define FILENAME_FONT_PIXEL						"fonts/upheavtt.ttf"
