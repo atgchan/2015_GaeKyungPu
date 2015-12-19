@@ -34,6 +34,6 @@ void HistoryEventChangeTile::Run()
 	cocos2d::CallFunc* removeSelfCall = CallFunc::create(CC_CALLBACK_0(TileMap::removeChild,TileMap::getInstance(), copySpr,true));
 	FiniteTimeAction* seqForCopySpr = Sequence::create(fadeInCall, changeCall, removeSelfCall,doneCall, nullptr);
 	copySpr->runAction(seqForCopySpr);
-	if (_TargetType == TILE_LAVA)
+	if (_TargetType == TILE_LAVA || _TargetType == TILE_VOLCANO_ACTIVATED)
 		CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(FILENAME_SOUND_GAME_VOLCANO);
 }

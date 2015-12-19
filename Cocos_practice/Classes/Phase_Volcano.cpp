@@ -98,7 +98,7 @@ void Phase_Volcano::ChangeVolcanoActivted()
 {
 	for (Self_Tile* iter : TileMap::getInstance()->getVolcanoTiles())
 	{
-		iter->ChangeTile(TILE_VOLCANO_ACTIVATED);
+		EventManager::getInstance()->AddHistory(HistoryEventChangeTile::Create(iter, TILE_VOLCANO_ACTIVATED));
 	}
 }
 
@@ -106,6 +106,6 @@ void Phase_Volcano::ChangeVolcanoDisactivted()
 {
 	for (Self_Tile* iter : TileMap::getInstance()->getVolcanoTiles())
 	{
-		iter->ChangeTile(TILE_VOLCANO);
+		EventManager::getInstance()->AddHistory(HistoryEventChangeTile::Create(iter, TILE_VOLCANO));
 	}
 }
