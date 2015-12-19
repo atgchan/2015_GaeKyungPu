@@ -30,7 +30,7 @@ void HistoryEventChangeTile::Run()
 	copySpr->setZOrder(_TargetTile->getZOrder()+1);
 	copySpr->setOpacity(0);
 	TileMap::getInstance()->addChild(copySpr);
-	FiniteTimeAction* fadeInCall = FadeIn::create(0.7);
+	FiniteTimeAction* fadeInCall = FadeIn::create(0.5);
 	cocos2d::CallFunc* removeSelfCall = CallFunc::create(CC_CALLBACK_0(TileMap::removeChild,TileMap::getInstance(), copySpr,true));
 	FiniteTimeAction* seqForCopySpr = Sequence::create(fadeInCall, changeCall, removeSelfCall,doneCall, nullptr);
 	copySpr->runAction(seqForCopySpr);
