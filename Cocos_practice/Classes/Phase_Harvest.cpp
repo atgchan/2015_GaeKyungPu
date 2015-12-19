@@ -7,6 +7,7 @@
 
 Phase_Harvest::Phase_Harvest()
 {
+	_PhaseInfo = PHASE_HARVEST;
 }
 
 
@@ -30,5 +31,5 @@ void Phase_Harvest::Tick()
 			EventManager::getInstance()->AddHistory(HistoryEventHarvest::Create(iter));
 		}
 	}
-	_NextPhase = PHASE_OCCUPY;
+	_NextPhaseInfo = PHASE_OCCUPY;
 }

@@ -153,7 +153,9 @@ void GameSceneManager::MoveCharacterByClick(Self_Tile* clickedTile)
 {
 	if (clickedTile == nullptr)
 		return;
-
+	if (_CharacterToMove)
+		if (_CharacterToMove->GetOwnerPlayer() != getCurrentPlayer())
+			return;
 	if (_ReadyToMove == true)
 	{
 		bool check = true;
@@ -271,8 +273,12 @@ void GameSceneManager::ScheduleCallback(float delta)
 {
 	EventManager::getInstance()->ScheduleCallback();
 	_CurrentPhase->Tick();
-
-	ChangePhase(_CurrentPhase->_NextPhase);
+	if (_CurrentPhase->getPhaseInfo() == PHASE_VOLCANO && _CurrentPhase->_NextPhaseInfo == PHASE_ACTION)
+	{
+		_CharacterToMove = nullptr;
+		_ReadyToMove = false;
+	}
+	ChangePhase(_CurrentPhase->_NextPhaseInfo);
 
 	TrimZorderAndRefreshAP();
 }

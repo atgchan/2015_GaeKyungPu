@@ -6,6 +6,7 @@
 
 Phase_Occupy::Phase_Occupy()
 {
+	_PhaseInfo = PHASE_OCCUPY;
 }
 
 
@@ -41,5 +42,5 @@ void Phase_Occupy::Tick()
 			gm->GiveTileToPlayer(iter->getCurrentTile(), gm->getCurrentPlayer());
 		}
 	}
-	_NextPhase = PHASE_VOLCANO;
+	_NextPhaseInfo = PHASE_VOLCANO;
 }

@@ -20,6 +20,7 @@ Phase_Volcano::Phase_Volcano()
 	
 	//용암으로 변화를 시작할 타일을 가리킨다.
 	_VolcanoTileListIter = _VolcanoTileList.begin();
+	_PhaseInfo = PHASE_VOLCANO;
 }
 
 void Phase_Volcano::Tick()
@@ -63,7 +64,7 @@ void Phase_Volcano::Tick()
 		break;
 	}
 
-	_NextPhase = PHASE_ACTION;
+	_NextPhaseInfo = PHASE_ACTION;
 }
 
 void Phase_Volcano::ChangeRichToLava(int repeat)
