@@ -9,13 +9,13 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{2,-1}</string>
+                <string>{4,1}</string>
                 <key>spriteSize</key>
-                <string>{66,98}</string>
+                <string>{62,116}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{120,120}</string>
                 <key>textureRect</key>
-                <string>{{1,1489},{66,98}}</string>
+                <string>{{1371,107},{62,116}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -24,13 +24,13 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{2,-2}</string>
+                <string>{4,1}</string>
                 <key>spriteSize</key>
-                <string>{66,96}</string>
+                <string>{62,116}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{120,120}</string>
                 <key>textureRect</key>
-                <string>{{71,1289},{66,96}}</string>
+                <string>{{223,233},{62,116}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -39,58 +39,88 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{2,-2}</string>
+                <string>{4,0}</string>
                 <key>spriteSize</key>
-                <string>{66,96}</string>
+                <string>{62,116}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{120,120}</string>
                 <key>textureRect</key>
-                <string>{{71,1387},{66,96}}</string>
+                <string>{{287,329},{62,116}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>spear_R_d_03.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{2,-3}</string>
+                <string>{4,-1}</string>
                 <key>spriteSize</key>
-                <string>{66,94}</string>
+                <string>{62,114}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{120,120}</string>
                 <key>textureRect</key>
-                <string>{{139,1467},{66,94}}</string>
+                <string>{{605,393},{62,114}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>spear_R_d_attack_00.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{4,-1}</string>
+                <string>{4,4}</string>
                 <key>spriteSize</key>
-                <string>{62,98}</string>
+                <string>{62,110}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{120,120}</string>
                 <key>textureRect</key>
-                <string>{{173,201},{62,98}}</string>
+                <string>{{111,327},{62,110}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>spear_R_d_attack_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{4,-3}</string>
+                <string>{4,6}</string>
                 <key>spriteSize</key>
-                <string>{62,94}</string>
+                <string>{62,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{120,120}</string>
                 <key>textureRect</key>
-                <string>{{69,1777},{62,94}}</string>
+                <string>{{641,329},{62,108}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>spear_R_d_attack_02.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{4,1}</string>
+                <key>spriteSize</key>
+                <string>{62,116}</string>
+                <key>spriteSourceSize</key>
+                <string>{120,120}</string>
+                <key>textureRect</key>
+                <string>{{405,329},{62,116}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>spear_R_d_attack_03.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{4,0}</string>
+                <key>spriteSize</key>
+                <string>{62,120}</string>
+                <key>spriteSourceSize</key>
+                <string>{120,120}</string>
+                <key>textureRect</key>
+                <string>{{223,111},{62,120}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -99,28 +129,28 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{2,-1}</string>
+                <string>{4,1}</string>
                 <key>spriteSize</key>
-                <string>{66,98}</string>
+                <string>{62,116}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{120,120}</string>
                 <key>textureRect</key>
-                <string>{{1,1589},{66,98}}</string>
+                <string>{{523,329},{62,116}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>spear_R_d_behit_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{2,-1}</string>
+                <string>{4,1}</string>
                 <key>spriteSize</key>
-                <string>{66,98}</string>
+                <string>{62,116}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{120,120}</string>
                 <key>textureRect</key>
-                <string>{{1,1689},{66,98}}</string>
+                <string>{{217,393},{62,116}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -129,88 +159,88 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{2,-3}</string>
+                <string>{4,0}</string>
                 <key>spriteSize</key>
-                <string>{66,94}</string>
+                <string>{62,114}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{120,120}</string>
                 <key>textureRect</key>
-                <string>{{69,1681},{66,94}}</string>
+                <string>{{751,325},{62,114}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>spear_R_d_move_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{2,-1}</string>
+                <string>{4,2}</string>
                 <key>spriteSize</key>
-                <string>{66,98}</string>
+                <string>{62,114}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{120,120}</string>
                 <key>textureRect</key>
-                <string>{{1,1789},{66,98}}</string>
+                <string>{{867,321},{62,114}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>spear_R_ld_00.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{-7,-1}</string>
+                <string>{-8,-5}</string>
                 <key>spriteSize</key>
-                <string>{84,98}</string>
+                <string>{104,110}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{120,120}</string>
                 <key>textureRect</key>
-                <string>{{89,1},{84,98}}</string>
+                <string>{{227,1},{104,110}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>spear_R_ld_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{-7,-2}</string>
+                <string>{-8,-5}</string>
                 <key>spriteSize</key>
-                <string>{84,96}</string>
+                <string>{104,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{120,120}</string>
                 <key>textureRect</key>
-                <string>{{1,601},{84,96}}</string>
+                <string>{{1151,107},{104,108}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>spear_R_ld_02.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{-7,-2}</string>
+                <string>{-8,-5}</string>
                 <key>spriteSize</key>
-                <string>{84,96}</string>
+                <string>{104,106}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{120,120}</string>
                 <key>textureRect</key>
-                <string>{{87,501},{84,96}}</string>
+                <string>{{497,393},{104,106}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>spear_R_ld_03.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{-7,-3}</string>
+                <string>{-8,-5}</string>
                 <key>spriteSize</key>
-                <string>{84,94}</string>
+                <string>{104,104}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{120,120}</string>
                 <key>textureRect</key>
-                <string>{{87,697},{84,94}}</string>
+                <string>{{927,215},{104,104}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -219,13 +249,13 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{7,-1}</string>
+                <string>{-2,-5}</string>
                 <key>spriteSize</key>
-                <string>{68,98}</string>
+                <string>{104,110}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{120,120}</string>
                 <key>textureRect</key>
-                <string>{{1,989},{68,98}}</string>
+                <string>{{1,331},{104,110}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -234,58 +264,88 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{-6,-3}</string>
+                <string>{1,-5}</string>
                 <key>spriteSize</key>
-                <string>{82,94}</string>
+                <string>{104,110}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{120,120}</string>
                 <key>textureRect</key>
-                <string>{{89,889},{82,94}}</string>
+                <string>{{111,221},{104,110}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
+            </dict>
+            <key>spear_R_ld_attack_02.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-11,-5}</string>
+                <key>spriteSize</key>
+                <string>{104,110}</string>
+                <key>spriteSourceSize</key>
+                <string>{140,120}</string>
+                <key>textureRect</key>
+                <string>{{339,1},{104,110}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>spear_R_ld_attack_03.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-14,-5}</string>
+                <key>spriteSize</key>
+                <string>{104,110}</string>
+                <key>spriteSourceSize</key>
+                <string>{140,120}</string>
+                <key>textureRect</key>
+                <string>{{451,1},{104,110}}</string>
+                <key>textureRotated</key>
+                <true/>
             </dict>
             <key>spear_R_ld_behit_00.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{-7,-1}</string>
+                <string>{-8,-5}</string>
                 <key>spriteSize</key>
-                <string>{84,98}</string>
+                <string>{104,110}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{120,120}</string>
                 <key>textureRect</key>
-                <string>{{1,201},{84,98}}</string>
+                <string>{{563,1},{104,110}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>spear_R_ld_behit_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{-7,-1}</string>
+                <string>{-8,-5}</string>
                 <key>spriteSize</key>
-                <string>{84,98}</string>
+                <string>{104,110}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{120,120}</string>
                 <key>textureRect</key>
-                <string>{{89,101},{84,98}}</string>
+                <string>{{675,1},{104,110}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>spear_R_ld_move_00.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{-7,-3}</string>
+                <string>{-8,-5}</string>
                 <key>spriteSize</key>
-                <string>{84,94}</string>
+                <string>{104,104}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{120,120}</string>
                 <key>textureRect</key>
-                <string>{{1,797},{84,94}}</string>
+                <string>{{1033,213},{104,104}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -294,88 +354,88 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{-7,-1}</string>
+                <string>{-8,-5}</string>
                 <key>spriteSize</key>
-                <string>{84,98}</string>
+                <string>{104,110}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{120,120}</string>
                 <key>textureRect</key>
-                <string>{{1,301},{84,98}}</string>
+                <string>{{787,1},{104,110}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>spear_R_lu_00.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{-1,-1}</string>
+                <string>{-7,6}</string>
                 <key>spriteSize</key>
-                <string>{62,98}</string>
+                <string>{104,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{140,140}</string>
                 <key>textureRect</key>
-                <string>{{173,301},{62,98}}</string>
+                <string>{{1261,107},{104,108}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>spear_R_lu_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{-1,-2}</string>
+                <string>{-7,5}</string>
                 <key>spriteSize</key>
-                <string>{62,96}</string>
+                <string>{104,106}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{140,140}</string>
                 <key>textureRect</key>
-                <string>{{139,1141},{62,96}}</string>
+                <string>{{669,393},{104,106}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>spear_R_lu_02.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{-1,-2}</string>
+                <string>{-7,5}</string>
                 <key>spriteSize</key>
-                <string>{62,96}</string>
+                <string>{104,106}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{140,140}</string>
                 <key>textureRect</key>
-                <string>{{139,1205},{62,96}}</string>
+                <string>{{775,389},{104,106}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>spear_R_lu_03.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{-1,-3}</string>
+                <string>{-7,4}</string>
                 <key>spriteSize</key>
-                <string>{62,94}</string>
+                <string>{104,104}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{140,140}</string>
                 <key>textureRect</key>
-                <string>{{139,1631},{62,94}}</string>
+                <string>{{1139,213},{104,104}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>spear_R_lu_attack_00.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{11,-1}</string>
+                <string>{-1,6}</string>
                 <key>spriteSize</key>
-                <string>{86,98}</string>
+                <string>{104,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{140,140}</string>
                 <key>textureRect</key>
-                <string>{{1,1},{86,98}}</string>
+                <string>{{287,219},{104,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -384,43 +444,73 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{-4,-3}</string>
+                <string>{2,6}</string>
                 <key>spriteSize</key>
-                <string>{68,94}</string>
+                <string>{104,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{140,140}</string>
                 <key>textureRect</key>
-                <string>{{139,1397},{68,94}}</string>
+                <string>{{393,219},{104,108}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
+            </dict>
+            <key>spear_R_lu_attack_02.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-10,6}</string>
+                <key>spriteSize</key>
+                <string>{104,108}</string>
+                <key>spriteSourceSize</key>
+                <string>{140,140}</string>
+                <key>textureRect</key>
+                <string>{{499,219},{104,108}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>spear_R_lu_attack_03.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-16,6}</string>
+                <key>spriteSize</key>
+                <string>{104,108}</string>
+                <key>spriteSourceSize</key>
+                <string>{140,140}</string>
+                <key>textureRect</key>
+                <string>{{605,219},{104,108}}</string>
+                <key>textureRotated</key>
+                <false/>
             </dict>
             <key>spear_R_lu_behit_00.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{-1,-1}</string>
+                <string>{-7,6}</string>
                 <key>spriteSize</key>
-                <string>{62,98}</string>
+                <string>{104,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{140,140}</string>
                 <key>textureRect</key>
-                <string>{{173,401},{62,98}}</string>
+                <string>{{1261,107},{104,108}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>spear_R_lu_behit_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{-1,-1}</string>
+                <string>{-7,6}</string>
                 <key>spriteSize</key>
-                <string>{62,98}</string>
+                <string>{104,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{140,140}</string>
                 <key>textureRect</key>
-                <string>{{173,501},{62,98}}</string>
+                <string>{{711,215},{104,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -429,13 +519,13 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{-1,-1}</string>
+                <string>{-7,4}</string>
                 <key>spriteSize</key>
-                <string>{62,98}</string>
+                <string>{104,104}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{140,140}</string>
                 <key>textureRect</key>
-                <string>{{173,601},{62,98}}</string>
+                <string>{{1245,213},{104,104}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -444,103 +534,133 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{-1,-1}</string>
+                <string>{-7,6}</string>
                 <key>spriteSize</key>
-                <string>{62,98}</string>
+                <string>{104,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{140,140}</string>
                 <key>textureRect</key>
-                <string>{{173,701},{62,98}}</string>
+                <string>{{817,215},{104,108}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>spear_R_rd_00.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{5,-1}</string>
+                <string>{-13,4}</string>
                 <key>spriteSize</key>
-                <string>{62,98}</string>
+                <string>{104,110}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{140,140}</string>
                 <key>textureRect</key>
-                <string>{{173,801},{62,98}}</string>
+                <string>{{899,1},{104,110}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>spear_R_rd_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{5,-2}</string>
+                <string>{-13,4}</string>
                 <key>spriteSize</key>
-                <string>{62,96}</string>
+                <string>{104,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{140,140}</string>
                 <key>textureRect</key>
-                <string>{{139,1269},{62,96}}</string>
+                <string>{{111,391},{104,108}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>spear_R_rd_02.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{5,-2}</string>
+                <string>{-13,4}</string>
                 <key>spriteSize</key>
-                <string>{62,96}</string>
+                <string>{104,106}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{140,140}</string>
                 <key>textureRect</key>
-                <string>{{139,1333},{62,96}}</string>
+                <string>{{881,385},{104,106}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>spear_R_rd_03.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{5,-3}</string>
+                <string>{-13,4}</string>
                 <key>spriteSize</key>
-                <string>{62,94}</string>
+                <string>{104,104}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{140,140}</string>
                 <key>textureRect</key>
-                <string>{{137,1695},{62,94}}</string>
+                <string>{{1351,225},{104,104}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>spear_R_rd_attack_00.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{-7,-1}</string>
+                <string>{-18,4}</string>
                 <key>spriteSize</key>
-                <string>{86,98}</string>
+                <string>{104,110}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{140,140}</string>
                 <key>textureRect</key>
-                <string>{{1,101},{86,98}}</string>
+                <string>{{1011,1},{104,110}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>spear_R_rd_attack_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{5,-3}</string>
+                <string>{-22,4}</string>
                 <key>spriteSize</key>
-                <string>{62,94}</string>
+                <string>{104,110}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{160,140}</string>
                 <key>textureRect</key>
-                <string>{{137,1759},{62,94}}</string>
+                <string>{{1123,1},{104,110}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>spear_R_rd_attack_02.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-13,4}</string>
+                <key>spriteSize</key>
+                <string>{104,110}</string>
+                <key>spriteSourceSize</key>
+                <string>{160,140}</string>
+                <key>textureRect</key>
+                <string>{{1235,1},{104,110}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>spear_R_rd_attack_03.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{-10,4}</string>
+                <key>spriteSize</key>
+                <string>{104,110}</string>
+                <key>spriteSourceSize</key>
+                <string>{160,140}</string>
+                <key>textureRect</key>
+                <string>{{1347,1},{104,110}}</string>
                 <key>textureRotated</key>
                 <true/>
             </dict>
@@ -549,13 +669,13 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{5,-1}</string>
+                <string>{-13,4}</string>
                 <key>spriteSize</key>
-                <string>{62,98}</string>
+                <string>{104,110}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{140,140}</string>
                 <key>textureRect</key>
-                <string>{{173,901},{62,98}}</string>
+                <string>{{287,107},{104,110}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -564,43 +684,43 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{5,-1}</string>
+                <string>{-13,4}</string>
                 <key>spriteSize</key>
-                <string>{62,98}</string>
+                <string>{104,110}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{140,140}</string>
                 <key>textureRect</key>
-                <string>{{1,1889},{62,98}}</string>
+                <string>{{393,107},{104,110}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>spear_R_rd_move_00.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{5,-3}</string>
+                <string>{-13,1}</string>
                 <key>spriteSize</key>
-                <string>{62,94}</string>
+                <string>{104,110}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{140,140}</string>
                 <key>textureRect</key>
-                <string>{{133,1823},{62,94}}</string>
+                <string>{{499,107},{104,110}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>spear_R_rd_move_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{5,-1}</string>
+                <string>{-13,4}</string>
                 <key>spriteSize</key>
-                <string>{62,98}</string>
+                <string>{104,110}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{140,140}</string>
                 <key>textureRect</key>
-                <string>{{71,989},{62,98}}</string>
+                <string>{{605,107},{104,110}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -609,13 +729,13 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{11,-1}</string>
+                <string>{14,-3}</string>
                 <key>spriteSize</key>
-                <string>{84,98}</string>
+                <string>{108,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{140,140}</string>
                 <key>textureRect</key>
-                <string>{{87,201},{84,98}}</string>
+                <string>{{117,1},{108,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -624,13 +744,13 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{11,-2}</string>
+                <string>{14,-4}</string>
                 <key>spriteSize</key>
-                <string>{84,96}</string>
+                <string>{108,106}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{140,140}</string>
                 <key>textureRect</key>
-                <string>{{87,599},{84,96}}</string>
+                <string>{{711,107},{108,106}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -639,13 +759,13 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{11,-2}</string>
+                <string>{14,-4}</string>
                 <key>spriteSize</key>
-                <string>{84,96}</string>
+                <string>{108,106}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{140,140}</string>
                 <key>textureRect</key>
-                <string>{{1,699},{84,96}}</string>
+                <string>{{821,107},{108,106}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -654,13 +774,13 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{11,-3}</string>
+                <string>{14,-5}</string>
                 <key>spriteSize</key>
-                <string>{84,94}</string>
+                <string>{108,104}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{140,140}</string>
                 <key>textureRect</key>
-                <string>{{87,793},{84,94}}</string>
+                <string>{{931,107},{108,104}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -669,13 +789,13 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{1,-1}</string>
+                <string>{13,-3}</string>
                 <key>spriteSize</key>
-                <string>{62,98}</string>
+                <string>{104,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{140,140}</string>
                 <key>textureRect</key>
-                <string>{{71,1089},{62,98}}</string>
+                <string>{{281,393},{104,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -684,13 +804,43 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{13,-3}</string>
+                <string>{7,-3}</string>
                 <key>spriteSize</key>
-                <string>{86,94}</string>
+                <string>{104,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{140,140}</string>
                 <key>textureRect</key>
-                <string>{{1,893},{86,94}}</string>
+                <string>{{387,393},{104,108}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>spear_R_ru_attack_02.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{16,-3}</string>
+                <key>spriteSize</key>
+                <string>{110,108}</string>
+                <key>spriteSourceSize</key>
+                <string>{160,140}</string>
+                <key>textureRect</key>
+                <string>{{1,111},{110,108}}</string>
+                <key>textureRotated</key>
+                <false/>
+            </dict>
+            <key>spear_R_ru_attack_03.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{17,-3}</string>
+                <key>spriteSize</key>
+                <string>{114,108}</string>
+                <key>spriteSourceSize</key>
+                <string>{160,140}</string>
+                <key>textureRect</key>
+                <string>{{1,1},{114,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -699,13 +849,13 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{11,-1}</string>
+                <string>{14,-3}</string>
                 <key>spriteSize</key>
-                <string>{84,98}</string>
+                <string>{108,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{140,140}</string>
                 <key>textureRect</key>
-                <string>{{1,401},{84,98}}</string>
+                <string>{{117,1},{108,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -714,13 +864,13 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{11,-1}</string>
+                <string>{14,-3}</string>
                 <key>spriteSize</key>
-                <string>{84,98}</string>
+                <string>{108,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{140,140}</string>
                 <key>textureRect</key>
-                <string>{{87,301},{84,98}}</string>
+                <string>{{1,221},{108,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -729,13 +879,13 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{11,-1}</string>
+                <string>{14,-5}</string>
                 <key>spriteSize</key>
-                <string>{84,98}</string>
+                <string>{108,104}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{140,140}</string>
                 <key>textureRect</key>
-                <string>{{1,501},{84,98}}</string>
+                <string>{{1041,107},{108,104}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -744,13 +894,13 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{11,-1}</string>
+                <string>{14,-3}</string>
                 <key>spriteSize</key>
-                <string>{84,98}</string>
+                <string>{108,108}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{140,140}</string>
                 <key>textureRect</key>
-                <string>{{87,401},{84,98}}</string>
+                <string>{{113,111},{108,108}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -759,58 +909,58 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{4,-1}</string>
+                <string>{4,7}</string>
                 <key>spriteSize</key>
-                <string>{68,98}</string>
+                <string>{62,104}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{120,120}</string>
                 <key>textureRect</key>
-                <string>{{1,1089},{68,98}}</string>
+                <string>{{983,321},{62,104}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>spear_R_u_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{4,-2}</string>
+                <string>{4,7}</string>
                 <key>spriteSize</key>
-                <string>{68,96}</string>
+                <string>{62,104}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{120,120}</string>
                 <key>textureRect</key>
-                <string>{{139,1001},{68,96}}</string>
+                <string>{{987,385},{62,104}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>spear_R_u_02.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{4,-2}</string>
+                <string>{4,6}</string>
                 <key>spriteSize</key>
-                <string>{68,96}</string>
+                <string>{62,102}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{120,120}</string>
                 <key>textureRect</key>
-                <string>{{139,1071},{68,96}}</string>
+                <string>{{1179,383},{62,102}}</string>
                 <key>textureRotated</key>
-                <true/>
+                <false/>
             </dict>
             <key>spear_R_u_03.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{4,-3}</string>
+                <string>{4,6}</string>
                 <key>spriteSize</key>
-                <string>{68,94}</string>
+                <string>{62,102}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{120,120}</string>
                 <key>textureRect</key>
-                <string>{{69,1489},{68,94}}</string>
+                <string>{{1243,383},{62,102}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -819,43 +969,73 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{1,-1}</string>
+                <string>{4,7}</string>
                 <key>spriteSize</key>
-                <string>{62,98}</string>
+                <string>{62,104}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{120,120}</string>
                 <key>textureRect</key>
-                <string>{{71,1189},{62,98}}</string>
+                <string>{{1089,319},{62,104}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>spear_R_u_attack_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{4,-3}</string>
+                <string>{4,7}</string>
                 <key>spriteSize</key>
-                <string>{68,94}</string>
+                <string>{62,104}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{120,120}</string>
                 <key>textureRect</key>
-                <string>{{69,1585},{68,94}}</string>
+                <string>{{1195,319},{62,104}}</string>
+                <key>textureRotated</key>
+                <true/>
+            </dict>
+            <key>spear_R_u_attack_02.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{4,7}</string>
+                <key>spriteSize</key>
+                <string>{62,104}</string>
+                <key>spriteSourceSize</key>
+                <string>{120,120}</string>
+                <key>textureRect</key>
+                <string>{{1051,385},{62,104}}</string>
                 <key>textureRotated</key>
                 <false/>
+            </dict>
+            <key>spear_R_u_attack_03.png</key>
+            <dict>
+                <key>aliases</key>
+                <array/>
+                <key>spriteOffset</key>
+                <string>{3,9}</string>
+                <key>spriteSize</key>
+                <string>{64,108}</string>
+                <key>spriteSourceSize</key>
+                <string>{120,140}</string>
+                <key>textureRect</key>
+                <string>{{1,443},{64,108}}</string>
+                <key>textureRotated</key>
+                <true/>
             </dict>
             <key>spear_R_u_behit_00.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{4,-1}</string>
+                <string>{4,6}</string>
                 <key>spriteSize</key>
-                <string>{68,98}</string>
+                <string>{62,102}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{120,120}</string>
                 <key>textureRect</key>
-                <string>{{1,1189},{68,98}}</string>
+                <string>{{1307,331},{62,102}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -864,13 +1044,13 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{4,-1}</string>
+                <string>{4,6}</string>
                 <key>spriteSize</key>
-                <string>{68,98}</string>
+                <string>{62,102}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{120,120}</string>
                 <key>textureRect</key>
-                <string>{{1,1289},{68,98}}</string>
+                <string>{{1371,331},{62,102}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -879,28 +1059,28 @@
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{4,-3}</string>
+                <string>{4,6}</string>
                 <key>spriteSize</key>
-                <string>{68,94}</string>
+                <string>{62,102}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{120,120}</string>
                 <key>textureRect</key>
-                <string>{{139,1535},{68,94}}</string>
+                <string>{{1307,435},{62,102}}</string>
                 <key>textureRotated</key>
-                <false/>
+                <true/>
             </dict>
             <key>spear_R_u_move_01.png</key>
             <dict>
                 <key>aliases</key>
                 <array/>
                 <key>spriteOffset</key>
-                <string>{4,-1}</string>
+                <string>{4,7}</string>
                 <key>spriteSize</key>
-                <string>{68,98}</string>
+                <string>{62,104}</string>
                 <key>spriteSourceSize</key>
-                <string>{120,100}</string>
+                <string>{120,120}</string>
                 <key>textureRect</key>
-                <string>{{1,1389},{68,98}}</string>
+                <string>{{1115,383},{62,104}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -912,9 +1092,9 @@
             <key>realTextureFileName</key>
             <string>unit_red.png</string>
             <key>size</key>
-            <string>{236,1952}</string>
+            <string>{1458,510}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:5c9298d9ee3921429fd91d1360902812:88630809677f7cc6ab9e80e3446dd84b:6429b93c2086fb51f557e717466b03cc$</string>
+            <string>$TexturePacker:SmartUpdate:af2b8cee83d9d6d5fa9d673f01c84d83:c342a692fd5bbb250f707022f2fe3a05:6429b93c2086fb51f557e717466b03cc$</string>
             <key>textureFileName</key>
             <string>unit_red.png</string>
         </dict>

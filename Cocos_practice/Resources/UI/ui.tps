@@ -237,6 +237,8 @@
             <filename>exit_button.png</filename>
             <filename>exit_button_clicked.png</filename>
             <filename>battle.png</filename>
+            <filename>turn_red.png</filename>
+            <filename>turn_blue.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

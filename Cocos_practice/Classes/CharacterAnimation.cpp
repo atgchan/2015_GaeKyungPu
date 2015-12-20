@@ -126,7 +126,7 @@ Animation* CharacterAnimation::CreateAnimationAttack(PlayerInfo cPInfo, Directio
 {
 	std::string frameName = "spear_";
 	Animation* animation = Animation::create();
-	animation->setDelayPerUnit(0.3f);
+	animation->setDelayPerUnit(0.15f);
 
 	if (cPInfo == PLAYER_RED)
 	{
@@ -141,14 +141,18 @@ Animation* CharacterAnimation::CreateAnimationAttack(PlayerInfo cPInfo, Directio
 	frameName += direction;
 	frameName += "_attack";
 
-	std::array<SpriteFrame*, 2> frameArray =
+	std::array<SpriteFrame*, 4> frameArray =
 	{
 		SpriteFrameCache::getInstance()->getSpriteFrameByName(frameName + "_00.png"),
-		SpriteFrameCache::getInstance()->getSpriteFrameByName(frameName + "_01.png")
+		SpriteFrameCache::getInstance()->getSpriteFrameByName(frameName + "_01.png"),
+		SpriteFrameCache::getInstance()->getSpriteFrameByName(frameName + "_02.png"),
+		SpriteFrameCache::getInstance()->getSpriteFrameByName(frameName + "_03.png")
 	};
 
 	animation->addSpriteFrame(frameArray[0]);
 	animation->addSpriteFrame(frameArray[1]);
+	animation->addSpriteFrame(frameArray[2]);
+	animation->addSpriteFrame(frameArray[3]);
 	return animation;
 }
 
