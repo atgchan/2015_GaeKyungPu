@@ -312,7 +312,7 @@ void GameSceneManager::AddChild(Node* targetNode)
 	_Nodes->addChild(targetNode);
 }
 
-void GameSceneManager::ToggleTurn(Object* pSender)
+void GameSceneManager::ToggleTurn()
 {
 	if (_IsInputAble == false)
 		return;

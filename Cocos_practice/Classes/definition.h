@@ -121,6 +121,8 @@ enum EventType
 #define FILENAME_IMG_UI_RD_ANCHOR				"anchor_rd.png"
 #define FILENAME_IMG_UI_LU_ANCHOR				"anchor_lu.png"
 #define FILENAME_IMG_UI_RU_ANCHOR				"anchor_ru.png"
+#define FILENAME_IMG_UI_RED						"turn_red.png"
+#define FILENAME_IMG_UI_BLUE					"turn_blue.png"
 
 //UI_BUTTON
 #define FILENAME_IMG_BUTTON_ENDTURN				"end_turn.png"
