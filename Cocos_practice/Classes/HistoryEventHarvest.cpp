@@ -20,7 +20,7 @@ void HistoryEventHarvest::Run()
 	grain->setZOrder(13);
 	FiniteTimeAction* floatAction = MoveTo::create(0.2f, Vec2(grain->getPositionX(), grain->getPositionY() + 80));
 	int xMul = (GM->getCurrentPlayer() == PLAYER_RED) ? 0 : 1;
-	FiniteTimeAction* flyAction = EaseIn::create(MoveTo::create(1.2, Vec2(130 + xMul * 200, 750)),3);
+	FiniteTimeAction* flyAction = EaseIn::create(MoveTo::create(0.6, Vec2(280 + xMul * 200, 750)),3);
 
 
 	cocos2d::CallFunc* doneCall = CallFunc::create(CC_CALLBACK_0(HistoryEventHarvest::SetDone, this, true));

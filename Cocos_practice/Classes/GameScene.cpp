@@ -85,5 +85,5 @@ void GameScene::MouseDownDispatcher(cocos2d::EventMouse* event)
 
 void GameScene::RefreshFood()
 {
-	(dynamic_cast<UILayer*>(getChildByName("UILayer")))->SetFoodValue(GM->getPlayerDataByPlayerInfo(PLAYER_RED), GM->getPlayerDataByPlayerInfo(PLAYER_BLUE));
+	(dynamic_cast<UILayer*>(getChildByName("UILayer")))->SetFoodValue(GM->getCurrentPlayerData());
 }

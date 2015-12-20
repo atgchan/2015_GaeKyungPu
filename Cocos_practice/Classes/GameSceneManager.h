@@ -54,7 +54,7 @@ public:
 	/*
 	@brief		GameScene으로부터 CALLBACK 받아 턴 변경. (추후에 UI 클래스에서 CALLBACK 하도록)
 	*/
-	void		ToggleTurn(Object* pSender);
+	void ToggleTurn();
 
 	/*
 		@brief	타일의 포인터와 타일의 클릭 가능한 위치를 나타내는 사각형을 받아서 배열로 저장한다.

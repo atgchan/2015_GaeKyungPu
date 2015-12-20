@@ -21,7 +21,7 @@ bool UILayer::init()
 	this->setName("UILayer");
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
-	
+
 	SetUIBar();
 
 	//backLayerÃß°¡
@@ -30,14 +30,14 @@ bool UILayer::init()
 	BackLayer->setAnchorPoint(Vec2(0, 0));
 	BackLayer->setPosition(50, visibleSize.height - 70);
 
-	SetFoodValue(GM->getPlayerDataByPlayerInfo(PLAYER_RED), GM->getPlayerDataByPlayerInfo(PLAYER_BLUE));
+	SetFoodValue(GM->getCurrentPlayerData());
 
 	this->addChild(BackLayer);
-	
+
 	Sprite* endButton = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_ENDTURN);
 	Sprite* endButtonClicked = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_ENDTURN_CLICKED);
 
-	MenuItemSprite* toggleTurn = MenuItemSprite::create(endButton, endButtonClicked, CC_CALLBACK_1(GameSceneManager::ToggleTurn, GameSceneManager::getInstance()));
+	MenuItemSprite* toggleTurn = MenuItemSprite::create(endButton, endButtonClicked, CC_CALLBACK_0(UILayer::toggleTurn, this));
 	toggleTurn->setPosition(Vec2(visibleSize.width * 1 / 2, visibleSize.height - 50));
 
 	Sprite* optionButton = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_OPTION);
@@ -53,6 +53,12 @@ bool UILayer::init()
 	Menu* ingameMenu = Menu::create(toggleTurn, optionToggle, NULL);
 	ingameMenu->setPosition(Vec2::ZERO);
 	ingameMenu->setName("ingameMenu");
+
+	_TurnLabel = Sprite::createWithSpriteFrameName(FILENAME_IMG_UI_RED);
+	_TurnLabel->setPosition(Vec2(100, visibleSize.height - 50));
+	_TurnLabel->setZOrder(12);
+	_TurnLabel->setAnchorPoint(Vec2(0, 0));
+	this->addChild(_TurnLabel);
 	this->addChild(ingameMenu);
 
 	return true;
@@ -72,23 +78,19 @@ void UILayer::ShowOptionWindow(Object *pSender)
 	GM->AddChild(option);
 }
 
-const void UILayer::SetFoodValue(PlayerData* pData1, PlayerData* pData2) const
+const void UILayer::SetFoodValue(PlayerData* currentPlayerData) const
 {
-	int pData1Food = pData1->getFood();
-	int pData2Food = pData2->getFood();
+	int currentFood = currentPlayerData->getFood();
 
 	BackLayer->removeAllChildren();
-	cocos2d::Label* p1Food = Label::createWithTTF(std::to_string(pData1Food), FILENAME_FONT_PIXEL, 50);
-	cocos2d::Label* p2Food = Label::createWithTTF(std::to_string(pData2Food), FILENAME_FONT_PIXEL, 50);
+	cocos2d::Label* currentFoodLabel = Label::createWithTTF(std::to_string(currentFood), FILENAME_FONT_PIXEL, 50);
 
 	float width = BackLayer->getContentSize().width;
 	float height = BackLayer->getContentSize().height;
 
-	p1Food->setPosition(Vec2(100, height - 10));
-	p2Food->setPosition(Vec2(100 + width / 2, height - 10));
+	currentFoodLabel->setPosition(Vec2(100 + width / 2, height - 10));
 
-	BackLayer->addChild(p1Food);
-	BackLayer->addChild(p2Food);
+	BackLayer->addChild(currentFoodLabel);
 }
 
 void UILayer::SetUIBar()
@@ -140,13 +142,13 @@ void UILayer::SetUIBar()
 	spriteBarArray[2]->setPosition(visibleSize.width, 0);
 
 	spritecornerArray[0]->setPosition(0, 15);
-	spritecornerArray[1]->setPosition(0, visibleSize.height-85);
-	spritecornerArray[2]->setPosition(visibleSize.width-45, visibleSize.height-85);
-	spritecornerArray[3]->setPosition(visibleSize.width-45, 15);
+	spritecornerArray[1]->setPosition(0, visibleSize.height - 85);
+	spritecornerArray[2]->setPosition(visibleSize.width - 45, visibleSize.height - 85);
+	spritecornerArray[3]->setPosition(visibleSize.width - 45, 15);
 
 	Sprite* UIBar = Sprite::createWithSpriteFrameName(FILENAME_IMG_UI_UPPER_BAR);
 	UIBar->setAnchorPoint(Vec2(0, 0));
-	UIBar->setPosition(0, visibleSize.height-70);
+	UIBar->setPosition(0, visibleSize.height - 70);
 	this->addChild(UIBar);
 }
 
@@ -167,4 +169,16 @@ void UILayer::SelectCharacter(Character* character)
 
 		this->addChild(indicator);
 	}
+}
+
+void UILayer::toggleTurn()
+{
+	PlayerInfo pInfo = GM->getCurrentPlayer();
+	std::string usrn = "";
+	if (pInfo == PLAYER_RED)
+		usrn = FILENAME_IMG_UI_BLUE;
+	else
+		usrn = FILENAME_IMG_UI_RED;
+	_TurnLabel->setSpriteFrame(usrn);
+	GM->ToggleTurn();
 }
