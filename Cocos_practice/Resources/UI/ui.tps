@@ -197,11 +197,7 @@
             <filename>end_turn_clicked.png</filename>
             <filename>grain.png</filename>
             <filename>bar.png</filename>
-            <filename>turn_left_clicked.png</filename>
-            <filename>turn_left.png</filename>
             <filename>triangle.png</filename>
-            <filename>turn_right_clicked.png</filename>
-            <filename>turn_right.png</filename>
             <filename>grain_bar.png</filename>
             <filename>flag_red.png</filename>
             <filename>flag_blue.png</filename>
@@ -239,6 +235,18 @@
             <filename>battle.png</filename>
             <filename>turn_red.png</filename>
             <filename>turn_blue.png</filename>
+            <filename>rotate_1_clicked.png</filename>
+            <filename>rotate_2.png</filename>
+            <filename>rotate_2_clicked.png</filename>
+            <filename>rotate_3.png</filename>
+            <filename>rotate_3_clicked.png</filename>
+            <filename>rotate_4_clicked.png</filename>
+            <filename>rotate_5.png</filename>
+            <filename>rotate_5_clicked.png</filename>
+            <filename>rotate_6.png</filename>
+            <filename>rotate_6_clicked.png</filename>
+            <filename>rotate_turn_4.png</filename>
+            <filename>rotate_1.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

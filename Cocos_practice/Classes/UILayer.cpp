@@ -55,7 +55,7 @@ bool UILayer::init()
 	ingameMenu->setName("ingameMenu");
 
 	_TurnLabel = Sprite::createWithSpriteFrameName(FILENAME_IMG_UI_RED);
-	_TurnLabel->setPosition(Vec2(100, visibleSize.height - 50));
+	_TurnLabel->setPosition(Vec2(80, visibleSize.height - 55));
 	_TurnLabel->setZOrder(12);
 	_TurnLabel->setAnchorPoint(Vec2(0, 0));
 	this->addChild(_TurnLabel);
@@ -120,17 +120,9 @@ void UILayer::SetUIBar()
 
 	Sprite* grain = Sprite::createWithSpriteFrameName(FILENAME_IMG_UI_GRAIN_INDICATOR);
 	grain->setAnchorPoint(Vec2(0, 0));
-	grain->setPosition(90, visibleSize.height - 66);
+	grain->setPosition(240, visibleSize.height - 58);
 	grain->setZOrder(11);
 	this->addChild(grain);
-
-	/*
-	Sprite* flag = Sprite::createWithSpriteFrameName(FILENAME_IMG_UI_FLAG_RED);
-	flag->setAnchorPoint(Vec2(0, 0));
-	flag->setPosition(90, visibleSize.height - 202);
-	flag->setZOrder(11);
-	this->addChild(flag);
-	*/
 
 	spriteBarArray[0]->setPosition(0, 0);
 	spriteBarArray[0]->setZOrder(15);

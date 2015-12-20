@@ -127,10 +127,12 @@ enum EventType
 //UI_BUTTON
 #define FILENAME_IMG_BUTTON_ENDTURN				"end_turn.png"
 #define FILENAME_IMG_BUTTON_ENDTURN_CLICKED		"end_turn_clicked.png"
-#define FILENAME_IMG_BUTTON_TURN_RIGHT			"turn_left.png"
-#define FILENAME_IMG_BUTTON_TURN_RIGHT_CLICKED	"turn_left_clicked.png"
-#define FILENAME_IMG_BUTTON_TURN_LEFT			"turn_right.png"
-#define FILENAME_IMG_BUTTON_TURN_LEFT_CLICKED	"turn_right_clicked.png"
+
+#define FILENAME_IMG_BUTTON_TURN_RIGHT			"rotate_1.png"
+#define FILENAME_IMG_BUTTON_TURN_RIGHT_CLICKED	"rotate_1_clicked.png"
+#define FILENAME_IMG_BUTTON_TURN_LEFT			"rotate_2.png"
+#define FILENAME_IMG_BUTTON_TURN_LEFT_CLICKED	"rotate_2_clicked.png"
+
 #define FILENAME_IMG_BUTTON_OPTION				"option_button.png"
 #define FILENAME_IMG_BUTTON_OPTION_CLICKED		"option_button_clicked.png"
 #define FILENAME_IMG_BUTTON_RESUME				"resume.png"
