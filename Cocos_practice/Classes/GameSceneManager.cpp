@@ -404,9 +404,10 @@ void GameSceneManager::SelectCharacter(Character* character)
 		indicator->setAnchorPoint(Vec2(0, 0));
 		indicator->setPosition(posX-10, posY + 110);
 
+		this->_Nodes->addChild(indicator);
+
 		character->ShowMovableTile();
 
-		this->_Nodes->addChild(indicator);
 		SetRotateButton(character);
 	}
 }

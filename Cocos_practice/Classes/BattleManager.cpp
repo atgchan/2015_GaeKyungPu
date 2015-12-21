@@ -6,6 +6,7 @@
 #include "HistoryEventAttack.h"
 #include "HistoryEventKillCharacter.h"
 #include "DiceDice.h"
+#include "HistoryEventDice.h"
 
 void BattleManager::BattleBetween(Character* attacker, Character* defender)
 {
@@ -24,7 +25,7 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 
 			_CurrentAttackFormation.front()->CalculateAttackPower();
 			_CurrentDefenseFormation.front()->CalculateAttackPower();
-
+		
 		if (IsAttackerWin(_CurrentAttackFormation.front(), _CurrentDefenseFormation.front()))
 		{
 			winner = &_CurrentAttackFormation;
@@ -88,9 +89,11 @@ bool BattleManager::IsAttackerWin(Character* attacker, Character* defender)
 	{
 		int attackerDice = DiceDice::getInstance()->RollDiceBetween(1, attacker->_AttackPower);
 		int defenderDice = DiceDice::getInstance()->RollDiceBetween(1, defender->_AttackPower);
-
+		
 		if (attackerDice == defenderDice)
 			continue;
+		EventManager::getInstance()->AddHistory(HistoryEventDice::Create(attacker, attackerDice));
+		EventManager::getInstance()->AddHistory(HistoryEventDice::Create(defender, defenderDice));
 		return (attackerDice > defenderDice) ? true : false;
 		//return false;
 	}
