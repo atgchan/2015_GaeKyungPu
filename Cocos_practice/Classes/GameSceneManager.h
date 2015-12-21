@@ -83,6 +83,7 @@ public:
 	void		setInputMode(bool mode);
 
 	bool		getIsInputAble();
+	bool		_DebugMode = false;
 	~GameSceneManager();
 
 private:
@@ -129,5 +130,5 @@ private:
 	void		SetRotateButton(Character* character);
 	void		RotateToDirection(Character* character, RotateDirection rotateDirection);
 	void		RemoveCursor();
-
+	void MouseDownLater(cocos2d::EventMouse event, Self_Tile* clickedTile);
 };

@@ -10,6 +10,12 @@
 
 Character::Character(PlayerInfo cPInfo, DirectionKind spriteNum)
 {
+	if (GM->_DebugMode == DEBUG_MODE_OFF)
+		_RotateResource = ROTATE_RESOURCE_DEFAULT;
+
+	if (GM->_DebugMode == DEBUG_MODE_ON)
+		_RotateResource = ROTATE_RESOURCE_DEBUG_MODE;
+
 	autorelease();
 	setCurrentPlayerInfo(cPInfo);
 	setCurrentDirection(spriteNum);
@@ -31,6 +37,9 @@ Character* Character::create(PlayerInfo cPInfo, DirectionKind spriteNum)
 
 void Character::RotateToDirection(RotateDirection rotateDirection)
 {
+	if (_RotateResource-- <= 0)
+		return;
+
 	DirectionKind characterDirection = getCurrentDirection();
 
 	if (rotateDirection == ROTATE_LEFT)
@@ -58,6 +67,12 @@ void Character::RotateToDirection(DirectionKind targetDirection, bool displayAls
 
 void Character::MoveToTile(Self_Tile* dest, bool battleMode /*= true*/)
 {
+	if (GM->_DebugMode == DEBUG_MODE_OFF)
+		_RotateResource = ROTATE_RESOURCE_DEFAULT;
+
+	if (GM->_DebugMode == DEBUG_MODE_ON)
+		_RotateResource = ROTATE_RESOURCE_DEBUG_MODE;
+
 	Self_Tile* prevTile = this->getCurrentTile();
 
 	this->getCurrentTile()->setCharacterOnThisTile(nullptr);

@@ -57,7 +57,7 @@ void Self_Tile::ChangeTile(TileKind type)
 
 Character* Self_Tile::getCharacterOnThisTile()
 {
-	if (_CharacterOnThisTile)
+	if (_CharacterOnThisTile != nullptr)
 		return _CharacterOnThisTile;
 	else
 		return nullptr;
