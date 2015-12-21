@@ -106,6 +106,13 @@ enum EventType
 #define FILENAME_IMG_ATTACK_POWER_6 "6.png"
 #define FILENAME_IMG_BATTLE_INDICATOR "battle.png"
 
+#define FILENAME_IMG_DICE_1 "UI/dice1.png"
+#define FILENAME_IMG_DICE_2 "UI/dice2.png"
+#define FILENAME_IMG_DICE_3 "UI/dice3.png"
+#define FILENAME_IMG_DICE_4 "UI/dice4.png"
+#define FILENAME_IMG_DICE_5 "UI/dice5.png"
+#define FILENAME_IMG_DICE_6 "UI/dice6.png"
+
 //UI IMAGE
 #define FILENAME_IMG_UI_OUTER_BAR				"bar.png"
 #define FILENAME_IMG_UI_UPPER_BAR				"ui_bar.png"

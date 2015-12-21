@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "DiceDice.h"
 #include "TileMap.h"
+#include "Character.h"
 
 DiceDice* DiceDice::_Inst = nullptr;
 
@@ -19,9 +20,9 @@ int DiceDice::RollDiceBetween(int start, int end)
 	return result;
 }
 
-void DiceDice::DisplayDiceOnScreen(int num)
+void DiceDice::DisplayDiceOnScreen(Character* character, int num)
 {
-	//추후추가
+
 }
 
 void DiceDice::RemoveDiceFromScreen(cocos2d::Label* numToDisplay)
