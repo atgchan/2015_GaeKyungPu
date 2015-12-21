@@ -192,18 +192,6 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>red/spear_R_u_00.png</filename>
-            <filename>red/spear_R_u_01.png</filename>
-            <filename>red/spear_R_u_02.png</filename>
-            <filename>red/spear_R_u_03.png</filename>
-            <filename>red/spear_R_u_attack_00.png</filename>
-            <filename>red/spear_R_u_attack_01.png</filename>
-            <filename>red/spear_R_u_attack_02.png</filename>
-            <filename>red/spear_R_u_attack_03.png</filename>
-            <filename>red/spear_R_u_behit_00.png</filename>
-            <filename>red/spear_R_u_behit_01.png</filename>
-            <filename>red/spear_R_u_move_00.png</filename>
-            <filename>red/spear_R_u_move_01.png</filename>
             <filename>red/spear_R_d_00.png</filename>
             <filename>red/spear_R_d_01.png</filename>
             <filename>red/spear_R_d_02.png</filename>
@@ -264,6 +252,19 @@
             <filename>red/spear_R_ru_behit_01.png</filename>
             <filename>red/spear_R_ru_move_00.png</filename>
             <filename>red/spear_R_ru_move_01.png</filename>
+            <filename>red/spear_R_u_00.png</filename>
+            <filename>red/spear_R_u_01.png</filename>
+            <filename>red/spear_R_u_02.png</filename>
+            <filename>red/spear_R_u_03.png</filename>
+            <filename>red/spear_R_u_attack_00.png</filename>
+            <filename>red/spear_R_u_attack_01.png</filename>
+            <filename>red/spear_R_u_attack_02.png</filename>
+            <filename>red/spear_R_u_attack_03.png</filename>
+            <filename>red/spear_R_u_behit_00.png</filename>
+            <filename>red/spear_R_u_behit_01.png</filename>
+            <filename>red/spear_R_u_move_00.png</filename>
+            <filename>red/spear_R_u_move_01.png</filename>
+            <filename>red/캐릭터.psd</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
