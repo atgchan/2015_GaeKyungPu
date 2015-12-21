@@ -260,6 +260,10 @@ void GameSceneManager::KeyReleasedDispatcher(EventKeyboard::KeyCode keyCode, coc
 void GameSceneManager::MouseDownLater(cocos2d::EventMouse event, Self_Tile* clickedTile)
 {
 	setInputMode(true);
+	if (lastCharacter != nullptr)
+		if (lastCharacter->getCurrentDirection() != lastDirection)
+			return;
+	auto asfdda = event.getMouseButton();
 
 	switch (event.getMouseButton())
 	{
@@ -629,6 +633,10 @@ void GameSceneManager::RotateToDirection(Character* character, RotateDirection r
 	}
 
 	character->ShowMovableTile();
+	_Nodes->runAction(
+		Sequence::create(
+		DelayTime::create(0.2),
+		CallFunc::create(CC_CALLBACK_0(GameSceneManager::ResetLastCharacter, this)), nullptr));
 }
 
 void GameSceneManager::RemoveCursor()
