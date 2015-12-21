@@ -385,7 +385,7 @@ void GameSceneManager::SelectCharacter(Character* character)
 		indicator->setName("indicator");
 		indicator->setZOrder(11);
 		indicator->setAnchorPoint(Vec2(0, 0));
-		indicator->setPosition(posX-5, posY + 90);
+		indicator->setPosition(posX-10, posY + 110);
 
 		character->ShowMovableTile();
 
@@ -405,7 +405,7 @@ void GameSceneManager::SelectBarrack(Self_Tile* tile)
 		indicator->setName("indicator");
 		indicator->setZOrder(11);
 		indicator->setAnchorPoint(Vec2(0, 0));
-		indicator->setPosition(posX + 70, posY + 120);
+		indicator->setPosition(posX + 70, posY + 130);
 
 		ShowSpawnableTile(tile);
 
