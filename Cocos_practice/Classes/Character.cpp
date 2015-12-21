@@ -25,6 +25,7 @@ Character* Character::create(PlayerInfo cPInfo, DirectionKind spriteNum)
 	character->init();
 	character->runAction(Animate::create(animationDefault));
 	character->setName("character");
+	character->setAnchorPoint(Vec2(0.5f, 0.817f));
 	return character;
 }
 
@@ -80,7 +81,7 @@ void Character::CharacterBeHit()
 	FiniteTimeAction* seq = Sequence::create(actionBeHit, actionDefault, NULL);
 	init();
 	stopAllActions();
-	setAnchorPoint(Vec2(0.5f, 0.13f));
+	setAnchorPoint(Vec2(0.5f, 0.817f));
 
 	runAction(seq);
 }
@@ -97,7 +98,7 @@ void Character::CharacterAttack()
 
 	init();
 	stopAllActions();
-	setAnchorPoint(Vec2(0.5f, 0.13f));
+	setAnchorPoint(Vec2(0.5f, 0.817f));
 
 	runAction(seq);
 }
