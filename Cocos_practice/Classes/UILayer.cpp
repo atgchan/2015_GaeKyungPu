@@ -173,4 +173,5 @@ void UILayer::toggleTurn()
 		usrn = FILENAME_IMG_UI_RED;
 	_TurnLabel->setSpriteFrame(usrn);
 	GM->ToggleTurn();
+	GM->setInputMode(true);
 }
