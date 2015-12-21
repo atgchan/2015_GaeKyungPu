@@ -776,11 +776,11 @@
                 <key>spriteOffset</key>
                 <string>{0,0}</string>
                 <key>spriteSize</key>
-                <string>{20,20}</string>
+                <string>{27,27}</string>
                 <key>spriteSourceSize</key>
-                <string>{20,20}</string>
+                <string>{27,27}</string>
                 <key>textureRect</key>
-                <string>{{1953,701},{20,20}}</string>
+                <string>{{1994,624},{27,27}}</string>
                 <key>textureRotated</key>
                 <false/>
             </dict>
@@ -839,7 +839,7 @@
             <key>size</key>
             <string>{2023,827}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:7efc09e9f51890cecc1750e7665ed5e2:f4a0b3c2aa91881a45a6faca4cb71f70:3e0f0e92f2f84ea30987345b50041ca2$</string>
+            <string>$TexturePacker:SmartUpdate:e156dbff307ad2d051947b18ef5f923e:90a11a02ddd35cd80fca6d36cee23e6d:3e0f0e92f2f84ea30987345b50041ca2$</string>
             <key>textureFileName</key>
             <string>ui_image.png</string>
         </dict>
