@@ -118,7 +118,7 @@ Animation* CharacterAnimation::CreateAnimationMove(PlayerInfo cPInfo, DirectionK
 	animation->addSpriteFrame(frameArray[0]);
 	animation->addSpriteFrame(frameArray[1]);
 
-	animation->setLoops(8);
+	animation->setLoops(5);
 	return animation;
 }
 
