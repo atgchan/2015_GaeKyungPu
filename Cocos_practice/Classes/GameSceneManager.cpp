@@ -246,9 +246,9 @@ void GameSceneManager::KeyReleasedDispatcher(EventKeyboard::KeyCode keyCode, coc
 			for (auto iter : *characterList)
 			{
 				if (_DebugMode == DEBUG_MODE_OFF)
-					iter->_RotateResource = ROTATE_RESOURCE_DEBUG_MODE;
-				if (_DebugMode == DEBUG_MODE_ON)
 					iter->_RotateResource = ROTATE_RESOURCE_DEFAULT;
+				if (_DebugMode == DEBUG_MODE_ON)
+					iter->_RotateResource = ROTATE_RESOURCE_DEBUG_MODE;
 			}
 		}
 	}
