@@ -185,7 +185,17 @@ void GameSceneManager::MoveCharacterByClick(Self_Tile* clickedTile)
 
 		_CharacterToMove = nullptr;
 		_ReadyToMove = false;
-		Unselect();
+		
+		_Nodes->runAction(
+			Sequence::create(
+				DelayTime::create(0.25),
+				CallFunc::create([this](){
+					Unselect();
+				}),
+				nullptr));
+
+		
+		
 		return;
 	}
 
@@ -375,7 +385,7 @@ void GameSceneManager::SelectCharacter(Character* character)
 		indicator->setName("indicator");
 		indicator->setZOrder(11);
 		indicator->setAnchorPoint(Vec2(0, 0));
-		indicator->setPosition(posX-5, posY + 90);
+		indicator->setPosition(posX-10, posY + 110);
 
 		this->_Nodes->addChild(indicator);
 
@@ -396,7 +406,7 @@ void GameSceneManager::SelectBarrack(Self_Tile* tile)
 		indicator->setName("indicator");
 		indicator->setZOrder(11);
 		indicator->setAnchorPoint(Vec2(0, 0));
-		indicator->setPosition(posX + 70, posY + 120);
+		indicator->setPosition(posX + 70, posY + 130);
 
 		ShowSpawnableTile(tile);
 
@@ -454,7 +464,7 @@ void GameSceneManager::TrimZorderAndRefreshAP()
 	for (auto iter : TileMap::getInstance()->getChildren())
 		if (iter->getName() == "character")
 		{
-			iter->setZOrder(-100 * iter->getPositionY() + 12000);
+			iter->setZOrder(-100 * iter->getPositionY() + 11000);
 			Character* tCharacter = static_cast<Character*>(iter);
 			tCharacter->setAttackPowerBallNameFromNumber(tCharacter->getAttackPowerToDisplay());
 		}
