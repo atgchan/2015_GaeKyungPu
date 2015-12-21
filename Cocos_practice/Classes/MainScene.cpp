@@ -37,8 +37,8 @@ bool MainScene::init()
 
 	auto mainMenu = Menu::create(menu_play, menu_exit, nullptr);
 	mainMenu->alignItemsVertically();
-	menu_play->setPositionY(menu_play->getPositionY() + 30);
-	menu_exit->setPositionY(menu_exit->getPositionY() - 30);
+	menu_play->setPositionY(menu_play->getPositionY() + 30 - 100);
+	menu_exit->setPositionY(menu_exit->getPositionY() - 30 - 100);
 	mainMenu->setPositionY(mainMenu->getPositionY() - 100);
 
 	this->addChild(mainMenu);
