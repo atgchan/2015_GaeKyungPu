@@ -459,6 +459,28 @@ void GameSceneManager::TrimZorderAndRefreshAP()
 		}
 }
 
+
+
+std::string getRotateBtnNameByDirection(DirectionKind direction)
+{
+	switch (direction)
+	{
+	case DIRECTION_DOWN_LEFT:
+		return FILENAME_IMG_BUTTON_TURN_DOWN_LEFT;
+	case DIRECTION_DOWN:
+		return FILENAME_IMG_BUTTON_TURN_DOWN;
+	case DIRECTION_DOWN_RIGHT:
+		return FILENAME_IMG_BUTTON_TURN_DOWN_RIGHT;
+	case DIRECTION_UP_RIGHT:
+		return FILENAME_IMG_BUTTON_TURN_UP_RIGHT;
+	case DIRECTION_UP:
+		return FILENAME_IMG_BUTTON_TURN_UP;
+	case DIRECTION_UP_LEFT:
+		return FILENAME_IMG_BUTTON_TURN_UP_LEFT;
+	}
+}
+
+
 void GameSceneManager::SetRotateButton(Character* character)
 {
 	if (this->_Nodes->getChildByName("rotateBtn"))
@@ -467,10 +489,10 @@ void GameSceneManager::SetRotateButton(Character* character)
 	float posX = character->getPositionX();
 	float posY = character->getPositionY();
 
-	Sprite* rotateLeft = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_TURN_LEFT);
-	Sprite* rotateLeftClicked = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_TURN_LEFT_CLICKED);
-	Sprite* rotateRight = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_TURN_RIGHT);
-	Sprite* rotateRightClicked = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_TURN_RIGHT_CLICKED);
+	Sprite* rotateLeft = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_TURN_DOWN_LEFT);
+	Sprite* rotateLeftClicked = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_TURN_DOWN_LEFT_CLICKED);
+	Sprite* rotateRight = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_TURN_UP_RIGHT);
+	Sprite* rotateRightClicked = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_TURN_UP_RIGHT_CLICKED);
 
 	MenuItemSprite* rotateLeftButton = MenuItemSprite::create(rotateLeft, rotateLeftClicked, CC_CALLBACK_0(GameSceneManager::RotateToDirection, this, character, ROTATE_LEFT));
 	MenuItemSprite* rotateRightButton = MenuItemSprite::create(rotateRight, rotateRightClicked, CC_CALLBACK_0(GameSceneManager::RotateToDirection, this, character, ROTATE_RIGHT));
