@@ -1,8 +1,10 @@
 # TESTuDO
 ##update note
-v0.2.1
+v0.9.0
 
-![image](http://ref.comgal.info/data/cgref_4/%EC%9D%B4%EB%AF%B8%EC%A7%80_17.png)
+![image](http://ref.comgal.info/data/cgref_4/%ED%83%80%EC%9D%B4%ED%8B%80.png)
+![image](http://ref.comgal.info/data/cgref_4/%EC%B5%9C%EC%8B%A0%EB%B2%84%EC%A0%84%EB%85%B8%EC%A3%BC%EC%82%AC%EC%9C%84.png)
+![image](http://ref.comgal.info/data/cgref_4/%EC%B5%9C%EC%8B%A0%EB%B2%84%EC%A0%84%EC%A3%BC%EC%82%AC%EC%9C%84.png)
 
 * UI 개선
     + 병사 회전 - 병사 회전 버튼이 더 크고 직관적으로 변경되었습니다.
