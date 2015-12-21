@@ -220,7 +220,7 @@ void Character::InitAttackPowerSprite()
 	_AttackPowerBall->setName("attackPower");
 	_AttackPowerBall->setAnchorPoint(Vec2(0, 0));
 	_AttackPowerBall->setPosition(posX + 25, posY + 80);
-
+	_AttackPowerBall->setZOrder(11);
 	this->addChild(_AttackPowerBall);
 }
 

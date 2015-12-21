@@ -283,7 +283,13 @@ void GameSceneManager::MouseDownDispatcher(cocos2d::EventMouse *event)
 		return;
 	Self_Tile* clickedTile = getTileFromMouseEvent(event);
 	if (clickedTile == nullptr)
+	{
+		_Nodes->runAction(
+			Sequence::create(
+			DelayTime::create(0.1),
+			CallFunc::create(CC_CALLBACK_0(GameSceneManager::Unselect, this)), nullptr));
 		return;
+	}
 	if (DraftNewCharacterByClick(clickedTile))
 		return;
 	if (clickedTile->getCharacterOnThisTile() != nullptr)
@@ -295,7 +301,7 @@ void GameSceneManager::MouseDownDispatcher(cocos2d::EventMouse *event)
 	setInputMode(false);
 	_Nodes->runAction(
 		Sequence::create(
-		DelayTime::create(0.15),
+		DelayTime::create(0.1),
 		CallFunc::create(CC_CALLBACK_0(GameSceneManager::MouseDownLater, this, copiedEvent, clickedTile)), nullptr));
 
 }
@@ -419,7 +425,7 @@ void GameSceneManager::SelectCharacter(Character* character)
 		indicator->setName("indicator");
 		indicator->setZOrder(11);
 		indicator->setAnchorPoint(Vec2(0, 0));
-		indicator->setPosition(posX-10, posY + 110);
+		indicator->setPosition(posX - 10, posY + 110);
 
 		this->_Nodes->addChild(indicator);
 
@@ -560,22 +566,22 @@ void GameSceneManager::SetRotateButton(Character* character)
 	switch (direction)
 	{
 	case DIRECTION_DOWN_LEFT:
-		lposX -= 0;
-		lposY -= 0;
-		rposX -= 0;
-		rposY -= 0;
+		lposX -= 45;
+		lposY -= 45;
+		rposX -= 120;
+		rposY += 20;
 		break;
 	case DIRECTION_DOWN:
-		lposX -= 0;
-		lposY -= 0;
-		rposX -= 0;
-		rposY -= 0;
+		lposX += 60;
+		lposY -= 45;
+		rposX -= 60;
+		rposY -= 45;
 		break;
 	case DIRECTION_DOWN_RIGHT:
-		lposX -= 0;
+		lposX += 120;
 		lposY -= 0;
-		rposX -= 0;
-		rposY -= 0;
+		rposX += 60;
+		rposY -= 45;
 		break;
 	case DIRECTION_UP_RIGHT:
 		lposX += 70;
@@ -584,19 +590,26 @@ void GameSceneManager::SetRotateButton(Character* character)
 		rposY -= 10;
 		break;
 	case DIRECTION_UP:
-		lposX -= 0;
-		lposY -= 0;
-		rposX -= 0;
-		rposY -= 0;
+		lposX -= 70;
+		lposY += 60;
+		rposX += 70;
+		rposY += 60;
+		break;
+	case DIRECTION_UP_LEFT:
+		lposX -= 120;
+		lposY += 20;
+		rposX -= 50;
+		rposY += 80;
 		break;
 	}
+	
 	rotateLeftButton->setPosition(lposX, lposY);
 	rotateRightButton->setPosition(rposX, rposY);
 
 	Menu* rotateMenu = Menu::create(rotateLeftButton, rotateRightButton, NULL);
 	rotateMenu->setName("rotateBtn");
 	rotateMenu->setPosition(Vec2::ZERO);
-	rotateMenu->setZOrder(15);
+	rotateMenu->setZOrder(10);
 
 	this->AddChild(rotateMenu);
 }
