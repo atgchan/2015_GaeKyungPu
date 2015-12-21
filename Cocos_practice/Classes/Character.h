@@ -57,6 +57,7 @@ private:
 	CC_SYNTHESIZE(PlayerInfo, CurrentPlayerInfo, CurrentPlayerInfo);
 	CC_SYNTHESIZE(AnimationState, AnimState, AnimState);
 	
+	int		_RotateResource;
 	int		_AttackPowerToDisplay = ATTACK_POWER_DEFAULT;
 	cocos2d::Sprite* _AttackPowerBall;
 	void setAttackPowerBallNameFromNumber(int);

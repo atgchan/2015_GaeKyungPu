@@ -237,6 +237,23 @@ void GameSceneManager::KeyReleasedDispatcher(EventKeyboard::KeyCode keyCode, coc
 	}
 	break;
 
+	case EventKeyboard::KeyCode::KEY_R:
+	{
+		_DebugMode = !(_DebugMode);
+		for (int i = 0; i < NUM_OF_PLAYER; ++i)
+		{
+			auto characterList = _PlayerData[i]->getCharacterList();
+			for (auto iter : *characterList)
+			{
+				if (_DebugMode == DEBUG_MODE_OFF)
+					iter->_RotateResource = ROTATE_RESOURCE_DEBUG_MODE;
+				if (_DebugMode == DEBUG_MODE_ON)
+					iter->_RotateResource = ROTATE_RESOURCE_DEFAULT;
+			}
+		}
+	}
+	break;
+
 	default:
 		break;
 	}
@@ -496,6 +513,9 @@ void GameSceneManager::SetRotateButton(Character* character)
 	if (this->_Nodes->getChildByName("rotateBtn"))
 		return;
 
+	if (character->_RotateResource <= 0)
+		return;
+
 	float posX = character->getPositionX();
 	float posY = character->getPositionY();
 
@@ -524,6 +544,13 @@ void GameSceneManager::RotateToDirection(Character* character, RotateDirection r
 	character->RotateToDirection(rotateDirection);
 	while (TileMap::getInstance()->getChildByName("moveable"))
 		TileMap::getInstance()->removeChildByName("moveable");
+
+	if (character->_RotateResource <= 0)
+	{
+		while (this->_Nodes->getChildByName("rotateBtn"))
+			this->_Nodes->removeChildByName("rotateBtn");
+	}
+
 	character->ShowMovableTile();
 }
 

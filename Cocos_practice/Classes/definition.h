@@ -76,6 +76,11 @@ enum EventType
 };
 
 #define ATTACK_POWER_DEFAULT 2
+#define ROTATE_RESOURCE_DEFAULT 1
+#define ROTATE_RESOURCE_DEBUG_MODE 100
+
+#define DEBUG_MODE_ON true
+#define DEBUG_MODE_OFF false
 
 //SOUND - ogg, mp3, wav able
 #define FILENAME_SOUND_MAIN_BGM		"Sound/22-forever-credits-.wav"
