@@ -2,6 +2,7 @@
 #include "HistoryEventRotateCharacter.h"
 #include "Character.h"
 #include "CharacterAnimation.h"
+#include "GameSceneManager.h"
 
 HistoryEventRotateCharacter::HistoryEventRotateCharacter()
 {
@@ -30,5 +31,6 @@ void HistoryEventRotateCharacter::Run()
 	_CharacterToRotate->runAction(Animate::create(animationDefault));
 	_CharacterToRotate->setCurrentDirectionToShow(_DirectionToRotate);
 	_CharacterToRotate->setAttackPowerToDisplay(_AttackPowerToShow);
+
 	SetDone(true);
 }
