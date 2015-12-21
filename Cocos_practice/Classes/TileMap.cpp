@@ -109,7 +109,7 @@ void TileMap::setCharacterOnTile(Character* character, Self_Tile* tile, bool mov
 	float xPos = tile->getPositionX();
 	float yPos = tile->getPositionY();
 
-	character->setPosition(xPos +80, yPos +60);
+	character->setPosition(xPos +84, yPos +60);
 	if(!moveMode)
 		addChild(character);
 }
