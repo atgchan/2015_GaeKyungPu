@@ -80,7 +80,7 @@ enum EventType
 //SOUND - ogg, mp3, wav able
 #define FILENAME_SOUND_MAIN_BGM		"Sound/22-forever-credits-.wav"
 
-#define FILENAME_SOUND_GAME_BGM		"Sound/battle.wav"
+#define FILENAME_SOUND_GAME_BGM		"Sound/main_bg.wav"
 #define FILENAME_SOUND_GAME_SWORD	"Sound/swords.wav"
 #define FILENAME_SOUND_GAME_MOVE	"Sound/Jump_03.wav"
 #define FILENAME_SOUND_GAME_KILL	"Sound/Hit_03.wav"
