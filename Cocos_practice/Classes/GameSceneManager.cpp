@@ -278,7 +278,7 @@ void GameSceneManager::MouseDownDispatcher(cocos2d::EventMouse *event)
 	setInputMode(false);
 	_Nodes->runAction(
 		Sequence::create(
-		DelayTime::create(0.1),
+		DelayTime::create(0.15),
 		CallFunc::create(CC_CALLBACK_0(GameSceneManager::MouseDownLater, this, copiedEvent, clickedTile)), nullptr));
 
 }
