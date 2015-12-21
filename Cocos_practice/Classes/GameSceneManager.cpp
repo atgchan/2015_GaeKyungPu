@@ -453,7 +453,7 @@ void GameSceneManager::TrimZorderAndRefreshAP()
 	for (auto iter : TileMap::getInstance()->getChildren())
 		if (iter->getName() == "character")
 		{
-			iter->setZOrder(-100 * iter->getPositionY() + 12000);
+			iter->setZOrder(-100 * iter->getPositionY() + 11000);
 			Character* tCharacter = static_cast<Character*>(iter);
 			tCharacter->setAttackPowerBallNameFromNumber(tCharacter->getAttackPowerToDisplay());
 		}
