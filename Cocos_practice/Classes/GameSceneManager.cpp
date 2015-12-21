@@ -185,7 +185,17 @@ void GameSceneManager::MoveCharacterByClick(Self_Tile* clickedTile)
 
 		_CharacterToMove = nullptr;
 		_ReadyToMove = false;
-		Unselect();
+		
+		_Nodes->runAction(
+			Sequence::create(
+				DelayTime::create(0.25),
+				CallFunc::create([this](){
+					Unselect();
+				}),
+				nullptr));
+
+		
+		
 		return;
 	}
 
