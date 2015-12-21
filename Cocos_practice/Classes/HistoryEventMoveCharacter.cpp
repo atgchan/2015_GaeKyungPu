@@ -30,7 +30,7 @@ void HistoryEventMoveCharacter::Run()
 	Animation* animationMove = CharacterAnimation::getInstance()->getAnimationMove(_CharacterToMove->GetOwnerPlayer(), _CharacterToMove->getCurrentDirectionToShow());
 	ActionInterval* actionMove = Animate::create(animationMove);
 
-	ActionInterval* moveTo = MoveTo::create(1, Vec2(_TargetTile->getPositionX() + 80, _TargetTile->getPositionY() + 81));
+	ActionInterval* moveTo = MoveTo::create(1, Vec2(_TargetTile->getPositionX() + 80, _TargetTile->getPositionY() + 63));
 
 	//검토가 필요함
 	//cocos2d::CallFunc* nextCall = CallFunc::create(CC_CALLBACK_0(Character::setCurrentDirectionToShow,_CharacterToMove,_CharacterToMove->getCurrentDirection()));
