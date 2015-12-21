@@ -303,3 +303,12 @@ void Character::CalculateAttackPowerAllNearTile(bool displayAlso /*= false*/)
 {
 	this->getCurrentTile()->CaculateAttackPowerAllNearTile(displayAlso);
 }
+
+void Character::resetRotateResource()
+{
+	if (GM->_DebugMode == DEBUG_MODE_OFF)
+		_RotateResource = ROTATE_RESOURCE_DEFAULT;
+
+	if (GM->_DebugMode == DEBUG_MODE_ON)
+		_RotateResource = ROTATE_RESOURCE_DEBUG_MODE;
+}

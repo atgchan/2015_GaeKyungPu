@@ -308,7 +308,11 @@ PlayerData* GameSceneManager::getCurrentPlayerData()
 void GameSceneManager::ChangePlayer()
 {
 	if (_CurrentPlayer == PLAYER_RED || _CurrentPlayer == PLAYER_BLUE)
+	{
 		_CurrentPlayer = (PlayerInfo)((_CurrentPlayer + 1) % 2);
+		ResetRotateResource();
+	}
+	
 	else
 		Director::getInstance()->end();
 }
@@ -630,4 +634,13 @@ void GameSceneManager::RemoveCursor()
 			}
 		}
 	}
+}
+
+void GameSceneManager::ResetRotateResource()
+{
+	for (auto iter : TileMap::getInstance()->getChildren())
+		if (iter->getName() == "character")
+		{
+			static_cast<Character*>(iter)->resetRotateResource();
+		}
 }

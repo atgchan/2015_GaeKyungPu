@@ -131,4 +131,5 @@ private:
 	void		RotateToDirection(Character* character, RotateDirection rotateDirection);
 	void		RemoveCursor();
 	void MouseDownLater(cocos2d::EventMouse event, Self_Tile* clickedTile);
+	void ResetRotateResource();
 };

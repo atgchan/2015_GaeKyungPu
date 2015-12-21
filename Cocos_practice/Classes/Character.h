@@ -44,6 +44,7 @@ public:
 	int					CalculateDiffBetweenDirections(DirectionKind dir1, DirectionKind dir2);
 	void				CalculateAttackPower(bool displayAlso = false);
 	void				CalculateAttackPowerAllNearTile(bool displayAlso = false);
+	void				resetRotateResource();
 	~Character();
 
 private:
