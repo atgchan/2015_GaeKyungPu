@@ -83,6 +83,7 @@ public:
 	void		setInputMode(bool mode);
 
 	bool		getIsInputAble();
+	bool		_DebugMode = false;
 	~GameSceneManager();
 
 private:

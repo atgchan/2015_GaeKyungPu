@@ -234,6 +234,23 @@ void GameSceneManager::KeyReleasedDispatcher(EventKeyboard::KeyCode keyCode, coc
 	}
 	break;
 
+	case EventKeyboard::KeyCode::KEY_R:
+	{
+		_DebugMode = !(_DebugMode);
+		for (int i = 0; i < NUM_OF_PLAYER; ++i)
+		{
+			auto characterList = _PlayerData[i]->getCharacterList();
+			for (auto iter : *characterList)
+			{
+				if (_DebugMode == DEBUG_MODE_OFF)
+					iter->_RotateResource = ROTATE_RESOURCE_DEFAULT;
+				if (_DebugMode == DEBUG_MODE_ON)
+					iter->_RotateResource = ROTATE_RESOURCE_DEBUG_MODE;
+			}
+		}
+	}
+	break;
+
 	default:
 		break;
 	}
@@ -402,11 +419,12 @@ void GameSceneManager::SelectCharacter(Character* character)
 		indicator->setName("indicator");
 		indicator->setZOrder(11);
 		indicator->setAnchorPoint(Vec2(0, 0));
-		indicator->setPosition(posX - 5, posY + 90);
+		indicator->setPosition(posX-10, posY + 110);
+
+		this->_Nodes->addChild(indicator);
 
 		character->ShowMovableTile();
 
-		this->_Nodes->addChild(indicator);
 		SetRotateButton(character);
 	}
 }
@@ -422,7 +440,7 @@ void GameSceneManager::SelectBarrack(Self_Tile* tile)
 		indicator->setName("indicator");
 		indicator->setZOrder(11);
 		indicator->setAnchorPoint(Vec2(0, 0));
-		indicator->setPosition(posX + 70, posY + 120);
+		indicator->setPosition(posX + 70, posY + 130);
 
 		ShowSpawnableTile(tile);
 
@@ -521,7 +539,8 @@ void GameSceneManager::SetRotateButton(Character* character)
 {
 	if (this->_Nodes->getChildByName("rotateBtn"))
 		return;
-
+	if (character->_RotateResource <= 0)
+		return;
 	float lposX = character->getPositionX();
 	float lposY = character->getPositionY();
 	float rposX = lposX;
@@ -536,6 +555,7 @@ void GameSceneManager::SetRotateButton(Character* character)
 
 	MenuItemSprite* rotateLeftButton = MenuItemSprite::create(rotateLeft, rotateLeft, CC_CALLBACK_0(GameSceneManager::RotateToDirection, this, character, ROTATE_LEFT));
 	MenuItemSprite* rotateRightButton = MenuItemSprite::create(rotateRight, rotateRight, CC_CALLBACK_0(GameSceneManager::RotateToDirection, this, character, ROTATE_RIGHT));
+
 
 	switch (direction)
 	{
@@ -587,6 +607,13 @@ void GameSceneManager::RotateToDirection(Character* character, RotateDirection r
 	character->RotateToDirection(rotateDirection);
 	while (TileMap::getInstance()->getChildByName("moveable"))
 		TileMap::getInstance()->removeChildByName("moveable");
+
+	if (character->_RotateResource <= 0)
+	{
+		while (this->_Nodes->getChildByName("rotateBtn"))
+			this->_Nodes->removeChildByName("rotateBtn");
+	}
+
 	character->ShowMovableTile();
 }
 

@@ -76,6 +76,11 @@ enum EventType
 };
 
 #define ATTACK_POWER_DEFAULT 2
+#define ROTATE_RESOURCE_DEFAULT 1
+#define ROTATE_RESOURCE_DEBUG_MODE 100
+
+#define DEBUG_MODE_ON true
+#define DEBUG_MODE_OFF false
 
 //SOUND - ogg, mp3, wav able
 #define FILENAME_SOUND_MAIN_BGM		"Sound/22-forever-credits-.wav"
@@ -105,6 +110,13 @@ enum EventType
 #define FILENAME_IMG_ATTACK_POWER_5 "5.png"
 #define FILENAME_IMG_ATTACK_POWER_6 "6.png"
 #define FILENAME_IMG_BATTLE_INDICATOR "battle.png"
+
+#define FILENAME_IMG_DICE_1 "UI/dice1.png"
+#define FILENAME_IMG_DICE_2 "UI/dice2.png"
+#define FILENAME_IMG_DICE_3 "UI/dice3.png"
+#define FILENAME_IMG_DICE_4 "UI/dice4.png"
+#define FILENAME_IMG_DICE_5 "UI/dice5.png"
+#define FILENAME_IMG_DICE_6 "UI/dice6.png"
 
 //UI IMAGE
 #define FILENAME_IMG_UI_OUTER_BAR				"bar.png"
