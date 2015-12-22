@@ -6,6 +6,7 @@
 
 HistoryEventAttack::HistoryEventAttack()
 {
+	///# 생성자든 소멸자든 구현체가 없으면 아예 선언하지 마라.
 }
 
 

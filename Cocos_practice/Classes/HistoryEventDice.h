@@ -13,7 +13,7 @@ public:
 	void											Run();
 private:
 	Character*	_TargetCharacter = nullptr;
-	int _Num;
+	int _Num; ///# 마찬가지로 초기화.
 	Sprite* CreateDiceWithNumber();
 };
 
