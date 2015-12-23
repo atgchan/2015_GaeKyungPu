@@ -182,6 +182,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\Phase_Volcano.cpp" />
     <ClCompile Include="..\Classes\PlayerData.cpp" />
     <ClCompile Include="..\Classes\ResultLayer.cpp" />
+    <ClCompile Include="..\Classes\SelectScene.cpp" />
     <ClCompile Include="..\Classes\Self_Tile.cpp" />
     <ClCompile Include="..\Classes\TileMap.cpp" />
     <ClCompile Include="..\Classes\UILayer.cpp" />
@@ -220,6 +221,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\Phase_Volcano.h" />
     <ClInclude Include="..\Classes\PlayerData.h" />
     <ClInclude Include="..\Classes\ResultLayer.h" />
+    <ClInclude Include="..\Classes\SelectScene.h" />
     <ClInclude Include="..\Classes\Self_Tile.h" />
     <ClInclude Include="..\Classes\TileMap.h" />
     <ClInclude Include="..\Classes\UILayer.h" />

@@ -1,52 +1,58 @@
 #include "pch.h"
-#include "MainScene.h"
+#include "GameScene.h"
+#include "SelectScene.h"
 #include "SimpleAudioEngine.h"
 #include "definition.h"
-#include "SelectScene.h"
 
-Scene* MainScene::CreateScene()
+Scene* SelectScene::CreateScene()
 {
 	auto scene = Scene::create();
-	auto layer = MainScene::create();
+	auto layer = SelectScene::create();
 	scene->addChild(layer);
 
 	return scene;
 }
 
-bool MainScene::init()
+bool SelectScene::init()
 {
 	if (!Layer::init())
-	{
 		return false;
-	}
-	this->setName("MainScene");
+
+	this->setName("SelectScene");
+	
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	CCSprite * background = CCSprite::create(FILENAME_IMG_MAIN_BACKGROUND);
+	Sprite* background = CCSprite::create(FILENAME_IMG_MAIN_BACKGROUND);
 	background->setScaleX((visibleSize.width / background->getContentSize().width) * 1);
 	background->setScaleY((visibleSize.height / background->getContentSize().height) * 1);
 	background->setAnchorPoint(Point(0,0));
 	this->addChild(background);
 
-	Label* btnLabelStart = Label::createWithTTF("start ", FILENAME_FONT_MAINMENU, 80);
-	Label* btnLabelExit = Label::createWithTTF("exit ", FILENAME_FONT_MAINMENU, 80);
+	Label* title = Label::createWithTTF("color Select", FILENAME_FONT_MAINMENU, 80);
+	title->setPosition(visibleSize.width / 2, visibleSize.height * 3 / 4);
+	this->addChild(title);
 
-	MenuItemLabel* menu_play = MenuItemLabel::create(btnLabelStart, CC_CALLBACK_1(MainScene::MenuClickCallback, this));
-	MenuItemLabel* menu_exit = MenuItemLabel::create(btnLabelExit, CC_CALLBACK_1(MainScene::MenuCloseCallback, this));
+	Label* labelPrev = Label::createWithTTF("prev", FILENAME_FONT_MAINMENU, 40);
+	Label* labelNext = Label::createWithTTF("next", FILENAME_FONT_MAINMENU, 40);
 
-	auto mainMenu = Menu::create(menu_play, menu_exit, nullptr);
+	Label* btnLabelExit = Label::createWithTTF("exit", FILENAME_FONT_MAINMENU, 80);
+
+	MenuItemLabel* menu_prev = MenuItemLabel::create(labelPrev, CC_CALLBACK_1(SelectScene::MenuClickCallback, this));
+	MenuItemLabel* menu_next = MenuItemLabel::create(labelNext, CC_CALLBACK_1(SelectScene::MenuCloseCallback, this));
+
+	auto mainMenu = Menu::create(menu_prev, menu_next, nullptr);
 	mainMenu->alignItemsVertically();
-	menu_play->setPositionY(menu_play->getPositionY() + 30 - 100);
-	menu_exit->setPositionY(menu_exit->getPositionY() - 30 - 100);
-	mainMenu->setPositionY(mainMenu->getPositionY() - 100);
+	menu_prev->setPosition(visibleSize.width/4, visibleSize.height/2);
+	menu_next->setPosition(visibleSize.width *3/4, visibleSize.height / 2);
+	mainMenu->setPosition(Vec2::ZERO);
 
 	this->addChild(mainMenu);
 
 //	Keyboard Event
 	auto keyListener = EventListenerKeyboard::create();
-	keyListener->onKeyPressed = CC_CALLBACK_2(MainScene::OnKeyPressed, this);
-	keyListener->onKeyReleased = CC_CALLBACK_2(MainScene::OnKeyReleased, this);
+	keyListener->onKeyPressed = CC_CALLBACK_2(SelectScene::OnKeyPressed, this);
+	keyListener->onKeyReleased = CC_CALLBACK_2(SelectScene::OnKeyReleased, this);
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(keyListener, this);
 
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic(FILENAME_SOUND_MAIN_BGM,true);
@@ -54,13 +60,13 @@ bool MainScene::init()
 	return true;
 }
 
-void MainScene::MenuClickCallback(cocos2d::Ref* pSender)
+void SelectScene::MenuClickCallback(cocos2d::Ref* pSender)
 {
-	cocos2d::Scene* gameScene = SelectScene::CreateScene();
+	cocos2d::Scene* gameScene = GameScene::CreateScene();
 	Director::getInstance()->pushScene(gameScene);
 }
 
-void MainScene::MenuCloseCallback(cocos2d::Ref* pSender)
+void SelectScene::MenuCloseCallback(cocos2d::Ref* pSender)
 {
 	Director::getInstance()->end();
 
@@ -69,7 +75,7 @@ void MainScene::MenuCloseCallback(cocos2d::Ref* pSender)
 #endif
 }
 
-void MainScene::OnKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
+void SelectScene::OnKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 {
 	/*auto target = event->getCurrentTarget()->getChildByName("cursor");
 	Vec2 loc = target->getPosition();
@@ -86,7 +92,7 @@ void MainScene::OnKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 	}*/
 }
 
-void MainScene::OnKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
+void SelectScene::OnKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 {
 	/*auto target = event->getCurrentTarget()->getChildByName("cursor");
 	Vec2 loc = target->getPosition();
