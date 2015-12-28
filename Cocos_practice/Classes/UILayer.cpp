@@ -165,6 +165,9 @@ void UILayer::SelectCharacter(Character* character)
 
 void UILayer::toggleTurn()
 {
+	if (GM->getIsInputAble() == false)
+		return;
+
 	PlayerInfo pInfo = GM->getCurrentPlayer();
 	std::string usrn = "";
 	if (pInfo == PLAYER_RED)
