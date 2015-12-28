@@ -263,13 +263,11 @@ void GameSceneManager::MouseDownDispatcher(cocos2d::EventMouse *event)
 	if (_IsInputAble == false)
 		return;
 
+	Unselect();
 	Self_Tile* clickedTile = getTileFromMouseEvent(event);
 	if (clickedTile == nullptr)
-	{
-		Unselect();
 		return;
-	}
-	
+
 	if (DraftNewCharacterByClick(clickedTile))
 		return;
 
@@ -546,6 +544,9 @@ void GameSceneManager::SetRotateButton(Character* character)
 
 void GameSceneManager::RotateToDirection(Character* character, RotateDirection rotateDirection)
 {
+	if (character->GetOwnerPlayer() != _CurrentPlayer)
+		return;
+
 	RemoveCursor();
 	character->RotateToDirection(rotateDirection);
 	
