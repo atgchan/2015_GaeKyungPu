@@ -257,7 +257,7 @@ void GameSceneManager::KeyReleasedDispatcher(EventKeyboard::KeyCode keyCode, coc
 }
 
 
-void GameSceneManager::MouseDownLater(cocos2d::EventMouse event, Self_Tile* clickedTile)
+void GameSceneManager::MouseDownLater(cocos2d::EventMouse event, Self_Tile* clickedTile) ///# EventMouse객체가 꽤 큰데, 이런 경우는 const &로 넘길것
 {
 	setInputMode(true);
 	if (lastCharacter != nullptr)
@@ -534,6 +534,8 @@ std::string getRotateBtnNameByDirection(DirectionKind direction)
 	case DIRECTION_UP_LEFT:
 		return FILENAME_IMG_BUTTON_TURN_UP_LEFT;
 	}
+
+	///# 여기에 도달한다면?? switch case를 사용할때는 항상 default 케이스를 생각할 것
 }
 
 DirectionKind LeftDirection(DirectionKind direction)
