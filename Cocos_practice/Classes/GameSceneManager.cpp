@@ -14,6 +14,7 @@
 #include "HistoryEventKillCharacter.h"
 #include "ResultLayer.h"
 #include "CharacterAnimation.h"
+#include "Odbc.h"
 
 //USING_NS_CC;
 #define COCOS2D_DEBUG 1
