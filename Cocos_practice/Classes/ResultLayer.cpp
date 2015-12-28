@@ -39,6 +39,9 @@ bool ResultLayer::init()
 	this->addChild(resultPage);
 	this->addChild(resultMenu);
 
+//#	resultTable SELECT results
+//#	print top 10 result
+
 	return true;
 }
 

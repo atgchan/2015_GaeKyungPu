@@ -36,10 +36,10 @@ bool GameScene::init()
 	this->addChild(background);
 	
 //이하 초기화 block은 상용구처럼 쓰이는 것이므로 바뀔 여지 x
-	//GameMaster의 인스턴스 저장. GameScene 안에서 계속 쓰인다.
+
 	GameSceneManager* gmInstance = GameSceneManager::getInstance();
-	//맵을 그리는 등의 게임 초기 셋팅을 한다.
-	gmInstance->InitializeGame();
+	//gmInstance->InitializeGame();
+	
 	//게임 내 모든 node들을 추가.아래와 같이 호출하면 된다.
 	this->addChild(gmInstance->getNodes());
 

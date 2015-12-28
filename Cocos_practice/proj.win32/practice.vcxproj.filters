@@ -97,6 +97,12 @@
     <ClCompile Include="..\Classes\SelectScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\LoginLayer.cpp">
+      <Filter>Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\odbc.cpp">
+      <Filter>Database\MySQL</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
@@ -196,6 +202,12 @@
     <ClInclude Include="..\Classes\SelectScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\LoginLayer.h">
+      <Filter>Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Odbc.h">
+      <Filter>Database\MySQL</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc" />
@@ -224,6 +236,12 @@
     </Filter>
     <Filter Include="Game\Map">
       <UniqueIdentifier>{6f5f64b4-8379-4726-b026-add212be820c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Database">
+      <UniqueIdentifier>{48cfbb27-f650-4459-812e-b5bbedfcb14d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Database\MySQL">
+      <UniqueIdentifier>{cded4e9c-bc0a-4abc-b273-010248ff4976}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -119,6 +119,8 @@ enum EventType
 #define FILENAME_IMG_DICE_6 "UI/dice6.png"
 
 //UI IMAGE
+#define FILENAME_IMG_UI_INPUT_BOX				"input_box.png"
+
 #define FILENAME_IMG_UI_OUTER_BAR				"bar.png"
 #define FILENAME_IMG_UI_UPPER_BAR				"ui_bar.png"
 #define FILENAME_IMG_UI_FLAG_RED				"flag_red.png"

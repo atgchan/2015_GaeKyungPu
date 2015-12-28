@@ -18,8 +18,15 @@ private:
 	void	MenuClickCallback(Ref* pSender);
 	void	MenuCloseCallback(Ref* pSender);
 
+	void	PopUpInputLayer(int type, int idnum);
+	void	SignUp();
+	void	SignIn(int playerNum);
+
 	void	OnKeyReleased(EventKeyboard::KeyCode keyCode, Event* event);
 	void	OnKeyPressed(EventKeyboard::KeyCode keyCode, Event* event);
+
+	int			_Id1P;
+	int			_Id2P;
 
 	std::array<std::string, 10> _ColorList;
 	std::array<std::string, 10> _UnitList;
