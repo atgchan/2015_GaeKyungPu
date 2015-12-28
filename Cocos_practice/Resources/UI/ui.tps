@@ -244,9 +244,6 @@
             <filename>rotate_6_clicked.png</filename>
             <filename>rotate_turn_4.png</filename>
             <filename>rotate_1.png</filename>
-<<<<<<< HEAD
-            <filename>input_box.png</filename>
-=======
             <filename>new_rotate_mouse.png</filename>
             <filename>new_rotate_mouse_2.png</filename>
             <filename>rotatable_not.png</filename>
@@ -257,7 +254,6 @@
             <filename>rotate_left.png</filename>
             <filename>rotate_left_clicked.png</filename>
             <filename>rotate_right.png</filename>
->>>>>>> master
         </array>
         <key>ignoreFileList</key>
         <array/>
