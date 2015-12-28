@@ -47,7 +47,7 @@ bool UILayer::init()
 	MenuItemSprite* sprOption = MenuItemSprite::create(optionButton, optionButton_clicked);
 	MenuItemSprite* sprOption_clicked = MenuItemSprite::create(optionButton_clicked2, optionButton2);
 	MenuItemToggle* optionToggle = MenuItemToggle::createWithCallback(CC_CALLBACK_1(UILayer::ShowOptionWindow, this), sprOption, sprOption_clicked, nullptr);
-	optionToggle->setPosition(Vec2(visibleSize.width - 100, visibleSize.height - 36));
+	optionToggle->setPosition(Vec2(visibleSize.width - 100, visibleSize.height - 33));
 	optionToggle->setName("option_toggle");
 
 	Menu* ingameMenu = Menu::create(toggleTurn, optionToggle, NULL);

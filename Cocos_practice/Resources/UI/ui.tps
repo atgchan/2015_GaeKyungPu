@@ -222,7 +222,6 @@
             <filename>anchor_ld.png</filename>
             <filename>anchor_lu.png</filename>
             <filename>anchor_rd.png</filename>
-            <filename>anchor.png</filename>
             <filename>result_window.png</filename>
             <filename>start_button_clicked.png</filename>
             <filename>start_button.png</filename>
@@ -252,6 +251,10 @@
             <filename>new_rotate_2.png</filename>
             <filename>new_rotate_2_clicked.png</filename>
             <filename>new_rotate_clicked.png</filename>
+            <filename>rotatable_not.png</filename>
+            <filename>rotatable.png</filename>
+            <filename>option_button_new.png</filename>
+            <filename>option_button_new_clicked.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
