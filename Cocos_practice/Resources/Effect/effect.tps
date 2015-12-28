@@ -196,7 +196,6 @@
             <filename>HitEffect/HitEffect_02.png</filename>
             <filename>HitEffect/HitEffect_03.png</filename>
             <filename>HitEffect/HitEffect_04.png</filename>
-            <filename>smoke.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

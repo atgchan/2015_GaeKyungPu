@@ -7,6 +7,7 @@
 #include "HistoryEventKillCharacter.h"
 #include "DiceDice.h"
 #include "HistoryEventDice.h"
+#include "HistoryEventRotateCharacter.h"
 
 void BattleManager::BattleBetween(Character* attacker, Character* defender)
 {
@@ -30,6 +31,7 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 		{
 			winner = &_CurrentAttackFormation;
 			loser = &_CurrentDefenseFormation;
+			EventManager::getInstance()->AddHistory(HistoryEventRotateCharacter::Create(loser->front(), static_cast<DirectionKind>((attacker->getCurrentDirection() + 3) % DIRECTION_MAX)));
 			EventManager::getInstance()->AddHistory(HistoryEventAttack::Create(_CurrentAttackFormation.front(), _CurrentDefenseFormation.front()));
 			loser->front()->RotateToDirection(static_cast<DirectionKind>((attacker->getCurrentDirection() + 3) % DIRECTION_MAX), false);
 		}
@@ -37,6 +39,8 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 		{
 			winner = &_CurrentDefenseFormation;
 			loser = &_CurrentAttackFormation;
+
+			EventManager::getInstance()->AddHistory(HistoryEventRotateCharacter::Create(winner->front(), static_cast<DirectionKind>((attacker->getCurrentDirection() + 3) % DIRECTION_MAX)));
 			EventManager::getInstance()->AddHistory(HistoryEventAttack::Create(_CurrentAttackFormation.front(), _CurrentDefenseFormation.front()));
 			EventManager::getInstance()->AddHistory(HistoryEventAttack::Create(_CurrentDefenseFormation.front(), _CurrentAttackFormation.front()));
 			winner->front()->RotateToDirection(static_cast<DirectionKind>((attacker->getCurrentDirection() + 3) % DIRECTION_MAX), false);

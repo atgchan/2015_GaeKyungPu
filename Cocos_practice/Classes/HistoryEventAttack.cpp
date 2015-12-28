@@ -6,6 +6,7 @@
 
 HistoryEventAttack::HistoryEventAttack()
 {
+	///# 생성자든 소멸자든 구현체가 없으면 아예 선언하지 마라.
 }
 
 
@@ -32,7 +33,7 @@ void HistoryEventAttack::Run()
 {
 	_CurrentX = _Attacker->getPositionX();
 	_CurrentY = _Attacker->getPositionY();
-	ActionInterval* moveTo = MoveTo::create(0.5, Vec2(_Defender->getPositionX(), _Defender->getPositionY()));
+	ActionInterval* moveTo = MoveTo::create(0.5, Vec2(_Defender->getPositionX() + ((_Defender->getPositionX() >_Attacker->getPositionX()) ? -10 : 10), _Defender->getPositionY() + ((_Defender->getPositionY()>_Attacker->getPositionY()) ? -10 : 10)));
 	ActionInterval* recover = MoveTo::create(0.3, Vec2(_CurrentX, _CurrentY));
 	Animation* animationAttack = CharacterAnimation::getInstance()->getAnimationAttack(_Attacker->GetOwnerPlayer(), _Attacker->getCurrentDirectionToShow());
 	ActionInterval* actionAttack = Animate::create(animationAttack);
