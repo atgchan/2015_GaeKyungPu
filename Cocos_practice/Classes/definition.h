@@ -121,8 +121,6 @@ enum EventType
 //UI IMAGE
 #define FILENAME_IMG_UI_OUTER_BAR				"bar.png"
 #define FILENAME_IMG_UI_UPPER_BAR				"ui_bar.png"
-#define FILENAME_IMG_UI_FLAG_RED				"flag_red.png"
-#define FILENAME_IMG_UI_FLAG_BLUE				"flag_blue.png"
 
 #define FILENAME_IMG_UI_GRAIN_INDICATOR			"grain_bar.png"
 #define FILENAME_IMG_UI_OPTION_WINDOW			"option_window.png"
@@ -136,9 +134,21 @@ enum EventType
 #define FILENAME_IMG_UI_RED						"turn_red.png"
 #define FILENAME_IMG_UI_BLUE					"turn_blue.png"
 
+
+#define FILENAME_IMG_UI_ROTATABLE				"rotatable.png"
+#define FILENAME_IMG_UI_ROTATABLE_NOT			"rotatable_not.png"
+
 //UI_BUTTON
 #define FILENAME_IMG_BUTTON_ENDTURN				"end_turn.png"
 #define FILENAME_IMG_BUTTON_ENDTURN_CLICKED		"end_turn_clicked.png"
+
+#define FILENAME_IMG_BUTTON_TURN_LEFT_MOUSE				"new_rotate_mouse_2.png"
+#define FILENAME_IMG_BUTTON_TURN_RIGHT_MOUSE			"new_rotate_mouse.png"
+
+#define FILENAME_IMG_BUTTON_TURN_LEFT				"rotate_left.png"
+#define FILENAME_IMG_BUTTON_TURN_LEFT_CLICKED		"rotate_left_clicked.png"
+#define FILENAME_IMG_BUTTON_TURN_RIGHT				"rotate_right.png"
+#define FILENAME_IMG_BUTTON_TURN_RIGHT_CLICKED		"rotate_right_clicked.png"
 
 #define FILENAME_IMG_BUTTON_TURN_DOWN_LEFT			"rotate_2.png"
 #define FILENAME_IMG_BUTTON_TURN_DOWN_LEFT_CLICKED	"rotate_2_clicked.png"

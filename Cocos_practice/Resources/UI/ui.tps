@@ -246,15 +246,14 @@
             <filename>rotate_1.png</filename>
             <filename>new_rotate_mouse.png</filename>
             <filename>new_rotate_mouse_2.png</filename>
-            <filename>new_rotate_mouse_clicked.png</filename>
-            <filename>new_rotate.png</filename>
-            <filename>new_rotate_2.png</filename>
-            <filename>new_rotate_2_clicked.png</filename>
-            <filename>new_rotate_clicked.png</filename>
             <filename>rotatable_not.png</filename>
             <filename>rotatable.png</filename>
             <filename>option_button_new.png</filename>
             <filename>option_button_new_clicked.png</filename>
+            <filename>rotate_right_clicked.png</filename>
+            <filename>rotate_left.png</filename>
+            <filename>rotate_left_clicked.png</filename>
+            <filename>rotate_right.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

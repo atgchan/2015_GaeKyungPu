@@ -256,55 +256,45 @@ void GameSceneManager::KeyReleasedDispatcher(EventKeyboard::KeyCode keyCode, coc
 	}
 }
 
-
-void GameSceneManager::MouseDownLater(cocos2d::EventMouse event, Self_Tile* clickedTile) ///# EventMouse객체가 꽤 큰데, 이런 경우는 const &로 넘길것
-{
-	setInputMode(true);
-	if (lastCharacter != nullptr)
-		if (lastCharacter->getCurrentDirection() != lastDirection)
-			return;
-	auto asfdda = event.getMouseButton();
-
-	switch (event.getMouseButton())
-	{
-	case MOUSE_BUTTON_LEFT:
-		SelectCharacter(clickedTile->getCharacterOnThisTile());
-		MoveCharacterByClick(clickedTile);
-		break;
-	default:
-		break;
-	}
-}
-
 void GameSceneManager::MouseDownDispatcher(cocos2d::EventMouse *event)
 {
 	if (_CurrentPhaseInfo != PHASE_ACTION)
 		return;
 	if (_IsInputAble == false)
 		return;
+
 	Self_Tile* clickedTile = getTileFromMouseEvent(event);
 	if (clickedTile == nullptr)
 	{
-		_Nodes->runAction(
-			Sequence::create(
-			DelayTime::create(0.1),
-			CallFunc::create(CC_CALLBACK_0(GameSceneManager::Unselect, this)), nullptr));
+		Unselect();
 		return;
 	}
+	
 	if (DraftNewCharacterByClick(clickedTile))
 		return;
-	if (clickedTile->getCharacterOnThisTile() != nullptr)
-	{
-		lastCharacter = clickedTile->getCharacterOnThisTile();
-		lastDirection = clickedTile->getCharacterOnThisTile()->getCurrentDirection();
-	}
-	cocos2d::EventMouse copiedEvent = *event;
-	setInputMode(false);
-	_Nodes->runAction(
-		Sequence::create(
-		DelayTime::create(0.1),
-		CallFunc::create(CC_CALLBACK_0(GameSceneManager::MouseDownLater, this, copiedEvent, clickedTile)), nullptr));
 
+	switch (event->getMouseButton())
+	{
+	case MOUSE_BUTTON_LEFT:
+		SelectCharacter(clickedTile->getCharacterOnThisTile());
+		MoveCharacterByClick(clickedTile);
+		break;
+
+	case MOUSE_BUTTON_MIDDLE:
+		if (clickedTile->getCharacterOnThisTile() == nullptr)
+			return;
+		RotateToDirection(clickedTile->getCharacterOnThisTile(), ROTATE_LEFT);
+		break;
+
+	case MOUSE_BUTTON_RIGHT:
+		if (clickedTile->getCharacterOnThisTile() == nullptr)
+			return;
+		RotateToDirection(clickedTile->getCharacterOnThisTile(), ROTATE_RIGHT);
+		break;
+
+	default:
+		break;
+	}
 }
 
 PlayerData* GameSceneManager::getCurrentPlayerData()
@@ -498,8 +488,8 @@ void GameSceneManager::Unselect()
 	while (this->_Nodes->getChildByName("indicator"))
 		this->_Nodes->removeChildByName("indicator");
 
-	while (this->_Nodes->getChildByName("rotateBtn"))
-		this->_Nodes->removeChildByName("rotateBtn");
+	while (TileMap::getInstance()->getChildByName("rotateBtn"))
+		TileMap::getInstance()->removeChildByName("rotateBtn");
 
 	RemoveCursor();
 }
@@ -515,28 +505,6 @@ void GameSceneManager::TrimZorderAndRefreshAP()
 		}
 }
 
-
-
-std::string getRotateBtnNameByDirection(DirectionKind direction)
-{
-	switch (direction)
-	{
-	case DIRECTION_DOWN_LEFT:
-		return FILENAME_IMG_BUTTON_TURN_DOWN_LEFT;
-	case DIRECTION_DOWN:
-		return FILENAME_IMG_BUTTON_TURN_DOWN;
-	case DIRECTION_DOWN_RIGHT:
-		return FILENAME_IMG_BUTTON_TURN_DOWN_RIGHT;
-	case DIRECTION_UP_RIGHT:
-		return FILENAME_IMG_BUTTON_TURN_UP_RIGHT;
-	case DIRECTION_UP:
-		return FILENAME_IMG_BUTTON_TURN_UP;
-	case DIRECTION_UP_LEFT:
-		return FILENAME_IMG_BUTTON_TURN_UP_LEFT;
-	}
-
-	///# 여기에 도달한다면?? switch case를 사용할때는 항상 default 케이스를 생각할 것
-}
 
 DirectionKind LeftDirection(DirectionKind direction)
 {
@@ -554,91 +522,42 @@ void GameSceneManager::SetRotateButton(Character* character)
 		return;
 	if (character->_RotateResource <= 0)
 		return;
-	float lposX = character->getPositionX();
-	float lposY = character->getPositionY();
-	float rposX = lposX;
-	float rposY = lposY;
-
+	float posX = character->getPositionX();
+	float posY = character->getPositionY();
+	
 	DirectionKind direction = character->getCurrentDirection();
 
-	Sprite* rotateLeft = Sprite::createWithSpriteFrameName(getRotateBtnNameByDirection(LeftDirection(LeftDirection(direction))));
-	//Sprite* rotateLeftClicked = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_TURN_DOWN_LEFT_CLICKED);
-	Sprite* rotateRight = Sprite::createWithSpriteFrameName(getRotateBtnNameByDirection(RightDirection(RightDirection(direction))));
-	//Sprite* rotateRightClicked = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_TURN_UP_RIGHT_CLICKED);
+	Sprite* rotateLeft = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_TURN_LEFT_MOUSE);
+	Sprite* rotateRight = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_TURN_RIGHT_MOUSE);
 
-	MenuItemSprite* rotateLeftButton = MenuItemSprite::create(rotateLeft, rotateLeft, CC_CALLBACK_0(GameSceneManager::RotateToDirection, this, character, ROTATE_LEFT));
-	MenuItemSprite* rotateRightButton = MenuItemSprite::create(rotateRight, rotateRight, CC_CALLBACK_0(GameSceneManager::RotateToDirection, this, character, ROTATE_RIGHT));
+	rotateLeft->setPosition(posX - 45, posY + 5);
+	rotateRight->setPosition(posX + 45, posY + 5);
 
+	rotateLeft->setName("rotateBtn");
+	rotateRight->setName("rotateBtn");
 
-	switch (direction)
-	{
-	case DIRECTION_DOWN_LEFT:
-		lposX -= 45;
-		lposY -= 45;
-		rposX -= 120;
-		rposY += 20;
-		break;
-	case DIRECTION_DOWN:
-		lposX += 60;
-		lposY -= 45;
-		rposX -= 60;
-		rposY -= 45;
-		break;
-	case DIRECTION_DOWN_RIGHT:
-		lposX += 120;
-		lposY -= 0;
-		rposX += 60;
-		rposY -= 45;
-		break;
-	case DIRECTION_UP_RIGHT:
-		lposX += 70;
-		lposY += 60;
-		rposX += 120;
-		rposY -= 10;
-		break;
-	case DIRECTION_UP:
-		lposX -= 70;
-		lposY += 60;
-		rposX += 70;
-		rposY += 60;
-		break;
-	case DIRECTION_UP_LEFT:
-		lposX -= 120;
-		lposY += 20;
-		rposX -= 50;
-		rposY += 80;
-		break;
-	}
-	
-	rotateLeftButton->setPosition(lposX, lposY);
-	rotateRightButton->setPosition(rposX, rposY);
+	int charZOrder = character->getZOrder();
+	rotateLeft->setZOrder(charZOrder-1);
+	rotateRight->setZOrder(charZOrder-1);
 
-	Menu* rotateMenu = Menu::create(rotateLeftButton, rotateRightButton, NULL);
-	rotateMenu->setName("rotateBtn");
-	rotateMenu->setPosition(Vec2::ZERO);
-	rotateMenu->setZOrder(10);
-
-	this->AddChild(rotateMenu);
+	TileMap::getInstance()->addChild(rotateLeft);
+	TileMap::getInstance()->addChild(rotateRight);
 }
 
 void GameSceneManager::RotateToDirection(Character* character, RotateDirection rotateDirection)
 {
 	RemoveCursor();
 	character->RotateToDirection(rotateDirection);
+	
 	while (TileMap::getInstance()->getChildByName("moveable"))
 		TileMap::getInstance()->removeChildByName("moveable");
+	character->ShowMovableTile();
 
 	if (character->_RotateResource <= 0)
 	{
-		while (this->_Nodes->getChildByName("rotateBtn"))
-			this->_Nodes->removeChildByName("rotateBtn");
+		while (TileMap::getInstance()->getChildByName("rotateBtn"))
+			TileMap::getInstance()->removeChildByName("rotateBtn");
 	}
-
-	character->ShowMovableTile();
-	_Nodes->runAction(
-		Sequence::create(
-		DelayTime::create(0.2),
-		CallFunc::create(CC_CALLBACK_0(GameSceneManager::ResetLastCharacter, this)), nullptr));
 }
 
 void GameSceneManager::RemoveCursor()
