@@ -14,13 +14,18 @@ public:
 
 	//해당 클래스를 생성할 때 new 명령어가 아닌 코코스2d-x에서 제공하는 create()메소드를 사용할 수 있게 해주는 전역 메소드(매크로?)
 	CREATE_FUNC(SelectScene);
+
 private:
 	void	MenuClickCallback(Ref* pSender);
 	void	MenuCloseCallback(Ref* pSender);
 
-	void	PopUpInputLayer(LayerType type);
+	void	PopUpLayer(LayerType type);
+	void	PopUpSignInLayer();
+	void	PopUpSignUpLayer();
+	void	CloseLayer();
+
 	void	SignUp();
-	void	SignIn(int playerNum);
+	void	SignIn();
 
 	void	OnKeyReleased(EventKeyboard::KeyCode keyCode, Event* event);
 	void	OnKeyPressed(EventKeyboard::KeyCode keyCode, Event* event);
