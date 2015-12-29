@@ -75,6 +75,14 @@ enum EventType
 	HISTORY_EVENT_BATTLE
 };
 
+
+enum LayerType
+{
+	SIGN_UP,
+	SIGN_IN
+};
+
+
 #define ATTACK_POWER_DEFAULT 2
 #define ROTATE_RESOURCE_DEFAULT 1
 #define ROTATE_RESOURCE_DEBUG_MODE 100

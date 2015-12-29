@@ -254,6 +254,7 @@
             <filename>rotate_left.png</filename>
             <filename>rotate_left_clicked.png</filename>
             <filename>rotate_right.png</filename>
+            <filename>input_box.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

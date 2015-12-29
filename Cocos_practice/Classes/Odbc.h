@@ -8,10 +8,12 @@ public:
 	static Odbc* _Inst;
 	static Odbc* Odbc::GetInstance();
 
-	std::string		Connect(wchar_t* odbcName, wchar_t* mysqlId, wchar_t* password);
+	bool			IsConnect(){ return _IsConnect; }
+
+	bool			Connect(wchar_t* odbcName, wchar_t* mysqlId, wchar_t* password);
 	void			Disonnect();
 
-	std::string		CheckDataExist(std::string tableName, std::string colName, std::string value);
+	bool			CheckDataExist(std::string tableName, std::string colName, std::string value);
 	std::string		SelectData(std::string tableName, std::string colNames, bool whereCon, std::string whereCol, std::string value);
 	bool			PushQuery(std::wstring query);
 	

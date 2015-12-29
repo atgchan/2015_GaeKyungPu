@@ -18,7 +18,7 @@ private:
 	void	MenuClickCallback(Ref* pSender);
 	void	MenuCloseCallback(Ref* pSender);
 
-	void	PopUpInputLayer(int type, int idnum);
+	void	PopUpInputLayer(LayerType type);
 	void	SignUp();
 	void	SignIn(int playerNum);
 

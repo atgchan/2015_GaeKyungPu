@@ -28,7 +28,7 @@ Odbc* Odbc::GetInstance()
 		return _Inst;
 }
 
-std::string Odbc::Connect(wchar_t* odbcName, wchar_t* mysqlId, wchar_t* password)
+bool Odbc::Connect(wchar_t* odbcName, wchar_t* mysqlId, wchar_t* password)
 {
 	int ret;
 
@@ -47,10 +47,10 @@ std::string Odbc::Connect(wchar_t* odbcName, wchar_t* mysqlId, wchar_t* password
 	{
 		_IsConnect = true;
 		ret = SQLAllocHandle(SQL_HANDLE_STMT, _hDbc, &_hStmt);
-		return "[ SQL Connect Ok ]";
+		return true;
 	}
 	else
-		return "[ SQL Connect ERROR ]";
+		return false;
 }
 
 void Odbc::Disonnect()
@@ -129,10 +129,10 @@ std::string Odbc::SelectData(std::string tableName, std::string colNames, bool w
 		return "An error occured during excuting query!!";
 }
 
-std::string Odbc::CheckDataExist(std::string tableName, std::string colName, std::string value)
+bool Odbc::CheckDataExist(std::string tableName, std::string colName, std::string value)
 {
 	if (!_IsConnect || _Inst == nullptr)
-		return "";
+		return false;
 	
 	std::wstring query = L"SELECT ";
 	query += utf8_to_wstring(colName);
@@ -151,15 +151,15 @@ std::string Odbc::CheckDataExist(std::string tableName, std::string colName, std
 	{
 		ret = SQLFetch(_hStmt);
 		if (ret == SQL_NO_DATA)
-			return "sql no data";
+			return false;
 
 		if (ret == SQL_ERROR || ret == SQL_SUCCESS_WITH_INFO)
-			return "sql error";
+			return false;
 
-		return "sql success";
+		return true;
 	}
 	else
-		return "";
+		return false;
 }
 
 
