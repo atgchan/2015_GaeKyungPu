@@ -56,7 +56,6 @@ bool SelectScene::init()
 	cocos2d::Menu* mainMenu = Menu::create(menu_prev, menu_next, signIn_1P, signIn_2P, menu_signUp, nullptr);
 	mainMenu->setName("mainMenu");
 	mainMenu->setPosition(Vec2::ZERO);
-
 	this->addChild(mainMenu);
 
 //	Keyboard Event
@@ -89,83 +88,26 @@ void SelectScene::PopUpLayer(LayerType type)
 	if (type == SIGN_IN)
 	{
 		Label* labelReturn = Label::createWithTTF("[ Sign In ]", FILENAME_FONT_MAINMENU, 30);
-		labelReturn->setPosition(visibleSize.width * 2 / 5, visibleSize.height * 1 / 4);
 		signBtn = MenuItemLabel::create(labelReturn, CC_CALLBACK_0(SelectScene::SignIn, this));
-		signBtn->setEnabled(true);
 	}
 	if (type == SIGN_UP)
 	{
 		Label* labelReturn = Label::createWithTTF("[ Sign Up ]", FILENAME_FONT_MAINMENU, 30);
-		labelReturn->setPosition(visibleSize.width * 2 / 5, visibleSize.height * 1 / 4);
 		signBtn = MenuItemLabel::create(labelReturn, CC_CALLBACK_0(SelectScene::SignUp, this));
-		signBtn->setEnabled(true);
 	}
 	
 	Label* labelClose = Label::createWithTTF("[ CLOSE ]", FILENAME_FONT_MAINMENU, 30);
-	labelClose->setPosition(visibleSize.width * 3 / 5, visibleSize.height * 1 / 4);
 	MenuItemLabel* closeBtn = MenuItemLabel::create(labelClose, CC_CALLBACK_0(SelectScene::CloseLayer, this));
+
+	signBtn->setPosition(visibleSize.width * 2 / 5, visibleSize.height * 1 / 4);
+	closeBtn->setPosition(visibleSize.width * 3 / 5, visibleSize.height * 1 / 4);
 
 	cocos2d::Menu* returnMenu = Menu::create(signBtn, closeBtn, nullptr);
 	returnMenu->setPosition(Vec2::ZERO);
 	returnMenu->setName("returnMenu");
-	returnMenu->setEnabled(true);
 	this->addChild(returnMenu);
-}
 
-void SelectScene::PopUpSignInLayer()
-{
-	dynamic_cast<cocos2d::Menu*>(getChildByName("mainMenu"))->setEnabled(false);
-
-	while (getChildByName("popUpLayer"))
-		removeChildByName("popUpLayer");
-
-	Size visibleSize = Director::getInstance()->getVisibleSize();
-
-	LoginLayer* layer = LoginLayer::create();
-	layer->setName("popUpLayer");
-	layer->setPosition(Vec2::ZERO);
-	this->addChild(layer);
-	
-	Label* labelReturn = Label::createWithTTF("[ Sign In ]", FILENAME_FONT_MAINMENU, 30);
-	labelReturn->setPosition(visibleSize.width * 2 / 5, visibleSize.height * 1 / 4);
-	MenuItemLabel* signUpBtn = MenuItemLabel::create(labelReturn, CC_CALLBACK_0(SelectScene::SignIn, this));
-
-	Label* labelClose = Label::createWithTTF("[ CLOSE ]", FILENAME_FONT_MAINMENU, 30);
-	labelClose->setPosition(visibleSize.width * 3 / 5, visibleSize.height * 1 / 4);
-	MenuItemLabel* closeBtn = MenuItemLabel::create(labelClose, CC_CALLBACK_0(SelectScene::CloseLayer, this));
-	
-	cocos2d::Menu* returnMenu = Menu::create(signUpBtn, closeBtn, nullptr);
-	returnMenu->setPosition(Vec2::ZERO);
-	returnMenu->setName("returnMenu");
-	this->addChild(returnMenu);
-}
-
-void SelectScene::PopUpSignUpLayer()
-{
-	dynamic_cast<cocos2d::Menu*>(getChildByName("mainMenu"))->setEnabled(false);
-
-	while (getChildByName("popUpLayer"))
-		removeChildByName("popUpLayer");
-
-	Size visibleSize = Director::getInstance()->getVisibleSize();
-
-	LoginLayer* layer = LoginLayer::create();
-	layer->setName("popUpLayer");
-	layer->setPosition(Vec2::ZERO);
-	this->addChild(layer);
-
-	Label* labelReturn = Label::createWithTTF("[ Sign Up ]", FILENAME_FONT_MAINMENU, 30);
-	labelReturn->setPosition(visibleSize.width * 2 / 5, visibleSize.height * 1 / 4);
-	MenuItemLabel* signUpBtn = MenuItemLabel::create(labelReturn, CC_CALLBACK_0(SelectScene::SignUp, this));
-
-	Label* labelClose = Label::createWithTTF("[ CLOSE ]", FILENAME_FONT_MAINMENU, 30);
-	labelClose->setPosition(visibleSize.width * 3 / 5, visibleSize.height * 1 / 4);
-	MenuItemLabel* closeBtn = MenuItemLabel::create(labelClose, CC_CALLBACK_0(SelectScene::CloseLayer, this));
-
-	cocos2d::Menu* returnMenu = Menu::create(signUpBtn, closeBtn, nullptr);
-	returnMenu->setPosition(Vec2::ZERO);
-	returnMenu->setName("returnMenu");
-	this->addChild(returnMenu);
+	return;
 }
 
 void SelectScene::CloseLayer()
@@ -181,6 +123,7 @@ void SelectScene::SignIn()
 
 	cocos2d::ui::EditBox* idBox = static_cast<cocos2d::ui::EditBox*>(this->getChildByName("popUpLayer")->getChildByName("id"));
 	cocos2d::ui::EditBox* pwBox = static_cast<cocos2d::ui::EditBox*>(this->getChildByName("popUpLayer")->getChildByName("pw"));
+	
 	std::string idValue = idBox->getText();
 	std::string pwValue = pwBox->getText();
 
@@ -195,13 +138,12 @@ void SelectScene::SignIn()
 
 	Odbc* mysql = Odbc::GetInstance();
 	bool result = mysql->Connect(L"me", L"testudo", L"next!!@@##$$");
-	Label* labelResult;
-	labelResult->setPosition(visibleSize.width * 7 / 8, visibleSize.height * 1 / 7 + 50);
-	this->addChild(labelResult);
-
+	
 	if (!result)
 	{
-		labelResult = Label::createWithTTF("[ERROR::Connect FAIL]", FILENAME_FONT_MAINMENU, 20);
+		Label* labelResult = Label::createWithTTF("[ERROR::Connect FAIL]", FILENAME_FONT_MAINMENU, 20);
+		labelResult->setPosition(visibleSize.width * 7 / 8, visibleSize.height * 1 / 7 + 50);
+		this->addChild(labelResult);
 		return;
 	}
 
@@ -216,18 +158,8 @@ void SelectScene::SignIn()
 	}
 	else
 	{
-		Label* resultReturn = Label::createWithTTF(idValue + " is already exist", FILENAME_FONT_MAINMENU, 20);
-		resultReturn->setName("resultReturn");
-		resultReturn->setPosition(visibleSize.width * 7 / 8, visibleSize.height * 1 / 7 - 50);
-		this->addChild(resultReturn);
-
-		std::wstring idWvalue = mysql->utf8_to_wstring(idValue);
-		std::wstring pwWvalue = mysql->utf8_to_wstring(pwValue);
-
-
-		bool result = mysql->PushQuery(L"INSERT INTO testudo.user(name, password) VALUES('" + idWvalue + L"','" + pwWvalue + L"')");
-		
-		if (result)
+		std::string result = mysql->GetPassword(idValue);
+		if (result == pwValue)
 			CloseLayer();
 	}
 	return;
@@ -257,7 +189,6 @@ void SelectScene::SignUp()
 		bool result = mysql->Connect(L"me", L"testudo", L"next!!@@##$$");
 		if (!result)
 		{
-			
 			cocos2d::Label* labelResult = Label::createWithTTF("[ERROR::Connect FAIL]", FILENAME_FONT_MAINMENU, 20);
 			labelResult->setPosition(visibleSize.width * 7 / 8, visibleSize.height * 1 / 7 + 50);
 			this->addChild(labelResult);
@@ -269,17 +200,22 @@ void SelectScene::SignUp()
 
 	if (!exist)
 	{
-		Label* resultReturn = Label::createWithTTF(idValue + " is created", FILENAME_FONT_MAINMENU, 20);
-		resultReturn->setPosition(visibleSize.width * 7 / 8, visibleSize.height * 1 / 7 - 50);
-		resultReturn->setName("resultReturn");
-		this->addChild(resultReturn);
+		std::wstring idWValue = mysql->utf8_to_wstring(idValue);
+		std::wstring pwWValue = mysql->utf8_to_wstring(pwValue);
 
-		std::wstring idWvalue = mysql->utf8_to_wstring(idValue);
-		std::wstring pwWvalue = mysql->utf8_to_wstring(pwValue);
 
-		bool result = mysql->PushQuery(L"INSERT INTO testudo.user(name, password) VALUES('" + idWvalue + L"','" + pwWvalue + L"')");
+		bool result = mysql->InsertData("user", "name, password", "'"+idValue+"','"+pwValue+"'");
+//		bool result = mysql->PushQuery(L"Insert INTO user(name, password) VALUS '" + idWValue + L"','" + pwWValue + L"'");
 		if (result)
+		{
+			Label* resultReturn = Label::createWithTTF(idValue + " is created", FILENAME_FONT_MAINMENU, 20);
+			resultReturn->setPosition(visibleSize.width * 7 / 8, visibleSize.height * 1 / 7 - 50);
+			resultReturn->setName("resultReturn");
+			this->addChild(resultReturn);
+			
 			CloseLayer();
+			return;
+		}
 	}
 	else
 	{

@@ -69,7 +69,7 @@ void Odbc::Disonnect()
 bool Odbc::PushQuery(std::wstring query)
 {
 	if (!_IsConnect || _Inst == nullptr)
-		return "";
+		return false;
 
 	SQLWCHAR* sql = (SQLWCHAR*)query.c_str();
 	int ret = SQLExecDirect(_hStmt, sql, SQL_NTS);
@@ -80,8 +80,69 @@ bool Odbc::PushQuery(std::wstring query)
 		return false;
 }
 
+bool Odbc::InsertData(std::string tableName, std::string colNames, std::string values)
+{
+	if (!_IsConnect || _Inst == nullptr)
+		return false;
 
-std::string Odbc::SelectData(std::string tableName, std::string colNames, bool whereCon = false, std::string whereCol = "id", std::string value = "")
+	std::wstring query = L"INSERT INTO testudo.";
+	query += utf8_to_wstring(tableName);
+	query += L"(";
+	query += utf8_to_wstring(colNames);
+	query += L") VALUES(";
+	query += utf8_to_wstring(values);
+	query += L")";
+
+	SQLWCHAR* sql = (SQLWCHAR*)query.c_str();
+	int ret = SQLExecDirect(_hStmt, sql, SQL_NTS);
+
+	if (ret == SQL_SUCCESS)
+		return true;
+	else
+		return false;
+}
+
+std::string Odbc::GetPassword(std::string name)
+{
+	if (!_IsConnect || _Inst == nullptr)
+		return "";
+
+	std::wstring query = L"SELECT password FROM testudo.user WHERE name = 'GUEST'";
+	//std::wstring query = L"SELECT password FROM user WHERE name = '";
+	//query += utf8_to_wstring(name);
+	//query += L"'";
+	
+	SQLWCHAR* sql = (SQLWCHAR*)query.c_str();
+	int ret = SQLExecDirect(_hStmt, sql, SQL_NTS);
+
+	if (ret == SQL_SUCCESS)
+	{
+		SQLLEN resultLen;
+		char strResult[200];
+
+		while (TRUE)
+		{
+			ret = SQLFetch(_hStmt);
+			if (ret == SQL_NO_DATA)
+				return "[NO DATA]";
+
+			if (ret == SQL_ERROR || ret == SQL_SUCCESS_WITH_INFO)
+				return "An error occured\n";
+
+			//			SELECT
+			if (ret == SQL_SUCCESS || ret == SQL_SUCCESS_WITH_INFO)
+			{
+				SQLGetData(_hStmt, 1, SQL_C_WCHAR, strResult, 200, &resultLen);
+				return std::string(strResult);
+			}
+		}
+	}
+	else
+		return "An error occured during excuting query!!";
+}
+
+
+std::string Odbc::SelectData(std::string tableName, std::string colNames, bool whereCon, std::string whereCol, std::string value)
 {
 	if (!_IsConnect || _Inst == nullptr)
 		return "";
@@ -101,7 +162,7 @@ std::string Odbc::SelectData(std::string tableName, std::string colNames, bool w
 	}
 
 	SQLWCHAR* sql = (SQLWCHAR*)query.c_str();
-	int ret = SQLExecDirect(_hStmt, (SQLWCHAR*)sql, SQL_NTS);
+	int ret = SQLExecDirect(_hStmt, sql, SQL_NTS);
 
 	if (ret == SQL_SUCCESS)
 	{
@@ -162,6 +223,24 @@ bool Odbc::CheckDataExist(std::string tableName, std::string colName, std::strin
 		return false;
 }
 
+
+void Odbc::CheckSuccess(int ret)
+{
+	if (ret == SQL_SUCCESS)
+	{
+		ret = SQLFetch(_hStmt);
+		if (ret == SQL_NO_DATA)
+		{
+			cout << "[NO DATA]" << endl;
+			return;
+		}
+		if (ret == SQL_ERROR || ret == SQL_SUCCESS_WITH_INFO)
+			printf("An error occured\n");
+	}
+	else
+		cout << "An error occured during excuting query!!" << endl;
+
+}
 
 void Odbc::ReadFileAndInsert(const char *path)
 {
@@ -252,7 +331,7 @@ void Odbc::SelectBookData()
 {
 	cout << "[Select Book Data]" << endl;
 
-	int ret = SQLExecDirect(_hStmt, (SQLWCHAR*)L"SELECT author, title, price FROM book", SQL_NTS);
+	int ret = SQLExecDirect(_hStmt, (SQLWCHAR*)L"SELECT author, title, price FROM test.book", SQL_NTS);
 
 	if (ret == SQL_SUCCESS)
 	{
@@ -320,24 +399,6 @@ const char* Odbc::CreateCSV(const char* filename, int num)
 	of.close();
 	cout << "[ COMPLETE ] " << endl;
 	return filename;
-}
-
-void Odbc::CheckSuccess(int ret)
-{
-	if (ret == SQL_SUCCESS)
-	{
-		ret = SQLFetch(_hStmt);
-		if (ret == SQL_NO_DATA)
-		{
-			cout << "[NO DATA]" << endl;
-			return;
-		}
-		if (ret == SQL_ERROR || ret == SQL_SUCCESS_WITH_INFO)
-			printf("An error occured\n");
-	}
-	else
-		cout << "An error occured during excuting query!!" << endl;
-
 }
 
 std::wstring Odbc::utf8_to_wstring(const std::string& str)

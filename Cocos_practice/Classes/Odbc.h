@@ -13,8 +13,10 @@ public:
 	bool			Connect(wchar_t* odbcName, wchar_t* mysqlId, wchar_t* password);
 	void			Disonnect();
 
+	std::string		GetPassword(std::string name);
+	bool			InsertData(std::string tableName, std::string colNames, std::string value);
 	bool			CheckDataExist(std::string tableName, std::string colName, std::string value);
-	std::string		SelectData(std::string tableName, std::string colNames, bool whereCon, std::string whereCol, std::string value);
+	std::string		SelectData(std::string tableName, std::string colNames, bool whereCon = false, std::string whereCol = "id", std::string value = "");
 	bool			PushQuery(std::wstring query);
 	
 	void			ReadFileAndInsert(const char *path);

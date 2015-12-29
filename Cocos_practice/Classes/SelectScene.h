@@ -20,8 +20,6 @@ private:
 	void	MenuCloseCallback(Ref* pSender);
 
 	void	PopUpLayer(LayerType type);
-	void	PopUpSignInLayer();
-	void	PopUpSignUpLayer();
 	void	CloseLayer();
 
 	void	SignUp();
