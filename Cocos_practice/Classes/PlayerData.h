@@ -5,7 +5,7 @@ class Character;
 class PlayerData
 {
 public:
-	PlayerData(int food, int barrackNum);
+	PlayerData(int food, int barrackNum, int id);
 	~PlayerData();
 
 	int		_PlayerBarrackNum;
@@ -18,6 +18,7 @@ public:
 	void	RemoveCharacter(Character* character);
 
 private:
+	int		_SqlId = 0;
 	int		_Food;
 	std::list<Character*> _CharacterList;
 };

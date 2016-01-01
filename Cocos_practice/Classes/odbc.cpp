@@ -94,7 +94,9 @@ bool Odbc::InsertData(std::string tableName, std::string colNames, std::string v
 	query += L")";
 
 	SQLWCHAR* sql = (SQLWCHAR*)query.c_str();
-	int ret = SQLExecDirect(_hStmt, sql, SQL_NTS);
+
+	int ret = SQLAllocHandle(SQL_HANDLE_STMT, _hDbc, &_hStmt);
+	ret = SQLExecDirect(_hStmt, sql, SQL_NTS);
 
 	if (ret == SQL_SUCCESS)
 		return true;
@@ -102,23 +104,63 @@ bool Odbc::InsertData(std::string tableName, std::string colNames, std::string v
 		return false;
 }
 
+int Odbc::GetUserId(std::string userName)
+{
+	if (!_IsConnect || _Inst == nullptr)
+		return -1;
+
+	std::wstring query = L"SELECT id FROM user WHERE name = '";
+	query += utf8_to_wstring(userName);
+	query += L"'";
+
+	SQLWCHAR* sql = (SQLWCHAR*)query.c_str();
+
+	int ret = SQLAllocHandle(SQL_HANDLE_STMT, _hDbc, &_hStmt);
+	ret = SQLExecDirect(_hStmt, sql, SQL_NTS);
+	//SQLBindCol(_hStmt, )
+
+	if (ret == SQL_SUCCESS)
+	{
+		SQLLEN resultLen, idResult2;
+		int idResult;
+
+		while (TRUE)
+		{
+			if (ret == SQL_SUCCESS || ret == SQL_SUCCESS_WITH_INFO)
+			{
+				SQLGetData(_hStmt, 1, SQL_C_DEFAULT, &idResult, 1, &resultLen);
+				SQLGetData(_hStmt, 1, SQL_C_LONG, &idResult, 1, &resultLen);
+				SQLGetData(_hStmt, 1, SQL_C_ULONG, &idResult, 1, &resultLen);
+				SQLGetData(_hStmt, 1, SQL_C_DEFAULT, &idResult2, 1, &resultLen);
+				SQLGetData(_hStmt, 1, SQL_C_LONG, &idResult2, 1, &resultLen);
+				SQLGetData(_hStmt, 1, SQL_C_ULONG, &idResult2, 1, &resultLen);
+				return idResult;
+			}
+		}
+	}
+	else
+		return -1;
+}
+
 std::string Odbc::GetPassword(std::string name)
 {
 	if (!_IsConnect || _Inst == nullptr)
 		return "";
 
-	std::wstring query = L"SELECT password FROM testudo.user WHERE name = 'GUEST'";
-	//std::wstring query = L"SELECT password FROM user WHERE name = '";
-	//query += utf8_to_wstring(name);
-	//query += L"'";
+	std::wstring query = L"SELECT password FROM user WHERE name = '";
+	query += utf8_to_wstring(name);
+	query += L"'";
 	
 	SQLWCHAR* sql = (SQLWCHAR*)query.c_str();
-	int ret = SQLExecDirect(_hStmt, sql, SQL_NTS);
 
+	int ret = SQLAllocHandle(SQL_HANDLE_STMT, _hDbc, &_hStmt);
+	ret = SQLExecDirect(_hStmt, sql, SQL_NTS);
+	//SQLBindCol(_hStmt, )
+	
 	if (ret == SQL_SUCCESS)
 	{
 		SQLLEN resultLen;
-		char strResult[200];
+		char strResult[32];
 
 		while (TRUE)
 		{
@@ -126,13 +168,13 @@ std::string Odbc::GetPassword(std::string name)
 			if (ret == SQL_NO_DATA)
 				return "[NO DATA]";
 
-			if (ret == SQL_ERROR || ret == SQL_SUCCESS_WITH_INFO)
+			if (ret == SQL_ERROR/* || ret == SQL_SUCCESS_WITH_INFO*/)
 				return "An error occured\n";
 
 			//			SELECT
 			if (ret == SQL_SUCCESS || ret == SQL_SUCCESS_WITH_INFO)
 			{
-				SQLGetData(_hStmt, 1, SQL_C_WCHAR, strResult, 200, &resultLen);
+				SQLGetData(_hStmt, 1, SQL_C_CHAR, strResult, 32, &resultLen);
 				return std::string(strResult);
 			}
 		}

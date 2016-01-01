@@ -28,26 +28,24 @@ bool SelectScene::init()
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	Label* title = Label::createWithTTF("color Select", FILENAME_FONT_MAINMENU, 80);
-	title->setPosition(visibleSize.width / 2, visibleSize.height * 3 / 4);
-	this->addChild(title);
-
-	Label* labelPrev = Label::createWithTTF("prev", FILENAME_FONT_MAINMENU, 40);
-	Label* labelNext = Label::createWithTTF("next", FILENAME_FONT_MAINMENU, 40);
+	Label* labelPrev = Label::createWithTTF("Exit", FILENAME_FONT_MAINMENU, 40);
+	Label* labelNext = Label::createWithTTF("GameStart", FILENAME_FONT_MAINMENU, 40);
 	Label* label1P = Label::createWithTTF("1P sign in", FILENAME_FONT_MAINMENU, 50);
 	Label* label2P = Label::createWithTTF("2P sign in", FILENAME_FONT_MAINMENU, 50);
 	Label* labelSignUp = Label::createWithTTF("sign up", FILENAME_FONT_MAINMENU, 50);
 
-	MenuItemLabel* menu_prev = MenuItemLabel::create(labelPrev, CC_CALLBACK_1(SelectScene::MenuClickCallback, this));
+	MenuItemLabel* menu_prev = MenuItemLabel::create(labelPrev, CC_CALLBACK_1(SelectScene::MenuCloseCallback, this));
 	menu_prev->setPosition(visibleSize.width / 4, visibleSize.height / 2);
 
-	MenuItemLabel* menu_next = MenuItemLabel::create(labelNext, CC_CALLBACK_1(SelectScene::MenuCloseCallback, this));
+	MenuItemLabel* menu_next = MenuItemLabel::create(labelNext, CC_CALLBACK_1(SelectScene::MenuClickCallback, this));
 	menu_next->setPosition(visibleSize.width * 3 / 4, visibleSize.height / 2);
 
-	MenuItemLabel* signIn_1P = MenuItemLabel::create(label1P, CC_CALLBACK_0(SelectScene::PopUpLayer, this, SIGN_IN));
+	//MenuItemLabel* signIn_1P = MenuItemLabel::create(label2P, CC_CALLBACK_0(SelectScene::PopUpLayer, this, SIGN_IN));
+	MenuItemLabel* signIn_1P = MenuItemLabel::create(label1P, CC_CALLBACK_0(SelectScene::SignInLayerPlayer1, this));
 	signIn_1P->setPosition(visibleSize.width / 2, visibleSize.height * 1 / 4);
 
-	MenuItemLabel* signIn_2P = MenuItemLabel::create(label2P, CC_CALLBACK_0(SelectScene::PopUpLayer, this, SIGN_IN));
+	//MenuItemLabel* signIn_2P = MenuItemLabel::create(label2P, CC_CALLBACK_0(SelectScene::PopUpLayer, this, SIGN_IN));
+	MenuItemLabel* signIn_2P = MenuItemLabel::create(label2P, CC_CALLBACK_0(SelectScene::SignInLayerPlayer2, this));
 	signIn_2P->setPosition(visibleSize.width / 2, visibleSize.height * 3 / 4);
 
 	MenuItemLabel* menu_signUp = MenuItemLabel::create(labelSignUp, CC_CALLBACK_0(SelectScene::PopUpLayer, this, SIGN_UP));
@@ -68,6 +66,135 @@ bool SelectScene::init()
 
 	return true;
 }
+
+void SelectScene::CreateLayer()
+{
+	dynamic_cast<cocos2d::Menu*>(getChildByName("mainMenu"))->setEnabled(false);
+
+	while (getChildByName("popUpLayer"))
+		removeChildByName("popUpLayer");
+
+	LoginLayer* layer = LoginLayer::create();
+	layer->setName("popUpLayer");
+	layer->setPosition(Vec2::ZERO);
+	this->addChild(layer);
+}
+
+//이 짓까지는 하고싶지 않았는데
+void SelectScene::SignInLayerPlayer1()
+{
+	CreateLayer();
+
+	MenuItemLabel* signBtn;
+
+	Label* labelReturn = Label::createWithTTF("[ Sign In ]", FILENAME_FONT_MAINMENU, 30);
+	signBtn = MenuItemLabel::create(labelReturn, CC_CALLBACK_0(SelectScene::SignInPlayer1, this));
+
+	Label* labelClose = Label::createWithTTF("[ CLOSE ]", FILENAME_FONT_MAINMENU, 30);
+	MenuItemLabel* closeBtn = MenuItemLabel::create(labelClose, CC_CALLBACK_0(SelectScene::CloseLayer, this));
+
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+
+	signBtn->setPosition(visibleSize.width * 2 / 5, visibleSize.height * 1 / 4);
+	closeBtn->setPosition(visibleSize.width * 3 / 5, visibleSize.height * 1 / 4);
+
+	cocos2d::Menu* returnMenu = Menu::create(signBtn, closeBtn, nullptr);
+	returnMenu->setPosition(Vec2::ZERO);
+	returnMenu->setName("returnMenu");
+	this->addChild(returnMenu);
+
+	return;
+}
+
+void SelectScene::SignInLayerPlayer2()
+{
+	CreateLayer();
+
+	MenuItemLabel* signBtn;
+
+	Label* labelReturn = Label::createWithTTF("[ Sign In ]", FILENAME_FONT_MAINMENU, 30);
+	signBtn = MenuItemLabel::create(labelReturn, CC_CALLBACK_0(SelectScene::SignInPlayer2, this));
+
+	Label* labelClose = Label::createWithTTF("[ CLOSE ]", FILENAME_FONT_MAINMENU, 30);
+	MenuItemLabel* closeBtn = MenuItemLabel::create(labelClose, CC_CALLBACK_0(SelectScene::CloseLayer, this));
+
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+
+	signBtn->setPosition(visibleSize.width * 2 / 5, visibleSize.height * 1 / 4);
+	closeBtn->setPosition(visibleSize.width * 3 / 5, visibleSize.height * 1 / 4);
+
+	cocos2d::Menu* returnMenu = Menu::create(signBtn, closeBtn, nullptr);
+	returnMenu->setPosition(Vec2::ZERO);
+	returnMenu->setName("returnMenu");
+	this->addChild(returnMenu);
+
+	return;
+}
+
+void SelectScene::SignInPlayer1()
+{
+	SignIn();
+	Odbc* mysql = Odbc::GetInstance();
+
+	cocos2d::ui::EditBox* idBox = static_cast<cocos2d::ui::EditBox*>(this->getChildByName("popUpLayer")->getChildByName("id"));
+	cocos2d::ui::EditBox* pwBox = static_cast<cocos2d::ui::EditBox*>(this->getChildByName("popUpLayer")->getChildByName("pw"));
+
+	std::string idValue = idBox->getText();
+	std::string pwValue = pwBox->getText();
+	
+	std::string result = mysql->GetPassword(idValue);
+	
+	if (result == pwValue)
+	{
+		CloseLayer();
+		_Id1P = mysql->GetUserId(idValue);
+		Label* player1Name = Label::createWithTTF("[ Player1 : " + idValue + " ]", FILENAME_FONT_MAINMENU, 30);
+
+		while (getChildByName("player1_name"))
+			removeChildByName("player1_name");
+
+		Size visibleSize = Director::getInstance()->getVisibleSize();
+		player1Name->setPosition(visibleSize.width * 1 / 8, visibleSize.height * 7 /8);
+		player1Name->setName("player1_name");
+		addChild(player1Name);
+	}
+}
+
+void SelectScene::SignInPlayer2()
+{
+	SignIn();
+	Odbc* mysql = Odbc::GetInstance();
+
+	cocos2d::ui::EditBox* idBox = static_cast<cocos2d::ui::EditBox*>(this->getChildByName("popUpLayer")->getChildByName("id"));
+	cocos2d::ui::EditBox* pwBox = static_cast<cocos2d::ui::EditBox*>(this->getChildByName("popUpLayer")->getChildByName("pw"));
+
+	std::string idValue = idBox->getText();
+	std::string pwValue = pwBox->getText();
+
+	std::string result = mysql->GetPassword(idValue);
+
+	if (result == pwValue)
+	{
+		CloseLayer();
+		_Id2P = mysql->GetUserId(idValue);
+
+		Label* playerName = Label::createWithTTF("[ Player2 : " + idValue + " ]", FILENAME_FONT_MAINMENU, 30);
+
+		while (getChildByName("player2_name"))
+			removeChildByName("player2_name");
+
+		Size visibleSize = Director::getInstance()->getVisibleSize();
+		playerName->setPosition(visibleSize.width * 1 / 8, visibleSize.height * 7 / 8 - 40);
+		playerName->setName("player2_name");
+		addChild(playerName);
+	}
+}
+
+
+
+
+
+//	여기부터 정상 코드
 
 void SelectScene::PopUpLayer(LayerType type)
 {
@@ -138,10 +265,9 @@ void SelectScene::SignIn()
 
 	Odbc* mysql = Odbc::GetInstance();
 	bool result = mysql->Connect(L"me", L"testudo", L"next!!@@##$$");
-	
 	if (!result)
 	{
-		Label* labelResult = Label::createWithTTF("[ERROR::Connect FAIL]", FILENAME_FONT_MAINMENU, 20);
+		cocos2d::Label* labelResult = Label::createWithTTF("[ERROR::Connect FAIL]", FILENAME_FONT_MAINMENU, 20);
 		labelResult->setPosition(visibleSize.width * 7 / 8, visibleSize.height * 1 / 7 + 50);
 		this->addChild(labelResult);
 		return;
@@ -158,9 +284,13 @@ void SelectScene::SignIn()
 	}
 	else
 	{
-		std::string result = mysql->GetPassword(idValue);
-		if (result == pwValue)
-			CloseLayer();
+		//std::string result = mysql->GetPassword(idValue);
+		//if (result == pwValue)
+		//{
+		//	CloseLayer();
+		//	/*if (player == PLAYER_1)
+		//		_Id1P = mysql->GetUserId(idValue);*/
+		//}
 	}
 	return;
 }
@@ -203,9 +333,8 @@ void SelectScene::SignUp()
 		std::wstring idWValue = mysql->utf8_to_wstring(idValue);
 		std::wstring pwWValue = mysql->utf8_to_wstring(pwValue);
 
-
 		bool result = mysql->InsertData("user", "name, password", "'"+idValue+"','"+pwValue+"'");
-//		bool result = mysql->PushQuery(L"Insert INTO user(name, password) VALUS '" + idWValue + L"','" + pwWValue + L"'");
+
 		if (result)
 		{
 			Label* resultReturn = Label::createWithTTF(idValue + " is created", FILENAME_FONT_MAINMENU, 20);
@@ -231,6 +360,7 @@ void SelectScene::MenuClickCallback(cocos2d::Ref* pSender)
 {
 	GameSceneManager* gmInstance = GameSceneManager::getInstance();
 	gmInstance->InitializeGame();
+	gmInstance->InitPlayerData(_Id1P, _Id2P);
 
 	cocos2d::Scene* gameScene = GameScene::CreateScene();
 	Director::getInstance()->pushScene(gameScene);

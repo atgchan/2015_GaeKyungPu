@@ -20,16 +20,22 @@ private:
 	void	MenuCloseCallback(Ref* pSender);
 
 	void	PopUpLayer(LayerType type);
+	void	SignInLayerPlayer1();
+	void	SignInLayerPlayer2();
+
+	void	CreateLayer();
 	void	CloseLayer();
 
 	void	SignUp();
 	void	SignIn();
+	void	SignInPlayer1();
+	void	SignInPlayer2();
 
 	void	OnKeyReleased(EventKeyboard::KeyCode keyCode, Event* event);
 	void	OnKeyPressed(EventKeyboard::KeyCode keyCode, Event* event);
 
-	int			_Id1P;
-	int			_Id2P;
+	int		_Id1P;
+	int		_Id2P;
 
 	std::array<std::string, 10> _ColorList;
 	std::array<std::string, 10> _UnitList;

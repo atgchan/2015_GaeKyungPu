@@ -13,7 +13,9 @@ public:
 	bool			Connect(wchar_t* odbcName, wchar_t* mysqlId, wchar_t* password);
 	void			Disonnect();
 
+	int				GetUserId(std::string userName);
 	std::string		GetPassword(std::string name);
+
 	bool			InsertData(std::string tableName, std::string colNames, std::string value);
 	bool			CheckDataExist(std::string tableName, std::string colName, std::string value);
 	std::string		SelectData(std::string tableName, std::string colNames, bool whereCon = false, std::string whereCol = "id", std::string value = "");
@@ -21,6 +23,7 @@ public:
 	
 	void			ReadFileAndInsert(const char *path);
 	void			CheckSuccess(int ret);
+
 	
 	const char*		CreateCSV(const char* filename, int num);
 	void			SelectBookData();

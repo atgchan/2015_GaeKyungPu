@@ -14,30 +14,14 @@ class GameSceneManager
 {
 public:
 
-	/*
-	@brief		게임의 초기 셋팅을 진행합니다. 현재 기능 : 초기 맵 그리기
-	@warning	이 함수를 통해 셋팅하지 않은 GameMaster는 사용할 수 없습니다.
-	*/
 	void		InitializeGame();
+	void		InitPlayerData(int player1, int player2);
 	void		EndGame();
 
-	/*
-	@brief		mouse버튼 이벤트 리스너에 걸어둘 수 있는 2차 디스패쳐입니다.
-	*/
 	void		MouseDownDispatcher(cocos2d::EventMouse *event);
-
-	/*
-	@brief		mouse버튼 이벤트 리스너에 걸어둘 수 있는 2차 디스패쳐입니다.
-	*/
 	void		KeyReleasedDispatcher(EventKeyboard::KeyCode keyCode, cocos2d::Event *event);
 
-	/*
-	@brief		GameMaster에게서 요청할 어떠한 기능이라도 getInstance()를 통해 pointer를 얻어 요청합니다.
-	*/
 	static GameSceneManager* getInstance();
-	/*
-	@brief		GameMaster가 포함하고 있는 모든 node를 하나의 트리로 묶어 포인터로 반환합니다.
-	*/
 	Node*		getNodes(){ return _Nodes;}
 
 	PlayerData*	getCurrentPlayerData();

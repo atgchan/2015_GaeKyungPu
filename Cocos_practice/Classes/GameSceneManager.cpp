@@ -63,10 +63,6 @@ void GameSceneManager::InitializeGame()
 	this->AddChild(_TileMap);
 	this->_Nodes->retain();
 	this->_Nodes->setName("GameSceneManager");
-	for (int i = 0; i < NUM_OF_PLAYER; ++i)
-	{
-		_PlayerData[i] = new PlayerData(0, 1);
-	}
 
 	_Phases[PHASE_READY] = nullptr;
 	_Phases[PHASE_HARVEST] = new Phase_Harvest();
@@ -78,6 +74,17 @@ void GameSceneManager::InitializeGame()
 
 	_CurrentPlayer = PLAYER_RED;
 	_CurrentPhase = _Phases[PHASE_HARVEST];
+}
+
+void GameSceneManager::InitPlayerData(int player1, int player2)
+{
+	/*for (int i = 0; i < NUM_OF_PLAYER; ++i)
+	{
+		_PlayerData[i] = new PlayerData(0, 1, );
+	}*/
+
+	_PlayerData[0] = new PlayerData(0, 1, player1);
+	_PlayerData[1] = new PlayerData(0, 1, player2);
 }
 
 void GameSceneManager::EndGame()

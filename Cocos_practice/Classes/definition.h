@@ -82,6 +82,12 @@ enum LayerType
 	SIGN_IN
 };
 
+enum PlayerNumber
+{
+	PLAYER_1,
+	PLAYER_2
+};
+
 
 #define ATTACK_POWER_DEFAULT 2
 #define ROTATE_RESOURCE_DEFAULT 1
