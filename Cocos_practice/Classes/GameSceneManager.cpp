@@ -110,14 +110,14 @@ bool GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
 
 	if (_DraftMode == true)
 	{
-		bool result = true;
+		bool condition = true;
 
 		//		예외의 경우는 빠져 나가자
 		if (!clickedTile->isMovable() || !_DraftTile->CheckNearTile(clickedTile) || clickedTile->getCharacterOnThisTile() != nullptr)
-			result = false;
+			return false;
 
 		//		앞에서 false였다면 (타일이 spawn 불가능이라면) 여기는 안돌아가겠지
-		if (result && getCurrentPlayerData()->getFood() >= clickedTile->getFoodToConsume())
+		if (condition && getCurrentPlayerData()->getFood() >= clickedTile->getFoodToConsume())
 		{
 			DirectionKind direction = _DraftTile->getNearTileDirection(clickedTile);
 			SpawnCharacterOnTile(_DraftTile, direction, clickedTile->getFoodToConsume());
@@ -127,7 +127,7 @@ bool GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
 		_DraftTile = nullptr;
 		_DraftMode = false;
 		Unselect();
-		return result;
+		return true;
 	}
 
 	else//if (_DraftMode == false)
@@ -145,7 +145,7 @@ bool GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
 			_DraftMode = true;
 			ShowSpawnableTile(clickedTile);
 
-			return false;
+			return true;
 		}
 	}
 	return false;
@@ -268,12 +268,12 @@ void GameSceneManager::MouseDownDispatcher(cocos2d::EventMouse *event)
 	if (clickedTile == nullptr)
 		return;
 
-	if (DraftNewCharacterByClick(clickedTile))
-		return;
-
 	switch (event->getMouseButton())
 	{
 	case MOUSE_BUTTON_LEFT:
+		if (DraftNewCharacterByClick(clickedTile))
+			return;
+
 		SelectCharacter(clickedTile->getCharacterOnThisTile());
 		MoveCharacterByClick(clickedTile);
 		break;
@@ -408,6 +408,9 @@ PlayerData* GameSceneManager::getPlayerDataByPlayerInfo(PlayerInfo player)
 
 void GameSceneManager::SelectCharacter(Character* character)
 {
+	if (character == nullptr)
+		return;
+
 	if (character && character->GetOwnerPlayer() == _CurrentPlayer)
 	{
 		float posX = character->getPositionX();
@@ -516,6 +519,9 @@ DirectionKind RightDirection(DirectionKind direction)
 
 void GameSceneManager::SetRotateButton(Character* character)
 {
+	if (character == nullptr)
+		return;
+
 	if (this->_Nodes->getChildByName("rotateBtn"))
 		return;
 	if (character->_RotateResource <= 0)

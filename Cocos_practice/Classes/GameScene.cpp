@@ -47,14 +47,13 @@ bool GameScene::init()
 
 //	UI Ãß°¡
 	UILayer* layerUI = UILayer::create();
-
 	this->addChild(layerUI);
+
 //	Mouse Event
 	EventListenerMouse* clickListener = EventListenerMouse::create();
 	clickListener->onMouseDown = CC_CALLBACK_1(GameScene::MouseDownDispatcher,this);
-	
-	//_eventDispatcher->addEventListenerWithSceneGraphPriority(clickListener, this);
-	_eventDispatcher->addEventListenerWithFixedPriority(clickListener, 99999);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(clickListener, this);
+
 //	Keyboard Event
 	EventListenerKeyboard* keylistener = EventListenerKeyboard::create();
 	keylistener->onKeyReleased = CC_CALLBACK_2(GameSceneManager::KeyReleasedDispatcher, gmInstance);
