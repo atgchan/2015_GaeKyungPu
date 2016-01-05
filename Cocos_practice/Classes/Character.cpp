@@ -153,7 +153,7 @@ void Character::ShowMovableTile()
 			Sprite* battle = Sprite::createWithSpriteFrameName(FILENAME_IMG_BATTLE_INDICATOR);
 			battle->setAnchorPoint(cocos2d::Vec2(0, 0));
 			battle->setName("cursor");
-			battle->setPosition(battle->getPositionX() + 39, battle->getPositionY() + 90);
+			battle->setPosition(battle->getPositionX() + 47, battle->getPositionY() + 90);
 			tile->getCharacterOnThisTile()->addChild(battle);
 		}
 	}

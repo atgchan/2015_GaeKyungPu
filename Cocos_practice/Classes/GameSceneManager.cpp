@@ -465,7 +465,6 @@ void GameSceneManager::SelectCharacter(Character* character)
 		return;
 
 	_DraftMode = false;
-	_ReadyToMove = false;
 	_SelectedCharacter = character;
 	if (character && character->GetOwnerPlayer() == _CurrentPlayer)
 	{
