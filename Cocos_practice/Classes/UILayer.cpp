@@ -73,6 +73,9 @@ bool UILayer::init()
 
 void UILayer::ShowHowToPlay()
 {
+	while (GM->GetChildByName("howtoplay"))
+		GM->RemoveChildByName("howtoplay");
+
 	GM->setInputMode(false);
 	Director::getInstance()->pause();
 	DefaultLayer* help = DefaultLayer::create();
