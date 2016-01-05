@@ -45,6 +45,9 @@ public:
 	void				CalculateAttackPower(bool displayAlso = false);
 	void				CalculateAttackPowerAllNearTile(bool displayAlso = false);
 	void				resetRotateResource();
+
+	void				setIsMovable(bool);
+	bool				getIsMovable();
 	~Character();
 
 private:
@@ -60,6 +63,8 @@ private:
 	
 	int		_RotateResource;
 	int		_AttackPowerToDisplay = ATTACK_POWER_DEFAULT;
+	bool _IsMovable = true;
+
 	cocos2d::Sprite* _AttackPowerBall;
 	void setAttackPowerBallNameFromNumber(int);
 };

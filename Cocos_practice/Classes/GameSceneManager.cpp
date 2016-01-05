@@ -173,8 +173,13 @@ void GameSceneManager::MoveCharacterByClick(Self_Tile* clickedTile)
 	if (clickedTile == nullptr)
 		return;
 	if (_CharacterToMove)
+	{
 		if (_CharacterToMove->GetOwnerPlayer() != getCurrentPlayer())
 			return;
+		if (_CharacterToMove->getIsMovable() == false)
+			return;
+	}
+
 	if (_ReadyToMove == true)
 	{
 		bool check = true;
@@ -609,6 +614,7 @@ void GameSceneManager::RotateToDirection(Character* character, RotateDirection r
 	
 	while (TileMap::getInstance()->getChildByName("moveable"))
 		TileMap::getInstance()->removeChildByName("moveable");
+	
 	character->ShowMovableTile();
 
 	if (character->_RotateResource <= 0)
@@ -645,4 +651,13 @@ void GameSceneManager::ResetRotateResource()
 void GameSceneManager::ResetLastCharacter()
 {
 	lastCharacter = nullptr;
+}
+
+void GameSceneManager::ResetCharacterMovable()
+{
+	for (auto iter : TileMap::getInstance()->getChildren())
+		if (iter->getName() == "character")
+		{
+			static_cast<Character*>(iter)->setIsMovable(true);
+		}
 }

@@ -84,7 +84,8 @@ public:
 
 	bool		getIsInputAble();
 	bool		_DebugMode = false;
-	void ResetLastCharacter();
+	void		ResetLastCharacter();
+	void		ResetCharacterMovable();
 	~GameSceneManager();
 
 private:

@@ -83,6 +83,8 @@ void Character::MoveToTile(Self_Tile* dest, bool battleMode /*= true*/)
 	dest->CaculateAttackPowerAllNearTile(!battleMode);
 
 	EventManager::getInstance()->AddHistory(HistoryEventMoveCharacter::Create(this, dest));
+
+	this->setIsMovable(false);
 }
 
 void Character::CharacterBeHit()
@@ -120,6 +122,9 @@ void Character::CharacterAttack()
 
 void Character::ShowMovableTile()
 {
+	if (this->_IsMovable == false)
+		return;
+
 	Sprite* tileMove = Sprite::createWithSpriteFrameName(FILENAME_IMG_GAME_CHARACTER_MOVABLE_TILE);
 	tileMove->setOpacity(96);
 	tileMove->setAnchorPoint(cocos2d::Vec2(0, 0));
@@ -311,4 +316,17 @@ void Character::resetRotateResource()
 
 	if (GM->_DebugMode == DEBUG_MODE_ON)
 		_RotateResource = ROTATE_RESOURCE_DEBUG_MODE;
+}
+
+void Character::setIsMovable(bool movable)
+{
+	_IsMovable = movable;
+}
+
+bool Character::getIsMovable()
+{
+	if (GM->_DebugMode == DEBUG_MODE_ON)
+		return true;
+	else 
+		return _IsMovable;
 }
