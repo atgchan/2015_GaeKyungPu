@@ -25,7 +25,6 @@ Scene* GameScene::CreateScene()
 bool GameScene::init()
 {
 	if (!Layer::init()) return false;
-	_GameIsEnd = false;
 	this->setName("GameScene");
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();
@@ -71,8 +70,6 @@ void GameScene::ScheduleCallback(float delta)
 {
 	RefreshFood();
 
-	if (_GameIsEnd)
-		GameSceneManager::getInstance()->EndGame();
 	GameSceneManager::getInstance()->ScheduleCallback(delta);
 }
 

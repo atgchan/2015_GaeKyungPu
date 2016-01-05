@@ -27,6 +27,7 @@ bool ResultLayer::init()
 	this->addChild(BackLayer);
 
 	Sprite* resultPage = Sprite::createWithSpriteFrameName(FILENAME_IMG_UI_RESULT_WINDOW);
+
 	Sprite* replayButton = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_GOTO_MAIN);
 	Sprite* replayButtonClicked = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_GOTO_MAIN_CLICKED);
 

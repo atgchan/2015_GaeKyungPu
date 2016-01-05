@@ -84,6 +84,17 @@ void GameSceneManager::EndGame()
 	Director::getInstance()->pause();
 	ResultLayer* result = ResultLayer::create();
 	AddChild(result);
+
+	PlayerInfo currentPlayer = getCurrentPlayer();
+	cocos2d::Label* winner;
+	if (currentPlayer == PLAYER_RED)
+		winner = cocos2d::Label::create("Red Win!", FILENAME_FONT_PIXEL, 80);
+	else
+		winner = cocos2d::Label::create("Blue Win!", FILENAME_FONT_PIXEL, 80);
+
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+	winner->setPosition(Vec2(visibleSize.width * 1 / 2, visibleSize.height * 3 / 5));
+	AddChild(winner);
 }
 
 Self_Tile* GameSceneManager::getTileFromMouseEvent(const cocos2d::EventMouse *event)
