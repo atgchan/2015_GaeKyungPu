@@ -87,7 +87,7 @@ enum EventType
 
 #define FILENAME_SOUND_GAME_BGM		"Sound/main_bg.wav"
 #define FILENAME_SOUND_GAME_SWORD	"Sound/swords.wav"
-#define FILENAME_SOUND_GAME_MOVE	"Sound/Jump_03.wav"
+#define FILENAME_SOUND_GAME_MOVE	"Sound/footsteps.wav"
 #define FILENAME_SOUND_GAME_KILL	"Sound/Hit_03.wav"
 #define FILENAME_SOUND_GAME_VOLCANO "Sound/lava-01.wav"
 #define FILENAME_SOUND_GAME_HARVEST "Sound/Emerge6.wav"
