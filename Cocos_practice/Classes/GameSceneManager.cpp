@@ -146,7 +146,8 @@ bool GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
 
 	else//if (_DraftMode == false)
 	{
-		_ReadyToMove = false;
+		if(_ReadyToMove == true)
+			return false;
 
 		if ((clickedTile->getOwnerPlayer() == _CurrentPlayer) && clickedTile->isSpawnable())
 		{
