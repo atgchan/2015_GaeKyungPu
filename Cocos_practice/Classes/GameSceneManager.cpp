@@ -271,6 +271,27 @@ void GameSceneManager::KeyReleasedDispatcher(EventKeyboard::KeyCode keyCode, coc
 	}
 }
 
+
+void GameSceneManager::MouseDownLater(cocos2d::EventMouse event, Self_Tile* clickedTile)
+{
+	setInputMode(true);
+	if (lastCharacter != nullptr)
+	{
+		if (lastCharacter->getCurrentDirection() != lastDirection)
+			return;
+	}
+
+	switch (event.getMouseButton())
+	{
+	case MOUSE_BUTTON_LEFT:
+		SelectCharacter(clickedTile->getCharacterOnThisTile());
+		MoveCharacterByClick(clickedTile);
+		break;
+	default:
+		break;
+	}
+}
+
 void GameSceneManager::MouseDownDispatcher(cocos2d::EventMouse *event)
 {
 	if (_CurrentPhaseInfo != PHASE_ACTION)
