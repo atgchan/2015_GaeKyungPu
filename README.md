@@ -4,6 +4,8 @@
 
 v1.0.0 - [다운로드](http:// "다운로드")
 
+![image](http://ref.comgal.info/data/cgref_4/1452003311/%EC%9D%B4%EB%AF%B8%EC%A7%80_11.png)
+
 
 * 기본 조작법
     + 병사 생산 - 배럭 클릭 후 주변 타일 클릭(forest로의 생산은 식량 2 소모)
