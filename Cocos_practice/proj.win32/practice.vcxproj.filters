@@ -226,4 +226,7 @@
       <UniqueIdentifier>{6f5f64b4-8379-4726-b026-add212be820c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\game.ico" />
+  </ItemGroup>
 </Project>

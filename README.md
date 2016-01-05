@@ -2,7 +2,7 @@
 ##update note
 
 
-v1.0.0 - [다운로드](http:// "다운로드")
+v1.0.0 - [다운로드](https://docs.google.com/uc?id=0B_TvnHrSpg8jcFV2WVFGb2hDNWc&export=download "다운로드")
 
 ![image](http://ref.comgal.info/data/cgref_4/1452003311/%EC%9D%B4%EB%AF%B8%EC%A7%80_11.png)
 

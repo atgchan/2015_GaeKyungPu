@@ -16,7 +16,6 @@
 #include "CharacterAnimation.h"
 
 //USING_NS_CC;
-#define COCOS2D_DEBUG 1
 
 GameSceneManager* GameSceneManager::_Inst = nullptr;
 static DirectionKind lastDirection = DIRECTION_ERR;

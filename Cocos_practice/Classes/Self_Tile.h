@@ -40,7 +40,7 @@ private:
 	static std::string _DictionaryForFilenames[MAX_TILEKIND];
 
 	int			_FoodToConsume = 1;
-	PlayerInfo	_OwnerPlayer;
+	PlayerInfo	_OwnerPlayer = PLAYER_ERR;
 	Self_Tile*	_NearTile[DIRECTION_MAX];
 
 	Character* _CharacterOnThisTile = nullptr;
