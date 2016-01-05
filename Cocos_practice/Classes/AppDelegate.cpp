@@ -36,7 +36,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     }
 
     // FPS on/off
-    director->setDisplayStats(true);
+    director->setDisplayStats(false);
     // FPS ¼ÂÆÃ
     director->setAnimationInterval(1.0f / 60);
 

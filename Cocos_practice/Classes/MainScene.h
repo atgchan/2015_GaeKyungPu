@@ -17,7 +17,4 @@ private:
 	void	MenuClickCallback(Ref* pSender);
 	void	MenuCloseCallback(Ref* pSender);
 
-	void	OnKeyReleased(EventKeyboard::KeyCode keyCode, Event* event);
-	void	OnKeyPressed(EventKeyboard::KeyCode keyCode, Event* event);
-
 };

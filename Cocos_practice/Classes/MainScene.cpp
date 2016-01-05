@@ -44,10 +44,6 @@ bool MainScene::init()
 	this->addChild(mainMenu);
 
 //	Keyboard Event
-	auto keyListener = EventListenerKeyboard::create();
-	keyListener->onKeyPressed = CC_CALLBACK_2(MainScene::OnKeyPressed, this);
-	keyListener->onKeyReleased = CC_CALLBACK_2(MainScene::OnKeyReleased, this);
-	_eventDispatcher->addEventListenerWithSceneGraphPriority(keyListener, this);
 
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic(FILENAME_SOUND_MAIN_BGM,true);
 
@@ -67,44 +63,4 @@ void MainScene::MenuCloseCallback(cocos2d::Ref* pSender)
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	exit(0);
 #endif
-}
-
-void MainScene::OnKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
-{
-	/*auto target = event->getCurrentTarget()->getChildByName("cursor");
-	Vec2 loc = target->getPosition();
-
-	switch (keyCode){
-
-	case EventKeyboard::KeyCode::KEY_ESCAPE:
-		Director::getInstance()->end();
-		break;
-
-	case EventKeyboard::KeyCode::KEY_ENTER:
-		target->setPosition(loc.x -= 15, loc.y);
-		break;
-	}*/
-}
-
-void MainScene::OnKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
-{
-	/*auto target = event->getCurrentTarget()->getChildByName("cursor");
-	Vec2 loc = target->getPosition();
-
-	switch (keyCode){
-
-	case EventKeyboard::KeyCode::KEY_ENTER:
-		target->setPosition(loc.x += 15, loc.y);
-		break;
-
-	case EventKeyboard::KeyCode::KEY_UP_ARROW:
-	case EventKeyboard::KeyCode::KEY_W:
-		target->setPosition(loc.x, loc.y += 30);
-		break;
-
-	case EventKeyboard::KeyCode::KEY_DOWN_ARROW:
-	case EventKeyboard::KeyCode::KEY_S:
-		target->setPosition(loc.x, loc.y -= 30);
-		break;
-	}*/
 }
