@@ -14,7 +14,9 @@ public:
 private:
 	LayerColor* BackLayer;
 	LayerColor* PopUpLayer;
+
 	void		SetUIBar();
 	void		ShowOptionWindow(Object *pSender);
+	void		ShowHowToPlay();
 	Sprite*		_TurnLabel = nullptr;
 };
