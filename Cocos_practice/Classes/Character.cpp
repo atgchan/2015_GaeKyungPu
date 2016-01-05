@@ -26,7 +26,7 @@ Character::Character(PlayerInfo cPInfo, DirectionKind spriteNum)
 Character* Character::create(PlayerInfo cPInfo, DirectionKind spriteNum)
 {
 	Character* character(new Character(cPInfo, spriteNum));
-	
+
 	Animation* animationDefault = CharacterAnimation::getInstance()->getAnimationDefault(cPInfo, spriteNum);
 	character->init();
 	character->runAction(Animate::create(animationDefault));
@@ -132,8 +132,7 @@ void Character::ShowMovableTile()
 		return;
 	if (!tile->isMovableTile())
 		return;
-
-	if (this->getIsMovable())
+	if (!tile->getCharacterOnThisTile() && this->getIsMovable())
 	{
 		float tilePosX = tile->getPositionX();
 		float tilePosY = tile->getPositionY() + 21;
@@ -215,7 +214,7 @@ void Character::setAttackPower(int attackPower)
 
 void Character::InitAttackPowerSprite()
 {
-	_AttackPowerBall = CCSprite::createWithSpriteFrameName(FILENAME_IMG_ATTACK_POWER_2); 
+	_AttackPowerBall = CCSprite::createWithSpriteFrameName(FILENAME_IMG_ATTACK_POWER_2);
 
 	float posX = this->getPositionX();
 	float posY = this->getPositionY();
@@ -245,12 +244,12 @@ int Character::CalculateDiffBetweenDirections(DirectionKind dir1, DirectionKind 
 
 	if (diff == 3)
 		return 0;
-	
+
 	if (diff == 2 || diff == 4)
 		return 1;
 
 	if (diff == 1 || diff == 5)
-		return 2;	
+		return 2;
 
 	if (diff == 0)
 		return 3;

@@ -92,7 +92,7 @@ DirectionKind Self_Tile::getNearTileDirection(Self_Tile* tile)
 
 bool Self_Tile::isMovableTile()
 {
-	if (getTypeOfTile() == TILE_LAVA || getTypeOfTile() == TILE_VOLCANO || getTypeOfTile() == TILE_NULL || getTypeOfTile() == TILE_LAKE)
+	if (getTypeOfTile() == TILE_LAVA || getTypeOfTile() == TILE_VOLCANO || getTypeOfTile()==TILE_VOLCANO_ACTIVATED || getTypeOfTile() == TILE_NULL || getTypeOfTile() == TILE_LAKE)
 		return false;
 	return true;
 }

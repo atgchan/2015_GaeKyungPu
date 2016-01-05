@@ -22,9 +22,9 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 		std::list<Character*> *winner = nullptr;
 		std::list<Character*> *loser = nullptr;
 
-			_CurrentAttackFormation.front()->CalculateAttackPower();
-			_CurrentDefenseFormation.front()->CalculateAttackPower();
-		
+		_CurrentAttackFormation.front()->CalculateAttackPower();
+		_CurrentDefenseFormation.front()->setAttackPower(2 + ((_CurrentDefenseFormation.front()->getCurrentTile()->getTypeOfTile() == TILE_FOREST) ? 1:0 ));
+
 		if (IsAttackerWin(_CurrentAttackFormation.front(), _CurrentDefenseFormation.front()))
 		{
 			winner = &_CurrentAttackFormation;
@@ -43,18 +43,18 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 			EventManager::getInstance()->AddHistory(HistoryEventAttack::Create(_CurrentDefenseFormation.front(), _CurrentAttackFormation.front()));
 			winner->front()->RotateToDirection(static_cast<DirectionKind>((attacker->getCurrentDirection() + 3) % DIRECTION_MAX), false);
 		}
-		
+
 		DirectionKind tempDirection = DIRECTION_ERR;
 		DirectionKind prevDirection = loser->front()->getCurrentDirection();
-		GM->KillCharacter(loser->front(),true);
+		GM->KillCharacter(loser->front(), true);
 		auto iter = loser->begin();
 		++iter;
-		
+
 		for (; iter != loser->end(); ++iter)
 		{
 			(*iter)->MoveToTile((*iter)->getCurrentTile()->getNearTile((*iter)->getCurrentDirection()));
 			tempDirection = (*iter)->getCurrentDirection();
-			(*iter)->RotateToDirection(prevDirection,false);
+			(*iter)->RotateToDirection(prevDirection, false);
 			prevDirection = tempDirection;
 
 			if (loser == &_CurrentDefenseFormation)
@@ -91,7 +91,7 @@ bool BattleManager::IsAttackerWin(Character* attacker, Character* defender)
 	{
 		int attackerDice = DiceDice::getInstance()->RollDiceBetween(1, attacker->_AttackPower);
 		int defenderDice = DiceDice::getInstance()->RollDiceBetween(1, defender->_AttackPower);
-		
+
 		if (attackerDice == defenderDice)
 			continue;
 		EventManager::getInstance()->AddHistory(HistoryEventDice::Create(attacker, attackerDice));
@@ -105,7 +105,7 @@ void BattleManager::SetAttackFormation(Character* attacker)
 {
 	std::list<Character*> tempList;
 	_CurrentAttackFormation.clear();
-	SearchGraphAndOverwriteAttackFormation(tempList, attacker, 1,0);
+	SearchGraphAndOverwriteAttackFormation(tempList, attacker, 1, 0);
 }
 
 void BattleManager::SetDefenseFormation(Character* defender)
@@ -141,7 +141,7 @@ int BattleManager::SearchGraphAndOverwriteAttackFormation(std::list<Character*> 
 			//해당 캐릭터가 자신을 바라보고 있으면
 			if (compareNode->GetNearCharacter(compareNode->getCurrentDirection()) == currentNode && compareNode->GetOwnerPlayer() == currentNode->GetOwnerPlayer())
 				//이미 탐색했던 node가 아니면
-				if (std::find(checkedNodes.begin(),checkedNodes.end(),compareNode) == checkedNodes.end())
+				if (std::find(checkedNodes.begin(), checkedNodes.end(), compareNode) == checkedNodes.end())
 					maxDepth = SearchGraphAndOverwriteAttackFormation(checkedNodes, compareNode, currentDepth + 1, maxDepth);
 	}
 
