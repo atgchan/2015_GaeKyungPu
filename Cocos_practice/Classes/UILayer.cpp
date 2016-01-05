@@ -44,13 +44,19 @@ bool UILayer::init()
 	Sprite* optionButton_clicked = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_OPTION_CLICKED);
 	Sprite* optionButton2 = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_OPTION);
 	Sprite* optionButton_clicked2 = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_OPTION_CLICKED);
+
 	MenuItemSprite* sprOption = MenuItemSprite::create(optionButton, optionButton_clicked);
 	MenuItemSprite* sprOption_clicked = MenuItemSprite::create(optionButton_clicked2, optionButton2);
 	MenuItemToggle* optionToggle = MenuItemToggle::createWithCallback(CC_CALLBACK_1(UILayer::ShowOptionWindow, this), sprOption, sprOption_clicked, nullptr);
 	optionToggle->setPosition(Vec2(visibleSize.width - 100, visibleSize.height - 33));
 	optionToggle->setName("option_toggle");
 
-	Menu* ingameMenu = Menu::create(toggleTurn, optionToggle, NULL);
+	Sprite* helpButton = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_HELP);
+	Sprite* helpButton_clicked = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_HELP_CLICKED);
+	MenuItemSprite* howToPlay = MenuItemSprite::create(helpButton, helpButton_clicked);
+	howToPlay->setPosition(Vec2(visibleSize.width - 160, visibleSize.height - 33));
+
+	Menu* ingameMenu = Menu::create(toggleTurn, optionToggle, howToPlay, NULL);
 	ingameMenu->setPosition(Vec2::ZERO);
 	ingameMenu->setName("ingameMenu");
 
@@ -62,6 +68,14 @@ bool UILayer::init()
 	this->addChild(ingameMenu);
 
 	return true;
+}
+
+void UILayer::ShowHowToPlay()
+{
+	GM->setInputMode(false);
+	Director::getInstance()->pause();
+	OptionLayer* option = OptionLayer::create();
+	GM->AddChild(option);
 }
 
 void UILayer::ShowOptionWindow(Object *pSender)
