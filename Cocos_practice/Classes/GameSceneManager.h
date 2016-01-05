@@ -9,39 +9,23 @@ class Phase;
 class BattleManager;
 class DiceDice;
 
-
 class GameSceneManager
 {
 public:
+	static GameSceneManager* getInstance();
 
-	/*
-	@brief		게임의 초기 셋팅을 진행합니다. 현재 기능 : 초기 맵 그리기
-	@warning	이 함수를 통해 셋팅하지 않은 GameMaster는 사용할 수 없습니다.
-	*/
 	void		InitializeGame();
 	void		EndGame();
-
-	/*
-	@brief		mouse버튼 이벤트 리스너에 걸어둘 수 있는 2차 디스패쳐입니다.
-	*/
+	
 	void		MouseDownDispatcher(cocos2d::EventMouse *event);
-
-	/*
-	@brief		mouse버튼 이벤트 리스너에 걸어둘 수 있는 2차 디스패쳐입니다.
-	*/
 	void		KeyReleasedDispatcher(EventKeyboard::KeyCode keyCode, cocos2d::Event *event);
-
-	/*
-	@brief		GameMaster에게서 요청할 어떠한 기능이라도 getInstance()를 통해 pointer를 얻어 요청합니다.
-	*/
-	static GameSceneManager* getInstance();
-	/*
-	@brief		GameMaster가 포함하고 있는 모든 node를 하나의 트리로 묶어 포인터로 반환합니다.
-	*/
+	
 	Node*		getNodes(){ return _Nodes;}
 
 	PlayerData*	getCurrentPlayerData();
 	PlayerInfo	getCurrentPlayer();
+
+	void		ScheduleCallback(float delta);
 
 	void		ChangePlayer();
 	bool		getIsVolcanoActivated();
@@ -49,22 +33,8 @@ public:
 	void		setProgressVolcano(int progress);
 	bool		getIsMouseLocked();
 
-	void		ScheduleCallback(float delta);
-
-	/*
-	@brief		GameScene으로부터 CALLBACK 받아 턴 변경. (추후에 UI 클래스에서 CALLBACK 하도록)
-	*/
-	void ToggleTurn();
-
-	/*
-		@brief	타일의 포인터와 타일의 클릭 가능한 위치를 나타내는 사각형을 받아서 배열로 저장한다.
-	*/
-	void PushTileToList(Self_Tile* tile);
-
-	/*
-		@brief	타일 리스트에서 해당 좌표값의 위치에 포함되는 타일이 있는지 검사해서 있으면 타일 포인터를 반환한다.
-	*/
-	Self_Tile* getExistingTileWithMousePoint(Vec2 vec);
+	void		ToggleTurn();
+	void		PushTileToList(Self_Tile* tile);
 
 	void		AddChild(Node* targetNode);
 	void		ChangeRichToLava(Self_Tile* target);
@@ -86,6 +56,7 @@ public:
 	bool		_DebugMode = false;
 	void		ResetLastCharacter();
 	void		ResetCharacterMovable();
+	
 	~GameSceneManager();
 
 private:
@@ -130,8 +101,8 @@ private:
 	void		TrimZorderAndRefreshAP();
 
 	void		SetRotateButton(Character* character);
+	void		ResetRotateResource();
 	void		RotateToDirection(Character* character, RotateDirection rotateDirection);
 	void		RemoveCursor();
-	void MouseDownLater(cocos2d::EventMouse event, Self_Tile* clickedTile);
-	void ResetRotateResource();
+	
 };

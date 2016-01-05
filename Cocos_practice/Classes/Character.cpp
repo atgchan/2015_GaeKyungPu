@@ -126,9 +126,6 @@ void Character::CharacterAttack()
 
 void Character::ShowMovableTile()
 {
-	if (this->_IsMovable == false)
-		return;
-
 	Sprite* tileMove = Sprite::createWithSpriteFrameName(FILENAME_IMG_GAME_CHARACTER_MOVABLE_TILE);
 	tileMove->setOpacity(96);
 	tileMove->setAnchorPoint(cocos2d::Vec2(0, 0));

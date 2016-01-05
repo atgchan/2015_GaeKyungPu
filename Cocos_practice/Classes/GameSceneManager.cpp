@@ -176,8 +176,16 @@ void GameSceneManager::MoveCharacterByClick(Self_Tile* clickedTile)
 	if (clickedTile == nullptr)
 		return;
 	if (_CharacterToMove)
+	{
 		if (_CharacterToMove->GetOwnerPlayer() != getCurrentPlayer())
 			return;
+
+		/*if (_CharacterToMove->getIsMovable() == false)
+		{
+			_ReadyToMove = false;
+			return;
+		}*/
+	}
 
 	if (_ReadyToMove == true)
 	{
@@ -283,27 +291,6 @@ void GameSceneManager::KeyReleasedDispatcher(EventKeyboard::KeyCode keyCode, coc
 	}
 }
 
-
-void GameSceneManager::MouseDownLater(cocos2d::EventMouse event, Self_Tile* clickedTile)
-{
-	setInputMode(true);
-	if (lastCharacter != nullptr)
-	{
-		if (lastCharacter->getCurrentDirection() != lastDirection)
-			return;
-	}
-
-	switch (event.getMouseButton())
-	{
-	case MOUSE_BUTTON_LEFT:
-		SelectCharacter(clickedTile->getCharacterOnThisTile());
-		MoveCharacterByClick(clickedTile);
-		break;
-	default:
-		break;
-	}
-}
-
 void GameSceneManager::MouseDownDispatcher(cocos2d::EventMouse *event)
 {
 	if (_CurrentPhaseInfo != PHASE_ACTION)
@@ -314,7 +301,6 @@ void GameSceneManager::MouseDownDispatcher(cocos2d::EventMouse *event)
 	Self_Tile* clickedTile = getTileFromMouseEvent(event);
 	if (clickedTile == nullptr)
 	{
-		_SelectedCharacter = nullptr;
 		Unselect();
 		return;
 	}
@@ -333,7 +319,6 @@ void GameSceneManager::MouseDownDispatcher(cocos2d::EventMouse *event)
 	case MOUSE_BUTTON_MIDDLE:
 		if (clickedTile->getCharacterOnThisTile() == nullptr || clickedTile->getCharacterOnThisTile() != _SelectedCharacter)
 		{
-			_SelectedCharacter = nullptr;
 			Unselect();
 			return;
 		}
@@ -343,7 +328,6 @@ void GameSceneManager::MouseDownDispatcher(cocos2d::EventMouse *event)
 	case MOUSE_BUTTON_RIGHT:
 		if (clickedTile->getCharacterOnThisTile() == nullptr || clickedTile->getCharacterOnThisTile() != _SelectedCharacter)
 		{
-			_SelectedCharacter = nullptr;
 			Unselect();
 			return;
 		}
@@ -555,6 +539,7 @@ void GameSceneManager::Unselect()
 	while (TileMap::getInstance()->getChildByName("rotateBtn"))
 		TileMap::getInstance()->removeChildByName("rotateBtn");
 
+	_SelectedCharacter = nullptr;
 	RemoveCursor();
 }
 
