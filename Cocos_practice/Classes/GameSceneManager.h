@@ -56,7 +56,13 @@ public:
 	bool		_DebugMode = false;
 	void		ResetLastCharacter();
 	void		ResetCharacterMovable();
-	
+
+	cocos2d::Node*	GetChildByName(const std::string& name)
+	{ return _Nodes->getChildByName(name); };
+
+	void	RemoveChildByName(const std::string& name)
+	{ _Nodes->removeChildByName(name); };
+
 	~GameSceneManager();
 
 private:

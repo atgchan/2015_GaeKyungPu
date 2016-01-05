@@ -4,6 +4,8 @@
 #include "GameSceneManager.h"
 #include "MainScene.h"
 #include "SimpleAudioEngine.h"
+#include "ui\UIScrollView.h"
+#include "ui\UIScrollViewBar.h"
 
 cocos2d::Scene* DefaultLayer::scene()
 {
@@ -29,7 +31,7 @@ bool DefaultLayer::init()
 	BackLayer->setPosition(Vec2(0, 0));
 	this->addChild(BackLayer);
 
-	Sprite* optionWindow = Sprite::createWithSpriteFrameName(FILENAME_IMG_UI_OPTION_WINDOW);
+	Sprite* optionWindow = Sprite::createWithSpriteFrameName(FILENAME_IMG_UI_DEFAULT_WINDOW);
 	optionWindow->setPosition(visibleSize.width / 2, visibleSize.height / 2);
 	this->addChild(optionWindow);
 
@@ -42,9 +44,30 @@ bool DefaultLayer::init()
 	resumeMenu->setAnchorPoint(Vec2(1, 1));
 	resumeMenu->setPosition(visibleSize.width / 2 + width / 2 - 50, visibleSize.height/2 + height/2 - 12);
 
+	ui::ScrollView* scrollView = ui::ScrollView::create();
+	scrollView->setDirection(ui::ScrollView::Direction::VERTICAL);
+	scrollView->setContentSize(Size(600,400));
+	scrollView->setInnerContainerSize(Size(600,2550));
+	scrollView->setBounceEnabled(false);
+	scrollView->setAnchorPoint(Vec2(0.5, 0.5));
+	scrollView->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2-50));
+
+	Sprite* howto_attack = Sprite::create("Help/Attack.png");
+	howto_attack->setPosition(Vec2(scrollView->getContentSize().width / 2, 2550));
+	scrollView->addChild(howto_attack);
+
+	Sprite* howto_defense = Sprite::create("Help/Defense.png");
+	howto_defense->setPosition(Vec2(scrollView->getContentSize().width / 2, 1700));
+	scrollView->addChild(howto_defense);
+	
+	Sprite* howto_sideAttack = Sprite::create("Help/SideAttack.png");
+	howto_sideAttack->setPosition(Vec2(scrollView->getContentSize().width / 2, 850));
+	scrollView->addChild(howto_sideAttack);
+
 	Menu* helpMenu = Menu::create(resumeMenu, nullptr);
 	helpMenu->setPosition(Vec2::ZERO);
 	this->addChild(helpMenu);
+	this->addChild(scrollView);
 
 	return true;
 }

@@ -93,7 +93,7 @@ enum EventType
 #define FILENAME_SOUND_GAME_HARVEST "Sound/Emerge6.wav"
 
 //IMG - png, jpeg able
-#define FILENAME_IMG_MAIN_BACKGROUND "Background/title.png"
+#define FILENAME_IMG_MAIN_BACKGROUND	"Background/title.png"
 #define FILENAME_IMG_MAIN_SELECT		"triangle.png"
 
 #define FILENAME_IMG_GAME_BACKGROUND					"Background/background_volcano.png"
@@ -123,6 +123,7 @@ enum EventType
 #define FILENAME_IMG_UI_UPPER_BAR				"ui_bar.png"
 
 #define FILENAME_IMG_UI_GRAIN_INDICATOR			"grain_bar.png"
+#define	FILENAME_IMG_UI_DEFAULT_WINDOW			"default_window.png"
 #define FILENAME_IMG_UI_OPTION_WINDOW			"option_window.png"
 #define FILENAME_IMG_UI_RESULT_WINDOW			"result_window.png"
 

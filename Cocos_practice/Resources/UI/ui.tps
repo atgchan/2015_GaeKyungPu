@@ -240,6 +240,7 @@
             <filename>help_button.png</filename>
             <filename>x_button.png</filename>
             <filename>x_button_clicked.png</filename>
+            <filename>default_window.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
