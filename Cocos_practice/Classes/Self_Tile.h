@@ -24,7 +24,7 @@ public:
 	void setCharacterOnThisTile(Character* character);
 	void setNearTile(int num, Self_Tile* tile);
 	
-	bool isMovable();
+	bool isMovableTile();
 	bool isSpawnable();
 	int	 getFoodToConsume();
 	

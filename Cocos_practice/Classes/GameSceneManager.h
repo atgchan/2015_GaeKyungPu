@@ -104,5 +104,5 @@ private:
 	void		ResetRotateResource();
 	void		RotateToDirection(Character* character, RotateDirection rotateDirection);
 	void		RemoveCursor();
-	
+
 };

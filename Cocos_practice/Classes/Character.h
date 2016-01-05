@@ -48,24 +48,29 @@ public:
 
 	void				setIsMovable(bool);
 	bool				getIsMovable();
+	void				setIsAttackable(bool);
+	bool				getIsAttackable();
+
+
 	~Character();
 
 private:
 	Character(PlayerInfo cPInfo, DirectionKind spriteNum);
 
-	PlayerInfo			_OwnerPlayer = PLAYER_ERR;
-	DirectionKind		_CurrentDirection = DIRECTION_ERR;
-	DirectionKind		_CurrentDirectionToShow = DIRECTION_ERR;
+	PlayerInfo				_OwnerPlayer = PLAYER_ERR;
+	DirectionKind			_CurrentDirection = DIRECTION_ERR;
+	DirectionKind			_CurrentDirectionToShow = DIRECTION_ERR;
 
 	CC_SYNTHESIZE(Self_Tile*, CurrentTile, CurrentTile);
 	CC_SYNTHESIZE(PlayerInfo, CurrentPlayerInfo, CurrentPlayerInfo);
 	CC_SYNTHESIZE(AnimationState, AnimState, AnimState);
 
-	int		_RotateResource;
-	int		_AttackPowerToDisplay = ATTACK_POWER_DEFAULT;
-	bool _IsMovable = true;
+	int						_RotateResource;
+	int						_AttackPowerToDisplay = ATTACK_POWER_DEFAULT;
+	bool					_IsMovable = true;
+	bool					_IsAttackable = true;
 
-	cocos2d::Sprite* _AttackPowerBall;
+	cocos2d::Sprite*		_AttackPowerBall;
 	void setAttackPowerBallNameFromNumber(int);
 
 };

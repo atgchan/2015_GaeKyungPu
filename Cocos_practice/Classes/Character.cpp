@@ -67,11 +67,6 @@ void Character::RotateToDirection(DirectionKind targetDirection, bool displayAls
 
 void Character::MoveToTile(Self_Tile* dest, bool battleMode /*= true*/)
 {
-	if (GM->_DebugMode == DEBUG_MODE_OFF && _IsMovable == false)
-	{
-		return;
-	}
-
 	if (GM->_DebugMode == DEBUG_MODE_OFF)
 		_RotateResource = ROTATE_RESOURCE_DEFAULT;
 
@@ -135,19 +130,21 @@ void Character::ShowMovableTile()
 
 	if (GM->getPlayerDataByPlayerInfo(_OwnerPlayer)->getFood() < tile->getFoodToConsume())
 		return;
-	if (!tile->isMovable())
+	if (!tile->isMovableTile())
 		return;
 
-	float tilePosX = tile->getPositionX();
-	float tilePosY = tile->getPositionY() + 21;
+	if (this->getIsMovable())
+	{
+		float tilePosX = tile->getPositionX();
+		float tilePosY = tile->getPositionY() + 21;
 
-	tileMove->setPosition(tilePosX, tilePosY);
-	tileMove->setName("moveable");
-	tileMove->setZOrder(this->getCurrentTile()->getNearTile(dir)->getZOrder());
-	TileMap::getInstance()->addChild(tileMove);
-
+		tileMove->setPosition(tilePosX, tilePosY);
+		tileMove->setName("moveable");
+		tileMove->setZOrder(this->getCurrentTile()->getNearTile(dir)->getZOrder());
+		TileMap::getInstance()->addChild(tileMove);
+	}
 	//타일 위에 캐릭터가 있으면 머리 위에 커서를 보여줌
-	if (tile->getCharacterOnThisTile() != nullptr)
+	if (tile->getCharacterOnThisTile() != nullptr && this->getIsAttackable())
 	{
 		if (tile->getCharacterOnThisTile()->GetOwnerPlayer() != GM->getCurrentPlayer())
 		{
@@ -328,6 +325,19 @@ bool Character::getIsMovable()
 {
 	if (GM->_DebugMode == DEBUG_MODE_ON)
 		return true;
-	else 
+	else
 		return _IsMovable;
+}
+
+void Character::setIsAttackable(bool attackable)
+{
+	_IsAttackable = attackable;
+}
+
+bool Character::getIsAttackable()
+{
+	if (GM->_DebugMode == DEBUG_MODE_ON)
+		return true;
+	else
+		return _IsAttackable;
 }

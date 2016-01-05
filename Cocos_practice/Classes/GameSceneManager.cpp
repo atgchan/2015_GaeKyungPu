@@ -121,8 +121,8 @@ bool GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
 
 	if (_DraftMode == true)
 	{
-//		예외의 경우는 빠져 나가자
-		if (!clickedTile->isMovable() || !_DraftTile->CheckNearTile(clickedTile) || clickedTile->getCharacterOnThisTile() != nullptr)
+		//		예외의 경우는 빠져 나가자
+		if (!clickedTile->isMovableTile() || !_DraftTile->CheckNearTile(clickedTile) || clickedTile->getCharacterOnThisTile() != nullptr)
 		{
 			_DraftTile = nullptr;
 			_DraftMode = false;
@@ -130,7 +130,7 @@ bool GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
 			return false;
 		}
 
-//		앞에서 false였다면 (타일이 spawn 불가능이라면) 여기는 안돌아가겠지
+		//		앞에서 false였다면 (타일이 spawn 불가능이라면) 여기는 안돌아가겠지
 		if (getCurrentPlayerData()->getFood() >= clickedTile->getFoodToConsume())
 		{
 			DirectionKind direction = _DraftTile->getNearTileDirection(clickedTile);
@@ -149,14 +149,14 @@ bool GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
 
 	else//if (_DraftMode == false)
 	{
-		if(_ReadyToMove == true)
+		if (_ReadyToMove == true)
 			return false;
 
 		if ((clickedTile->getOwnerPlayer() == _CurrentPlayer) && clickedTile->isSpawnable())
 		{
 			if ((clickedTile->getCharacterOnThisTile() != nullptr) && (clickedTile->getCharacterOnThisTile()->GetOwnerPlayer() == _CurrentPlayer))
 				return false;
-						
+
 			_SelectedCharacter = nullptr;
 			Unselect();
 
@@ -179,12 +179,6 @@ void GameSceneManager::MoveCharacterByClick(Self_Tile* clickedTile)
 	{
 		if (_CharacterToMove->GetOwnerPlayer() != getCurrentPlayer())
 			return;
-
-		/*if (_CharacterToMove->getIsMovable() == false)
-		{
-			_ReadyToMove = false;
-			return;
-		}*/
 	}
 
 	if (_ReadyToMove == true)
@@ -196,35 +190,38 @@ void GameSceneManager::MoveCharacterByClick(Self_Tile* clickedTile)
 			_ReadyToMove = false;
 			return;
 		}
-		if (!clickedTile->isMovable())
+		if (!clickedTile->isMovableTile())
 			check = false;
 		if (!(_CharacterToMove->getCurrentTile()->getNearTileDirection(clickedTile) == _CharacterToMove->getCurrentDirection()))
 			check = false;
 
 		if (check && getCurrentPlayerData()->getFood() >= clickedTile->getFoodToConsume())
 		{
+			//이동 부분
 			if (clickedTile->getCharacterOnThisTile() == nullptr)
 			{
-				_CharacterToMove->MoveToTile(clickedTile, false);
-				if (_CharacterToMove->getIsMovable())
+				if (_CharacterToMove->getIsMovable() || GM->_DebugMode == true)
 				{
+					_CharacterToMove->MoveToTile(clickedTile, false);
 					getCurrentPlayerData()->AddFood(clickedTile->getFoodToConsume() * -1);
+					_CharacterToMove->setIsMovable(false);
 				}
-				_CharacterToMove->setIsMovable(false);
 			}
 
+			//공격 부분
 			else if (clickedTile->getCharacterOnThisTile()->GetOwnerPlayer() != _CurrentPlayer)
 			{
-				RemoveCursor();
-				_BMInstance->BattleBetween(_CharacterToMove, clickedTile->getCharacterOnThisTile());
-				if (_CharacterToMove->getIsMovable())
+				if (_CharacterToMove->getIsAttackable() || GM->_DebugMode == true)
 				{
+					RemoveCursor();
+					_BMInstance->BattleBetween(_CharacterToMove, clickedTile->getCharacterOnThisTile());
 					getCurrentPlayerData()->AddFood(clickedTile->getFoodToConsume() * -1);
+					_CharacterToMove->setIsMovable(false);
+					_CharacterToMove->setIsAttackable(false);
 				}
-				_CharacterToMove->setIsMovable(false);
 			}
 		}
-		
+
 		_CharacterToMove = nullptr;
 		_ReadyToMove = false;
 		Unselect();
@@ -351,7 +348,7 @@ void GameSceneManager::ChangePlayer()
 		_CurrentPlayer = (PlayerInfo)((_CurrentPlayer + 1) % 2);
 		ResetRotateResource();
 	}
-	
+
 	else
 		Director::getInstance()->end();
 }
@@ -504,7 +501,7 @@ void GameSceneManager::ShowSpawnableTile(Self_Tile* tile)
 		DirectionKind dir = static_cast<DirectionKind>(i);
 		Self_Tile* nearTile = tile->getNearTile(dir);
 
-		if (!nearTile->isMovable())
+		if (!nearTile->isMovableTile())
 			continue;
 
 		if (getCurrentPlayerData()->getFood() < nearTile->getFoodToConsume())
@@ -576,7 +573,7 @@ void GameSceneManager::SetRotateButton(Character* character)
 		return;
 	float posX = character->getPositionX();
 	float posY = character->getPositionY();
-	
+
 	DirectionKind direction = character->getCurrentDirection();
 
 	Sprite* rotateLeft = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_TURN_LEFT_MOUSE);
@@ -589,8 +586,8 @@ void GameSceneManager::SetRotateButton(Character* character)
 	rotateRight->setName("rotateBtn");
 
 	int charZOrder = character->getZOrder();
-	rotateLeft->setZOrder(charZOrder-1);
-	rotateRight->setZOrder(charZOrder-1);
+	rotateLeft->setZOrder(charZOrder - 1);
+	rotateRight->setZOrder(charZOrder - 1);
 
 	TileMap::getInstance()->addChild(rotateLeft);
 	TileMap::getInstance()->addChild(rotateRight);
@@ -603,10 +600,10 @@ void GameSceneManager::RotateToDirection(Character* character, RotateDirection r
 
 	RemoveCursor();
 	character->RotateToDirection(rotateDirection);
-	
+
 	while (TileMap::getInstance()->getChildByName("moveable"))
 		TileMap::getInstance()->removeChildByName("moveable");
-	
+
 	character->ShowMovableTile();
 
 	if (character->_RotateResource <= 0)
@@ -651,5 +648,6 @@ void GameSceneManager::ResetCharacterMovable()
 		if (iter->getName() == "character")
 		{
 			static_cast<Character*>(iter)->setIsMovable(true);
+			static_cast<Character*>(iter)->setIsAttackable(true);
 		}
 }
