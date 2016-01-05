@@ -84,6 +84,17 @@ void GameSceneManager::EndGame()
 	Director::getInstance()->pause();
 	ResultLayer* result = ResultLayer::create();
 	AddChild(result);
+
+	PlayerInfo currentPlayer = getCurrentPlayer();
+	cocos2d::Label* winner;
+	if (currentPlayer == PLAYER_RED)
+		winner = cocos2d::Label::create("Red Win!", FILENAME_FONT_PIXEL, 80);
+	else
+		winner = cocos2d::Label::create("Blue Win!", FILENAME_FONT_PIXEL, 80);
+
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+	winner->setPosition(Vec2(visibleSize.width * 1 / 2, visibleSize.height * 3 / 5));
+	AddChild(winner);
 }
 
 Self_Tile* GameSceneManager::getTileFromMouseEvent(const cocos2d::EventMouse *event)
@@ -110,14 +121,17 @@ bool GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
 
 	if (_DraftMode == true)
 	{
-		bool result = true;
-
-		//		예외의 경우는 빠져 나가자
+//		예외의 경우는 빠져 나가자
 		if (!clickedTile->isMovable() || !_DraftTile->CheckNearTile(clickedTile) || clickedTile->getCharacterOnThisTile() != nullptr)
-			result = false;
+		{
+			_DraftTile = nullptr;
+			_DraftMode = false;
+			Unselect();
+			return false;
+		}
 
-		//		앞에서 false였다면 (타일이 spawn 불가능이라면) 여기는 안돌아가겠지
-		if (result && getCurrentPlayerData()->getFood() >= clickedTile->getFoodToConsume())
+//		앞에서 false였다면 (타일이 spawn 불가능이라면) 여기는 안돌아가겠지
+		if (getCurrentPlayerData()->getFood() >= clickedTile->getFoodToConsume())
 		{
 			DirectionKind direction = _DraftTile->getNearTileDirection(clickedTile);
 			SpawnCharacterOnTile(_DraftTile, direction, clickedTile->getFoodToConsume());
@@ -127,25 +141,28 @@ bool GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
 		_DraftTile = nullptr;
 		_DraftMode = false;
 		Unselect();
-		return result;
+		return true;
 	}
 
 	else//if (_DraftMode == false)
 	{
-		if (_ReadyToMove)
+		if(_ReadyToMove == true)
 			return false;
 
 		if ((clickedTile->getOwnerPlayer() == _CurrentPlayer) && clickedTile->isSpawnable())
 		{
 			if ((clickedTile->getCharacterOnThisTile() != nullptr) && (clickedTile->getCharacterOnThisTile()->GetOwnerPlayer() == _CurrentPlayer))
 				return false;
+						
+			_SelectedCharacter = nullptr;
+			Unselect();
 
 			SelectBarrack(clickedTile);
 			_DraftTile = clickedTile;
 			_DraftMode = true;
 			ShowSpawnableTile(clickedTile);
 
-			return false;
+			return true;
 		}
 	}
 	return false;
@@ -163,7 +180,10 @@ void GameSceneManager::MoveCharacterByClick(Self_Tile* clickedTile)
 		bool check = true;
 
 		if (clickedTile == _CharacterToMove->getCurrentTile())
+		{
+			_ReadyToMove = false;
 			return;
+		}
 		if (!clickedTile->isMovable())
 			check = false;
 		if (!(_CharacterToMove->getCurrentTile()->getNearTileDirection(clickedTile) == _CharacterToMove->getCurrentDirection()))
@@ -187,12 +207,7 @@ void GameSceneManager::MoveCharacterByClick(Self_Tile* clickedTile)
 
 		_CharacterToMove = nullptr;
 		_ReadyToMove = false;
-
-
 		Unselect();
-
-
-
 		return;
 	}
 
@@ -283,29 +298,49 @@ void GameSceneManager::MouseDownDispatcher(cocos2d::EventMouse *event)
 		return;
 	if (_IsInputAble == false)
 		return;
+
 	Self_Tile* clickedTile = getTileFromMouseEvent(event);
 	if (clickedTile == nullptr)
 	{
-		_Nodes->runAction(
-			Sequence::create(
-			DelayTime::create(0.1),
-			CallFunc::create(CC_CALLBACK_0(GameSceneManager::Unselect, this)), nullptr));
+		_SelectedCharacter = nullptr;
+		Unselect();
 		return;
 	}
-	if (DraftNewCharacterByClick(clickedTile))
-		return;
-	if (clickedTile->getCharacterOnThisTile() != nullptr)
-	{
-		lastCharacter = clickedTile->getCharacterOnThisTile();
-		lastDirection = clickedTile->getCharacterOnThisTile()->getCurrentDirection();
-	}
-	cocos2d::EventMouse copiedEvent = *event;
-	setInputMode(false);
-	_Nodes->runAction(
-		Sequence::create(
-		DelayTime::create(0.1),
-		CallFunc::create(CC_CALLBACK_0(GameSceneManager::MouseDownLater, this, copiedEvent, clickedTile)), nullptr));
 
+	switch (event->getMouseButton())
+	{
+	case MOUSE_BUTTON_LEFT:
+		if (DraftNewCharacterByClick(clickedTile))
+			return;
+
+		Unselect();
+		SelectCharacter(clickedTile->getCharacterOnThisTile());
+		MoveCharacterByClick(clickedTile);
+		break;
+
+	case MOUSE_BUTTON_MIDDLE:
+		if (clickedTile->getCharacterOnThisTile() == nullptr || clickedTile->getCharacterOnThisTile() != _SelectedCharacter)
+		{
+			_SelectedCharacter = nullptr;
+			Unselect();
+			return;
+		}
+		RotateToDirection(clickedTile->getCharacterOnThisTile(), ROTATE_LEFT);
+		break;
+
+	case MOUSE_BUTTON_RIGHT:
+		if (clickedTile->getCharacterOnThisTile() == nullptr || clickedTile->getCharacterOnThisTile() != _SelectedCharacter)
+		{
+			_SelectedCharacter = nullptr;
+			Unselect();
+			return;
+		}
+		RotateToDirection(clickedTile->getCharacterOnThisTile(), ROTATE_RIGHT);
+		break;
+
+	default:
+		break;
+	}
 }
 
 PlayerData* GameSceneManager::getCurrentPlayerData()
@@ -421,6 +456,12 @@ PlayerData* GameSceneManager::getPlayerDataByPlayerInfo(PlayerInfo player)
 
 void GameSceneManager::SelectCharacter(Character* character)
 {
+	if (character == nullptr)
+		return;
+
+	_DraftMode = false;
+	_ReadyToMove = false;
+	_SelectedCharacter = character;
 	if (character && character->GetOwnerPlayer() == _CurrentPlayer)
 	{
 		float posX = character->getPositionX();
@@ -499,8 +540,8 @@ void GameSceneManager::Unselect()
 	while (this->_Nodes->getChildByName("indicator"))
 		this->_Nodes->removeChildByName("indicator");
 
-	while (this->_Nodes->getChildByName("rotateBtn"))
-		this->_Nodes->removeChildByName("rotateBtn");
+	while (TileMap::getInstance()->getChildByName("rotateBtn"))
+		TileMap::getInstance()->removeChildByName("rotateBtn");
 
 	RemoveCursor();
 }
@@ -517,26 +558,6 @@ void GameSceneManager::TrimZorderAndRefreshAP()
 }
 
 
-
-std::string getRotateBtnNameByDirection(DirectionKind direction)
-{
-	switch (direction)
-	{
-	case DIRECTION_DOWN_LEFT:
-		return FILENAME_IMG_BUTTON_TURN_DOWN_LEFT;
-	case DIRECTION_DOWN:
-		return FILENAME_IMG_BUTTON_TURN_DOWN;
-	case DIRECTION_DOWN_RIGHT:
-		return FILENAME_IMG_BUTTON_TURN_DOWN_RIGHT;
-	case DIRECTION_UP_RIGHT:
-		return FILENAME_IMG_BUTTON_TURN_UP_RIGHT;
-	case DIRECTION_UP:
-		return FILENAME_IMG_BUTTON_TURN_UP;
-	case DIRECTION_UP_LEFT:
-		return FILENAME_IMG_BUTTON_TURN_UP_LEFT;
-	}
-}
-
 DirectionKind LeftDirection(DirectionKind direction)
 {
 	return static_cast<DirectionKind>((direction + 1) % DIRECTION_MAX);
@@ -549,91 +570,52 @@ DirectionKind RightDirection(DirectionKind direction)
 
 void GameSceneManager::SetRotateButton(Character* character)
 {
+	if (character == nullptr)
+		return;
+
 	if (this->_Nodes->getChildByName("rotateBtn"))
 		return;
 	if (character->_RotateResource <= 0)
 		return;
-	float lposX = character->getPositionX();
-	float lposY = character->getPositionY();
-	float rposX = lposX;
-	float rposY = lposY;
-
+	float posX = character->getPositionX();
+	float posY = character->getPositionY();
+	
 	DirectionKind direction = character->getCurrentDirection();
 
-	Sprite* rotateLeft = Sprite::createWithSpriteFrameName(getRotateBtnNameByDirection(LeftDirection(LeftDirection(direction))));
-	//Sprite* rotateLeftClicked = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_TURN_DOWN_LEFT_CLICKED);
-	Sprite* rotateRight = Sprite::createWithSpriteFrameName(getRotateBtnNameByDirection(RightDirection(RightDirection(direction))));
-	//Sprite* rotateRightClicked = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_TURN_UP_RIGHT_CLICKED);
+	Sprite* rotateLeft = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_TURN_LEFT_MOUSE);
+	Sprite* rotateRight = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_TURN_RIGHT_MOUSE);
 
-	MenuItemSprite* rotateLeftButton = MenuItemSprite::create(rotateLeft, rotateLeft, CC_CALLBACK_0(GameSceneManager::RotateToDirection, this, character, ROTATE_LEFT));
-	MenuItemSprite* rotateRightButton = MenuItemSprite::create(rotateRight, rotateRight, CC_CALLBACK_0(GameSceneManager::RotateToDirection, this, character, ROTATE_RIGHT));
+	rotateLeft->setPosition(posX - 45, posY + 5);
+	rotateRight->setPosition(posX + 45, posY + 5);
 
+	rotateLeft->setName("rotateBtn");
+	rotateRight->setName("rotateBtn");
 
-	switch (direction)
-	{
-	case DIRECTION_DOWN_LEFT:
-		lposX -= 45;
-		lposY -= 45;
-		rposX -= 120;
-		rposY += 20;
-		break;
-	case DIRECTION_DOWN:
-		lposX += 60;
-		lposY -= 45;
-		rposX -= 60;
-		rposY -= 45;
-		break;
-	case DIRECTION_DOWN_RIGHT:
-		lposX += 120;
-		lposY -= 0;
-		rposX += 60;
-		rposY -= 45;
-		break;
-	case DIRECTION_UP_RIGHT:
-		lposX += 70;
-		lposY += 60;
-		rposX += 120;
-		rposY -= 10;
-		break;
-	case DIRECTION_UP:
-		lposX -= 70;
-		lposY += 60;
-		rposX += 70;
-		rposY += 60;
-		break;
-	case DIRECTION_UP_LEFT:
-		lposX -= 120;
-		lposY += 20;
-		rposX -= 50;
-		rposY += 80;
-		break;
-	}
-	
-	rotateLeftButton->setPosition(lposX, lposY);
-	rotateRightButton->setPosition(rposX, rposY);
+	int charZOrder = character->getZOrder();
+	rotateLeft->setZOrder(charZOrder-1);
+	rotateRight->setZOrder(charZOrder-1);
 
-	Menu* rotateMenu = Menu::create(rotateLeftButton, rotateRightButton, NULL);
-	rotateMenu->setName("rotateBtn");
-	rotateMenu->setPosition(Vec2::ZERO);
-	rotateMenu->setZOrder(10);
-
-	this->AddChild(rotateMenu);
+	TileMap::getInstance()->addChild(rotateLeft);
+	TileMap::getInstance()->addChild(rotateRight);
 }
 
 void GameSceneManager::RotateToDirection(Character* character, RotateDirection rotateDirection)
 {
+	if (character->GetOwnerPlayer() != _CurrentPlayer)
+		return;
+
 	RemoveCursor();
 	character->RotateToDirection(rotateDirection);
+	
 	while (TileMap::getInstance()->getChildByName("moveable"))
 		TileMap::getInstance()->removeChildByName("moveable");
+	character->ShowMovableTile();
 
 	if (character->_RotateResource <= 0)
 	{
-		while (this->_Nodes->getChildByName("rotateBtn"))
-			this->_Nodes->removeChildByName("rotateBtn");
+		while (TileMap::getInstance()->getChildByName("rotateBtn"))
+			TileMap::getInstance()->removeChildByName("rotateBtn");
 	}
-
-	character->ShowMovableTile();
 }
 
 void GameSceneManager::RemoveCursor()

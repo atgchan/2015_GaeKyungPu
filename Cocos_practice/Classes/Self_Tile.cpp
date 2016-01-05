@@ -22,6 +22,8 @@ std::string Self_Tile::_DictionaryForFilenames[MAX_TILEKIND] =
 
 Self_Tile::Self_Tile(TileKind type)
 {
+	///# 생성자를 사용할거면, 모든 멤버변수가 초기화되는지 확인하고 기본값으로 초기화 할 것
+
 	if (type == TILE_FOREST)
 		_FoodToConsume = 2;
 }
