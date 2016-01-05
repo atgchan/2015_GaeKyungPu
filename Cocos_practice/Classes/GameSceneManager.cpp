@@ -260,6 +260,11 @@ void GameSceneManager::KeyReleasedDispatcher(EventKeyboard::KeyCode keyCode, coc
 void GameSceneManager::MouseDownLater(cocos2d::EventMouse event, Self_Tile* clickedTile)
 {
 	setInputMode(true);
+	if (lastCharacter != nullptr)
+	{
+		if (lastCharacter->getCurrentDirection() != lastDirection)
+			return;
+	}
 
 	switch (event.getMouseButton())
 	{
