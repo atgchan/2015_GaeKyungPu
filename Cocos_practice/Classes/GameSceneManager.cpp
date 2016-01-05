@@ -582,8 +582,8 @@ void GameSceneManager::SetRotateButton(Character* character)
 	Sprite* rotateLeft = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_TURN_LEFT_MOUSE);
 	Sprite* rotateRight = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_TURN_RIGHT_MOUSE);
 
-	rotateLeft->setPosition(posX - 45, posY + 5);
-	rotateRight->setPosition(posX + 45, posY + 5);
+	rotateLeft->setPosition(posX - 45, posY + 15);
+	rotateRight->setPosition(posX + 45, posY + 15);
 
 	rotateLeft->setName("rotateBtn");
 	rotateRight->setName("rotateBtn");
