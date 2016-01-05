@@ -53,7 +53,7 @@ bool UILayer::init()
 
 	Sprite* helpButton = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_HELP);
 	Sprite* helpButton_clicked = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_HELP_CLICKED);
-	MenuItemSprite* howToPlay = MenuItemSprite::create(helpButton, helpButton_clicked, CC_CALLBACK_0(UIlayer::ShowHowToPlay, this));
+	MenuItemSprite* howToPlay = MenuItemSprite::create(helpButton, helpButton_clicked);
 	howToPlay->setPosition(Vec2(visibleSize.width - 160, visibleSize.height - 33));
 
 	Menu* ingameMenu = Menu::create(toggleTurn, optionToggle, howToPlay, NULL);
