@@ -16,19 +16,19 @@ public:
 	@brief	방향을 받아서 해당 방향으로 스프라이트 이미지를 회전한다.
 	@args	돌릴 방향(RotateDirection enum이다.), 돌릴 character의 포인터
 	*/
-	void	RotateToDirection(RotateDirection);
-	void	RotateToDirection(DirectionKind,bool displayAlso = false);
-	void	RotateToDirection(Ref *sender, RotateDirection rotateDirection);
+	void				RotateToDirection(RotateDirection);
+	void				RotateToDirection(DirectionKind,bool displayAlso = false);
+	void				RotateToDirection(Ref *sender, RotateDirection rotateDirection);
 
-	void MoveToTile(Self_Tile* dest, bool battleMode = true);
-	void	CharacterBeHit();
-	void	CharacterAttack();
+	void				MoveToTile(Self_Tile* dest, bool battleMode = true);
+	void				CharacterBeHit();
+	void				CharacterAttack();
 
-	int		_AttackPower = ATTACK_POWER_DEFAULT;
-	void	SetOwnerPlayer(PlayerInfo pInfo);
-	void	ShowMovableTile();
+	int					_AttackPower = ATTACK_POWER_DEFAULT;
+	void				SetOwnerPlayer(PlayerInfo pInfo);
+	void				ShowMovableTile();
 
-	Character* GetNearCharacter(DirectionKind direction);
+	Character*			GetNearCharacter(DirectionKind direction);
 	const PlayerInfo	GetOwnerPlayer();
 	void				InitializeDirection(DirectionKind direction);
 	DirectionKind		getCurrentDirectionToShow();
@@ -50,17 +50,17 @@ public:
 private:
 	Character(PlayerInfo cPInfo, DirectionKind spriteNum);
 
-	PlayerInfo		_OwnerPlayer = PLAYER_ERR;
-	DirectionKind	_CurrentDirection = DIRECTION_ERR;
-	DirectionKind	_CurrentDirectionToShow = DIRECTION_ERR;
+	PlayerInfo			_OwnerPlayer = PLAYER_ERR;
+	DirectionKind		_CurrentDirection = DIRECTION_ERR;
+	DirectionKind		_CurrentDirectionToShow = DIRECTION_ERR;
 
 	CC_SYNTHESIZE(Self_Tile*, CurrentTile, CurrentTile);
 	CC_SYNTHESIZE(PlayerInfo, CurrentPlayerInfo, CurrentPlayerInfo);
 	CC_SYNTHESIZE(AnimationState, AnimState, AnimState);
 	
-	int		_RotateResource;
-	int		_AttackPowerToDisplay = ATTACK_POWER_DEFAULT;
-	cocos2d::Sprite* _AttackPowerBall;
-	void setAttackPowerBallNameFromNumber(int);
+	int					_RotateResource;
+	int					_AttackPowerToDisplay = ATTACK_POWER_DEFAULT;
+	cocos2d::Sprite*	_AttackPowerBall;
+	void				setAttackPowerBallNameFromNumber(int);
 };
 
