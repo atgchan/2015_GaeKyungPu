@@ -238,6 +238,8 @@
             <filename>rotatable.png</filename>
             <filename>help_button_clicked.png</filename>
             <filename>help_button.png</filename>
+            <filename>x_button.png</filename>
+            <filename>x_button_clicked.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

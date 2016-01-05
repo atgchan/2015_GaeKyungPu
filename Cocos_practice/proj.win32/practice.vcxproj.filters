@@ -94,6 +94,9 @@
     <ClCompile Include="..\Classes\HistoryEventDice.cpp">
       <Filter>Game\Event</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\DefaultLayer.cpp">
+      <Filter>Game\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
@@ -189,6 +192,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\HistoryEventDice.h">
       <Filter>Game\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DefaultLayer.h">
+      <Filter>Game\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

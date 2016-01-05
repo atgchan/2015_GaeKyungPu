@@ -134,7 +134,6 @@ enum EventType
 #define FILENAME_IMG_UI_RED						"turn_red.png"
 #define FILENAME_IMG_UI_BLUE					"turn_blue.png"
 
-
 #define FILENAME_IMG_UI_ROTATABLE				"rotatable.png"
 #define FILENAME_IMG_UI_ROTATABLE_NOT			"rotatable_not.png"
 
@@ -149,6 +148,8 @@ enum EventType
 #define FILENAME_IMG_BUTTON_OPTION_CLICKED		"option_button_clicked.png"
 #define FILENAME_IMG_BUTTON_HELP				"help_button.png"
 #define FILENAME_IMG_BUTTON_HELP_CLICKED		"help_button_clicked.png"
+#define FILENAME_IMG_BUTTON_X					"x_button.png"
+#define FILENAME_IMG_BUTTON_X_CLICKED			"x_button_clicked.png"
 
 #define FILENAME_IMG_BUTTON_RESUME				"resume.png"
 #define FILENAME_IMG_BUTTON_RESUME_CLICKED		"resume_clicked.png"

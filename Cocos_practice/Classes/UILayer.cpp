@@ -3,6 +3,7 @@
 #include "GameSceneManager.h"
 #include "MainScene.h"
 #include "OptionLayer.h"
+#include "DefaultLayer.h"
 
 cocos2d::Scene* UILayer::scene()
 {
@@ -53,7 +54,7 @@ bool UILayer::init()
 
 	Sprite* helpButton = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_HELP);
 	Sprite* helpButton_clicked = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_HELP_CLICKED);
-	MenuItemSprite* howToPlay = MenuItemSprite::create(helpButton, helpButton_clicked);
+	MenuItemSprite* howToPlay = MenuItemSprite::create(helpButton, helpButton_clicked, CC_CALLBACK_0(UILayer::ShowHowToPlay, this));
 	howToPlay->setPosition(Vec2(visibleSize.width - 160, visibleSize.height - 33));
 
 	Menu* ingameMenu = Menu::create(toggleTurn, optionToggle, howToPlay, NULL);
@@ -74,8 +75,8 @@ void UILayer::ShowHowToPlay()
 {
 	GM->setInputMode(false);
 	Director::getInstance()->pause();
-	OptionLayer* option = OptionLayer::create();
-	GM->AddChild(option);
+	DefaultLayer* help = DefaultLayer::create();
+	GM->AddChild(help);
 }
 
 void UILayer::ShowOptionWindow(Object *pSender)
