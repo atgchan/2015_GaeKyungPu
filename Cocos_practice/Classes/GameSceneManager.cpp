@@ -135,7 +135,10 @@ bool GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
 		{
 			DirectionKind direction = _DraftTile->getNearTileDirection(clickedTile);
 			SpawnCharacterOnTile(_DraftTile, direction, clickedTile->getFoodToConsume());
-			_DraftTile->getCharacterOnThisTile()->MoveToTile(clickedTile, false);
+
+			Character* targetChar = _DraftTile->getCharacterOnThisTile();
+			targetChar->MoveToTile(clickedTile, false);
+			targetChar->setIsMovable(false);
 		}
 
 		_DraftTile = nullptr;
@@ -173,12 +176,8 @@ void GameSceneManager::MoveCharacterByClick(Self_Tile* clickedTile)
 	if (clickedTile == nullptr)
 		return;
 	if (_CharacterToMove)
-	{
 		if (_CharacterToMove->GetOwnerPlayer() != getCurrentPlayer())
 			return;
-		if (_CharacterToMove->getIsMovable() == false)
-			return;
-	}
 
 	if (_ReadyToMove == true)
 	{
@@ -199,17 +198,25 @@ void GameSceneManager::MoveCharacterByClick(Self_Tile* clickedTile)
 			if (clickedTile->getCharacterOnThisTile() == nullptr)
 			{
 				_CharacterToMove->MoveToTile(clickedTile, false);
-				getCurrentPlayerData()->AddFood(clickedTile->getFoodToConsume() * -1);
+				if (_CharacterToMove->getIsMovable())
+				{
+					getCurrentPlayerData()->AddFood(clickedTile->getFoodToConsume() * -1);
+				}
+				_CharacterToMove->setIsMovable(false);
 			}
 
-			if (clickedTile->getCharacterOnThisTile()->GetOwnerPlayer() != _CurrentPlayer)
+			else if (clickedTile->getCharacterOnThisTile()->GetOwnerPlayer() != _CurrentPlayer)
 			{
 				RemoveCursor();
 				_BMInstance->BattleBetween(_CharacterToMove, clickedTile->getCharacterOnThisTile());
-				getCurrentPlayerData()->AddFood(clickedTile->getFoodToConsume() * -1);
+				if (_CharacterToMove->getIsMovable())
+				{
+					getCurrentPlayerData()->AddFood(clickedTile->getFoodToConsume() * -1);
+				}
+				_CharacterToMove->setIsMovable(false);
 			}
 		}
-
+		
 		_CharacterToMove = nullptr;
 		_ReadyToMove = false;
 		Unselect();
@@ -465,6 +472,7 @@ void GameSceneManager::SelectCharacter(Character* character)
 		return;
 
 	_DraftMode = false;
+	//_ReadyToMove = false;
 	_SelectedCharacter = character;
 	if (character && character->GetOwnerPlayer() == _CurrentPlayer)
 	{

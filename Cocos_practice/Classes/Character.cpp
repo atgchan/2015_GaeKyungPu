@@ -67,6 +67,11 @@ void Character::RotateToDirection(DirectionKind targetDirection, bool displayAls
 
 void Character::MoveToTile(Self_Tile* dest, bool battleMode /*= true*/)
 {
+	if (GM->_DebugMode == DEBUG_MODE_OFF && _IsMovable == false)
+	{
+		return;
+	}
+
 	if (GM->_DebugMode == DEBUG_MODE_OFF)
 		_RotateResource = ROTATE_RESOURCE_DEFAULT;
 
@@ -84,7 +89,6 @@ void Character::MoveToTile(Self_Tile* dest, bool battleMode /*= true*/)
 
 	EventManager::getInstance()->AddHistory(HistoryEventMoveCharacter::Create(this, dest));
 
-	this->setIsMovable(false);
 }
 
 void Character::CharacterBeHit()

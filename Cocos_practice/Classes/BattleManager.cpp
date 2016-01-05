@@ -11,7 +11,10 @@
 
 void BattleManager::BattleBetween(Character* attacker, Character* defender)
 {
-	//이것도 슬슬 개선해보자
+	if (GM->_DebugMode == DEBUG_MODE_OFF && attacker->getIsMovable() == false)
+	{
+		return;
+	}
 
 	SetAttackFormation(attacker);
 	SetDefenseFormation(defender);
