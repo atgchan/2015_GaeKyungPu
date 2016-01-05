@@ -121,14 +121,17 @@ bool GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
 
 	if (_DraftMode == true)
 	{
-		bool condition = true;
-
-		//		예외의 경우는 빠져 나가자
+//		예외의 경우는 빠져 나가자
 		if (!clickedTile->isMovable() || !_DraftTile->CheckNearTile(clickedTile) || clickedTile->getCharacterOnThisTile() != nullptr)
+		{
+			_DraftTile = nullptr;
+			_DraftMode = false;
+			Unselect();
 			return false;
+		}
 
-		//		앞에서 false였다면 (타일이 spawn 불가능이라면) 여기는 안돌아가겠지
-		if (condition && getCurrentPlayerData()->getFood() >= clickedTile->getFoodToConsume())
+//		앞에서 false였다면 (타일이 spawn 불가능이라면) 여기는 안돌아가겠지
+		if (getCurrentPlayerData()->getFood() >= clickedTile->getFoodToConsume())
 		{
 			DirectionKind direction = _DraftTile->getNearTileDirection(clickedTile);
 			SpawnCharacterOnTile(_DraftTile, direction, clickedTile->getFoodToConsume());
@@ -143,13 +146,15 @@ bool GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
 
 	else//if (_DraftMode == false)
 	{
-		if (_ReadyToMove)
-			return false;
+		_ReadyToMove = false;
 
 		if ((clickedTile->getOwnerPlayer() == _CurrentPlayer) && clickedTile->isSpawnable())
 		{
 			if ((clickedTile->getCharacterOnThisTile() != nullptr) && (clickedTile->getCharacterOnThisTile()->GetOwnerPlayer() == _CurrentPlayer))
 				return false;
+						
+			_SelectedCharacter = nullptr;
+			Unselect();
 
 			SelectBarrack(clickedTile);
 			_DraftTile = clickedTile;
@@ -174,7 +179,10 @@ void GameSceneManager::MoveCharacterByClick(Self_Tile* clickedTile)
 		bool check = true;
 
 		if (clickedTile == _CharacterToMove->getCurrentTile())
+		{
+			_ReadyToMove = false;
 			return;
+		}
 		if (!clickedTile->isMovable())
 			check = false;
 		if (!(_CharacterToMove->getCurrentTile()->getNearTileDirection(clickedTile) == _CharacterToMove->getCurrentDirection()))
@@ -198,12 +206,7 @@ void GameSceneManager::MoveCharacterByClick(Self_Tile* clickedTile)
 
 		_CharacterToMove = nullptr;
 		_ReadyToMove = false;
-
-
 		Unselect();
-
-
-
 		return;
 	}
 
@@ -274,10 +277,13 @@ void GameSceneManager::MouseDownDispatcher(cocos2d::EventMouse *event)
 	if (_IsInputAble == false)
 		return;
 
-	Unselect();
 	Self_Tile* clickedTile = getTileFromMouseEvent(event);
 	if (clickedTile == nullptr)
+	{
+		_SelectedCharacter = nullptr;
+		Unselect();
 		return;
+	}
 
 	switch (event->getMouseButton())
 	{
@@ -285,19 +291,28 @@ void GameSceneManager::MouseDownDispatcher(cocos2d::EventMouse *event)
 		if (DraftNewCharacterByClick(clickedTile))
 			return;
 
+		Unselect();
 		SelectCharacter(clickedTile->getCharacterOnThisTile());
 		MoveCharacterByClick(clickedTile);
 		break;
 
 	case MOUSE_BUTTON_MIDDLE:
-		if (clickedTile->getCharacterOnThisTile() == nullptr)
+		if (clickedTile->getCharacterOnThisTile() == nullptr || clickedTile->getCharacterOnThisTile() != _SelectedCharacter)
+		{
+			_SelectedCharacter = nullptr;
+			Unselect();
 			return;
+		}
 		RotateToDirection(clickedTile->getCharacterOnThisTile(), ROTATE_LEFT);
 		break;
 
 	case MOUSE_BUTTON_RIGHT:
-		if (clickedTile->getCharacterOnThisTile() == nullptr)
+		if (clickedTile->getCharacterOnThisTile() == nullptr || clickedTile->getCharacterOnThisTile() != _SelectedCharacter)
+		{
+			_SelectedCharacter = nullptr;
+			Unselect();
 			return;
+		}
 		RotateToDirection(clickedTile->getCharacterOnThisTile(), ROTATE_RIGHT);
 		break;
 
@@ -422,6 +437,9 @@ void GameSceneManager::SelectCharacter(Character* character)
 	if (character == nullptr)
 		return;
 
+	_DraftMode = false;
+	_ReadyToMove = false;
+	_SelectedCharacter = character;
 	if (character && character->GetOwnerPlayer() == _CurrentPlayer)
 	{
 		float posX = character->getPositionX();
