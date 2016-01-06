@@ -38,7 +38,7 @@ bool CreditLayer::init()
 	helpMenu->setPosition(Vec2::ZERO);
 	this->addChild(helpMenu);
 
-	Label* name1 = Label::create("Programming : \n        Noh SeokMin\n        Song WonSeok\n        Hwang JongSung", FILENAME_FONT_MAINMENU, 40);
+	Label* name1 = Label::create("Programming : \n        No SeokMin\n        Song WonSeok\n        Hwang JongSung", FILENAME_FONT_MAINMENU, 40);
 	Label* name2 = Label::create("Design : \n        Hwang JongSung", FILENAME_FONT_MAINMENU, 40);
 
 	name1->setAnchorPoint(Vec2(0, 0));
