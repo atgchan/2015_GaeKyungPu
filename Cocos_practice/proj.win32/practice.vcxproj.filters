@@ -97,6 +97,9 @@
     <ClCompile Include="..\Classes\DefaultLayer.cpp">
       <Filter>Game\UI</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\CreditLayer.cpp">
+      <Filter>Game\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
@@ -194,6 +197,9 @@
       <Filter>Game\Event</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\DefaultLayer.h">
+      <Filter>Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CreditLayer.h">
       <Filter>Game\UI</Filter>
     </ClInclude>
   </ItemGroup>

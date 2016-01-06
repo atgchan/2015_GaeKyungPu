@@ -145,6 +145,8 @@ enum EventType
 #define FILENAME_IMG_BUTTON_TURN_LEFT_MOUSE		"new_rotate_mouse_2.png"
 #define FILENAME_IMG_BUTTON_TURN_RIGHT_MOUSE	"new_rotate_mouse.png"
 
+#define FILENAME_IMG_BUTTON_CREDIT				"credit_button.png"
+#define FILENAME_IMG_BUTTON_CREDIT_CLICKED		"credit_button_clicked.png"
 #define FILENAME_IMG_BUTTON_OPTION				"option_button.png"
 #define FILENAME_IMG_BUTTON_OPTION_CLICKED		"option_button_clicked.png"
 #define FILENAME_IMG_BUTTON_HELP				"help_button.png"

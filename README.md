@@ -2,7 +2,7 @@
 ##update note
 
 
-v1.0.0 - [다운로드](https://docs.google.com/uc?id=0B_TvnHrSpg8jcFV2WVFGb2hDNWc&export=download "다운로드")
+v1.0.0 - [다운로드](https://docs.google.com/uc?id=0B_TvnHrSpg8jb3A1Q3pxaWN5STA&export=download "다운로드")
 
 ![image](http://ref.comgal.info/data/cgref_4/1452003311/%EC%9D%B4%EB%AF%B8%EC%A7%80_11.png)
 
@@ -37,6 +37,9 @@ v1.0.0 - [다운로드](https://docs.google.com/uc?id=0B_TvnHrSpg8jcFV2WVFGb2hDN
 * 도움말 추가
     + 도움말 기능이 생겼습니다.
     + 게임 내 우측 상단에 ? 버튼으로 확인할 수 있습니다.
+
+* 크레딧 추가
+    + 메인화면 내 크레딧이 생겼습니다.
 
 v0.9.0 - [다운로드](http://me2.do/xaK38TQm "다운로드")
 

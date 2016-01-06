@@ -3,6 +3,7 @@
 #include "MainScene.h"
 #include "SimpleAudioEngine.h"
 #include "definition.h"
+#include "CreditLayer.h"
 
 Scene* MainScene::CreateScene()
 {
@@ -29,18 +30,25 @@ bool MainScene::init()
 	background->setAnchorPoint(Point(0,0));
 	this->addChild(background);
 
-	Label* btnLabelStart = Label::createWithTTF("start ", FILENAME_FONT_MAINMENU, 80);
-	Label* btnLabelExit = Label::createWithTTF("exit ", FILENAME_FONT_MAINMENU, 80);
+	Sprite* start_btn = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_START);
+	Sprite* start_btn_clicked = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_START_CLICKED);
 
-	MenuItemLabel* menu_play = MenuItemLabel::create(btnLabelStart, CC_CALLBACK_1(MainScene::MenuClickCallback, this));
-	MenuItemLabel* menu_exit = MenuItemLabel::create(btnLabelExit, CC_CALLBACK_1(MainScene::MenuCloseCallback, this));
+	Sprite* exit_btn = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_EXIT);
+	Sprite* exit_btn_clicked = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_EXIT_CLICKED);
 
-	auto mainMenu = Menu::create(menu_play, menu_exit, nullptr);
-	mainMenu->alignItemsVertically();
-	menu_play->setPositionY(menu_play->getPositionY() + 30 - 100);
-	menu_exit->setPositionY(menu_exit->getPositionY() - 30 - 100);
-	mainMenu->setPositionY(mainMenu->getPositionY() - 100);
+	MenuItemSprite* menu_play = MenuItemSprite::create(start_btn, start_btn_clicked, CC_CALLBACK_1(MainScene::MenuClickCallback, this));
+	MenuItemSprite* menu_exit = MenuItemSprite::create(exit_btn, exit_btn_clicked, CC_CALLBACK_1(MainScene::MenuCloseCallback, this));
 
+	Sprite* credit_btn = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_CREDIT);
+	Sprite* credit_btn_clicked = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_CREDIT_CLICKED);
+	MenuItemSprite* menu_credit = MenuItemSprite::create(credit_btn, credit_btn_clicked, CC_CALLBACK_0(MainScene::ShowCredit, this));
+
+	auto mainMenu = Menu::create(menu_play, menu_exit, menu_credit, nullptr);
+	menu_play->setPosition(visibleSize.width/2, visibleSize.height/2-100);
+	menu_exit->setPosition(visibleSize.width / 2, visibleSize.height / 2 - 200);
+	menu_credit->setPosition(visibleSize.width * 7 / 8, visibleSize.height * 1 / 8);
+
+	mainMenu->setPosition(Vec2::ZERO);
 	this->addChild(mainMenu);
 
 //	Keyboard Event
@@ -48,6 +56,15 @@ bool MainScene::init()
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->playBackgroundMusic(FILENAME_SOUND_MAIN_BGM,true);
 
 	return true;
+}
+
+void MainScene::ShowCredit()
+{
+	while (getChildByName("credit"))
+		removeChildByName("credit");
+
+	CreditLayer* credit = CreditLayer::create();
+	this->addChild(credit);
 }
 
 void MainScene::MenuClickCallback(cocos2d::Ref* pSender)
