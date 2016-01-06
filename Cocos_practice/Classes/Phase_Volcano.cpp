@@ -64,6 +64,8 @@ void Phase_Volcano::Tick()
 		break;
 	}
 
+	GM->ResetCharacterMovable();
+
 	_NextPhaseInfo = PHASE_ACTION;
 }
 

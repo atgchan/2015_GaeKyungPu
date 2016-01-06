@@ -28,7 +28,7 @@ private:
 	Animation*	CreateAnimationMove(PlayerInfo cPInfo, DirectionKind dir);
 	Animation*	CreateAnimationAttack(PlayerInfo cPInfo, DirectionKind dir);
 	Animation*	CreateAnimationBeHit(PlayerInfo cPInfo, DirectionKind dir);
-	void CreateAnimationHitEffect();
+	void		CreateAnimationHitEffect();
 	Animation*	_AnimationHitEffect;
 
 	std::string	GetDirectionName(int spriteNum);

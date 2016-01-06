@@ -232,22 +232,11 @@
             <filename>battle.png</filename>
             <filename>turn_red.png</filename>
             <filename>turn_blue.png</filename>
-            <filename>rotate_1_clicked.png</filename>
-            <filename>rotate_2.png</filename>
-            <filename>rotate_2_clicked.png</filename>
-            <filename>rotate_3.png</filename>
-            <filename>rotate_3_clicked.png</filename>
-            <filename>rotate_4_clicked.png</filename>
-            <filename>rotate_5.png</filename>
-            <filename>rotate_5_clicked.png</filename>
-            <filename>rotate_6.png</filename>
-            <filename>rotate_6_clicked.png</filename>
-            <filename>rotate_turn_4.png</filename>
-            <filename>rotate_1.png</filename>
             <filename>new_rotate_mouse.png</filename>
             <filename>new_rotate_mouse_2.png</filename>
             <filename>rotatable_not.png</filename>
             <filename>rotatable.png</filename>
+<<<<<<< HEAD
             <filename>option_button_new.png</filename>
             <filename>option_button_new_clicked.png</filename>
             <filename>rotate_right_clicked.png</filename>
@@ -255,6 +244,15 @@
             <filename>rotate_left_clicked.png</filename>
             <filename>rotate_right.png</filename>
             <filename>input_box.png</filename>
+=======
+            <filename>help_button_clicked.png</filename>
+            <filename>help_button.png</filename>
+            <filename>x_button.png</filename>
+            <filename>x_button_clicked.png</filename>
+            <filename>default_window.png</filename>
+            <filename>credit_button.png</filename>
+            <filename>credit_button_clicked.png</filename>
+>>>>>>> master
         </array>
         <key>ignoreFileList</key>
         <array/>

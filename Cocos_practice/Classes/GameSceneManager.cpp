@@ -17,7 +17,6 @@
 #include "Odbc.h"
 
 //USING_NS_CC;
-#define COCOS2D_DEBUG 1
 
 GameSceneManager* GameSceneManager::_Inst = nullptr;
 static DirectionKind lastDirection = DIRECTION_ERR;
@@ -129,8 +128,8 @@ bool GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
 
 	if (_DraftMode == true)
 	{
-//		예외의 경우는 빠져 나가자
-		if (!clickedTile->isMovable() || !_DraftTile->CheckNearTile(clickedTile) || clickedTile->getCharacterOnThisTile() != nullptr)
+		//		예외의 경우는 빠져 나가자
+		if (!clickedTile->isMovableTile() || !_DraftTile->CheckNearTile(clickedTile) || clickedTile->getCharacterOnThisTile() != nullptr)
 		{
 			_DraftTile = nullptr;
 			_DraftMode = false;
@@ -138,12 +137,15 @@ bool GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
 			return false;
 		}
 
-//		앞에서 false였다면 (타일이 spawn 불가능이라면) 여기는 안돌아가겠지
+		//		앞에서 false였다면 (타일이 spawn 불가능이라면) 여기는 안돌아가겠지
 		if (getCurrentPlayerData()->getFood() >= clickedTile->getFoodToConsume())
 		{
 			DirectionKind direction = _DraftTile->getNearTileDirection(clickedTile);
 			SpawnCharacterOnTile(_DraftTile, direction, clickedTile->getFoodToConsume());
-			_DraftTile->getCharacterOnThisTile()->MoveToTile(clickedTile, false);
+
+			Character* targetChar = _DraftTile->getCharacterOnThisTile();
+			targetChar->MoveToTile(clickedTile, false);
+			targetChar->setIsMovable(false);
 		}
 
 		_DraftTile = nullptr;
@@ -154,13 +156,14 @@ bool GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
 
 	else//if (_DraftMode == false)
 	{
-		_ReadyToMove = false;
+		if (_ReadyToMove == true)
+			return false;
 
 		if ((clickedTile->getOwnerPlayer() == _CurrentPlayer) && clickedTile->isSpawnable())
 		{
 			if ((clickedTile->getCharacterOnThisTile() != nullptr) && (clickedTile->getCharacterOnThisTile()->GetOwnerPlayer() == _CurrentPlayer))
 				return false;
-						
+
 			_SelectedCharacter = nullptr;
 			Unselect();
 
@@ -180,8 +183,11 @@ void GameSceneManager::MoveCharacterByClick(Self_Tile* clickedTile)
 	if (clickedTile == nullptr)
 		return;
 	if (_CharacterToMove)
+	{
 		if (_CharacterToMove->GetOwnerPlayer() != getCurrentPlayer())
 			return;
+	}
+
 	if (_ReadyToMove == true)
 	{
 		bool check = true;
@@ -191,24 +197,35 @@ void GameSceneManager::MoveCharacterByClick(Self_Tile* clickedTile)
 			_ReadyToMove = false;
 			return;
 		}
-		if (!clickedTile->isMovable())
+		if (!clickedTile->isMovableTile())
 			check = false;
 		if (!(_CharacterToMove->getCurrentTile()->getNearTileDirection(clickedTile) == _CharacterToMove->getCurrentDirection()))
 			check = false;
 
 		if (check && getCurrentPlayerData()->getFood() >= clickedTile->getFoodToConsume())
 		{
+			//이동 부분
 			if (clickedTile->getCharacterOnThisTile() == nullptr)
 			{
-				_CharacterToMove->MoveToTile(clickedTile, false);
-				getCurrentPlayerData()->AddFood(clickedTile->getFoodToConsume() * -1);
+				if (_CharacterToMove->getIsMovable() || GM->_DebugMode == true)
+				{
+					_CharacterToMove->MoveToTile(clickedTile, false);
+					getCurrentPlayerData()->AddFood(clickedTile->getFoodToConsume() * -1);
+					_CharacterToMove->setIsMovable(false);
+				}
 			}
 
-			if (clickedTile->getCharacterOnThisTile()->GetOwnerPlayer() != _CurrentPlayer)
+			//공격 부분
+			else if (clickedTile->getCharacterOnThisTile()->GetOwnerPlayer() != _CurrentPlayer)
 			{
-				RemoveCursor();
-				_BMInstance->BattleBetween(_CharacterToMove, clickedTile->getCharacterOnThisTile());
-				getCurrentPlayerData()->AddFood(clickedTile->getFoodToConsume() * -1);
+				if (_CharacterToMove->getIsAttackable() || GM->_DebugMode == true)
+				{
+					RemoveCursor();
+					_BMInstance->BattleBetween(_CharacterToMove, clickedTile->getCharacterOnThisTile());
+					getCurrentPlayerData()->AddFood(clickedTile->getFoodToConsume() * -1);
+					_CharacterToMove->setIsMovable(false);
+					_CharacterToMove->setIsAttackable(false);
+				}
 			}
 		}
 
@@ -288,7 +305,6 @@ void GameSceneManager::MouseDownDispatcher(cocos2d::EventMouse *event)
 	Self_Tile* clickedTile = getTileFromMouseEvent(event);
 	if (clickedTile == nullptr)
 	{
-		_SelectedCharacter = nullptr;
 		Unselect();
 		return;
 	}
@@ -307,7 +323,6 @@ void GameSceneManager::MouseDownDispatcher(cocos2d::EventMouse *event)
 	case MOUSE_BUTTON_MIDDLE:
 		if (clickedTile->getCharacterOnThisTile() == nullptr || clickedTile->getCharacterOnThisTile() != _SelectedCharacter)
 		{
-			_SelectedCharacter = nullptr;
 			Unselect();
 			return;
 		}
@@ -317,7 +332,6 @@ void GameSceneManager::MouseDownDispatcher(cocos2d::EventMouse *event)
 	case MOUSE_BUTTON_RIGHT:
 		if (clickedTile->getCharacterOnThisTile() == nullptr || clickedTile->getCharacterOnThisTile() != _SelectedCharacter)
 		{
-			_SelectedCharacter = nullptr;
 			Unselect();
 			return;
 		}
@@ -341,7 +355,7 @@ void GameSceneManager::ChangePlayer()
 		_CurrentPlayer = (PlayerInfo)((_CurrentPlayer + 1) % 2);
 		ResetRotateResource();
 	}
-	
+
 	else
 		Director::getInstance()->end();
 }
@@ -446,7 +460,7 @@ void GameSceneManager::SelectCharacter(Character* character)
 		return;
 
 	_DraftMode = false;
-	_ReadyToMove = false;
+	//_ReadyToMove = false;
 	_SelectedCharacter = character;
 	if (character && character->GetOwnerPlayer() == _CurrentPlayer)
 	{
@@ -494,7 +508,7 @@ void GameSceneManager::ShowSpawnableTile(Self_Tile* tile)
 		DirectionKind dir = static_cast<DirectionKind>(i);
 		Self_Tile* nearTile = tile->getNearTile(dir);
 
-		if (!nearTile->isMovable())
+		if (!nearTile->isMovableTile())
 			continue;
 
 		if (getCurrentPlayerData()->getFood() < nearTile->getFoodToConsume())
@@ -529,6 +543,7 @@ void GameSceneManager::Unselect()
 	while (TileMap::getInstance()->getChildByName("rotateBtn"))
 		TileMap::getInstance()->removeChildByName("rotateBtn");
 
+	_SelectedCharacter = nullptr;
 	RemoveCursor();
 }
 
@@ -565,21 +580,21 @@ void GameSceneManager::SetRotateButton(Character* character)
 		return;
 	float posX = character->getPositionX();
 	float posY = character->getPositionY();
-	
+
 	DirectionKind direction = character->getCurrentDirection();
 
 	Sprite* rotateLeft = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_TURN_LEFT_MOUSE);
 	Sprite* rotateRight = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_TURN_RIGHT_MOUSE);
 
-	rotateLeft->setPosition(posX - 45, posY + 5);
-	rotateRight->setPosition(posX + 45, posY + 5);
+	rotateLeft->setPosition(posX - 45, posY + 15);
+	rotateRight->setPosition(posX + 45, posY + 15);
 
 	rotateLeft->setName("rotateBtn");
 	rotateRight->setName("rotateBtn");
 
 	int charZOrder = character->getZOrder();
-	rotateLeft->setZOrder(charZOrder-1);
-	rotateRight->setZOrder(charZOrder-1);
+	rotateLeft->setZOrder(charZOrder - 1);
+	rotateRight->setZOrder(charZOrder - 1);
 
 	TileMap::getInstance()->addChild(rotateLeft);
 	TileMap::getInstance()->addChild(rotateRight);
@@ -592,9 +607,10 @@ void GameSceneManager::RotateToDirection(Character* character, RotateDirection r
 
 	RemoveCursor();
 	character->RotateToDirection(rotateDirection);
-	
+
 	while (TileMap::getInstance()->getChildByName("moveable"))
 		TileMap::getInstance()->removeChildByName("moveable");
+
 	character->ShowMovableTile();
 
 	if (character->_RotateResource <= 0)
@@ -631,4 +647,14 @@ void GameSceneManager::ResetRotateResource()
 void GameSceneManager::ResetLastCharacter()
 {
 	lastCharacter = nullptr;
+}
+
+void GameSceneManager::ResetCharacterMovable()
+{
+	for (auto iter : TileMap::getInstance()->getChildren())
+		if (iter->getName() == "character")
+		{
+			static_cast<Character*>(iter)->setIsMovable(true);
+			static_cast<Character*>(iter)->setIsAttackable(true);
+		}
 }

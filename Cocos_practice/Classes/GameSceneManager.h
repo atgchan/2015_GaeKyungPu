@@ -9,10 +9,10 @@ class Phase;
 class BattleManager;
 class DiceDice;
 
-
 class GameSceneManager
 {
 public:
+	static GameSceneManager* getInstance();
 
 	void		InitializeGame();
 	void		InitPlayerData(int player1, int player2);
@@ -21,11 +21,12 @@ public:
 	void		MouseDownDispatcher(cocos2d::EventMouse *event);
 	void		KeyReleasedDispatcher(EventKeyboard::KeyCode keyCode, cocos2d::Event *event);
 
-	static GameSceneManager* getInstance();
 	Node*		getNodes(){ return _Nodes;}
 
 	PlayerData*	getCurrentPlayerData();
 	PlayerInfo	getCurrentPlayer();
+
+	void		ScheduleCallback(float delta);
 
 	void		ChangePlayer();
 	bool		getIsVolcanoActivated();
@@ -33,22 +34,8 @@ public:
 	void		setProgressVolcano(int progress);
 	bool		getIsMouseLocked();
 
-	void		ScheduleCallback(float delta);
-
-	/*
-	@brief		GameScene으로부터 CALLBACK 받아 턴 변경. (추후에 UI 클래스에서 CALLBACK 하도록)
-	*/
-	void ToggleTurn();
-
-	/*
-		@brief	타일의 포인터와 타일의 클릭 가능한 위치를 나타내는 사각형을 받아서 배열로 저장한다.
-	*/
-	void PushTileToList(Self_Tile* tile);
-
-	/*
-		@brief	타일 리스트에서 해당 좌표값의 위치에 포함되는 타일이 있는지 검사해서 있으면 타일 포인터를 반환한다.
-	*/
-	Self_Tile* getExistingTileWithMousePoint(Vec2 vec);
+	void		ToggleTurn();
+	void		PushTileToList(Self_Tile* tile);
 
 	void		AddChild(Node* targetNode);
 	void		ChangeRichToLava(Self_Tile* target);
@@ -68,7 +55,15 @@ public:
 
 	bool		getIsInputAble();
 	bool		_DebugMode = false;
-	void ResetLastCharacter();
+	void		ResetLastCharacter();
+	void		ResetCharacterMovable();
+
+	cocos2d::Node*	GetChildByName(const std::string& name)
+	{ return _Nodes->getChildByName(name); };
+
+	void	RemoveChildByName(const std::string& name)
+	{ _Nodes->removeChildByName(name); };
+
 	~GameSceneManager();
 
 private:
@@ -113,8 +108,8 @@ private:
 	void		TrimZorderAndRefreshAP();
 
 	void		SetRotateButton(Character* character);
+	void		ResetRotateResource();
 	void		RotateToDirection(Character* character, RotateDirection rotateDirection);
 	void		RemoveCursor();
-	void MouseDownLater(cocos2d::EventMouse event, Self_Tile* clickedTile);
-	void ResetRotateResource();
+
 };

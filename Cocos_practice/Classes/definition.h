@@ -101,13 +101,13 @@ enum PlayerNumber
 
 #define FILENAME_SOUND_GAME_BGM		"Sound/main_bg.wav"
 #define FILENAME_SOUND_GAME_SWORD	"Sound/swords.wav"
-#define FILENAME_SOUND_GAME_MOVE	"Sound/Jump_03.wav"
+#define FILENAME_SOUND_GAME_MOVE	"Sound/footsteps.wav"
 #define FILENAME_SOUND_GAME_KILL	"Sound/Hit_03.wav"
 #define FILENAME_SOUND_GAME_VOLCANO "Sound/lava-01.wav"
 #define FILENAME_SOUND_GAME_HARVEST "Sound/Emerge6.wav"
 
 //IMG - png, jpeg able
-#define FILENAME_IMG_MAIN_BACKGROUND "Background/title.png"
+#define FILENAME_IMG_MAIN_BACKGROUND	"Background/title.png"
 #define FILENAME_IMG_MAIN_SELECT		"triangle.png"
 
 #define FILENAME_IMG_GAME_BACKGROUND					"Background/background_volcano.png"
@@ -139,6 +139,7 @@ enum PlayerNumber
 #define FILENAME_IMG_UI_UPPER_BAR				"ui_bar.png"
 
 #define FILENAME_IMG_UI_GRAIN_INDICATOR			"grain_bar.png"
+#define	FILENAME_IMG_UI_DEFAULT_WINDOW			"default_window.png"
 #define FILENAME_IMG_UI_OPTION_WINDOW			"option_window.png"
 #define FILENAME_IMG_UI_RESULT_WINDOW			"result_window.png"
 
@@ -150,7 +151,6 @@ enum PlayerNumber
 #define FILENAME_IMG_UI_RED						"turn_red.png"
 #define FILENAME_IMG_UI_BLUE					"turn_blue.png"
 
-
 #define FILENAME_IMG_UI_ROTATABLE				"rotatable.png"
 #define FILENAME_IMG_UI_ROTATABLE_NOT			"rotatable_not.png"
 
@@ -158,30 +158,18 @@ enum PlayerNumber
 #define FILENAME_IMG_BUTTON_ENDTURN				"end_turn.png"
 #define FILENAME_IMG_BUTTON_ENDTURN_CLICKED		"end_turn_clicked.png"
 
-#define FILENAME_IMG_BUTTON_TURN_LEFT_MOUSE				"new_rotate_mouse_2.png"
-#define FILENAME_IMG_BUTTON_TURN_RIGHT_MOUSE			"new_rotate_mouse.png"
+#define FILENAME_IMG_BUTTON_TURN_LEFT_MOUSE		"new_rotate_mouse_2.png"
+#define FILENAME_IMG_BUTTON_TURN_RIGHT_MOUSE	"new_rotate_mouse.png"
 
-#define FILENAME_IMG_BUTTON_TURN_LEFT				"rotate_left.png"
-#define FILENAME_IMG_BUTTON_TURN_LEFT_CLICKED		"rotate_left_clicked.png"
-#define FILENAME_IMG_BUTTON_TURN_RIGHT				"rotate_right.png"
-#define FILENAME_IMG_BUTTON_TURN_RIGHT_CLICKED		"rotate_right_clicked.png"
-
-#define FILENAME_IMG_BUTTON_TURN_DOWN_LEFT			"rotate_2.png"
-#define FILENAME_IMG_BUTTON_TURN_DOWN_LEFT_CLICKED	"rotate_2_clicked.png"
-#define FILENAME_IMG_BUTTON_TURN_DOWN				"rotate_turn_4.png"
-#define FILENAME_IMG_BUTTON_TURN_DOWN_CLICKED		"rotate_4_clicked.png"
-#define FILENAME_IMG_BUTTON_TURN_DOWN_RIGHT			"rotate_6.png"
-#define FILENAME_IMG_BUTTON_TURN_DOWN_RIGHT_CLICKED	"rotate_6_clicked.png"
-#define FILENAME_IMG_BUTTON_TURN_UP_RIGHT			"rotate_1.png"
-#define FILENAME_IMG_BUTTON_TURN_UP_RIGHT_CLICKED	"rotate_1_clicked.png"
-#define FILENAME_IMG_BUTTON_TURN_UP					"rotate_3.png"
-#define FILENAME_IMG_BUTTON_TURN_UP_CLICKED			"rotate_3_clicked.png"
-#define FILENAME_IMG_BUTTON_TURN_UP_LEFT			"rotate_5.png"
-#define FILENAME_IMG_BUTTON_TURN_UP_LEFT_CLICKED	"rotate_5_clicked.png"
-
-
+#define FILENAME_IMG_BUTTON_CREDIT				"credit_button.png"
+#define FILENAME_IMG_BUTTON_CREDIT_CLICKED		"credit_button_clicked.png"
 #define FILENAME_IMG_BUTTON_OPTION				"option_button.png"
 #define FILENAME_IMG_BUTTON_OPTION_CLICKED		"option_button_clicked.png"
+#define FILENAME_IMG_BUTTON_HELP				"help_button.png"
+#define FILENAME_IMG_BUTTON_HELP_CLICKED		"help_button_clicked.png"
+#define FILENAME_IMG_BUTTON_X					"x_button.png"
+#define FILENAME_IMG_BUTTON_X_CLICKED			"x_button_clicked.png"
+
 #define FILENAME_IMG_BUTTON_RESUME				"resume.png"
 #define FILENAME_IMG_BUTTON_RESUME_CLICKED		"resume_clicked.png"
 #define FILENAME_IMG_BUTTON_GOTO_MAIN			"main_menu.png"

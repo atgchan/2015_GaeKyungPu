@@ -26,7 +26,7 @@ Character::Character(PlayerInfo cPInfo, DirectionKind spriteNum)
 Character* Character::create(PlayerInfo cPInfo, DirectionKind spriteNum)
 {
 	Character* character(new Character(cPInfo, spriteNum));
-	
+
 	Animation* animationDefault = CharacterAnimation::getInstance()->getAnimationDefault(cPInfo, spriteNum);
 	character->init();
 	character->runAction(Animate::create(animationDefault));
@@ -83,6 +83,7 @@ void Character::MoveToTile(Self_Tile* dest, bool battleMode /*= true*/)
 	dest->CaculateAttackPowerAllNearTile(!battleMode);
 
 	EventManager::getInstance()->AddHistory(HistoryEventMoveCharacter::Create(this, dest));
+
 }
 
 void Character::CharacterBeHit()
@@ -129,26 +130,27 @@ void Character::ShowMovableTile()
 
 	if (GM->getPlayerDataByPlayerInfo(_OwnerPlayer)->getFood() < tile->getFoodToConsume())
 		return;
-	if (!tile->isMovable())
+	if (!tile->isMovableTile())
 		return;
+	if (!tile->getCharacterOnThisTile() && this->getIsMovable())
+	{
+		float tilePosX = tile->getPositionX();
+		float tilePosY = tile->getPositionY() + 21;
 
-	float tilePosX = tile->getPositionX();
-	float tilePosY = tile->getPositionY() + 21;
-
-	tileMove->setPosition(tilePosX, tilePosY);
-	tileMove->setName("moveable");
-	tileMove->setZOrder(this->getCurrentTile()->getNearTile(dir)->getZOrder());
-	TileMap::getInstance()->addChild(tileMove);
-
+		tileMove->setPosition(tilePosX, tilePosY);
+		tileMove->setName("moveable");
+		tileMove->setZOrder(this->getCurrentTile()->getNearTile(dir)->getZOrder());
+		TileMap::getInstance()->addChild(tileMove);
+	}
 	//타일 위에 캐릭터가 있으면 머리 위에 커서를 보여줌
-	if (tile->getCharacterOnThisTile() != nullptr)
+	if (tile->getCharacterOnThisTile() != nullptr && this->getIsAttackable())
 	{
 		if (tile->getCharacterOnThisTile()->GetOwnerPlayer() != GM->getCurrentPlayer())
 		{
 			Sprite* battle = Sprite::createWithSpriteFrameName(FILENAME_IMG_BATTLE_INDICATOR);
 			battle->setAnchorPoint(cocos2d::Vec2(0, 0));
 			battle->setName("cursor");
-			battle->setPosition(battle->getPositionX() + 39, battle->getPositionY() + 90);
+			battle->setPosition(battle->getPositionX() + 47, battle->getPositionY() + 90);
 			tile->getCharacterOnThisTile()->addChild(battle);
 		}
 	}
@@ -212,7 +214,7 @@ void Character::setAttackPower(int attackPower)
 
 void Character::InitAttackPowerSprite()
 {
-	_AttackPowerBall = CCSprite::createWithSpriteFrameName(FILENAME_IMG_ATTACK_POWER_2); 
+	_AttackPowerBall = CCSprite::createWithSpriteFrameName(FILENAME_IMG_ATTACK_POWER_2);
 
 	float posX = this->getPositionX();
 	float posY = this->getPositionY();
@@ -242,12 +244,12 @@ int Character::CalculateDiffBetweenDirections(DirectionKind dir1, DirectionKind 
 
 	if (diff == 3)
 		return 0;
-	
+
 	if (diff == 2 || diff == 4)
 		return 1;
 
 	if (diff == 1 || diff == 5)
-		return 2;	
+		return 2;
 
 	if (diff == 0)
 		return 3;
@@ -311,4 +313,30 @@ void Character::resetRotateResource()
 
 	if (GM->_DebugMode == DEBUG_MODE_ON)
 		_RotateResource = ROTATE_RESOURCE_DEBUG_MODE;
+}
+
+void Character::setIsMovable(bool movable)
+{
+	_IsMovable = movable;
+}
+
+bool Character::getIsMovable()
+{
+	if (GM->_DebugMode == DEBUG_MODE_ON)
+		return true;
+	else
+		return _IsMovable;
+}
+
+void Character::setIsAttackable(bool attackable)
+{
+	_IsAttackable = attackable;
+}
+
+bool Character::getIsAttackable()
+{
+	if (GM->_DebugMode == DEBUG_MODE_ON)
+		return true;
+	else
+		return _IsAttackable;
 }

@@ -102,6 +102,11 @@
     </ClCompile>
     <ClCompile Include="..\Classes\odbc.cpp">
       <Filter>Database\MySQL</Filter>
+    <ClCompile Include="..\Classes\DefaultLayer.cpp">
+      <Filter>Game\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\CreditLayer.cpp">
+      <Filter>Game\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -207,6 +212,11 @@
     </ClInclude>
     <ClInclude Include="..\Classes\Odbc.h">
       <Filter>Database\MySQL</Filter>
+    <ClInclude Include="..\Classes\DefaultLayer.h">
+      <Filter>Game\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\CreditLayer.h">
+      <Filter>Game\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -243,5 +253,8 @@
     <Filter Include="Database\MySQL">
       <UniqueIdentifier>{cded4e9c-bc0a-4abc-b273-010248ff4976}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\game.ico" />
   </ItemGroup>
 </Project>
