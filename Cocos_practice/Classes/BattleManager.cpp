@@ -16,7 +16,7 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 
 	PlayerInfo playerAttacker = attacker->GetOwnerPlayer();
 	PlayerInfo playerDefender = defender->GetOwnerPlayer();
-	bool bFirst = true;
+	
 	while (_CurrentAttackFormation.size() && _CurrentDefenseFormation.size())
 	{
 		std::list<Character*> *winner = nullptr;
@@ -25,10 +25,11 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 		_CurrentAttackFormation.front()->CalculateAttackPower();
 		_CurrentDefenseFormation.front()->setAttackPower(2 + ((_CurrentDefenseFormation.front()->getCurrentTile()->getTypeOfTile() == TILE_FOREST) ? 1:0 ));
 
-		if (IsAttackerWin(_CurrentAttackFormation.front(), _CurrentDefenseFormation.front()))
+		if (IsAttackerWin())
 		{
 			winner = &_CurrentAttackFormation;
 			loser = &_CurrentDefenseFormation;
+
 			EventManager::getInstance()->AddHistory(HistoryEventRotateCharacter::Create(loser->front(), static_cast<DirectionKind>((attacker->getCurrentDirection() + 3) % DIRECTION_MAX)));
 			EventManager::getInstance()->AddHistory(HistoryEventAttack::Create(_CurrentAttackFormation.front(), _CurrentDefenseFormation.front()));
 			loser->front()->RotateToDirection(static_cast<DirectionKind>((attacker->getCurrentDirection() + 3) % DIRECTION_MAX), false);
@@ -85,8 +86,11 @@ void BattleManager::BattleBetween(Character* attacker, Character* defender)
 	}
 }
 
-bool BattleManager::IsAttackerWin(Character* attacker, Character* defender)
+bool BattleManager::IsAttackerWin()
 {
+	Character* attacker = _CurrentAttackFormation.front();
+	Character* defender = _CurrentDefenseFormation.front();
+
 	while (true)
 	{
 		int attackerDice = DiceDice::getInstance()->RollDiceBetween(1, attacker->_AttackPower);
@@ -94,10 +98,11 @@ bool BattleManager::IsAttackerWin(Character* attacker, Character* defender)
 
 		if (attackerDice == defenderDice)
 			continue;
+
 		EventManager::getInstance()->AddHistory(HistoryEventDice::Create(attacker, attackerDice));
 		EventManager::getInstance()->AddHistory(HistoryEventDice::Create(defender, defenderDice));
+
 		return (attackerDice > defenderDice) ? true : false;
-		//return false;
 	}
 }
 
@@ -127,7 +132,7 @@ int BattleManager::SearchGraphAndOverwriteAttackFormation(std::list<Character*> 
 
 	if (maxDepth <= currentDepth)
 	{
-		this->_CurrentAttackFormation = checkedNodes;
+		_CurrentAttackFormation = checkedNodes;
 		maxDepth = currentDepth;
 	}
 
@@ -137,12 +142,14 @@ int BattleManager::SearchGraphAndOverwriteAttackFormation(std::list<Character*> 
 		//i방향으로 인접한 캐릭터
 		Character* compareNode = currentNode->GetNearCharacter(static_cast<DirectionKind>(i));
 
-		if (compareNode != nullptr)
-			//해당 캐릭터가 자신을 바라보고 있으면
-			if (compareNode->GetNearCharacter(compareNode->getCurrentDirection()) == currentNode && compareNode->GetOwnerPlayer() == currentNode->GetOwnerPlayer())
-				//이미 탐색했던 node가 아니면
-				if (std::find(checkedNodes.begin(), checkedNodes.end(), compareNode) == checkedNodes.end())
-					maxDepth = SearchGraphAndOverwriteAttackFormation(checkedNodes, compareNode, currentDepth + 1, maxDepth);
+		if (compareNode == nullptr)
+			continue;
+
+		//해당 캐릭터가 자신을 바라보고 있으면
+		if (compareNode->GetNearCharacter(compareNode->getCurrentDirection()) == currentNode && compareNode->GetOwnerPlayer() == currentNode->GetOwnerPlayer())
+			//이미 탐색했던 node가 아니면
+			if (std::find(checkedNodes.begin(), checkedNodes.end(), compareNode) == checkedNodes.end())
+				maxDepth = SearchGraphAndOverwriteAttackFormation(checkedNodes, compareNode, currentDepth + 1, maxDepth);
 	}
 
 	return maxDepth;

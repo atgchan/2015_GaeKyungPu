@@ -40,19 +40,21 @@ void Character::RotateToDirection(RotateDirection rotateDirection)
 	if (_RotateResource-- <= 0)
 		return;
 
-	DirectionKind characterDirection = getCurrentDirection();
+	DirectionKind newDirection = _CurrentDirection;
 
 	if (rotateDirection == ROTATE_LEFT)
-		characterDirection = static_cast<DirectionKind>((characterDirection + 1) % DIRECTION_MAX);
+		newDirection = static_cast<DirectionKind>((newDirection + 1) % DIRECTION_MAX);
 
 	if (rotateDirection == ROTATE_RIGHT)
-		characterDirection = static_cast<DirectionKind>((characterDirection + 5) % DIRECTION_MAX);
+		newDirection = static_cast<DirectionKind>((newDirection + 5) % DIRECTION_MAX);
+
 	DirectionKind tempDirection = _CurrentDirection;
-	setCurrentDirection(characterDirection);
+	setCurrentDirection(newDirection);
 	CalculateAttackPower(true);
 	setCurrentDirection(tempDirection);
-	EventManager::getInstance()->AddHistory(HistoryEventRotateCharacter::Create(this, characterDirection));
-	setCurrentDirection(characterDirection);
+
+	EventManager::getInstance()->AddHistory(HistoryEventRotateCharacter::Create(this, newDirection));
+	setCurrentDirection(newDirection);
 	CalculateAttackPowerAllNearTile(true);
 	return;
 }
@@ -83,7 +85,6 @@ void Character::MoveToTile(Self_Tile* dest, bool battleMode /*= true*/)
 	dest->CaculateAttackPowerAllNearTile(!battleMode);
 
 	EventManager::getInstance()->AddHistory(HistoryEventMoveCharacter::Create(this, dest));
-
 }
 
 void Character::CharacterBeHit()
@@ -138,22 +139,28 @@ void Character::ShowMovableTile()
 		float tilePosY = tile->getPositionY() + 21;
 
 		tileMove->setPosition(tilePosX, tilePosY);
-		tileMove->setName("moveable");
+		tileMove->setName("movable");
 		tileMove->setZOrder(this->getCurrentTile()->getNearTile(dir)->getZOrder());
 		TileMap::getInstance()->addChild(tileMove);
 	}
 	//타일 위에 캐릭터가 있으면 머리 위에 커서를 보여줌
+
 	if (tile->getCharacterOnThisTile() != nullptr && this->getIsAttackable())
 	{
 		if (tile->getCharacterOnThisTile()->GetOwnerPlayer() != GM->getCurrentPlayer())
-		{
-			Sprite* battle = Sprite::createWithSpriteFrameName(FILENAME_IMG_BATTLE_INDICATOR);
-			battle->setAnchorPoint(cocos2d::Vec2(0, 0));
-			battle->setName("cursor");
-			battle->setPosition(battle->getPositionX() + 47, battle->getPositionY() + 90);
-			tile->getCharacterOnThisTile()->addChild(battle);
-		}
+			ShowBattleIndicator(tile);
 	}
+}
+
+void Character::ShowBattleIndicator(Self_Tile* tile)
+{
+	Character* target = tile->getCharacterOnThisTile();
+
+	Sprite* battle = Sprite::createWithSpriteFrameName(FILENAME_IMG_BATTLE_INDICATOR);
+	battle->setAnchorPoint(cocos2d::Vec2(0, 0));
+	battle->setName("cursor");
+	battle->setPosition(target->getPositionX() - 24, target->getPositionY() + 110);
+	TileMap::getInstance()->addChild(battle);
 }
 
 Character* Character::GetNearCharacter(DirectionKind direction)
@@ -254,7 +261,7 @@ int Character::CalculateDiffBetweenDirections(DirectionKind dir1, DirectionKind 
 	if (diff == 0)
 		return 3;
 
-	return -100000;
+	return -1;
 }
 
 void Character::setAttackPowerBallNameFromNumber(int power)

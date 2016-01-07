@@ -36,7 +36,7 @@ void HistoryEventKillCharacter::Run()
 		_HitEffect = Sprite::create();
 		_HitEffect->setPosition(_CharacterToKill->getPositionX(),_CharacterToKill->getPositionY()+30);
 		//_HitEffect->setZOrder(_CharacterToKill->getZOrder() + 1);
-		GM->getNodes()->addChild(_HitEffect);
+		GM->GetNodes()->addChild(_HitEffect);
 		_HitEffect->runAction(Sequence::create(_ActionHitEffect,RemoveSelf::create(),nullptr));
 	}
 

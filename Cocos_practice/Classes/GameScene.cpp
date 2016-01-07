@@ -40,7 +40,7 @@ bool GameScene::init()
 	//맵을 그리는 등의 게임 초기 셋팅을 한다.
 	gmInstance->InitializeGame();
 	//게임 내 모든 node들을 추가.아래와 같이 호출하면 된다.
-	this->addChild(gmInstance->getNodes());
+	this->addChild(gmInstance->GetNodes());
 
 //초기화 block 끝
 

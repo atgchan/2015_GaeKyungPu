@@ -75,7 +75,7 @@ bool DefaultLayer::init()
 void DefaultLayer::Resume()
 {
 	Director::getInstance()->resume();
-	static_cast<MenuItemToggle*>(GM->getNodes()->getParent()->getChildByName("UILayer")->getChildByName("ingameMenu")->getChildByName("option_toggle"))->setSelectedIndex(0); ///# 더 좋은 방법이 없을까?
+	static_cast<MenuItemToggle*>(GM->GetNodes()->getParent()->getChildByName("UILayer")->getChildByName("ingameMenu")->getChildByName("option_toggle"))->setSelectedIndex(0); ///# 더 좋은 방법이 없을까?
 	this->removeFromParentAndCleanup(true);
 	GM->setInputMode(false);
 }

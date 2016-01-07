@@ -29,7 +29,7 @@ void HistoryEventHarvest::Run()
 
 	FiniteTimeAction* seq = Sequence::create(floatAction, flyAction, addCall, doneCall, delAction, nullptr);
 	grain->runAction(seq);
-	GM->getNodes()->getParent()->getChildByName("UILayer")->addChild(grain);
+	GM->GetNodes()->getParent()->getChildByName("UILayer")->addChild(grain);
 	CocosDenshion::SimpleAudioEngine::sharedEngine()->playEffect(FILENAME_SOUND_GAME_HARVEST);
 }
 

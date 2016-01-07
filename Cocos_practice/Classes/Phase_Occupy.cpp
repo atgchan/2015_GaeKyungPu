@@ -39,7 +39,7 @@ void Phase_Occupy::Tick()
 			{
 				gm->EndGame();
 			}
-			gm->GiveTileToPlayer(iter->getCurrentTile(), gm->getCurrentPlayer());
+			iter->getCurrentTile()->setOwnerPlayer(gm->getCurrentPlayer());
 		}
 	}
 	_NextPhaseInfo = PHASE_VOLCANO;

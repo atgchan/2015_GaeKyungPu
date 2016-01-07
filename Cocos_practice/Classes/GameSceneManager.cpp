@@ -29,9 +29,8 @@ bool GameSceneManager::getIsInputAble()
 GameSceneManager* GameSceneManager::getInstance()
 {
 	if (_Inst == nullptr)
-	{
 		_Inst = new GameSceneManager();
-	}
+	
 	return _Inst;
 }
 
@@ -41,9 +40,8 @@ GameSceneManager::~GameSceneManager()
 	delete _Dice;
 
 	for (int i = PHASE_HARVEST; i <= PHASE_PASTEUR; ++i)
-	{
 		delete _Phases[i];
-	}
+	
 	_Inst = nullptr;
 	_TileMap->release();
 	_Nodes->release();
@@ -62,9 +60,7 @@ void GameSceneManager::InitializeGame()
 	this->_Nodes->retain();
 	this->_Nodes->setName("GameSceneManager");
 	for (int i = 0; i < NUM_OF_PLAYER; ++i)
-	{
 		_PlayerData[i] = new PlayerData(0, 1);
-	}
 
 	_Phases[PHASE_READY] = nullptr;
 	_Phases[PHASE_HARVEST] = new Phase_Harvest();
@@ -129,7 +125,6 @@ bool GameSceneManager::DraftNewCharacterByClick(Self_Tile* clickedTile)
 			return false;
 		}
 
-		//		앞에서 false였다면 (타일이 spawn 불가능이라면) 여기는 안돌아가겠지
 		if (getCurrentPlayerData()->getFood() >= clickedTile->getFoodToConsume())
 		{
 			DirectionKind direction = _DraftTile->getNearTileDirection(clickedTile);
@@ -260,13 +255,10 @@ void GameSceneManager::KeyReleasedDispatcher(EventKeyboard::KeyCode keyCode, coc
 	{
 
 	case EventKeyboard::KeyCode::KEY_TAB:
-	{
 		getCurrentPlayerData()->AddFood(100);
-	}
-	break;
-
+		break;
+	
 	case EventKeyboard::KeyCode::KEY_R:
-	{
 		_DebugMode = !(_DebugMode);
 		for (int i = 0; i < NUM_OF_PLAYER; ++i)
 		{
@@ -279,8 +271,7 @@ void GameSceneManager::KeyReleasedDispatcher(EventKeyboard::KeyCode keyCode, coc
 					iter->_RotateResource = ROTATE_RESOURCE_DEBUG_MODE;
 			}
 		}
-	}
-	break;
+		break;
 
 	default:
 		break;
@@ -366,11 +357,6 @@ void GameSceneManager::ScheduleCallback(float delta)
 	TrimZorderAndRefreshAP();
 }
 
-void GameSceneManager::GiveTileToPlayer(Self_Tile* targetTile, PlayerInfo pInfo)
-{
-	targetTile->setOwnerPlayer(pInfo);
-}
-
 void GameSceneManager::KillCharacter(Character* target, bool showHitEffect /*= false*/)
 {
 	target->getCurrentTile()->setCharacterOnThisTile(nullptr);
@@ -452,7 +438,6 @@ void GameSceneManager::SelectCharacter(Character* character)
 		return;
 
 	_DraftMode = false;
-	//_ReadyToMove = false;
 	_SelectedCharacter = character;
 	if (character && character->GetOwnerPlayer() == _CurrentPlayer)
 	{
@@ -523,8 +508,8 @@ void GameSceneManager::ShowSpawnableTile(Self_Tile* tile)
 
 void GameSceneManager::Unselect()
 {
-	while (TileMap::getInstance()->getChildByName("moveable"))
-		TileMap::getInstance()->removeChildByName("moveable");
+	while (TileMap::getInstance()->getChildByName("movable"))
+		TileMap::getInstance()->removeChildByName("movable");
 
 	while (TileMap::getInstance()->getChildByName("spwanable"))
 		TileMap::getInstance()->removeChildByName("spwanable");
@@ -548,17 +533,6 @@ void GameSceneManager::TrimZorderAndRefreshAP()
 			Character* tCharacter = static_cast<Character*>(iter);
 			tCharacter->setAttackPowerBallNameFromNumber(tCharacter->getAttackPowerToDisplay());
 		}
-}
-
-
-DirectionKind LeftDirection(DirectionKind direction)
-{
-	return static_cast<DirectionKind>((direction + 1) % DIRECTION_MAX);
-}
-
-DirectionKind RightDirection(DirectionKind direction)
-{
-	return static_cast<DirectionKind>((direction + 5) % DIRECTION_MAX);
 }
 
 void GameSceneManager::SetRotateButton(Character* character)
@@ -600,8 +574,8 @@ void GameSceneManager::RotateToDirection(Character* character, RotateDirection r
 	RemoveCursor();
 	character->RotateToDirection(rotateDirection);
 
-	while (TileMap::getInstance()->getChildByName("moveable"))
-		TileMap::getInstance()->removeChildByName("moveable");
+	while (TileMap::getInstance()->getChildByName("movable"))
+		TileMap::getInstance()->removeChildByName("movable");
 
 	character->ShowMovableTile();
 
@@ -614,31 +588,15 @@ void GameSceneManager::RotateToDirection(Character* character, RotateDirection r
 
 void GameSceneManager::RemoveCursor()
 {
-	for (int i = 0; i < 2; i++)
-	{
-		std::list<Character*> *list = _PlayerData[PlayerInfo(i)]->getCharacterList();
-		for (std::list<Character*>::iterator iter = list->begin(); iter != list->end(); ++iter)
-		{
-			while ((*iter)->getChildByName("cursor"))
-			{
-				(*iter)->removeChildByName("cursor");
-			}
-		}
-	}
+	while (TileMap::getInstance()->getChildByName("cursor"))
+		TileMap::getInstance()->removeChildByName("cursor");
 }
 
 void GameSceneManager::ResetRotateResource()
 {
 	for (auto iter : TileMap::getInstance()->getChildren())
 		if (iter->getName() == "character")
-		{
 			static_cast<Character*>(iter)->resetRotateResource();
-		}
-}
-
-void GameSceneManager::ResetLastCharacter()
-{
-	lastCharacter = nullptr;
 }
 
 void GameSceneManager::ResetCharacterMovable()
@@ -650,3 +608,18 @@ void GameSceneManager::ResetCharacterMovable()
 			static_cast<Character*>(iter)->setIsAttackable(true);
 		}
 }
+
+Node* GameSceneManager::GetNodes()
+{
+	return _Nodes; 
+}
+
+Node* GameSceneManager::GetChildByName(const std::string& name)
+{
+	return _Nodes->getChildByName(name);
+};
+
+void GameSceneManager::RemoveChildByName(const std::string& name)
+{
+	_Nodes->removeChildByName(name);
+};

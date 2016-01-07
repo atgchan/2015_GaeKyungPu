@@ -19,8 +19,6 @@ public:
 	
 	void		MouseDownDispatcher(cocos2d::EventMouse *event);
 	void		KeyReleasedDispatcher(EventKeyboard::KeyCode keyCode, cocos2d::Event *event);
-	
-	Node*		getNodes(){ return _Nodes;}
 
 	PlayerData*	getCurrentPlayerData();
 	PlayerInfo	getCurrentPlayer();
@@ -38,7 +36,6 @@ public:
 
 	void		AddChild(Node* targetNode);
 	void		ChangeRichToLava(Self_Tile* target);
-	void		GiveTileToPlayer(Self_Tile* targetTile, PlayerInfo pInfo);
 	void		KillCharacter(Character* target, bool showHitEffect = false);
 	void		setVolcanoActivated(bool activated);
 
@@ -53,29 +50,25 @@ public:
 	void		setInputMode(bool mode);
 
 	bool		getIsInputAble();
-	bool		_DebugMode = false;
-	void		ResetLastCharacter();
 	void		ResetCharacterMovable();
 
-	cocos2d::Node*	GetChildByName(const std::string& name)
-	{ return _Nodes->getChildByName(name); };
+	bool		_DebugMode = false;
 
-	void	RemoveChildByName(const std::string& name)
-	{ _Nodes->removeChildByName(name); };
+	Node*		GetNodes();
+	cocos2d::Node*	GetChildByName(const std::string& name);
+	void	RemoveChildByName(const std::string& name);
 
 	~GameSceneManager();
 
 private:
-	BattleManager*	_BMInstance;
-	GameSceneManager(){};
-
-	Character* _SelectedCharacter;
-
 	static GameSceneManager *_Inst;
+	GameSceneManager(){};
+	BattleManager*	_BMInstance;
+
+	Character*	_SelectedCharacter;
 	TileMap*	_TileMap;
 	PlayerData*	_PlayerData[NUM_OF_PLAYER];
 	Node*		_Nodes;
-
 	PhaseInfo	_CurrentPhaseInfo = PHASE_HARVEST;
 	PlayerInfo	_CurrentPlayer = PLAYER_RED;
 	Phase*		_CurrentPhase = nullptr;
