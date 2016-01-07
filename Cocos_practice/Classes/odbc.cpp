@@ -32,6 +32,9 @@ bool Odbc::Connect(wchar_t* odbcName, wchar_t* mysqlId, wchar_t* password)
 {
 	int ret;
 
+	if (_IsConnect)
+		return true;
+
 	ret = SQLAllocHandle(SQL_HANDLE_ENV, SQL_NULL_HANDLE, &_hEnv);
 	ret = SQLSetEnvAttr(_hEnv, SQL_ATTR_ODBC_VERSION, (SQLPOINTER)SQL_OV_ODBC3, SQL_IS_INTEGER);
 	ret = SQLAllocHandle(SQL_HANDLE_DBC, _hEnv, &_hDbc);
@@ -117,23 +120,24 @@ int Odbc::GetUserId(std::string userName)
 
 	int ret = SQLAllocHandle(SQL_HANDLE_STMT, _hDbc, &_hStmt);
 	ret = SQLExecDirect(_hStmt, sql, SQL_NTS);
-	//SQLBindCol(_hStmt, )
 
 	if (ret == SQL_SUCCESS)
 	{
 		SQLLEN resultLen, idResult2;
 		int idResult;
 
+		ret = SQLFetch(_hStmt);
+		if (ret == SQL_NO_DATA)
+			return -1;
+		
+		if (ret == SQL_ERROR || ret == SQL_SUCCESS_WITH_INFO)
+			return -1;
+
 		while (TRUE)
 		{
-			if (ret == SQL_SUCCESS || ret == SQL_SUCCESS_WITH_INFO)
+			if (ret == SQL_SUCCESS)
 			{
-				SQLGetData(_hStmt, 1, SQL_C_DEFAULT, &idResult, 1, &resultLen);
-				SQLGetData(_hStmt, 1, SQL_C_LONG, &idResult, 1, &resultLen);
-				SQLGetData(_hStmt, 1, SQL_C_ULONG, &idResult, 1, &resultLen);
-				SQLGetData(_hStmt, 1, SQL_C_DEFAULT, &idResult2, 1, &resultLen);
-				SQLGetData(_hStmt, 1, SQL_C_LONG, &idResult2, 1, &resultLen);
-				SQLGetData(_hStmt, 1, SQL_C_ULONG, &idResult2, 1, &resultLen);
+				SQLGetData(_hStmt, 1, SQL_C_DEFAULT, &idResult, 0, &resultLen);
 				return idResult;
 			}
 		}
@@ -265,7 +269,6 @@ bool Odbc::CheckDataExist(std::string tableName, std::string colName, std::strin
 		return false;
 }
 
-
 void Odbc::CheckSuccess(int ret)
 {
 	if (ret == SQL_SUCCESS)
@@ -367,45 +370,6 @@ void Odbc::ReadFileAndInsert(const char *path)
 	}
 	file.close();
 
-}
-
-void Odbc::SelectBookData()
-{
-	cout << "[Select Book Data]" << endl;
-
-	int ret = SQLExecDirect(_hStmt, (SQLWCHAR*)L"SELECT author, title, price FROM test.book", SQL_NTS);
-
-	if (ret == SQL_SUCCESS)
-	{
-		int iCount = 0;
-		SQLLEN iAuthorLen, iTitleLen, iPriceLen, iPrice;
-		char strAuthor[200], strTitle[200];
-
-		while (TRUE)
-		{
-			ret = SQLFetch(_hStmt);
-			if (ret == SQL_NO_DATA)
-			{
-				cout << "[NO DATA]" << endl;
-				break;
-			}
-			if (ret == SQL_ERROR || ret == SQL_SUCCESS_WITH_INFO)
-				printf("An error occured\n");
-
-			//			SELECT
-			if (ret == SQL_SUCCESS || ret == SQL_SUCCESS_WITH_INFO)
-			{
-				SQLGetData(_hStmt, 1, SQL_C_WCHAR, strAuthor, 200, &iAuthorLen);
-				SQLGetData(_hStmt, 2, SQL_C_WCHAR, strTitle, 200, &iTitleLen);
-				SQLGetData(_hStmt, 3, SQL_C_ULONG, &iPrice, 0, &iPriceLen);
-
-				cout << "Row : " << iCount++ << endl;
-				cout << strAuthor << " " << strTitle << " " << iPrice << endl;
-			}
-		}
-	}
-	else
-		cout << "An error occured during excuting query!!" << endl;
 }
 
 const char* Odbc::CreateCSV(const char* filename, int num)

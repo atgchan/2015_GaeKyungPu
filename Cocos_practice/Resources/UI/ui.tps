@@ -236,15 +236,6 @@
             <filename>new_rotate_mouse_2.png</filename>
             <filename>rotatable_not.png</filename>
             <filename>rotatable.png</filename>
-<<<<<<< HEAD
-            <filename>option_button_new.png</filename>
-            <filename>option_button_new_clicked.png</filename>
-            <filename>rotate_right_clicked.png</filename>
-            <filename>rotate_left.png</filename>
-            <filename>rotate_left_clicked.png</filename>
-            <filename>rotate_right.png</filename>
-            <filename>input_box.png</filename>
-=======
             <filename>help_button_clicked.png</filename>
             <filename>help_button.png</filename>
             <filename>x_button.png</filename>
@@ -252,7 +243,7 @@
             <filename>default_window.png</filename>
             <filename>credit_button.png</filename>
             <filename>credit_button_clicked.png</filename>
->>>>>>> master
+            <filename>input_box.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

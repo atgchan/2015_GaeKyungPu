@@ -77,11 +77,6 @@ void GameSceneManager::InitializeGame()
 
 void GameSceneManager::InitPlayerData(int player1, int player2)
 {
-	/*for (int i = 0; i < NUM_OF_PLAYER; ++i)
-	{
-		_PlayerData[i] = new PlayerData(0, 1, );
-	}*/
-
 	_PlayerData[0] = new PlayerData(0, 1, player1);
 	_PlayerData[1] = new PlayerData(0, 1, player2);
 }
@@ -92,17 +87,37 @@ void GameSceneManager::EndGame()
 	ResultLayer* result = ResultLayer::create();
 	AddChild(result);
 
-	PlayerInfo currentPlayer = getCurrentPlayer();
-	cocos2d::Label* winner;
-	if (currentPlayer == PLAYER_RED)
-		winner = cocos2d::Label::create("Red Win!", FILENAME_FONT_PIXEL, 80);
-	else
+	InsertResultSql(_CurrentPlayer);
+
+	cocos2d::Label* winner = cocos2d::Label::create("Red Win!", FILENAME_FONT_PIXEL, 80);
+	
+	if (_CurrentPlayer == PLAYER_BLUE)
 		winner = cocos2d::Label::create("Blue Win!", FILENAME_FONT_PIXEL, 80);
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	winner->setPosition(Vec2(visibleSize.width * 1 / 2, visibleSize.height * 3 / 5));
 	AddChild(winner);
 }
+
+void GameSceneManager::InsertResultSql(PlayerInfo Winner)
+{
+	Odbc* mysql = Odbc::GetInstance();
+
+	int winner = getPlayerDataByPlayerInfo(PLAYER_RED)->GetSqlId();
+	int loser = getPlayerDataByPlayerInfo(PLAYER_BLUE)->GetSqlId();
+
+	if (Winner == PLAYER_BLUE)
+	{
+		int winner = getPlayerDataByPlayerInfo(PLAYER_BLUE)->GetSqlId();
+		int loser = getPlayerDataByPlayerInfo(PLAYER_RED)->GetSqlId();
+	}	
+
+	std::string values = std::to_string(winner) + "," + std::to_string(loser);
+	values += "," + std::to_string(_TotalTurn);
+
+	bool result = mysql->InsertData("result", "winner, loser, total_turn", values);
+}
+
 
 Self_Tile* GameSceneManager::getTileFromMouseEvent(const cocos2d::EventMouse *event)
 {

@@ -10,6 +10,8 @@ public:
 
 	int		_PlayerBarrackNum;
 	int		getFood();
+	int		GetSqlId(){ return _SqlId; };
+
 	void	setFood(int _food);
 	void	AddFood(int num);
 
