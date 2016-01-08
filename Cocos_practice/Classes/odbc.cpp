@@ -69,6 +69,41 @@ void Odbc::Disonnect()
 	_IsConnect = false;
 }
 
+std::string	Odbc::GetMapData(int width, int height, int map_id)
+{
+	if (!_IsConnect || _Inst == nullptr)
+		return "";
+
+	std::wstring query = L"SELECT tile_type FROM map_data WHERE pos_x = ";
+	query += std::to_wstring(width);
+	query += L" AND pos_y = ";
+	query += std::to_wstring(height);
+	query += L" AND map_id = ";
+	query += std::to_wstring(map_id);
+
+	SQLWCHAR* sql = (SQLWCHAR*)query.c_str();
+	int ret = SQLAllocHandle(SQL_HANDLE_STMT, _hDbc, &_hStmt);
+	ret = SQLExecDirect(_hStmt, sql, SQL_NTS);
+
+	if (ret == SQL_SUCCESS)
+	{
+		SQLLEN resultLen;
+		char strResult[200];
+
+		while (TRUE)
+		{
+			ret = SQLFetch(_hStmt);
+			if (ret == SQL_SUCCESS)
+			{
+				SQLGetData(_hStmt, 1, SQL_C_CHAR, strResult, 200, &resultLen);
+				return std::string(strResult);
+			}
+		}
+	}
+	else
+		return "TILE_NULL";
+}
+
 bool Odbc::PushQuery(std::wstring query)
 {
 	if (!_IsConnect || _Inst == nullptr)

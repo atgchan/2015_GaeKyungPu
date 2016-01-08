@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "TileMap.h"
 #include "GameSceneManager.h"
+#include "Odbc.h"
 
 TileMap* TileMap::getInstance()
 {
@@ -14,31 +15,38 @@ TileMap* TileMap::getInstance()
 
 TileMap* TileMap::_Inst = nullptr;
 
-std::array<std::array<TileKind, MAP_MAX_WIDTH>, MAP_MAX_HEIGHT> TileMap::_NewMapData =
-{ {
-	{ TILE_NULL, TILE_NULL, TILE_NULL, TILE_NULL, TILE_NULL, TILE_NULL, TILE_NULL, TILE_NULL, TILE_NULL, TILE_NULL },
-	{ TILE_NULL, TILE_NULL, TILE_PLAIN, TILE_PLAIN, TILE_PLAIN, TILE_NULL, TILE_NULL, TILE_NULL, TILE_NULL, TILE_NULL },
-	{ TILE_NULL, TILE_NULL, TILE_RICH_SIDE, TILE_LAKE, TILE_VILLAGE, TILE_PLAIN, TILE_PLAIN, TILE_PLAIN, TILE_NULL, TILE_NULL },
-	{ TILE_NULL, TILE_PLAIN, TILE_PLAIN, TILE_PLAIN, TILE_PLAIN, TILE_FOREST, TILE_HEADQUARTER, TILE_PLAIN, TILE_NULL, TILE_NULL },
-	{ TILE_NULL, TILE_PLAIN, TILE_PLAIN, TILE_PLAIN, TILE_RICH, TILE_RICH, TILE_FOREST, TILE_PLAIN, TILE_NULL, TILE_NULL },
-	{ TILE_NULL, TILE_PLAIN, TILE_PLAIN, TILE_RICH, TILE_VOLCANO, TILE_RICH, TILE_PLAIN, TILE_PLAIN, TILE_NULL, TILE_NULL },
-	{ TILE_NULL, TILE_NULL, TILE_PLAIN, TILE_FOREST, TILE_RICH, TILE_RICH, TILE_PLAIN, TILE_PLAIN, TILE_PLAIN, TILE_NULL },
-	{ TILE_NULL, TILE_PLAIN, TILE_HEADQUARTER, TILE_FOREST, TILE_PLAIN, TILE_PLAIN, TILE_PLAIN, TILE_PLAIN, TILE_NULL, TILE_NULL },
-	{ TILE_NULL, TILE_NULL, TILE_PLAIN, TILE_PLAIN, TILE_PLAIN, TILE_VILLAGE, TILE_LAKE, TILE_RICH_SIDE, TILE_NULL, TILE_NULL },
-	{ TILE_NULL, TILE_NULL, TILE_NULL, TILE_NULL, TILE_PLAIN, TILE_PLAIN, TILE_PLAIN, TILE_NULL, TILE_NULL, TILE_NULL },
-	{ TILE_NULL, TILE_NULL, TILE_NULL, TILE_NULL, TILE_NULL, TILE_NULL, TILE_NULL, TILE_NULL, TILE_NULL, TILE_NULL }
-} };
-
-bool TileMap::create()
+void TileMap::MakeMapData(int max_width, int max_height, int map_id)
 {
-	for (int i = 0; i < MAP_MAX_HEIGHT; ++i)
+	Odbc* mysql = Odbc::GetInstance();
+	if (mysql->IsConnect() == false)
+		mysql->Connect(L"me", L"testudo", L"next!!@@##$$");
+
+	std::vector<TileKind> tempMapData;
+	for (int height = 0; height < max_height; ++height){
+		tempMapData.clear();
+
+		for (int width = 0; width < max_width; ++width){
+			std::string sql_tile_kind =  mysql->GetMapData(width, height, map_id);
+			sql_tile_kind.pop_back();
+			std::map<std::string, TileKind>::iterator tile = _TileKind_Dictionary->find(sql_tile_kind);
+			tempMapData.push_back(tile->second);
+		}
+		_SQLMapData.push_back(tempMapData);
+	}
+}
+
+bool TileMap::CreateMap(int max_width, int max_height, int map_id)
+{
+	MakeMapData(max_width, max_height, map_id);
+
+	for (int i = 0; i < max_height; ++i)
 	{
-		for (int j = 0; j < MAP_MAX_WIDTH; ++j)
+		for (int j = 0; j < max_width; ++j)
 		{
 			float positionX;
 			float positionY;
 
-			_TileSet[i][j] = Self_Tile::create(_NewMapData[i][j]);
+			_TileSet[i][j] = Self_Tile::create(_SQLMapData[i][j]);
 
 			if (_TileSet[i][j]->getTypeOfTile() == TILE_RICH)
 				_RichTiles.push_back(_TileSet[i][j]);
@@ -48,23 +56,17 @@ bool TileMap::create()
 
 			if (j == 0)
 			{
-				if (((i-1) % 2) == 0)
-				{
-					positionX = i * 51 + 12 -200;
-				}
+				if (((i - 1) % 2) == 0)
+					positionX = i * 51 + 12 - 200;
 				else
-				{
 					positionX = (i - 1) * 51 - 200;
-				}
 
 				if (i == 0)
-				{ 
 					positionY = 450;
-				}
 				else
 				{
 					float addnum = 0;
-					if ((i-1) % 2 == 0)
+					if ((i - 1) % 2 == 0)
 						addnum = 39;
 					else
 						addnum = 66;
@@ -80,14 +82,14 @@ bool TileMap::create()
 			_TileSet[i][j]->setPosition(positionX, positionY);
 			_Inst->addChild(_TileSet[i][j]);
 
-			}
+		}
 	}
-	for (int i = MAP_MAX_HEIGHT -1 ; i >= 0; --i)
+	for (int i = MAP_MAX_HEIGHT - 1; i >= 0; --i)
 	{
 		for (int j = 0; j < MAP_MAX_WIDTH; ++j)
 			GameSceneManager::getInstance()->PushTileToList(_TileSet[i][j]);
 	}
-//	다음 함수에서 모든 타일을 순회하여 tile마다 nearTile을 저장한다.
+	//	다음 함수에서 모든 타일을 순회하여 tile마다 nearTile을 저장한다.
 	SetTotalNearTile();
 
 	_TileSet[7][3]->setPositionY(_TileSet[7][3]->getPositionY() + 12);
@@ -129,7 +131,22 @@ std::vector<Self_Tile*> TileMap::getVolcanoTiles()
 
 TileMap::TileMap()
 {
+	typedef std::pair<std::string, TileKind> TilePair;
 
+	_TileKind_Dictionary = new std::map<std::string, TileKind>;
+	_TileKind_Dictionary->insert(TilePair("TILE_NULL", TILE_NULL));
+	_TileKind_Dictionary->insert(TilePair("TILE_PLAIN", TILE_PLAIN));
+	_TileKind_Dictionary->insert(TilePair("TILE_FOREST", TILE_FOREST));
+	_TileKind_Dictionary->insert(TilePair("TILE_VILLAGE", TILE_VILLAGE));
+	_TileKind_Dictionary->insert(TilePair("TILE_HEADQUARTER", TILE_HEADQUARTER));
+	_TileKind_Dictionary->insert(TilePair("TILE_BARRACK", TILE_BARRACK));
+	_TileKind_Dictionary->insert(TilePair("TILE_RICH", TILE_RICH));
+	_TileKind_Dictionary->insert(TilePair("TILE_LAKE", TILE_LAKE));
+	_TileKind_Dictionary->insert(TilePair("TILE_VOLCANO", TILE_VOLCANO));
+	_TileKind_Dictionary->insert(TilePair("TILE_VOLCANO_ACTIVATED", TILE_VOLCANO_ACTIVATED));
+	_TileKind_Dictionary->insert(TilePair("TILE_LAVA", TILE_LAVA));
+	_TileKind_Dictionary->insert(TilePair("TILE_RICH_SIDE", TILE_RICH_SIDE));
+	_TileKind_Dictionary->insert(TilePair("TILE_MOVE", TILE_MOVE));
 }
 
 void TileMap::SetTotalNearTile()
@@ -174,5 +191,6 @@ void TileMap::SetTotalNearTile()
 
 TileMap::~TileMap()
 {
+	delete _TileKind_Dictionary;
 	_Inst = nullptr;
 }

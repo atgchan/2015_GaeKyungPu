@@ -23,7 +23,7 @@ public:
 	
 	void			ReadFileAndInsert(const char *path);
 	void			CheckSuccess(int ret);
-
+	std::string		GetMapData(int width, int height, int map_id);
 	
 	const char*		CreateCSV(const char* filename, int num);
 	void			SelectBookData();

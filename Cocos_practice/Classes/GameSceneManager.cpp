@@ -30,9 +30,8 @@ bool GameSceneManager::getIsInputAble()
 GameSceneManager* GameSceneManager::getInstance()
 {
 	if (_Inst == nullptr)
-	{
 		_Inst = new GameSceneManager();
-	}
+	
 	return _Inst;
 }
 
@@ -56,9 +55,11 @@ void GameSceneManager::InitializeGame()
 	_BMInstance = new BattleManager();
 	_Nodes = Node::create();
 	_Dice = new DiceDice();
-	_TileMap = TileMap::getInstance();
 
-	_TileMap->create();
+	_TileMap = TileMap::getInstance();
+	_TileMap->CreateMap(10, 11, 1);
+	//_TileMap->create();
+
 	this->AddChild(_TileMap);
 	this->_Nodes->retain();
 	this->_Nodes->setName("GameSceneManager");

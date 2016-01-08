@@ -45,6 +45,7 @@ enum TileKind {
 	TILE_RICH_SIDE,
 	TILE_MOVE
 };
+
 enum DirectionKind : int
 {
 	DIRECTION_DOWN_LEFT,

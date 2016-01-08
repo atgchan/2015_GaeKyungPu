@@ -9,25 +9,32 @@ USING_NS_CC;
 class TileMap : public Layer
 {
 public:
+	static TileMap* getInstance();
 	~TileMap();
-	static	TileMap*		getInstance();
-	bool					create();
-	void					setCharacterOnTile(Character* character, Self_Tile* tile, bool moveMode = false);
-	void					KillCharacter(Character* target);
 
+	bool	create();
+	bool	CreateMap(int max_width, int max_height, int map_id);
+
+	void	setCharacterOnTile(Character* character, Self_Tile* tile, bool moveMode = false);
+	void	KillCharacter(Character* target);
+	
 	std::vector<Self_Tile*> getRichTiles();
 	std::vector<Self_Tile*> getVolcanoTiles();
 
 private:
-	static std::array<std::array<TileKind, MAP_MAX_WIDTH>, MAP_MAX_HEIGHT> _NewMapData;
-	std::array<std::array<Self_Tile*, MAP_MAX_WIDTH>, MAP_MAX_HEIGHT> _TileSet;
-	void					SetTotalNearTile();
+	static TileMap*	_Inst;
 
 	TileMap();
 	TileMap(const TileMap& other);
 	TileMap& operator=(TileMap& other);
-	static TileMap*			_Inst;
 
+	void	SetTotalNearTile();
+	void	MakeMapData(int width, int height, int map_id);
+
+	std::array<std::array<Self_Tile*, MAP_MAX_WIDTH>, MAP_MAX_HEIGHT> _TileSet;
+	
 	std::vector<Self_Tile*> _RichTiles;
 	std::vector<Self_Tile*> _VolcanoTiles;
+	std::vector<std::vector<TileKind>> _SQLMapData;
+	std::map<std::string, TileKind>* _TileKind_Dictionary;
 };
