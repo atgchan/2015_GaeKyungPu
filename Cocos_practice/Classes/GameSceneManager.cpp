@@ -57,8 +57,7 @@ void GameSceneManager::InitializeGame()
 	_Dice = new DiceDice();
 
 	_TileMap = TileMap::getInstance();
-	_TileMap->CreateMap(10, 11, 1);
-	//_TileMap->create();
+	_TileMap->CreateMap(_MapId);
 
 	this->AddChild(_TileMap);
 	this->_Nodes->retain();
@@ -88,8 +87,8 @@ void GameSceneManager::EndGame()
 	ResultLayer* result = ResultLayer::create();
 	AddChild(result);
 
-	InsertResultSql(_CurrentPlayer);
-
+	InsertAndUpdateResultSql();
+	
 	cocos2d::Label* winner = cocos2d::Label::create("Red Win!", FILENAME_FONT_PIXEL, 80);
 	
 	if (_CurrentPlayer == PLAYER_BLUE)
@@ -100,23 +99,30 @@ void GameSceneManager::EndGame()
 	AddChild(winner);
 }
 
-void GameSceneManager::InsertResultSql(PlayerInfo Winner)
+void GameSceneManager::InsertAndUpdateResultSql()
 {
 	Odbc* mysql = Odbc::GetInstance();
 
-	int winner = getPlayerDataByPlayerInfo(PLAYER_RED)->GetSqlId();
-	int loser = getPlayerDataByPlayerInfo(PLAYER_BLUE)->GetSqlId();
+	int winner_id = getPlayerDataByPlayerInfo(PLAYER_RED)->GetSqlId();
+	int loser_id = getPlayerDataByPlayerInfo(PLAYER_BLUE)->GetSqlId();
 
-	if (Winner == PLAYER_BLUE)
+	if (_CurrentPlayer == PLAYER_BLUE)
 	{
 		int winner = getPlayerDataByPlayerInfo(PLAYER_BLUE)->GetSqlId();
 		int loser = getPlayerDataByPlayerInfo(PLAYER_RED)->GetSqlId();
 	}	
 
-	std::string values = std::to_string(winner) + "," + std::to_string(loser);
+	std::string values = std::to_string(winner_id) + "," + std::to_string(loser_id);
+	values += "," + std::to_string(_MapId);
 	values += "," + std::to_string(_TotalTurn);
+	
+	bool result = mysql->InsertData("result", "winner, loser, map_id, total_turn", values);
 
-	bool result = mysql->InsertData("result", "winner, loser, total_turn", values);
+	result = mysql->UpdatePlayerWinRate(winner_id);
+	result = mysql->UpdatePlayerWinRate(loser_id);
+
+	result = mysql->UpdatePlayerRank(winner_id);
+	result = mysql->UpdatePlayerRank(loser_id);
 }
 
 
@@ -370,6 +376,7 @@ void GameSceneManager::ChangePlayer()
 	{
 		_CurrentPlayer = (PlayerInfo)((_CurrentPlayer + 1) % 2);
 		ResetRotateResource();
+		++_TotalTurn;
 	}
 
 	else

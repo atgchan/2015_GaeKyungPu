@@ -6,6 +6,11 @@ enum { MAX_TILEKIND  = 13};
 enum { NUM_OF_PLAYER = 2 };
 enum { MAP_MAX_HEIGHT = 11, MAP_MAX_WIDTH = 10 };
 
+enum SQLMapInfo : int{
+	SQL_WIDTH = 3,
+	SQL_HEIGHT = 4
+};
+
 enum PhaseInfo{
 	PHASE_READY,
 	PHASE_HARVEST,

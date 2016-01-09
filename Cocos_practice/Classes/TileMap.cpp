@@ -35,8 +35,12 @@ void TileMap::MakeMapData(int max_width, int max_height, int map_id)
 	}
 }
 
-bool TileMap::CreateMap(int max_width, int max_height, int map_id)
+bool TileMap::CreateMap(int map_id)
 {
+	Odbc* mysql = Odbc::GetInstance();
+	int max_width = mysql->GetMapInfo(map_id, SQL_WIDTH);
+	int max_height = mysql->GetMapInfo(map_id, SQL_HEIGHT);
+
 	MakeMapData(max_width, max_height, map_id);
 
 	for (int i = 0; i < max_height; ++i)

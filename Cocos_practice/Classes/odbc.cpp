@@ -7,6 +7,7 @@
 #include <clocale>
 #include <codecvt>
 
+
 using namespace std;
 
 Odbc* Odbc::_Inst = nullptr;
@@ -67,6 +68,116 @@ void Odbc::Disonnect()
 	if (_hEnv != nullptr)	
 		SQLFreeHandle(SQL_HANDLE_ENV, _hEnv);
 	_IsConnect = false;
+}
+
+bool Odbc::UpdatePlayerWinRate(int player_idnum)
+{
+	if (!_IsConnect || _Inst == nullptr)
+		return false;
+
+	std::wstring query = L"call updatePlayerWinRate(";
+	query += std::to_wstring(player_idnum);
+	query += L")";
+
+	SQLWCHAR* sql = (SQLWCHAR*)query.c_str();
+	int ret = SQLAllocHandle(SQL_HANDLE_STMT, _hDbc, &_hStmt);
+	ret = SQLExecDirect(_hStmt, sql, SQL_NTS);
+
+	if (ret == SQL_SUCCESS)
+	{
+		if (ret == SQL_SUCCESS)
+			return true;
+	}
+	else
+		return false;
+}
+
+bool Odbc::UpdatePlayerRank(int player_idnum)
+{
+	if (!_IsConnect || _Inst == nullptr)
+		return false;
+
+	std::wstring query = L"call updateUserRank(";
+	query += std::to_wstring(player_idnum);
+	query += L")";
+
+	SQLWCHAR* sql = (SQLWCHAR*)query.c_str();
+	int ret = SQLAllocHandle(SQL_HANDLE_STMT, _hDbc, &_hStmt);
+	ret = SQLExecDirect(_hStmt, sql, SQL_NTS);
+
+	if (ret == SQL_SUCCESS)
+	{
+		if (ret == SQL_SUCCESS)
+			return true;
+	}
+	else
+		return false;
+}
+
+std::string Odbc::GetRecentTopTen(int map_id)
+{
+	if (!_IsConnect || _Inst == nullptr)
+		return "";
+
+	std::wstring query = L"SELECT * FROM result WHERE map_id = ";
+	query += std::to_wstring(map_id);
+	query += L" limit 10";
+
+	SQLWCHAR* sql = (SQLWCHAR*)query.c_str();
+	int ret = SQLAllocHandle(SQL_HANDLE_STMT, _hDbc, &_hStmt);
+	ret = SQLExecDirect(_hStmt, sql, SQL_NTS);
+
+	if (ret == SQL_SUCCESS)
+	{
+		SQLLEN resultLen;
+		char strWinner[32], strLoser[32];
+		int mapId, totalTurn;
+
+		while (TRUE)
+		{
+			ret = SQLFetch(_hStmt);
+			if (ret == SQL_SUCCESS)
+			{
+				SQLGetData(_hStmt, 2, SQL_C_CHAR, strWinner, 32, &resultLen);
+				SQLGetData(_hStmt, 3, SQL_C_CHAR, strLoser, 32, &resultLen);
+				SQLGetData(_hStmt, 4, SQL_C_DEFAULT, &mapId, 0, &resultLen);
+				SQLGetData(_hStmt, 5, SQL_C_DEFAULT, &totalTurn, 0, &resultLen);
+				
+				return std::string(strWinner);
+			}
+		}
+	}
+	else
+		return "";
+}
+
+int Odbc::GetMapInfo(int map_id, SQLMapInfo info)
+{
+	if (!_IsConnect || _Inst == nullptr)
+		return -1;
+
+	std::wstring query = L"SELECT map_id, map_name, max_width, max_height FROM map_list WHERE map_id = ";
+	query += std::to_wstring(map_id);
+
+	SQLWCHAR* sql = (SQLWCHAR*)query.c_str();
+	int ret = SQLAllocHandle(SQL_HANDLE_STMT, _hDbc, &_hStmt);
+	ret = SQLExecDirect(_hStmt, sql, SQL_NTS);
+
+	if (ret == SQL_SUCCESS)
+	{
+		ret = SQLFetch(_hStmt);
+
+		SQLLEN resultLen;
+		int infoResult;
+		
+		if (ret == SQL_SUCCESS)
+		{
+			SQLGetData(_hStmt, info, SQL_C_DEFAULT, &infoResult, 0, &resultLen);
+			return infoResult;
+		}
+	}
+	else
+		return -1;
 }
 
 std::string	Odbc::GetMapData(int width, int height, int map_id)

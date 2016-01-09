@@ -1,6 +1,7 @@
 #pragma once
 #include "sql.h"
 #include "sqlext.h"
+#include "definition.h"
 
 class Odbc
 {
@@ -16,6 +17,12 @@ public:
 	int				GetUserId(std::string userName);
 	std::string		GetPassword(std::string name);
 
+	int				GetMapInfo(int map_id, SQLMapInfo info);
+	std::string		GetRecentTopTen(int map_id);
+
+	bool			UpdatePlayerWinRate(int player_idnum);
+	bool			UpdatePlayerRank(int player_idnum);
+
 	bool			InsertData(std::string tableName, std::string colNames, std::string value);
 	bool			CheckDataExist(std::string tableName, std::string colName, std::string value);
 	std::string		SelectData(std::string tableName, std::string colNames, bool whereCon = false, std::string whereCol = "id", std::string value = "");
@@ -26,10 +33,9 @@ public:
 	std::string		GetMapData(int width, int height, int map_id);
 	
 	const char*		CreateCSV(const char* filename, int num);
-	void			SelectBookData();
-	
+		
 	std::wstring	utf8_to_wstring(const std::string& str);
-	std::string		wstring_to_utf8(const std::wstring& str);
+	std::string		wstring_to_utf8(const std::wstring& wstr);
 
 private:
 	Odbc();

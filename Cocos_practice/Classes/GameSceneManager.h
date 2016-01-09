@@ -84,7 +84,8 @@ private:
 	bool		_DraftMode = false;
 	void		SpawnCharacterOnTile(Self_Tile* tile, DirectionKind spriteNum, int spendFood = 1);
 	int			_ProgressVolcano = -1;
-	int			_TotalTurn = 0;
+	int			_TotalTurn = 1;
+	int			_MapId = 1;
 
 	/*타일만 별도로 저장할 배열을 만든다..*/
 	std::vector<Self_Tile*> _TileList;
@@ -112,5 +113,5 @@ private:
 	void		ResetRotateResource();
 	void		RotateToDirection(Character* character, RotateDirection rotateDirection);
 	void		RemoveCursor();
-	void		InsertResultSql(PlayerInfo Winner);
+	void		InsertAndUpdateResultSql();
 };

@@ -3,6 +3,7 @@
 #include "GameScene.h"
 #include "GameSceneManager.h"
 #include "MainScene.h"
+#include "Odbc.h"
 
 cocos2d::Scene* ResultLayer::scene()
 {
@@ -24,7 +25,7 @@ bool ResultLayer::init()
 	BackLayer = LayerColor::create(ccc4(0, 0, 0, 50), visibleSize.width, visibleSize.height);
 	BackLayer->setAnchorPoint(Vec2(0, 0));
 	BackLayer->setPosition(Vec2(0, 0));
-	this->addChild(BackLayer);
+	addChild(BackLayer);
 
 	Sprite* resultPage = Sprite::createWithSpriteFrameName(FILENAME_IMG_UI_RESULT_WINDOW);
 
@@ -37,8 +38,9 @@ bool ResultLayer::init()
 
 	Menu* resultMenu = Menu::create(replaybtn, NULL);
 	resultMenu->setPosition(Vec2::ZERO);
-	this->addChild(resultPage);
-	this->addChild(resultMenu);
+	addChild(resultPage);
+	addChild(resultMenu);
+
 
 //#	resultTable SELECT results
 //#	print top 10 result
@@ -55,5 +57,9 @@ void ResultLayer::ReturnToMenu()
 
 void ResultLayer::SetValue(PlayerData* pData1, PlayerData* pData2)
 {
+	Odbc* mysql = Odbc::GetInstance();
+	if (mysql->IsConnect() == false)
+		mysql->Connect(L"me", L"testudo", L"next!!@@##$$");
 
+	std::string result = mysql->GetRecentTopTen(1);
 }

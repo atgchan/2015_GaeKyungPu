@@ -13,7 +13,7 @@ public:
 	~TileMap();
 
 	bool	create();
-	bool	CreateMap(int max_width, int max_height, int map_id);
+	bool	CreateMap(int map_id);
 
 	void	setCharacterOnTile(Character* character, Self_Tile* tile, bool moveMode = false);
 	void	KillCharacter(Character* target);
