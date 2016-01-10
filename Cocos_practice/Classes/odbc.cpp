@@ -70,58 +70,14 @@ void Odbc::Disonnect()
 	_IsConnect = false;
 }
 
-bool Odbc::UpdatePlayerWinRate(int player_idnum)
+bool Odbc::GetRecentResult(int numToGet)
 {
 	if (!_IsConnect || _Inst == nullptr)
 		return false;
 
-	std::wstring query = L"call updatePlayerWinRate(";
-	query += std::to_wstring(player_idnum);
+	std::wstring query = L"call getRecentResult(";
+	query += std::to_wstring(numToGet);
 	query += L")";
-
-	SQLWCHAR* sql = (SQLWCHAR*)query.c_str();
-	int ret = SQLAllocHandle(SQL_HANDLE_STMT, _hDbc, &_hStmt);
-	ret = SQLExecDirect(_hStmt, sql, SQL_NTS);
-
-	if (ret == SQL_SUCCESS)
-	{
-		if (ret == SQL_SUCCESS)
-			return true;
-	}
-	else
-		return false;
-}
-
-bool Odbc::UpdatePlayerRank(int player_idnum)
-{
-	if (!_IsConnect || _Inst == nullptr)
-		return false;
-
-	std::wstring query = L"call updateUserRank(";
-	query += std::to_wstring(player_idnum);
-	query += L")";
-
-	SQLWCHAR* sql = (SQLWCHAR*)query.c_str();
-	int ret = SQLAllocHandle(SQL_HANDLE_STMT, _hDbc, &_hStmt);
-	ret = SQLExecDirect(_hStmt, sql, SQL_NTS);
-
-	if (ret == SQL_SUCCESS)
-	{
-		if (ret == SQL_SUCCESS)
-			return true;
-	}
-	else
-		return false;
-}
-
-std::string Odbc::GetRecentTopTen(int map_id)
-{
-	if (!_IsConnect || _Inst == nullptr)
-		return "";
-
-	std::wstring query = L"SELECT * FROM result WHERE map_id = ";
-	query += std::to_wstring(map_id);
-	query += L" limit 10";
 
 	SQLWCHAR* sql = (SQLWCHAR*)query.c_str();
 	int ret = SQLAllocHandle(SQL_HANDLE_STMT, _hDbc, &_hStmt);
@@ -142,13 +98,51 @@ std::string Odbc::GetRecentTopTen(int map_id)
 				SQLGetData(_hStmt, 3, SQL_C_CHAR, strLoser, 32, &resultLen);
 				SQLGetData(_hStmt, 4, SQL_C_DEFAULT, &mapId, 0, &resultLen);
 				SQLGetData(_hStmt, 5, SQL_C_DEFAULT, &totalTurn, 0, &resultLen);
-				
-				return std::string(strWinner);
+
+				//return std::string(strWinner);
 			}
 		}
 	}
 	else
-		return "";
+		return false;
+}
+
+bool Odbc::UpdatePlayerWinRate(int player_idnum)
+{
+	if (!_IsConnect || _Inst == nullptr)
+		return false;
+
+	std::wstring query = L"call updatePlayerWinRate(";
+	query += std::to_wstring(player_idnum);
+	query += L")";
+
+	SQLWCHAR* sql = (SQLWCHAR*)query.c_str();
+	int ret = SQLAllocHandle(SQL_HANDLE_STMT, _hDbc, &_hStmt);
+	ret = SQLExecDirect(_hStmt, sql, SQL_NTS);
+
+	if (ret == SQL_SUCCESS)
+		return true;
+	else
+		return false;
+}
+
+bool Odbc::UpdatePlayerRank(int player_idnum)
+{
+	if (!_IsConnect || _Inst == nullptr)
+		return false;
+
+	std::wstring query = L"call updateUserRank(";
+	query += std::to_wstring(player_idnum);
+	query += L")";
+
+	SQLWCHAR* sql = (SQLWCHAR*)query.c_str();
+	int ret = SQLAllocHandle(SQL_HANDLE_STMT, _hDbc, &_hStmt);
+	ret = SQLExecDirect(_hStmt, sql, SQL_NTS);
+
+	if (ret == SQL_SUCCESS)
+		return true;
+	else
+		return false;
 }
 
 int Odbc::GetMapInfo(int map_id, SQLMapInfo info)
