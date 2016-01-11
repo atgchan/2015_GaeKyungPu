@@ -15,6 +15,8 @@ public:
 	//해당 클래스를 생성할 때 new 명령어가 아닌 코코스2d-x에서 제공하는 create()메소드를 사용할 수 있게 해주는 전역 메소드(매크로?)
 	CREATE_FUNC(SelectScene);
 
+	bool	IsStringAlnum(std::string str);
+	
 private:
 	void	MenuClickCallback(Ref* pSender);
 	void	MenuCloseCallback(Ref* pSender);

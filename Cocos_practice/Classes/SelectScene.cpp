@@ -7,7 +7,7 @@
 #include "definition.h"
 #include "ui\UIEditBox\UIEditBox.h"
 #include "Odbc.h"
-
+#include <locale>
 
 Scene* SelectScene::CreateScene()
 {
@@ -326,6 +326,9 @@ void SelectScene::SignUp()
 		}
 	}
 
+	if (IsStringAlnum(idValue))
+		return;
+
 	bool exist = mysql->CheckDataExist("user", "name", idValue);
 
 	if (!exist)
@@ -383,4 +386,14 @@ void SelectScene::OnKeyReleased(EventKeyboard::KeyCode keyCode, Event* event)
 void SelectScene::OnKeyPressed(EventKeyboard::KeyCode keyCode, Event* event)
 {
 	
+}
+
+bool SelectScene::IsStringAlnum(std::string str)
+{
+	for (int i = 0; i < str.length();++i)
+	{
+		if (str[i] < -1)
+			return false;
+	}
+	return true;
 }

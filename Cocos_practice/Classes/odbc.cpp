@@ -454,7 +454,8 @@ bool Odbc::CheckDataExist(std::string tableName, std::string colName, std::strin
 	query += L"'";
 
 	SQLWCHAR* sql = (SQLWCHAR*)query.c_str();
-	int ret = SQLExecDirect(_hStmt, sql, SQL_NTS);
+	int ret = SQLAllocHandle(SQL_HANDLE_STMT, _hDbc, &_hStmt);
+	ret = SQLExecDirect(_hStmt, sql, SQL_NTS);
 
 	if (ret == SQL_SUCCESS)
 	{
