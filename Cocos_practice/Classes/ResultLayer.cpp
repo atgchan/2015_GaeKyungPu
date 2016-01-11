@@ -4,6 +4,7 @@
 #include "GameSceneManager.h"
 #include "MainScene.h"
 #include "Odbc.h"
+#include "ui\UIEditBox\UIEditBox.h"
 
 cocos2d::Scene* ResultLayer::scene()
 {
@@ -32,18 +33,48 @@ bool ResultLayer::init()
 	Sprite* replayButton = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_GOTO_MAIN);
 	Sprite* replayButtonClicked = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_GOTO_MAIN_CLICKED);
 
+	Sprite* recentPlayButton = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_RECENTPLAY);
+	Sprite* recentPlayButtonClicked = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_RECENTPLAY_CLICKED);
+
+	Sprite* topPlayerButton = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_TOPPLAYER);
+	Sprite* topPlayerButtonClicked = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_TOPPLAYER_CLICKED);
+
 	MenuItemSprite* replaybtn = MenuItemSprite::create(replayButton, replayButtonClicked, CC_CALLBACK_0(ResultLayer::ReturnToMenu, this));
-	replaybtn->setPosition(Vec2(visibleSize.width * 1 / 2, visibleSize.height* 2/5 ));
+	replaybtn->setPosition(Vec2(visibleSize.width * 3 / 5, visibleSize.height* 2/3 ));
 	resultPage->setPosition(visibleSize.width/2, visibleSize.height/2);
 
-	Menu* resultMenu = Menu::create(replaybtn, NULL);
+/*
+	cocos2d::Size editSize(200.0f, 50.0f);
+	cocos2d::ui::EditBox* _NumToGet = ui::EditBox::create(editSize, ui::Scale9Sprite::create(FILENAME_IMG_UI_INPUT_BOX));
+	_NumToGet->setName("numtoget");
+	_NumToGet->setFontSize(20);
+	_NumToGet->setInputMode(cocos2d::ui::EditBox::InputMode::NUMERIC);
+	_NumToGet->setPlaceHolder("1 ~ 10");
+	_NumToGet->setMaxLength(2);
+	_NumToGet->setPosition(Vec2(visibleSize.width * 3 / 4 - 50, visibleSize.height * 4 / 5 + 50));
+	_NumToGet->setZOrder(100);
+	addChild(_NumToGet);
+
+	int number = atoi(_NumToGet->getText());
+
+	if (number < 1)
+		number = 1;
+	else if (number > 10)
+		number = 10;
+*/
+
+	MenuItemSprite* ShowRecentListBtn = MenuItemSprite::create(recentPlayButton, recentPlayButtonClicked, CC_CALLBACK_0(ResultLayer::ShowRecentGame, this, 10));
+	ShowRecentListBtn->setPosition(Vec2(visibleSize.width * 1 / 4 + 50, visibleSize.height * 4 / 5 + 20));
+
+	MenuItemSprite* ShowTopPlayerListBtn = MenuItemSprite::create(topPlayerButton, topPlayerButtonClicked, CC_CALLBACK_0(ResultLayer::ShowTopPlayer, this, 10));
+	ShowTopPlayerListBtn->setPosition(Vec2(visibleSize.width * 3 / 4 - 50, visibleSize.height * 4 / 5 + 20));
+
+	Menu* resultMenu = Menu::create(replaybtn, ShowRecentListBtn, ShowTopPlayerListBtn, NULL);
 	resultMenu->setPosition(Vec2::ZERO);
 	addChild(resultPage);
 	addChild(resultMenu);
 
-
-//#	resultTable SELECT results
-//#	print top 10 result
+	ShowRecentGame(10);
 
 	return true;
 }
@@ -55,11 +86,46 @@ void ResultLayer::ReturnToMenu()
 	Director::getInstance()->resume();
 }
 
-void ResultLayer::SetValue(PlayerData* pData1, PlayerData* pData2)
+void ResultLayer::ShowRecentGame(int numOfGet)
 {
 	Odbc* mysql = Odbc::GetInstance();
 	if (mysql->IsConnect() == false)
 		mysql->Connect(L"me", L"testudo", L"next!!@@##$$");
 
-	std::string result = mysql->GetRecentTopTen(1);
+	while (getChildByName("sqlresult"))
+		removeChildByName("sqlresult");
+
+	cocos2d::Size visibleSize = Director::getInstance()->getVisibleSize();
+
+	std::string result = "Recent Game\nwinner\tloser map total_turn\n";
+	result += mysql->GetRecentResult(numOfGet);
+
+	cocos2d::Label* labelResult = cocos2d::Label::create(result, FILENAME_FONT_PIXEL, 30);
+	labelResult->setName("sqlresult");
+	labelResult->setAnchorPoint(Vec2(0.5, 1));
+	labelResult->setPosition(visibleSize.width / 2, visibleSize.height * 2 / 3 - 100);
+
+	addChild(labelResult);
+}
+
+void ResultLayer::ShowTopPlayer(int numOfGet)
+{
+	Odbc* mysql = Odbc::GetInstance();
+	if (mysql->IsConnect() == false)
+		mysql->Connect(L"me", L"testudo", L"next!!@@##$$");
+
+	while (getChildByName("sqlresult"))
+		removeChildByName("sqlresult");
+
+	cocos2d::Size visibleSize = Director::getInstance()->getVisibleSize();
+
+	std::string result = "Top Player\nname total_play winRate rating\n";
+	result += mysql->GetTopPlayerList(numOfGet);
+
+	cocos2d::Label* labelResult = cocos2d::Label::create(result, FILENAME_FONT_PIXEL, 30);
+	labelResult->setName("sqlresult");
+	labelResult->setAnchorPoint(Vec2(0.5, 1));
+	labelResult->setPosition(visibleSize.width / 2, visibleSize.height * 2 / 3 - 100);
+
+	addChild(labelResult);
 }

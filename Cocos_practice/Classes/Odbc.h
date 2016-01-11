@@ -18,7 +18,8 @@ public:
 	std::string		GetPassword(std::string name);
 
 	int				GetMapInfo(int map_id, SQLMapInfo info);
-	bool			GetRecentResult(int numToGet);
+	std::string		GetRecentResult(int numToGet);
+	std::string		GetTopPlayerList(int numToGet);
 
 	bool			UpdatePlayerWinRate(int player_idnum);
 	bool			UpdatePlayerRank(int player_idnum);

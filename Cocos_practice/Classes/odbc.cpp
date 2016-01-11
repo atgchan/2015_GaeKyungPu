@@ -70,7 +70,7 @@ void Odbc::Disonnect()
 	_IsConnect = false;
 }
 
-bool Odbc::GetRecentResult(int numToGet)
+std::string Odbc::GetRecentResult(int numToGet)
 {
 	if (!_IsConnect || _Inst == nullptr)
 		return false;
@@ -86,22 +86,98 @@ bool Odbc::GetRecentResult(int numToGet)
 	if (ret == SQL_SUCCESS)
 	{
 		SQLLEN resultLen;
-		char strWinner[32], strLoser[32];
-		int mapId, totalTurn;
+		wchar_t wstrWinner[32];
+		char strWinner[32], strLoser[32], mapName[32];
+		int totalTurn;
+
+		std::string result = "";
 
 		while (TRUE)
 		{
 			ret = SQLFetch(_hStmt);
 			if (ret == SQL_SUCCESS)
 			{
+				//SQLGetData(_hStmt, 2, SQL_C_WCHAR, wstrWinner, 32, &resultLen);
 				SQLGetData(_hStmt, 2, SQL_C_CHAR, strWinner, 32, &resultLen);
 				SQLGetData(_hStmt, 3, SQL_C_CHAR, strLoser, 32, &resultLen);
-				SQLGetData(_hStmt, 4, SQL_C_DEFAULT, &mapId, 0, &resultLen);
+				SQLGetData(_hStmt, 4, SQL_C_CHAR, mapName, 32, &resultLen);
 				SQLGetData(_hStmt, 5, SQL_C_DEFAULT, &totalTurn, 0, &resultLen);
 
-				//return std::string(strWinner);
+				/*
+				std::wstring temp = wstring(wstrWinner);
+				std::string strWinner = "";
+				strWinner.assign(temp.begin(), temp.end());
+				*/
+
+				//result += strWinner;
+				result += std::string(strWinner);
+				result += " ";
+				result += std::string(strLoser);
+				result += " ";
+				result += std::string(mapName);
+				result += " ";
+				result += std::to_string(totalTurn);
+				result += "\n";
 			}
+			else
+				break;
 		}
+		return result;
+	}
+	else
+		return false;
+}
+
+std::string Odbc::GetTopPlayerList(int numToGet)
+{
+	if (!_IsConnect || _Inst == nullptr)
+		return false;
+
+	std::wstring query = L"SELECT name, total_play, winRate, grade FROM testudo.user ORDER BY winRate DESC, total_play DESC LIMIT ";
+	query += std::to_wstring(numToGet);
+
+	SQLWCHAR* sql = (SQLWCHAR*)query.c_str();
+	int ret = SQLAllocHandle(SQL_HANDLE_STMT, _hDbc, &_hStmt);
+	ret = SQLExecDirect(_hStmt, sql, SQL_NTS);
+
+	if (ret == SQL_SUCCESS)
+	{
+		SQLLEN resultLen;
+		wchar_t wstrName[32];
+		char strName[32], strRating[32];
+		int total_play;
+		float winRate;
+
+		std::string result = "";
+
+		while (TRUE)
+		{
+			ret = SQLFetch(_hStmt);
+			if (ret == SQL_SUCCESS)
+			{
+				//SQLGetData(_hStmt, 1, SQL_C_WCHAR, wstrName, 32, &resultLen);
+				SQLGetData(_hStmt, 1, SQL_C_CHAR, strName, 32, &resultLen);
+				SQLGetData(_hStmt, 2, SQL_C_DEFAULT, &total_play, 0, &resultLen);
+				SQLGetData(_hStmt, 3, SQL_C_FLOAT, &winRate, 0, &resultLen);
+				SQLGetData(_hStmt, 4, SQL_C_CHAR, strRating, 32, &resultLen);
+
+				std::wstring temp = wstring(wstrName);
+				std::string strName(temp.begin(), temp.end());
+
+				result += std::string(strRating);
+				result += " ";
+				result += std::string(strName);
+				//result += strName;
+				result += " ";
+				result += std::to_string(total_play);
+				result += " ";
+				result += std::to_string(winRate);
+				result += "\n";
+			}
+			else
+				break;
+		}
+		return result;
 	}
 	else
 		return false;
@@ -164,11 +240,8 @@ int Odbc::GetMapInfo(int map_id, SQLMapInfo info)
 		SQLLEN resultLen;
 		int infoResult;
 		
-		if (ret == SQL_SUCCESS)
-		{
-			SQLGetData(_hStmt, info, SQL_C_DEFAULT, &infoResult, 0, &resultLen);
-			return infoResult;
-		}
+		SQLGetData(_hStmt, info, SQL_C_DEFAULT, &infoResult, 0, &resultLen);
+		return infoResult;
 	}
 	else
 		return -1;
@@ -195,15 +268,10 @@ std::string	Odbc::GetMapData(int width, int height, int map_id)
 		SQLLEN resultLen;
 		char strResult[200];
 
-		while (TRUE)
-		{
-			ret = SQLFetch(_hStmt);
-			if (ret == SQL_SUCCESS)
-			{
-				SQLGetData(_hStmt, 1, SQL_C_CHAR, strResult, 200, &resultLen);
-				return std::string(strResult);
-			}
-		}
+		ret = SQLFetch(_hStmt);
+		SQLGetData(_hStmt, 1, SQL_C_CHAR, strResult, 200, &resultLen);
+	
+		return std::string(strResult);
 	}
 	else
 		return "TILE_NULL";
@@ -273,13 +341,10 @@ int Odbc::GetUserId(std::string userName)
 		if (ret == SQL_ERROR || ret == SQL_SUCCESS_WITH_INFO)
 			return -1;
 
-		while (TRUE)
+		if (ret == SQL_SUCCESS)
 		{
-			if (ret == SQL_SUCCESS)
-			{
-				SQLGetData(_hStmt, 1, SQL_C_DEFAULT, &idResult, 0, &resultLen);
-				return idResult;
-			}
+			SQLGetData(_hStmt, 1, SQL_C_DEFAULT, &idResult, 0, &resultLen);
+			return idResult;
 		}
 	}
 	else
@@ -299,7 +364,6 @@ std::string Odbc::GetPassword(std::string name)
 
 	int ret = SQLAllocHandle(SQL_HANDLE_STMT, _hDbc, &_hStmt);
 	ret = SQLExecDirect(_hStmt, sql, SQL_NTS);
-	//SQLBindCol(_hStmt, )
 	
 	if (ret == SQL_SUCCESS)
 	{
@@ -312,11 +376,10 @@ std::string Odbc::GetPassword(std::string name)
 			if (ret == SQL_NO_DATA)
 				return "[NO DATA]";
 
-			if (ret == SQL_ERROR/* || ret == SQL_SUCCESS_WITH_INFO*/)
+			if (ret == SQL_ERROR || ret == SQL_SUCCESS_WITH_INFO)
 				return "An error occured\n";
 
-			//			SELECT
-			if (ret == SQL_SUCCESS || ret == SQL_SUCCESS_WITH_INFO)
+			if (ret == SQL_SUCCESS)
 			{
 				SQLGetData(_hStmt, 1, SQL_C_CHAR, strResult, 32, &resultLen);
 				return std::string(strResult);
@@ -364,8 +427,7 @@ std::string Odbc::SelectData(std::string tableName, std::string colNames, bool w
 			if (ret == SQL_ERROR || ret == SQL_SUCCESS_WITH_INFO)
 				return "An error occured\n";
 
-//			SELECT
-			if (ret == SQL_SUCCESS || ret == SQL_SUCCESS_WITH_INFO)
+			if (ret == SQL_SUCCESS)
 			{
 				SQLGetData(_hStmt, 1, SQL_C_WCHAR, strResult, 200, &resultLen);
 				return std::string(strResult);
@@ -397,10 +459,7 @@ bool Odbc::CheckDataExist(std::string tableName, std::string colName, std::strin
 	if (ret == SQL_SUCCESS)
 	{
 		ret = SQLFetch(_hStmt);
-		if (ret == SQL_NO_DATA)
-			return false;
-
-		if (ret == SQL_ERROR || ret == SQL_SUCCESS_WITH_INFO)
+		if (ret == SQL_NO_DATA || ret == SQL_ERROR || ret == SQL_SUCCESS_WITH_INFO)
 			return false;
 
 		return true;
@@ -424,7 +483,6 @@ void Odbc::CheckSuccess(int ret)
 	}
 	else
 		cout << "An error occured during excuting query!!" << endl;
-
 }
 
 void Odbc::ReadFileAndInsert(const char *path)

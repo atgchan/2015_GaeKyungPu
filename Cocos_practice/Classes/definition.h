@@ -183,6 +183,11 @@ enum PlayerNumber
 #define FILENAME_IMG_BUTTON_MUTE				"mute.png"
 #define FILENAME_IMG_BUTTON_MUTE_CLICKED		"mute_clicked.png"
 
+#define FILENAME_IMG_BUTTON_RECENTPLAY			"recent_play.png"
+#define FILENAME_IMG_BUTTON_RECENTPLAY_CLICKED	"recent_play_clicked.png"
+#define FILENAME_IMG_BUTTON_TOPPLAYER			"top_player.png"
+#define FILENAME_IMG_BUTTON_TOPPLAYER_CLICKED	"top_player_clicked.png"
+
 #define FILENAME_IMG_BUTTON_START				"start_button.png"
 #define FILENAME_IMG_BUTTON_START_CLICKED		"start_button_clicked.png"
 #define FILENAME_IMG_BUTTON_EXIT				"exit_button.png"

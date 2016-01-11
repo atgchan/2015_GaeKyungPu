@@ -84,18 +84,19 @@ void GameSceneManager::InitPlayerData(int player1, int player2)
 void GameSceneManager::EndGame()
 {
 	Director::getInstance()->pause();
+
+	InsertAndUpdateResultSql();
+
 	ResultLayer* result = ResultLayer::create();
 	AddChild(result);
 
-	InsertAndUpdateResultSql();
-	
-	cocos2d::Label* winner = cocos2d::Label::create("Red Win!", FILENAME_FONT_PIXEL, 80);
+	cocos2d::Label* winner = cocos2d::Label::create("Red Win!", FILENAME_FONT_PIXEL, 40);
 	
 	if (_CurrentPlayer == PLAYER_BLUE)
-		winner = cocos2d::Label::create("Blue Win!", FILENAME_FONT_PIXEL, 80);
+		winner = cocos2d::Label::create("Blue Win!", FILENAME_FONT_PIXEL, 60);
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();
-	winner->setPosition(Vec2(visibleSize.width * 1 / 2, visibleSize.height * 3 / 5));
+	winner->setPosition(Vec2(visibleSize.width * 2 / 5 - 40, visibleSize.height * 2/3));
 	AddChild(winner);
 }
 

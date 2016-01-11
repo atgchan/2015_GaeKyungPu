@@ -244,6 +244,10 @@
             <filename>credit_button.png</filename>
             <filename>credit_button_clicked.png</filename>
             <filename>input_box.png</filename>
+            <filename>top_player_clicked.png</filename>
+            <filename>recent_play.png</filename>
+            <filename>recent_play_clicked.png</filename>
+            <filename>top_player.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

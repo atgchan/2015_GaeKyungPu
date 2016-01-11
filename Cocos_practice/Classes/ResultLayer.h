@@ -5,9 +5,10 @@
 class ResultLayer : public cocos2d::LayerColor
 {
 public:
-	bool init();
-	static cocos2d::Scene* scene();
-	void SetValue(PlayerData* playerData1, PlayerData* playerData2);
+	bool	init();
+	static	cocos2d::Scene* scene();
+	void	ShowRecentGame(int numOfGet);
+	void	ShowTopPlayer(int numOfGet);
 
 	CREATE_FUNC(ResultLayer);
 
