@@ -16,9 +16,12 @@ public:
 
 	int				GetUserId(std::string userName);
 	std::string		GetPassword(std::string name);
+	std::string		GetUserInfo(int userid);
+	bool			UpdatePlayerPassword(int userid, std::string newPw);
 
 	int				GetMapInfo(int map_id, SQLMapInfo info);
 	std::string		GetRecentResult(int numToGet);
+	std::string		GetResultByTurn(int numToGet);
 	std::string		GetTopPlayerList(int numToGet);
 
 	bool			UpdatePlayerWinRate(int player_idnum);

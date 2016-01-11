@@ -25,6 +25,9 @@ private:
 	void	SignInLayerPlayer1();
 	void	SignInLayerPlayer2();
 
+	void	ShowUserInfo(int userid, std::string name, float posx);
+	void	ChangePassword(int userid);
+
 	void	CreateLayer();
 	void	CloseLayer();
 

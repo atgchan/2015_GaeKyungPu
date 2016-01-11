@@ -187,6 +187,8 @@ enum PlayerNumber
 #define FILENAME_IMG_BUTTON_RECENTPLAY_CLICKED	"recent_play_clicked.png"
 #define FILENAME_IMG_BUTTON_TOPPLAYER			"top_player.png"
 #define FILENAME_IMG_BUTTON_TOPPLAYER_CLICKED	"top_player_clicked.png"
+#define FILENAME_IMG_BUTTON_LEASTTURN			"least_turn.png"
+#define FILENAME_IMG_BUTTON_LEASTTURN_CLICKED	"least_turn_clicked.png"
 
 #define FILENAME_IMG_BUTTON_START				"start_button.png"
 #define FILENAME_IMG_BUTTON_START_CLICKED		"start_button_clicked.png"

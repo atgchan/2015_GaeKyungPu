@@ -70,12 +70,134 @@ void Odbc::Disonnect()
 	_IsConnect = false;
 }
 
+std::string Odbc::GetUserInfo(int userid)
+{
+	if (!_IsConnect || _Inst == nullptr)
+		return "CONNECT ERROR";
+
+	std::wstring query = L"SELECT name, total_play, winRate, grade FROM user WHERE id = ";
+	query += std::to_wstring(userid);
+
+	SQLWCHAR* sql = (SQLWCHAR*)query.c_str();
+	int ret = SQLAllocHandle(SQL_HANDLE_STMT, _hDbc, &_hStmt);
+	ret = SQLExecDirect(_hStmt, sql, SQL_NTS);
+
+	if (ret == SQL_SUCCESS)
+	{
+		SQLLEN resultLen;
+		char strName[32], strRateing[32];
+		int totalPlay;
+		float winRate;
+
+		ret = SQLFetch(_hStmt);
+		if (ret == SQL_SUCCESS)
+		{
+			SQLGetData(_hStmt, 1, SQL_C_CHAR, strName, 32, &resultLen);
+			SQLGetData(_hStmt, 2, SQL_C_DEFAULT, &totalPlay, 0, &resultLen);
+			SQLGetData(_hStmt, 3, SQL_C_FLOAT, &winRate, 0, &resultLen);
+			SQLGetData(_hStmt, 4, SQL_C_CHAR, strRateing, 32, &resultLen);
+			
+			std::string result = std::string(strName);
+			result += ", ";
+			result += std::to_string(totalPlay);
+			result += ", ";
+			result += std::to_string(winRate);
+			result += ", ";
+			result += std::string(strRateing);
+			result += "\n";
+
+			return result;
+		}
+	}
+	else
+		return "NO DATA";
+}
+
+bool Odbc::UpdatePlayerPassword(int userid, std::string newPw)
+{
+	if (!_IsConnect || _Inst == nullptr)
+		return false;
+
+	std::wstring query = L"UPDATE user SET password = ";
+	query += utf8_to_wstring(newPw);
+	query = L" WHERE id = ";
+	query += std::to_wstring(userid);
+
+	SQLWCHAR* sql = (SQLWCHAR*)query.c_str();
+	int ret = SQLAllocHandle(SQL_HANDLE_STMT, _hDbc, &_hStmt);
+	ret = SQLExecDirect(_hStmt, sql, SQL_NTS);
+
+	if (ret == SQL_SUCCESS)
+		return true;
+	
+	else
+		return false;
+}
+
 std::string Odbc::GetRecentResult(int numToGet)
 {
 	if (!_IsConnect || _Inst == nullptr)
 		return false;
 
 	std::wstring query = L"call getRecentResult(";
+	query += std::to_wstring(numToGet);
+	query += L")";
+
+	SQLWCHAR* sql = (SQLWCHAR*)query.c_str();
+	int ret = SQLAllocHandle(SQL_HANDLE_STMT, _hDbc, &_hStmt);
+	ret = SQLExecDirect(_hStmt, sql, SQL_NTS);
+
+	if (ret == SQL_SUCCESS)
+	{
+		SQLLEN resultLen;
+		wchar_t wstrWinner[32];
+		char strWinner[32], strLoser[32], mapName[32];
+		int totalTurn;
+
+		std::string result = "";
+
+		while (TRUE)
+		{
+			ret = SQLFetch(_hStmt);
+			if (ret == SQL_SUCCESS)
+			{
+				//SQLGetData(_hStmt, 2, SQL_C_WCHAR, wstrWinner, 32, &resultLen);
+				SQLGetData(_hStmt, 2, SQL_C_CHAR, strWinner, 32, &resultLen);
+				SQLGetData(_hStmt, 3, SQL_C_CHAR, strLoser, 32, &resultLen);
+				SQLGetData(_hStmt, 4, SQL_C_CHAR, mapName, 32, &resultLen);
+				SQLGetData(_hStmt, 5, SQL_C_DEFAULT, &totalTurn, 0, &resultLen);
+
+				/*
+				std::wstring temp = wstring(wstrWinner);
+				std::string strWinner = "";
+				strWinner.assign(temp.begin(), temp.end());
+				*/
+
+				//result += strWinner;
+				result += std::string(strWinner);
+				result += " ";
+				result += std::string(strLoser);
+				result += " ";
+				result += std::string(mapName);
+				result += " ";
+				result += std::to_string(totalTurn);
+				result += "\n";
+			}
+			else
+				break;
+		}
+		return result;
+	}
+	else
+		return false;
+}
+
+std::string Odbc::GetResultByTurn(int numToGet)
+{
+	if (!_IsConnect || _Inst == nullptr)
+		return false;
+
+	std::wstring query = L"call getResultByTurn(";
 	query += std::to_wstring(numToGet);
 	query += L")";
 
@@ -161,13 +283,12 @@ std::string Odbc::GetTopPlayerList(int numToGet)
 				SQLGetData(_hStmt, 3, SQL_C_FLOAT, &winRate, 0, &resultLen);
 				SQLGetData(_hStmt, 4, SQL_C_CHAR, strRating, 32, &resultLen);
 
-				std::wstring temp = wstring(wstrName);
-				std::string strName(temp.begin(), temp.end());
+				//std::wstring temp = wstring(wstrName);
+				//std::string strName(temp.begin(), temp.end());
 
 				result += std::string(strRating);
 				result += " ";
 				result += std::string(strName);
-				//result += strName;
 				result += " ";
 				result += std::to_string(total_play);
 				result += " ";

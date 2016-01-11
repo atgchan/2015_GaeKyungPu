@@ -28,28 +28,33 @@ bool SelectScene::init()
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
+
 	Label* labelPrev = Label::createWithTTF("Exit", FILENAME_FONT_MAINMENU, 40);
 	Label* labelNext = Label::createWithTTF("GameStart", FILENAME_FONT_MAINMENU, 40);
 	Label* label1P = Label::createWithTTF("1P sign in", FILENAME_FONT_MAINMENU, 50);
 	Label* label2P = Label::createWithTTF("2P sign in", FILENAME_FONT_MAINMENU, 50);
 	Label* labelSignUp = Label::createWithTTF("sign up", FILENAME_FONT_MAINMENU, 50);
 
+
 	MenuItemLabel* menu_prev = MenuItemLabel::create(labelPrev, CC_CALLBACK_1(SelectScene::MenuCloseCallback, this));
-	menu_prev->setPosition(visibleSize.width / 4, visibleSize.height / 2);
+	menu_prev->setPosition(visibleSize.width / 4, visibleSize.height / 4);
 
 	MenuItemLabel* menu_next = MenuItemLabel::create(labelNext, CC_CALLBACK_1(SelectScene::MenuClickCallback, this));
-	menu_next->setPosition(visibleSize.width * 3 / 4, visibleSize.height / 2);
+	menu_next->setPosition(visibleSize.width * 3 / 4, visibleSize.height / 4);
 
 	//MenuItemLabel* signIn_1P = MenuItemLabel::create(label2P, CC_CALLBACK_0(SelectScene::PopUpLayer, this, SIGN_IN));
 	MenuItemLabel* signIn_1P = MenuItemLabel::create(label1P, CC_CALLBACK_0(SelectScene::SignInLayerPlayer1, this));
-	signIn_1P->setPosition(visibleSize.width / 2, visibleSize.height * 1 / 4);
+	signIn_1P->setPosition(visibleSize.width / 4, visibleSize.height * 1 / 2);
 
 	//MenuItemLabel* signIn_2P = MenuItemLabel::create(label2P, CC_CALLBACK_0(SelectScene::PopUpLayer, this, SIGN_IN));
 	MenuItemLabel* signIn_2P = MenuItemLabel::create(label2P, CC_CALLBACK_0(SelectScene::SignInLayerPlayer2, this));
-	signIn_2P->setPosition(visibleSize.width / 2, visibleSize.height * 3 / 4);
+	signIn_2P->setPosition(visibleSize.width * 3 / 4, visibleSize.height * 1 / 2);
 
 	MenuItemLabel* menu_signUp = MenuItemLabel::create(labelSignUp, CC_CALLBACK_0(SelectScene::PopUpLayer, this, SIGN_UP));
 	menu_signUp->setPosition(visibleSize.width * 5 / 6, visibleSize.height* 5/6);
+
+
+
 
 	cocos2d::Menu* mainMenu = Menu::create(menu_prev, menu_next, signIn_1P, signIn_2P, menu_signUp, nullptr);
 	mainMenu->setName("mainMenu");
@@ -148,17 +153,60 @@ void SelectScene::SignInPlayer1()
 	{
 		CloseLayer();
 		_Id1P = mysql->GetUserId(idValue);
-		Label* player1Name = Label::createWithTTF("[ Player1 : " + idValue + " ]", FILENAME_FONT_MAINMENU, 30);
+		Label* player1Name = Label::createWithTTF(idValue, FILENAME_FONT_PIXEL, 120);
 
 		while (getChildByName("player1_name"))
 			removeChildByName("player1_name");
 
 		Size visibleSize = Director::getInstance()->getVisibleSize();
-		player1Name->setPosition(visibleSize.width * 1 / 8, visibleSize.height * 7 /8);
+		player1Name->setPosition(visibleSize.width * 1 / 4, visibleSize.height * 3 /5 + 20);
 		player1Name->setName("player1_name");
 		addChild(player1Name);
+
+
+
+		Label* labelChangePW = Label::createWithTTF("Change PW", FILENAME_FONT_PIXEL, 30);
+		Label* labelShowInfo = Label::createWithTTF("Show Info", FILENAME_FONT_PIXEL, 30);
+
+		MenuItemLabel* menu_changePW = MenuItemLabel::create(labelChangePW, CC_CALLBACK_0(SelectScene::PopUpLayer, this, SIGN_UP));
+		menu_changePW->setAnchorPoint(Vec2(0, 0));
+		menu_changePW->setPosition(visibleSize.width * 1 / 4 - 200, visibleSize.height * 3 / 5 - 50);
+
+		MenuItemLabel* menu_showInfo = MenuItemLabel::create(labelShowInfo, CC_CALLBACK_0(SelectScene::ShowUserInfo, this, _Id1P, "user1", 0.25));
+		menu_showInfo->setAnchorPoint(Vec2(0, 0));
+		menu_showInfo->setPosition(visibleSize.width * 1 / 4 + 50, visibleSize.height * 3 / 5 - 50);
+
+		cocos2d::Menu* userMenu = Menu::create(menu_changePW, menu_showInfo, nullptr);
+		userMenu->setName("userMenu_1");
+		userMenu->setPosition(Vec2::ZERO);
+		this->addChild(userMenu);
 	}
 }
+
+void SelectScene::ShowUserInfo(int userid, std::string name, float posx)
+{
+	while (getChildByName(name))
+		removeChildByName(name);
+
+	Odbc* mysql = Odbc::GetInstance();
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+
+	std::string strUserInfo = mysql->GetUserInfo(userid);
+	cocos2d::Label* labelUserInfo = Label::createWithTTF(strUserInfo, FILENAME_FONT_PIXEL, 40);
+
+	labelUserInfo->setName(name);
+	labelUserInfo->setPosition(visibleSize.width * posx, visibleSize.height * 3 / 5 + 20);
+	addChild(labelUserInfo);
+}
+
+void SelectScene::ChangePassword(int userid)
+{
+	Odbc* mysql = Odbc::GetInstance();
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+
+	bool result = mysql->UpdatePlayerPassword(userid, newPw);
+}
+
 
 void SelectScene::SignInPlayer2()
 {
@@ -178,15 +226,33 @@ void SelectScene::SignInPlayer2()
 		CloseLayer();
 		_Id2P = mysql->GetUserId(idValue);
 
-		Label* playerName = Label::createWithTTF("[ Player2 : " + idValue + " ]", FILENAME_FONT_MAINMENU, 30);
+		Label* playerName = Label::createWithTTF(idValue, FILENAME_FONT_PIXEL, 120);
 
 		while (getChildByName("player2_name"))
 			removeChildByName("player2_name");
 
 		Size visibleSize = Director::getInstance()->getVisibleSize();
-		playerName->setPosition(visibleSize.width * 1 / 8, visibleSize.height * 7 / 8 - 40);
+		playerName->setPosition(visibleSize.width * 3 / 4, visibleSize.height * 3 / 5 + 20);
 		playerName->setName("player2_name");
 		addChild(playerName);
+
+
+
+		Label* labelChangePW = Label::createWithTTF("Change PW", FILENAME_FONT_PIXEL, 30);
+		Label* labelShowInfo = Label::createWithTTF("Show Info", FILENAME_FONT_PIXEL, 30);
+
+		MenuItemLabel* menu_changePW = MenuItemLabel::create(labelChangePW, CC_CALLBACK_0(SelectScene::PopUpLayer, this, SIGN_UP));
+		menu_changePW->setAnchorPoint(Vec2(0, 0));
+		menu_changePW->setPosition(visibleSize.width * 3 / 4 - 200, visibleSize.height * 3 / 5 - 50);
+
+		MenuItemLabel* menu_showInfo = MenuItemLabel::create(labelShowInfo, CC_CALLBACK_0(SelectScene::ShowUserInfo, this, _Id2P, "user2", 0.75));
+		menu_showInfo->setAnchorPoint(Vec2(0, 0));
+		menu_showInfo->setPosition(visibleSize.width * 3 / 4 + 50, visibleSize.height * 3 / 5 - 50);
+
+		cocos2d::Menu* userMenu = Menu::create(menu_changePW, menu_showInfo, nullptr);
+		userMenu->setName("userMenu_2");
+		userMenu->setPosition(Vec2::ZERO);
+		this->addChild(userMenu);
 	}
 }
 
@@ -282,16 +348,7 @@ void SelectScene::SignIn()
 		resultReturn->setName("resultReturn");
 		this->addChild(resultReturn);
 	}
-	else
-	{
-		//std::string result = mysql->GetPassword(idValue);
-		//if (result == pwValue)
-		//{
-		//	CloseLayer();
-		//	/*if (player == PLAYER_1)
-		//		_Id1P = mysql->GetUserId(idValue);*/
-		//}
-	}
+
 	return;
 }
 

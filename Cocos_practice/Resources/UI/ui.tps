@@ -248,6 +248,8 @@
             <filename>recent_play.png</filename>
             <filename>recent_play_clicked.png</filename>
             <filename>top_player.png</filename>
+            <filename>least_turn_clicked.png</filename>
+            <filename>least_turn.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

@@ -39,8 +39,11 @@ bool ResultLayer::init()
 	Sprite* topPlayerButton = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_TOPPLAYER);
 	Sprite* topPlayerButtonClicked = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_TOPPLAYER_CLICKED);
 
+	Sprite* leastTurnButton = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_LEASTTURN);
+	Sprite* leastTurnButtonClicked = Sprite::createWithSpriteFrameName(FILENAME_IMG_BUTTON_LEASTTURN_CLICKED);
+
 	MenuItemSprite* replaybtn = MenuItemSprite::create(replayButton, replayButtonClicked, CC_CALLBACK_0(ResultLayer::ReturnToMenu, this));
-	replaybtn->setPosition(Vec2(visibleSize.width * 3 / 5, visibleSize.height* 2/3 ));
+	replaybtn->setPosition(Vec2(visibleSize.width * 3 / 5, visibleSize.height* 2/3 - 40));
 	resultPage->setPosition(visibleSize.width/2, visibleSize.height/2);
 
 /*
@@ -64,12 +67,15 @@ bool ResultLayer::init()
 */
 
 	MenuItemSprite* ShowRecentListBtn = MenuItemSprite::create(recentPlayButton, recentPlayButtonClicked, CC_CALLBACK_0(ResultLayer::ShowRecentGame, this, 10));
-	ShowRecentListBtn->setPosition(Vec2(visibleSize.width * 1 / 4 + 50, visibleSize.height * 4 / 5 + 20));
+	ShowRecentListBtn->setPosition(Vec2(visibleSize.width * 1 / 4 + 50, visibleSize.height * 4 / 5 -65));
 
 	MenuItemSprite* ShowTopPlayerListBtn = MenuItemSprite::create(topPlayerButton, topPlayerButtonClicked, CC_CALLBACK_0(ResultLayer::ShowTopPlayer, this, 10));
-	ShowTopPlayerListBtn->setPosition(Vec2(visibleSize.width * 3 / 4 - 50, visibleSize.height * 4 / 5 + 20));
+	ShowTopPlayerListBtn->setPosition(Vec2(visibleSize.width * 1 / 2, visibleSize.height * 4 / 5 - 65));
 
-	Menu* resultMenu = Menu::create(replaybtn, ShowRecentListBtn, ShowTopPlayerListBtn, NULL);
+	MenuItemSprite* ShowLeastTurnListBtn = MenuItemSprite::create(leastTurnButton, leastTurnButtonClicked, CC_CALLBACK_0(ResultLayer::ShowLeastTurn, this, 10));
+	ShowLeastTurnListBtn->setPosition(Vec2(visibleSize.width * 3 / 4 - 50, visibleSize.height * 4 / 5 - 65));
+
+	Menu* resultMenu = Menu::create(replaybtn, ShowRecentListBtn, ShowTopPlayerListBtn, ShowLeastTurnListBtn, NULL);
 	resultMenu->setPosition(Vec2::ZERO);
 	addChild(resultPage);
 	addChild(resultMenu);
@@ -97,13 +103,13 @@ void ResultLayer::ShowRecentGame(int numOfGet)
 
 	cocos2d::Size visibleSize = Director::getInstance()->getVisibleSize();
 
-	std::string result = "Recent Game\nwinner\tloser map total_turn\n";
+	std::string result = "Recent Game\nwinner loser map total_turn\n";
 	result += mysql->GetRecentResult(numOfGet);
 
 	cocos2d::Label* labelResult = cocos2d::Label::create(result, FILENAME_FONT_PIXEL, 30);
 	labelResult->setName("sqlresult");
 	labelResult->setAnchorPoint(Vec2(0.5, 1));
-	labelResult->setPosition(visibleSize.width / 2, visibleSize.height * 2 / 3 - 100);
+	labelResult->setPosition(visibleSize.width / 2, visibleSize.height * 2 / 3 - 70);
 
 	addChild(labelResult);
 }
@@ -119,13 +125,35 @@ void ResultLayer::ShowTopPlayer(int numOfGet)
 
 	cocos2d::Size visibleSize = Director::getInstance()->getVisibleSize();
 
-	std::string result = "Top Player\nname total_play winRate rating\n";
+	std::string result = "Top Player\nrating total_play winRate name\n";
 	result += mysql->GetTopPlayerList(numOfGet);
 
 	cocos2d::Label* labelResult = cocos2d::Label::create(result, FILENAME_FONT_PIXEL, 30);
 	labelResult->setName("sqlresult");
 	labelResult->setAnchorPoint(Vec2(0.5, 1));
-	labelResult->setPosition(visibleSize.width / 2, visibleSize.height * 2 / 3 - 100);
+	labelResult->setPosition(visibleSize.width / 2, visibleSize.height * 2 / 3 - 70);
+
+	addChild(labelResult);
+}
+
+void ResultLayer::ShowLeastTurn(int numOfGet)
+{
+	Odbc* mysql = Odbc::GetInstance();
+	if (mysql->IsConnect() == false)
+		mysql->Connect(L"me", L"testudo", L"next!!@@##$$");
+
+	while (getChildByName("sqlresult"))
+		removeChildByName("sqlresult");
+
+	cocos2d::Size visibleSize = Director::getInstance()->getVisibleSize();
+
+	std::string result = "Recent Game\nwinner loser map total_turn\n";
+	result += mysql->GetResultByTurn(numOfGet);
+
+	cocos2d::Label* labelResult = cocos2d::Label::create(result, FILENAME_FONT_PIXEL, 30);
+	labelResult->setName("sqlresult");
+	labelResult->setAnchorPoint(Vec2(0.5, 1));
+	labelResult->setPosition(visibleSize.width / 2, visibleSize.height * 2 / 3 - 70);
 
 	addChild(labelResult);
 }
