@@ -5,7 +5,6 @@
 #include "SimpleAudioEngine.h"
 #include "LoginLayer.h"
 #include "definition.h"
-#include "ui\UIEditBox\UIEditBox.h"
 #include "Odbc.h"
 #include <locale>
 
@@ -168,7 +167,7 @@ void SelectScene::SignInPlayer1()
 		Label* labelChangePW = Label::createWithTTF("Change PW", FILENAME_FONT_PIXEL, 30);
 		Label* labelShowInfo = Label::createWithTTF("Show Info", FILENAME_FONT_PIXEL, 30);
 
-		MenuItemLabel* menu_changePW = MenuItemLabel::create(labelChangePW, CC_CALLBACK_0(SelectScene::PopUpLayer, this, SIGN_UP));
+		MenuItemLabel* menu_changePW = MenuItemLabel::create(labelChangePW, CC_CALLBACK_0(SelectScene::PopUpPWChange, this, _Id1P));
 		menu_changePW->setAnchorPoint(Vec2(0, 0));
 		menu_changePW->setPosition(visibleSize.width * 1 / 4 - 200, visibleSize.height * 3 / 5 - 50);
 
@@ -195,16 +194,58 @@ void SelectScene::ShowUserInfo(int userid, std::string name, float posx)
 	cocos2d::Label* labelUserInfo = Label::createWithTTF(strUserInfo, FILENAME_FONT_PIXEL, 40);
 
 	labelUserInfo->setName(name);
-	labelUserInfo->setPosition(visibleSize.width * posx, visibleSize.height * 3 / 5 + 20);
+	labelUserInfo->setPosition(visibleSize.width * posx, visibleSize.height * 3 / 5 + 70);
 	addChild(labelUserInfo);
 }
 
-void SelectScene::ChangePassword(int userid)
+void SelectScene::PopUpPWChange(int userid)
 {
-	Odbc* mysql = Odbc::GetInstance();
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
-	bool result = mysql->UpdatePlayerPassword(userid, newPw);
+	cocos2d::Size editSize(200.0f, 50.0f);
+	cocos2d::ui::EditBox* _NewPW = ui::EditBox::create(editSize, ui::Scale9Sprite::create(FILENAME_IMG_UI_INPUT_BOX));
+	_NewPW->setName("changePW_");
+	_NewPW->setInputFlag(ui::EditBox::InputFlag::PASSWORD);
+	_NewPW->setFontSize(20);
+	_NewPW->setPlaceHolder("input password");
+	_NewPW->setMaxLength(16);
+	_NewPW->setPosition(Vec2(visibleSize.width / 2, visibleSize.height * 3 / 7));
+
+	cocos2d::ui::EditBox* _NewPWConfirm = ui::EditBox::create(editSize, ui::Scale9Sprite::create(FILENAME_IMG_UI_INPUT_BOX));
+	_NewPWConfirm->setInputFlag(ui::EditBox::InputFlag::PASSWORD);
+	_NewPWConfirm->setName("changePW_");
+	_NewPWConfirm->setFontSize(20);
+	_NewPWConfirm->setPlaceHolder("input ONE MORE");
+	_NewPWConfirm->setMaxLength(16);
+	_NewPWConfirm->setPosition(Vec2(visibleSize.width / 2, visibleSize.height * 3 / 7 - 50));
+
+	this->addChild(_NewPW);
+	this->addChild(_NewPWConfirm);
+
+	Label* btnChange = Label::createWithTTF("Change", FILENAME_FONT_PIXEL, 40);
+	MenuItemLabel* menu_change = MenuItemLabel::create(btnChange, CC_CALLBACK_0(SelectScene::ChangePassword, this, userid, _NewPW->getText(), _NewPWConfirm->getText()));
+	menu_change->setPosition(visibleSize.width / 2, visibleSize.height * 3 / 7 - 100);
+
+	Menu* changeMenu = Menu::create(menu_change, nullptr);
+	changeMenu->setPosition(Vec2(Vec2::ZERO));
+	changeMenu->setName("changePW_");
+	addChild(changeMenu);
+}
+
+void SelectScene::ChangePassword(int userid, std::string pw1, std::string pw2)
+{
+	Odbc* mysql = Odbc::GetInstance();
+
+	if (pw1 != pw2)
+		return;
+
+	bool result = mysql->UpdatePlayerPassword(userid, pw1);
+	
+	if (result == true)
+	{
+		while (getChildByName("changePW_"))
+			removeChildByName("changePW_");
+	}
 }
 
 
@@ -241,7 +282,7 @@ void SelectScene::SignInPlayer2()
 		Label* labelChangePW = Label::createWithTTF("Change PW", FILENAME_FONT_PIXEL, 30);
 		Label* labelShowInfo = Label::createWithTTF("Show Info", FILENAME_FONT_PIXEL, 30);
 
-		MenuItemLabel* menu_changePW = MenuItemLabel::create(labelChangePW, CC_CALLBACK_0(SelectScene::PopUpLayer, this, SIGN_UP));
+		MenuItemLabel* menu_changePW = MenuItemLabel::create(labelChangePW, CC_CALLBACK_0(SelectScene::PopUpPWChange, this, _Id2P));
 		menu_changePW->setAnchorPoint(Vec2(0, 0));
 		menu_changePW->setPosition(visibleSize.width * 3 / 4 - 200, visibleSize.height * 3 / 5 - 50);
 

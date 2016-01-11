@@ -113,14 +113,14 @@ std::string Odbc::GetUserInfo(int userid)
 		return "NO DATA";
 }
 
-bool Odbc::UpdatePlayerPassword(int userid, std::string newPw)
+bool Odbc::UpdatePlayerPassword( int userid, std::string newPw)
 {
 	if (!_IsConnect || _Inst == nullptr)
 		return false;
 
-	std::wstring query = L"UPDATE user SET password = ";
+	std::wstring query = L"UPDATE user SET password = '";
 	query += utf8_to_wstring(newPw);
-	query = L" WHERE id = ";
+	query += L"' WHERE id = ";
 	query += std::to_wstring(userid);
 
 	SQLWCHAR* sql = (SQLWCHAR*)query.c_str();

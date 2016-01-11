@@ -1,5 +1,6 @@
 #pragma once
 #include <array>
+#include "ui\UIEditBox\UIEditBox.h"
 
 USING_NS_CC;
 
@@ -26,7 +27,8 @@ private:
 	void	SignInLayerPlayer2();
 
 	void	ShowUserInfo(int userid, std::string name, float posx);
-	void	ChangePassword(int userid);
+	void	ChangePassword(int userid, std::string pw1, std::string pw2);
+	void	PopUpPWChange(int userid);
 
 	void	CreateLayer();
 	void	CloseLayer();
