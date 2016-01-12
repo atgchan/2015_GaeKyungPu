@@ -84,6 +84,8 @@ void SelectScene::CreateLayer()
 	this->addChild(layer);
 }
 
+
+
 //이 짓까지는 하고싶지 않았는데
 void SelectScene::SignInLayerPlayer1()
 {
@@ -190,7 +192,7 @@ void SelectScene::ShowUserInfo(int userid, std::string name, float posx)
 	Odbc* mysql = Odbc::GetInstance();
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
-	std::string strUserInfo = mysql->GetUserInfo(userid);
+	std::string strUserInfo = "name, total play, win rate, rating\n" + mysql->GetUserInfo(userid);
 	cocos2d::Label* labelUserInfo = Label::createWithTTF(strUserInfo, FILENAME_FONT_PIXEL, 40);
 
 	labelUserInfo->setName(name);
@@ -219,8 +221,8 @@ void SelectScene::PopUpPWChange(int userid)
 	_NewPWConfirm->setMaxLength(16);
 	_NewPWConfirm->setPosition(Vec2(visibleSize.width / 2, visibleSize.height * 3 / 7 - 50));
 
-	this->addChild(_NewPW);
-	this->addChild(_NewPWConfirm);
+	addChild(_NewPW);
+	addChild(_NewPWConfirm);
 
 	Label* btnChange = Label::createWithTTF("Change", FILENAME_FONT_PIXEL, 40);
 	MenuItemLabel* menu_change = MenuItemLabel::create(btnChange, CC_CALLBACK_0(SelectScene::ChangePassword, this, userid, _NewPW->getText(), _NewPWConfirm->getText()));
@@ -424,7 +426,7 @@ void SelectScene::SignUp()
 		}
 	}
 
-	if (IsStringAlnum(idValue))
+	if (!IsStringAlnum(idValue))
 		return;
 
 	bool exist = mysql->CheckDataExist("user", "name", idValue);

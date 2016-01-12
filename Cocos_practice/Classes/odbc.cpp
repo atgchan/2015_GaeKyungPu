@@ -96,7 +96,7 @@ std::string Odbc::GetUserInfo(int userid)
 			SQLGetData(_hStmt, 2, SQL_C_DEFAULT, &totalPlay, 0, &resultLen);
 			SQLGetData(_hStmt, 3, SQL_C_FLOAT, &winRate, 0, &resultLen);
 			SQLGetData(_hStmt, 4, SQL_C_CHAR, strRateing, 32, &resultLen);
-			
+
 			std::string result = std::string(strName);
 			result += ", ";
 			result += std::to_string(totalPlay);
@@ -398,20 +398,6 @@ std::string	Odbc::GetMapData(int width, int height, int map_id)
 		return "TILE_NULL";
 }
 
-bool Odbc::PushQuery(std::wstring query)
-{
-	if (!_IsConnect || _Inst == nullptr)
-		return false;
-
-	SQLWCHAR* sql = (SQLWCHAR*)query.c_str();
-	int ret = SQLExecDirect(_hStmt, sql, SQL_NTS);
-
-	if (ret == SQL_SUCCESS)
-		return true;
-	else
-		return false;
-}
-
 bool Odbc::InsertData(std::string tableName, std::string colNames, std::string values)
 {
 	if (!_IsConnect || _Inst == nullptr)
@@ -588,108 +574,6 @@ bool Odbc::CheckDataExist(std::string tableName, std::string colName, std::strin
 	}
 	else
 		return false;
-}
-
-void Odbc::CheckSuccess(int ret)
-{
-	if (ret == SQL_SUCCESS)
-	{
-		ret = SQLFetch(_hStmt);
-		if (ret == SQL_NO_DATA)
-		{
-			cout << "[NO DATA]" << endl;
-			return;
-		}
-		if (ret == SQL_ERROR || ret == SQL_SUCCESS_WITH_INFO)
-			printf("An error occured\n");
-	}
-	else
-		cout << "An error occured during excuting query!!" << endl;
-}
-
-void Odbc::ReadFileAndInsert(const char *path)
-{
-	cout << "[Read File And Insert]" << endl;
-
-	wifstream file(path);
-	if (!file.is_open())
-	{
-		printf("[NO FILE]\n");
-		return;
-	}
-	wstring buffer;
-
-	getline(file, buffer);
-
-	wchar_t* context;
-
-	while (getline(file, buffer))
-	{
-		wstring query = L"INSERT INTO millibook (id, title, author, publication, pub_year, isbn, price) VALUES (";
-		wcout << buffer << endl;
-
-		wchar_t* part = wcstok_s(const_cast<wchar_t*>(buffer.c_str()), L",", &context);
-
-		int index = 0;
-		wstring array[7];
-
-		while (part != NULL) {
-			int len = wcslen(part);
-
-			if (part[len - 1] == L' ')
-				part[len - 1] = L'\0';
-
-			array[index] = std::wstring(part);
-			while (array[index][0] == L'\"')
-			{
-				part = wcstok_s(NULL, L",", &context);
-				int len = wcslen(part);
-
-				while (part[len - 1] == L' ')
-				{
-					part[len - 1] = L'\0';
-					len = wcslen(part);
-				}
-
-				if (part[len - 1] == L'\"')
-				{
-					part[len - 1] = L'\0';
-					array[index] += std::wstring(part);
-					for (int i = 0; i < wcslen(array[index].c_str()); ++i)
-					{
-						array[index][i] = array[index][i + 1];
-					}
-					break;
-				}
-				array[index] += std::wstring(part);
-
-			}
-			part = wcstok_s(NULL, L",", &context);
-			index++;
-		}
-
-		for (int i = 0; i < 7; ++i)
-		{
-			if ((i == 1) || (i == 2) || (i == 3) || (i == 5))
-				array[i] = L"'" + array[i] + L"'";
-			query += array[i];
-			if (i != 6)
-				query += L",";
-		}
-		query += L")";
-
-		wcout << query << endl;
-
-		SQLWCHAR* sql = (SQLWCHAR*)query.c_str();
-		int ret = SQLExecDirect(_hStmt, sql, SQL_NTS);
-
-		if (ret == SQL_SUCCESS)
-			cout << "success" << endl;
-		else
-			cout << "An error occured during excuting query!!\n" << endl;
-	}
-	file.close();
-
 }
 
 const char* Odbc::CreateCSV(const char* filename, int num)
